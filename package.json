@@ -1,0 +1,27 @@
+{
+  "name": "webcomponent",
+  "private": true,
+  "version": "1.0.0",
+  "description": "a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minimalist-components/webcomponent.git"
+  },
+  "keywords": [],
+  "author": "Darlan Mendonça <darlanmendonca@gmail.com> (https://darlanmendonca.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minimalist-components/webcomponent/issues"
+  },
+  "homepage": "https://github.com/minimalist-components/webcomponent#readme",
+  "engines": {
+    "node": ">=0.7.0"
+  }
+}
