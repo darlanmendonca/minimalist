@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/minimalist-components/webcomponent.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponent)
+
 a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.
 
 ### starring
