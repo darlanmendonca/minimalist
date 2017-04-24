@@ -1,4 +1,4 @@
-a draft of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.
+a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.
 
 starring
 
