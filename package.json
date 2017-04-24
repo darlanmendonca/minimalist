@@ -3,12 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "description": "a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.",
-  "main": "index.js",
+  "main": "sources/scripts/mn-input.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "start": "scripts/start",
+    "lint": "scripts/lint",
+    "pretest": "scripts/lint",
     "test": "scripts/test"
   },
   "repository": {
@@ -24,5 +26,9 @@
   "homepage": "https://github.com/minimalist-components/webcomponent#readme",
   "engines": {
     "node": ">=0.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-mn-component": "^1.1.0"
   }
 }
