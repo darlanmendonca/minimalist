@@ -13,19 +13,23 @@ a draft(and refactor) of webcomponent, using only the necessary to run, and most
 a simple input text
 
 
-### usage
+### demo
 
-just clone, install dependencies and start the project
+access the url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent)
+
+or clone this project. to run locally, you need node and npm, just run these scripts
 
 ```sh
-git clone https://github.com/minimalist-components/webcomponent
+# install dependencies
+npm install
 ```
 
 ```sh
-npm i && npm start
+# start the demo at `localhost:3000`
+npm install
 ```
 
-and open the demo page in your browser, at `localhost:3000`
+The demo can be used to developement too, change files, automatically reload the browser.
 
 ### tests
 
@@ -33,6 +37,6 @@ all specs is defined in spec files `sources/**/*.spec.js`.
 To run tests, just run
 
 ```sh
-npm t
+npm test
 ```
 
