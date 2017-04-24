@@ -4,7 +4,4 @@ class MnInput {
   }
 }
 
-const input = new MnInput()
-console.log(input.test)
-
 module.exports = MnInput

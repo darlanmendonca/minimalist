@@ -28,7 +28,11 @@
     "node": ">=0.7.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
-    "eslint-config-mn-component": "^1.1.0"
+    "eslint-config-mn-component": "^1.1.0",
+    "istanbul": "1.0.0-alpha.2",
+    "mocha": "^3.3.0"
   }
 }
