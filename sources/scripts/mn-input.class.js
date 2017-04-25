@@ -1,6 +1,6 @@
 class MnInput {
   constructor() {
-    this.name = 'working'
+    this.test = 'string test'
   }
 }
 
