@@ -21,14 +21,14 @@ describe('instance', () => {
   })
 })
 
+let element
+
+beforeEach(() => {
+  const {MnInput} = window
+  element = new MnInput()
+})
+
 describe('element', () => {
-  let element
-
-  beforeEach(() => {
-    const {MnInput} = window
-    element = new MnInput()
-  })
-
   it('should have the .mn-input class', () => {
     expect(element).to.have.class('mn-input')
   })
@@ -36,7 +36,9 @@ describe('element', () => {
   it('should contain a input child', () => {
     expect(element).to.contain('input').with.length(1)
   })
+})
 
+describe('property value', () => {
   it('should get empty string when value is undefined', () => {
     expect(element).to.have.value('')
   })
@@ -51,7 +53,7 @@ describe('element', () => {
     expect(element).to.have.value('')
   })
 
-  it('should get/set string as value', () => {
+  it('should get/set value as string', () => {
     element.value = 'test'
     expect(element).to.have.value('test')
   })
