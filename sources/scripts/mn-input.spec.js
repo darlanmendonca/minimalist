@@ -1,6 +1,8 @@
 const {describe, it, beforeEach} = require('mocha')
 const {expect} = require('chai')
 
+let element
+
 describe('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')
@@ -21,11 +23,8 @@ describe('instance', () => {
   })
 })
 
-let element
-
 beforeEach(() => {
-  const {MnInput} = window
-  element = new MnInput()
+  element = document.createElement('mn-input')
 })
 
 describe('element', () => {
