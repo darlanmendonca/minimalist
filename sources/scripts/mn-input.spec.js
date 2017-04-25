@@ -5,9 +5,8 @@ before(() => {
   require('./mn-input.class.js')
 })
 
-describe('lorem ipsum', () => {
-  it('a simple unit test', () => {
-    expect(true).to.be.true
-    // expect(window).to.have.property('MnInput')
+describe('MnInput', () => {
+  it('class defined on window', () => {
+    expect(window).to.have.property('MnInput')
   })
 })
