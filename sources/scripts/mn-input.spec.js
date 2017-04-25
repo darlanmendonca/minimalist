@@ -1,4 +1,4 @@
-const {describe, it} = require('mocha')
+const {describe, it, beforeEach} = require('mocha')
 const {expect} = require('chai')
 
 describe('es6 class', () => {
@@ -22,15 +22,37 @@ describe('instance', () => {
 })
 
 describe('element', () => {
-  it('should have the .mn-input class', () => {
+  let element
+
+  beforeEach(() => {
     const {MnInput} = window
-    const element = new MnInput()
+    element = new MnInput()
+  })
+
+  it('should have the .mn-input class', () => {
     expect(element).to.have.class('mn-input')
   })
 
   it('should contain a input child', () => {
-    const {MnInput} = window
-    const element = new MnInput()
     expect(element).to.contain('input').with.length(1)
+  })
+
+  it('should get empty string when value is undefined', () => {
+    expect(element).to.have.value('')
+  })
+
+  it('should get empty string when value is setted with undefined', () => {
+    element.value = undefined
+    expect(element).to.have.value('')
+  })
+
+  it('should get empty string when value is setted with null', () => {
+    element.value = null
+    expect(element).to.have.value('')
+  })
+
+  it('should get/set string as value', () => {
+    element.value = 'test'
+    expect(element).to.have.value('test')
   })
 })
