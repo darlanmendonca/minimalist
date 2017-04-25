@@ -5,7 +5,6 @@ a draft(and refactor) of webcomponent, using only the necessary to run, and most
 ### starring
 
 - pure es6 (no transpile)
-- custom elements v1
 - module exported only to npm (in commonjs)
 - unit tests
 - integration tests
@@ -17,9 +16,9 @@ a simple input text
 
 ### demo
 
-access the url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent)
+access the url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent) (not available yet)
 
-or clone this project. to run locally, you need node and npm, just run these scripts
+or clone this project and run locally. You need node and npm, just run these scripts
 
 ```sh
 # install dependencies
