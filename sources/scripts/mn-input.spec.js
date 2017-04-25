@@ -39,21 +39,21 @@ describe('element', () => {
 })
 
 describe('property value', () => {
-  it('should get empty string when value is undefined', () => {
-    expect(element).to.have.value('')
+  it('should return empty string when it is undefined', () => {
+    expect(element).to.be.value('')
   })
 
-  it('should get empty string when value is setted with undefined', () => {
+  it('should get empty string when it is setted with undefined', () => {
     element.value = undefined
     expect(element).to.have.value('')
   })
 
-  it('should get empty string when value is setted with null', () => {
+  it('should get empty string when it is setted with null', () => {
     element.value = null
     expect(element).to.have.value('')
   })
 
-  it('should get/set value as string', () => {
+  it('should setter and getter as string', () => {
     element.value = 'test'
     expect(element).to.have.value('test')
   })
@@ -68,5 +68,11 @@ describe('attribute value', () => {
   it('should set property value when attribute is removed', () => {
     element.removeAttribute('value')
     expect(element).to.have.value('')
+  })
+})
+
+describe('attribute autocomplete', () => {
+  it('should be "off" by default', () => {
+    expect(element).to.have.attribute('autocomplete', 'off')
   })
 })

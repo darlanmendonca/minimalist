@@ -7,7 +7,8 @@ class MnInput extends HTMLElement {
     this.input = document.createElement('input')
     this._setCssClasses()
     this._setInput()
-    this._setValue()
+    this._setAttributeValue()
+    this._setAttributeAutocomplete()
 
     return self
   }
@@ -20,17 +21,13 @@ class MnInput extends HTMLElement {
     this.insertBefore(this.input, this.firstChild)
   }
 
-  _setValue() {
+  _setAttributeValue() {
     const value = this.getAttribute('value') || ''
     this.setAttribute('value', value)
   }
 
-  get value() {
-    return this.input.value
-  }
-
-  set value(value = '') {
-    this.input.value = value
+  _setAttributeAutocomplete() {
+    this.setAttribute('autocomplete', 'off')
   }
 
   static get observedAttributes() {
@@ -39,6 +36,14 @@ class MnInput extends HTMLElement {
 
   attributeChangedCallback(name, old, value) {
     this[name] = value
+  }
+
+  get value() {
+    return this.input.value
+  }
+
+  set value(value = '') {
+    this.input.value = value
   }
 }
 
