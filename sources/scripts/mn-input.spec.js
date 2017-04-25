@@ -10,21 +10,27 @@ describe('es6 class', () => {
 describe('instance', () => {
   it('should work with a constructor', () => {
     const {MnInput} = window
-    const input = new MnInput()
-    expect(input).to.be.instanceof(MnInput)
+    const element = new MnInput()
+    expect(element).to.be.instanceof(MnInput)
   })
 
   it('should work with document.createElement()', () => {
     const {MnInput} = window
-    const input = document.createElement('mn-input')
-    expect(input).to.be.instanceof(MnInput)
+    const element = document.createElement('mn-input')
+    expect(element).to.be.instanceof(MnInput)
   })
 })
 
 describe('element', () => {
   it('should have the .mn-input class', () => {
     const {MnInput} = window
-    const input = new MnInput()
-    expect(input).to.have.class('mn-input')
+    const element = new MnInput()
+    expect(element).to.have.class('mn-input')
+  })
+
+  it('should contain a input child', () => {
+    const {MnInput} = window
+    const element = new MnInput()
+    expect(element).to.contain('input').with.length(1)
   })
 })
