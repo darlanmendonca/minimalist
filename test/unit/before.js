@@ -3,6 +3,7 @@ const {before} = require('mocha')
 before(mockDOM)
 before(mockCustomElements)
 before(requireClass)
+before(setChaiAssertions)
 
 function mockDOM() {
   const {JSDOM: Dom} = require('jsdom')
@@ -11,6 +12,8 @@ function mockDOM() {
   global.window = document.defaultView
   window.Object = Object
   window.Math = Math
+  global.NodeList = window.NodeList
+  global.HTMLElement = window.HTMLElement
 }
 
 function mockCustomElements() {
@@ -19,4 +22,9 @@ function mockCustomElements() {
 
 function requireClass() {
   require('../../sources/scripts/mn-input.class.js')
+}
+
+function setChaiAssertions() {
+  require('chai')
+    .use(require('chai-dom'))
 }

@@ -11,4 +11,10 @@ describe('MnInput', () => {
     const input = new MnInput()
     expect(input).to.be.instanceof(MnInput)
   })
+
+  it('has class mn-input', () => {
+    const {MnInput} = window
+    const input = new MnInput()
+    expect(input).to.have.class('mn-input')
+  })
 })

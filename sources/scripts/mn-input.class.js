@@ -3,6 +3,7 @@ const {HTMLElement} = window
 class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.classList.add('mn-input')
     return self
   }
 }
