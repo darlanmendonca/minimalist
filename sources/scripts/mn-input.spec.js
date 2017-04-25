@@ -58,3 +58,15 @@ describe('property value', () => {
     expect(element).to.have.value('test')
   })
 })
+
+describe('attribute value', () => {
+  it('should set property value when attribute changed', () => {
+    element.setAttribute('value', 'test')
+    expect(element).to.have.value('test')
+  })
+
+  it('should set property value when attribute is removed', () => {
+    element.removeAttribute('value')
+    expect(element).to.have.value('')
+  })
+})
