@@ -1,6 +1,8 @@
 const {after} = require('mocha')
 
-after(function () {
+after(deleteDOM)
+
+function deleteDOM() {
   delete global.window
   delete global.document
-})
+}

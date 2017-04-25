@@ -1,12 +1,14 @@
-const {describe, it, before} = require('mocha')
+const {describe, it} = require('mocha')
 const {expect} = require('chai')
 
-before(() => {
-  require('./mn-input.class.js')
-})
-
 describe('MnInput', () => {
-  it('class defined on window', () => {
+  it('class is defined on window', () => {
     expect(window).to.have.property('MnInput')
+  })
+
+  it('instanciate using a constructor', () => {
+    const {MnInput} = window
+    const input = new MnInput()
+    expect(input).to.be.instanceof(MnInput)
   })
 })

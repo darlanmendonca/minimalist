@@ -1,13 +1,13 @@
-class MnInput {
-  constructor() {
-    this.test = 'string test'
+const {HTMLElement} = window
+
+class MnInput extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
   }
 }
 
-// window.customElements.define('mn-input', 'MnInput')
 window.MnInput = MnInput
-
-// https://github.com/tmpvar/jsdom/issues/1030
-// console.log(window.customElements)
+window.customElements.define('mn-input', MnInput)
 
 module.exports = MnInput
