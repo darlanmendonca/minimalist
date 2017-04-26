@@ -41,3 +41,11 @@ To run tests, just run
 npm test
 ```
 
+The framework used to run tests is `mocha`. If you want pass mocha cli args for test, just pass to script, using `-- args here`, e.g.
+
+```sh
+# in example below, --watch is a mocha arg
+npm test -- --watch
+```
+
+all mocha args availabe [here](https://mochajs.org/#usage)
