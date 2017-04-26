@@ -5,7 +5,8 @@ let element
 
 describe.only('simple', () => {
   it('test', () => {
-    console.log('wow', window.MnInput)
+    const MnInput = require('./mn-input.class.js')
+    console.info('wow', window.MnInput)
     expect(true).to.be.true
   })
 })
