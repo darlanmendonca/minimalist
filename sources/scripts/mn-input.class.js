@@ -4,7 +4,6 @@ class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
 
-    this.input = document.createElement('input')
     this._setCssClasses()
     this._setInput()
     this._setAttributeValue()
@@ -18,6 +17,7 @@ class MnInput extends HTMLElement {
   }
 
   _setInput() {
+    this.input = document.createElement('input')
     this.insertBefore(this.input, this.firstChild)
   }
 
