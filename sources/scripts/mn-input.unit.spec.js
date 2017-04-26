@@ -3,6 +3,13 @@ const {expect} = require('chai')
 
 let element
 
+describe.only('simple', () => {
+  it('test', () => {
+    console.log('wow', window.MnInput)
+    expect(true).to.be.true
+  })
+})
+
 describe('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')
