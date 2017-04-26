@@ -8,7 +8,10 @@ function KarmaConfig(config) {
     logLevel: config.LOG_ERROR,
     singleRun: true,
 
-    browsers: ['Nightmare'],
+    browsers: [
+      // 'Chrome',
+      'Nightmare',
+    ],
 
     frameworks: [
       'browserify',
