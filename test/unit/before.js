@@ -2,7 +2,7 @@ const {before} = require('mocha')
 
 before(mockDOM)
 before(mockCustomElements)
-before(requireClass)
+before(defineCustomElement)
 before(setChaiAssertions)
 
 function mockDOM() {
@@ -20,8 +20,9 @@ function mockCustomElements() {
   require('document-register-element/pony')(window)
 }
 
-function requireClass() {
-  require('../../sources/scripts/mn-input.class.js')
+function defineCustomElement() {
+  const MnInput = require('../../sources/scripts/mn-input.class.js')
+  window.customElements.define('mn-input', MnInput)
 }
 
 function setChaiAssertions() {
