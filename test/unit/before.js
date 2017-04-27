@@ -23,6 +23,7 @@ function mockCustomElements() {
 function defineCustomElement() {
   const MnInput = require('../../sources/scripts/mn-input.class.js')
   window.customElements.define('mn-input', MnInput)
+  window.MnInput = MnInput
 }
 
 function setChaiAssertions() {
