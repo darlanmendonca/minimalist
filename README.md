@@ -34,17 +34,23 @@ The demo can be used to developement too, change files, automatically reload the
 
 ### tests
 
-all specs is defined in spec files `sources/**/*.spec.js`. 
+all specs is defined in spec files `sources/**/*.spec.js`.
 To run tests, just run
 
 ```sh
+# run tests in backend, using a headless browser
 npm test
 ```
 
-The framework used to run tests is `mocha`. If you want pass mocha cli args for test, just pass to script, using `-- args here`, e.g.
+```sh
+# run with karma
+npm test chrome # too available chrome, safari, and nightmare (headless)
+```
+
+If you want pass args for script, just use `-- args here`, e.g.
 
 ```sh
-# in example below, --watch is a mocha arg
+# in example below, --watch is argument passed to process
 npm test -- --watch
 ```
 

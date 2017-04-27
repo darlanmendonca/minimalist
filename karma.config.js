@@ -9,8 +9,8 @@ function KarmaConfig(config) {
     singleRun: true,
 
     browsers: [
-      // 'Chrome',
-      // 'Safari',
+      'Chrome',
+      'Safari',
       'Nightmare',
     ],
 

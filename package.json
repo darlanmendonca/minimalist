@@ -11,8 +11,7 @@
     "start": "scripts/start",
     "lint": "scripts/lint",
     "pretest": "scripts/lint",
-    "test": "scripts/test",
-    "browser": "scripts/browser"
+    "test": "scripts/test"
   },
   "repository": {
     "type": "git",
