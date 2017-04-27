@@ -14,13 +14,13 @@ beforeEach(() => {
   element = document.createElement('mn-input')
 })
 
-describe.only('es6 class', () => {
+describe('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')
   })
 })
 
-describe.only('instance', () => {
+describe('instance', () => {
   it('should work with a constructor', () => {
     const {MnInput} = window
     const element = new MnInput()
