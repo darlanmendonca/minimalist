@@ -37,10 +37,7 @@ function KarmaConfig(config) {
     ],
 
     browserify: {
-      debug: false,
-      transform: [
-        ['babelify', {presets: ['es2015']}],
-      ],
+      debug: true,
     },
 
     mochaReporter: {

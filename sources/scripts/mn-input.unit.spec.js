@@ -22,13 +22,11 @@ describe('es6 class', () => {
 
 describe('instance', () => {
   it('should work with a constructor', () => {
-    const {MnInput} = window
     const element = new MnInput()
     expect(element).to.be.instanceof(MnInput)
   })
 
   it('should work with document.createElement()', () => {
-    const {MnInput} = window
     const element = document.createElement('mn-input')
     expect(element).to.be.instanceof(MnInput)
   })
