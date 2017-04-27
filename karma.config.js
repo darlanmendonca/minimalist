@@ -10,6 +10,7 @@ function KarmaConfig(config) {
 
     browsers: [
       // 'Chrome',
+      // 'Safari',
       'Nightmare',
     ],
 
@@ -18,7 +19,9 @@ function KarmaConfig(config) {
       'mocha',
     ],
 
-    files: ['sources/**/*.unit.spec.js'],
+    files: [
+      'sources/**/*.unit.spec.js',
+    ],
 
     exclude: [],
 

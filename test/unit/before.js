@@ -2,7 +2,7 @@ const {before} = require('mocha')
 
 before(mockDOM)
 before(mockCustomElements)
-before(setChaiAssertions)
+// before(setChaiAssertions)
 
 function mockDOM() {
   const {JSDOM: Dom} = require('jsdom')
@@ -13,13 +13,14 @@ function mockDOM() {
   window.Math = Math
   global.NodeList = window.NodeList
   global.HTMLElement = window.HTMLElement
+  global.environment = 'node'
 }
 
 function mockCustomElements() {
   require('document-register-element/pony')(window)
 }
 
-function setChaiAssertions() {
-  require('chai')
-    .use(require('chai-dom'))
-}
+// function setChaiAssertions() {
+//   require('chai')
+//     .use(require('chai-dom'))
+// }

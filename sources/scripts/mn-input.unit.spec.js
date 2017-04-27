@@ -1,18 +1,28 @@
 const {describe, it, before, beforeEach} = require('mocha')
+require('chai')
+  .use(require('chai-dom'))
 const {expect} = require('chai')
 
 let element
 let MnInput
 
-before(() => {
+before(loadMnInput)
+beforeEach(instanciateElement)
+
+function loadMnInput() {
   MnInput = require('./mn-input.class.js')
   window.customElements.define('mn-input', MnInput)
   window.MnInput = MnInput
-})
+}
 
-beforeEach(() => {
+function instanciateElement() {
   element = document.createElement('mn-input')
-})
+  document.body.appendChild(element)
+
+  if (global.environment === 'node') {
+    element.connectedCallback()
+  }
+}
 
 describe('es6 class', () => {
   it('should be defined in window', () => {
@@ -22,12 +32,12 @@ describe('es6 class', () => {
 
 describe('instance', () => {
   it('should work with a constructor', () => {
-    const element = new MnInput()
+    element = new MnInput()
     expect(element).to.be.instanceof(MnInput)
   })
 
   it('should work with document.createElement()', () => {
-    const element = document.createElement('mn-input')
+    element = document.createElement('mn-input')
     expect(element).to.be.instanceof(MnInput)
   })
 })

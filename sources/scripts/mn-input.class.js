@@ -3,13 +3,14 @@ const {HTMLElement} = window
 class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+    return self
+  }
 
+  connectedCallback() {
     this._setCssClasses()
     this._setInput()
     this._setAttributeValue()
     this._setAttributeAutocomplete()
-
-    return self
   }
 
   _setCssClasses() {
