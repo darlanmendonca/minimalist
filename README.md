@@ -44,8 +44,16 @@ npm test
 
 ```sh
 # run with karma
-npm test chrome # too available chrome, safari, and nightmare (headless)
+npm test chrome
 ```
+
+available browsers
+
+- all (run in all browsers, below)
+- chrome
+- safari
+- nightmare (headless)
+
 
 If you want pass args for script, just use `-- args here`, e.g.
 

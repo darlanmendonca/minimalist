@@ -6,6 +6,7 @@ case $1 in
   chrome) browser="Chrome" ;;
   safari) browser="Safari" ;;
   nightmare) browser="Nightmare" ;;
+  all) browser="Chrome,Safari,Nightmare" ;;
   # *) browser=$1 ;;
 esac
 
