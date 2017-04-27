@@ -1,15 +1,26 @@
-const {describe, it, beforeEach} = require('mocha')
+const {describe, it, before, beforeEach} = require('mocha')
 const {expect} = require('chai')
 
 let element
+let MnInput
 
-describe('es6 class', () => {
+before(() => {
+  MnInput = require('./mn-input.class.js')
+  window.customElements.define('mn-input', MnInput)
+  window.MnInput = MnInput
+})
+
+beforeEach(() => {
+  element = document.createElement('mn-input')
+})
+
+describe.only('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')
   })
 })
 
-describe('instance', () => {
+describe.only('instance', () => {
   it('should work with a constructor', () => {
     const {MnInput} = window
     const element = new MnInput()
@@ -21,10 +32,6 @@ describe('instance', () => {
     const element = document.createElement('mn-input')
     expect(element).to.be.instanceof(MnInput)
   })
-})
-
-beforeEach(() => {
-  element = document.createElement('mn-input')
 })
 
 describe('element', () => {
