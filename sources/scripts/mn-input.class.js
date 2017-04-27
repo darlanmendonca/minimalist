@@ -47,6 +47,4 @@ class MnInput extends HTMLElement {
   }
 }
 
-window.MnInput = MnInput
-
 module.exports = MnInput
