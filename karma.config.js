@@ -11,6 +11,7 @@ function KarmaConfig(config) {
     browsers: [
       'Chrome',
       'Safari',
+      'Firefox',
       'Nightmare',
     ],
 
