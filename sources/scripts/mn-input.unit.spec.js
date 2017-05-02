@@ -18,6 +18,13 @@ function instanciateElement() {
   document.body.appendChild(element)
 }
 
+describe('css style', () => {
+  it('background should be orange', () => {
+    const {backgroundColor} = window.getComputedStyle(document.body)
+    expect(backgroundColor).to.be.equal('orange')
+  })
+})
+
 describe('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')

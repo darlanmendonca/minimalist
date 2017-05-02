@@ -3,6 +3,7 @@ const {before} = require('mocha')
 before(mockDOM)
 before(mockCustomElements)
 before(mockConnectedCallback)
+before(loadStyle)
 
 function mockDOM() {
   const {JSDOM: Dom} = require('jsdom')
@@ -29,4 +30,12 @@ function mockConnectedCallback() {
       element.connectedCallback()
     }
   }
+}
+
+function loadStyle() {
+  const {readFileSync} = require('fs')
+  const {resolve} = require('path')
+  const styleElement = document.createElement('style')
+  styleElement.innerHTML = readFileSync(resolve(__dirname, '../../sources/styles/app.css'), 'utf8')
+  document.head.appendChild(styleElement)
 }

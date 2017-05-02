@@ -21,6 +21,7 @@ function KarmaConfig(config) {
     ],
 
     files: [
+      'sources/**/*.css',
       'sources/**/*.unit.spec.js',
     ],
 
