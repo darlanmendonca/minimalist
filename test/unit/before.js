@@ -3,7 +3,6 @@ const {before} = require('mocha')
 before(mockDOM)
 before(mockCustomElements)
 before(mockConnectedCallback)
-// before(setChaiAssertions)
 
 function mockDOM() {
   const {JSDOM: Dom} = require('jsdom')
@@ -32,8 +31,3 @@ function mockConnectedCallback() {
     }
   }
 }
-
-// function setChaiAssertions() {
-//   require('chai')
-//     .use(require('chai-dom'))
-// }
