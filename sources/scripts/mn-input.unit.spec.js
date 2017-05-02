@@ -19,9 +19,9 @@ function instanciateElement() {
 }
 
 describe('css style', () => {
-  it('background should be orange', () => {
+  it('background should be red', () => {
     const {backgroundColor} = window.getComputedStyle(document.body)
-    expect(backgroundColor).to.be.equal('orange')
+    expect(backgroundColor).to.be.equal('red')
   })
 })
 

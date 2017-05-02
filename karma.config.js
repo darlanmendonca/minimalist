@@ -21,16 +21,15 @@ function KarmaConfig(config) {
     ],
 
     files: [
-      'sources/**/*.css',
+      'sources/**/*.scss',
       'sources/**/*.unit.spec.js',
     ],
 
     exclude: [],
 
     preprocessors: {
-      'sources/**/*.js': [
-        'browserify',
-      ],
+      'sources/**/*.scss': ['scss'],
+      'sources/**/*.js': ['browserify'],
     },
 
     client: {

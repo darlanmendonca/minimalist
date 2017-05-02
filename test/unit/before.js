@@ -33,9 +33,9 @@ function mockConnectedCallback() {
 }
 
 function loadStyle() {
-  const {readFileSync} = require('fs')
-  const {resolve} = require('path')
-  const styleElement = document.createElement('style')
-  styleElement.innerHTML = readFileSync(resolve(__dirname, '../../sources/styles/app.css'), 'utf8')
-  document.head.appendChild(styleElement)
+  const style = document.createElement('style')
+  const file = 'sources/styles/app.scss'
+  const {css} = require('node-sass').renderSync({file})
+  style.innerHTML = css.toString()
+  document.head.appendChild(style)
 }

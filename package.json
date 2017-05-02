@@ -45,6 +45,8 @@
     "karma-mocha-reporter": "^2.2.3",
     "karma-nightmare": "^0.4.6",
     "karma-safari-launcher": "^1.0.0",
-    "mocha": "^3.3.0"
+    "karma-scss-preprocessor": "^2.0.0",
+    "mocha": "^3.3.0",
+    "node-sass": "^4.5.2"
   }
 }
