@@ -7,6 +7,7 @@ class MnInput extends HTMLElement {
   }
 
   connectedCallback() {
+    this.innerHTML = ''
     this._setCssClasses()
     this._setInput()
     this._setAttributeValue()
