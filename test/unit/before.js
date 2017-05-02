@@ -2,6 +2,7 @@ const {before} = require('mocha')
 
 before(mockDOM)
 before(mockCustomElements)
+before(mockConnectedCallback)
 // before(setChaiAssertions)
 
 function mockDOM() {
@@ -14,7 +15,13 @@ function mockDOM() {
   global.NodeList = window.NodeList
   global.HTMLElement = window.HTMLElement
   global.environment = 'node'
+}
 
+function mockCustomElements() {
+  require('document-register-element/pony')(window)
+}
+
+function mockConnectedCallback() {
   // jsdom dont call connectedCallback on appendChild, native customElements call connectedCallback
   const {Element} = window
   const appendChild = Element.prototype.appendChild
@@ -24,10 +31,6 @@ function mockDOM() {
       element.connectedCallback()
     }
   }
-}
-
-function mockCustomElements() {
-  require('document-register-element/pony')(window)
 }
 
 // function setChaiAssertions() {
