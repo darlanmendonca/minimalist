@@ -28,7 +28,7 @@ npm install
 
 ```sh
 # start the demo at `localhost:3000`
-npm install
+npm start
 ```
 
 The demo can be used to developement too, change files, automatically reload the browser.
