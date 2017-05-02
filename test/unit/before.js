@@ -14,6 +14,16 @@ function mockDOM() {
   global.NodeList = window.NodeList
   global.HTMLElement = window.HTMLElement
   global.environment = 'node'
+
+  // jsdom dont call connectedCallback on appendChild, native customElements call connectedCallback
+  const {Element} = window
+  const appendChild = Element.prototype.appendChild
+  Element.prototype.appendChild = function(element){
+    appendChild.apply(this, arguments)
+    if (element && element.connectedCallback) {
+      element.connectedCallback()
+    }
+  }
 }
 
 function mockCustomElements() {

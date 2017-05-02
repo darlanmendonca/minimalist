@@ -18,10 +18,6 @@ function loadMnInput() {
 function instanciateElement() {
   element = document.createElement('mn-input')
   document.body.appendChild(element)
-
-  if (global.environment === 'node') {
-    element.connectedCallback()
-  }
 }
 
 describe('es6 class', () => {
