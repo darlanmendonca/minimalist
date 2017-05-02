@@ -1,7 +1,5 @@
 const {describe, it, before, beforeEach} = require('mocha')
-require('chai')
-  .use(require('chai-dom'))
-const {expect} = require('chai')
+const {expect} = require('chai').use(require('chai-dom'))
 
 let element
 let MnInput
