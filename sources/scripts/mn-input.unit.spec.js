@@ -1,5 +1,7 @@
 const {describe, it, before, beforeEach} = require('mocha')
-const {expect} = require('chai').use(require('chai-dom'))
+const {expect} = require('chai')
+  .use(require('chai-dom'))
+  .use(require('chai-colors'))
 
 let element
 let MnInput
@@ -21,7 +23,7 @@ function instanciateElement() {
 describe('css style', () => {
   it('background should be red', () => {
     const {backgroundColor} = window.getComputedStyle(document.body)
-    expect(backgroundColor).to.be.equal('red')
+    expect(backgroundColor).to.be.colored('red')
   })
 })
 
