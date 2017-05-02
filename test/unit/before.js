@@ -13,7 +13,6 @@ function mockDOM() {
   window.Math = Math
   global.NodeList = window.NodeList
   global.HTMLElement = window.HTMLElement
-  global.environment = 'node'
 }
 
 function mockCustomElements() {
