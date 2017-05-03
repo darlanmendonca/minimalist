@@ -1,6 +1,8 @@
 @import '../../node_modules/open-color/open-color.scss';
 
 .mn-input {
+  position: relative;
   display: inline-block;
   box-shadow: 0 1px 0 $oc-gray-4;//var(--oc-gray-4);
+  margin: 1.5em 0 1em;
 }

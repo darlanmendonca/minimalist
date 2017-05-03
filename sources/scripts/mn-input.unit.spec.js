@@ -22,16 +22,6 @@ function instanciateElement() {
   elementStyle = window.getComputedStyle(element)
 }
 
-describe('css style', () => {
-  it('should be displayed inline-block', () => {
-    expect(elementStyle.display).to.be.equal('inline-block')
-  })
-
-  it('should have a border using box-shadow', () => {
-    expect(elementStyle.boxShadow).to.be.equal('0 1px 0 #ced4da')
-  })
-})
-
 describe('es6 class', () => {
   it('should be defined in window', () => {
     expect(window).to.have.property('MnInput')
@@ -57,6 +47,24 @@ describe('element', () => {
 
   it('should contain a input child', () => {
     expect(element).to.contain('input').with.length(1)
+  })
+})
+
+describe('css style', () => {
+  it('should have a inline-block display', () => {
+    expect(elementStyle.display).to.be.equal('inline-block')
+  })
+
+  it('should have a relative position', () => {
+    expect(elementStyle.position).to.be.equal('relative')
+  })
+
+  it('should have a border using box-shadow', () => {
+    expect(elementStyle.boxShadow).to.be.equal('0 1px 0 #ced4da')
+  })
+
+  it('should have a margin', () => {
+    expect(elementStyle.margin).to.be.equal('1.5em 0px 1em')
   })
 })
 
