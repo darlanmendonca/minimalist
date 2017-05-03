@@ -4,6 +4,7 @@ const {expect} = require('chai')
   .use(require('chai-colors'))
 
 let element
+let elementStyle
 let MnInput
 
 before(loadMnInput)
@@ -18,11 +19,15 @@ function loadMnInput() {
 function instanciateElement() {
   element = document.createElement('mn-input')
   document.body.appendChild(element)
+  elementStyle = window.getComputedStyle(element)
 }
 
 describe('css style', () => {
+  it('should be displayed inline-block', () => {
+    expect(elementStyle.display).to.be.equal('inline-block')
+  })
+
   it('should have a border using box-shadow', () => {
-    const elementStyle = window.getComputedStyle(element)
     expect(elementStyle.boxShadow).to.be.equal('0 1px 0 #ced4da')
   })
 })
