@@ -1,5 +1,5 @@
-$color: #f00;
+@import '../../node_modules/open-color/open-color.scss';
 
-body {
-  background: $color;
+.mn-input {
+  box-shadow: 0 1px 0 $oc-gray-4;//var(--oc-gray-4);
 }

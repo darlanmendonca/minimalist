@@ -21,9 +21,9 @@ function instanciateElement() {
 }
 
 describe('css style', () => {
-  it('background should be red', () => {
-    const {backgroundColor} = window.getComputedStyle(document.body)
-    expect(backgroundColor).to.be.colored('red')
+  it('should have a border using box-shadow', () => {
+    const elementStyle = window.getComputedStyle(element)
+    expect(elementStyle.boxShadow).to.be.equal('0 1px 0 #ced4da')
   })
 })
 
