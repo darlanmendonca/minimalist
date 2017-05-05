@@ -2,9 +2,9 @@ const {describe, it, before, beforeEach} = require('mocha')
 const {expect} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
+  .use(require('chai-style'))
 
 let element
-let elementStyle
 let MnInput
 
 before(loadMnInput)
@@ -19,7 +19,6 @@ function loadMnInput() {
 function instanciateElement() {
   element = document.createElement('mn-input')
   document.body.appendChild(element)
-  elementStyle = window.getComputedStyle(element)
 }
 
 describe('es6 class', () => {
@@ -52,19 +51,19 @@ describe('element', () => {
 
 describe('css style', () => {
   it('should have a inline-block display', () => {
-    expect(elementStyle.display).to.be.equal('inline-block')
+    expect(element).to.have.style('display', 'inline-block')
   })
 
   it('should have a relative position', () => {
-    expect(elementStyle.position).to.be.equal('relative')
+    expect(element).to.have.style('position', 'relative')
   })
 
   it('should have a border using box-shadow', () => {
-    expect(elementStyle.boxShadow).to.be.equal('0 1px 0 #ced4da')
+    expect(element).to.have.style('box-shadow', '#ced4da 0 1px 0')
   })
 
   it('should have a margin', () => {
-    expect(elementStyle.margin).to.be.equal('1.5em 0px 1em')
+    expect(element).to.have.style('margin', '1.5em 0px 1em')
   })
 })
 
