@@ -59,7 +59,7 @@ describe('css style', () => {
   })
 
   it('should have a border using box-shadow', () => {
-    expect(element).to.have.style('box-shadow', '#ced4da 0 1px 0')
+    expect(element).to.have.style('box-shadow', '0 1px 0 #ced4da')
   })
 
   it('should have a margin', () => {
