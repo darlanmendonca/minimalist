@@ -1,25 +1,25 @@
 [![Build Status](https://travis-ci.org/minimalist-components/webcomponent.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponent)
 [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponent/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponent?branch=master)
 
-a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.
-
-### starring
-
-- pure es6 (no transpile)
-- module exported only to npm (in commonjs)
-- unit tests
-- integration tests
+The architecture used by minimalist components
 
 ### study case
 
-a simple input text
+A simple input text, with getters and setters, and a animation in placeholder using CSS.
+The core is writed in a es6 class, and the components will be available in
 
+- HTML5 (custom elements)
+- Angular (directive)
+- React (component)
+- Vue (component)
 
-### demo
+The target is implement a webcomponent using only javascript, and easiliy offer their to any framework or anyone.
 
-access the url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent) (not available yet)
+### Demo
 
-or clone this project and run locally. You need node and npm, just run these scripts
+The url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent) (not available yet)
+
+At now, clone this project and run locally. You need `node` and `npm` only.
 
 ```sh
 # install dependencies
@@ -31,15 +31,13 @@ npm install
 npm start
 ```
 
-The demo can be used to developement too, change files, automatically reload the browser.
+### Tests
 
-### tests
-
-all specs is defined in spec files `sources/**/*.spec.js`.
+All specs is defined in spec files `sources/**/*.spec.js`.
 To run tests, just run
 
 ```sh
-# run tests in backend, using a headless browser
+# run tests in backend, using a headless browser (nightmare)
 npm test
 ```
 
@@ -63,4 +61,4 @@ If you want pass args for script, just use `-- args here`, e.g.
 npm test -- --watch
 ```
 
-all mocha args availabe [here](https://mochajs.org/#usage)
+You can see all args available in the following links, to [mocha](https://mochajs.org/#usage) and [karma](https://karma-runner.github.io/1.0/config/configuration-file.html)

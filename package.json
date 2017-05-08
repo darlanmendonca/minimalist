@@ -2,7 +2,7 @@
   "name": "webcomponent",
   "private": true,
   "version": "1.0.0",
-  "description": "a draft(and refactor) of webcomponent, using only the necessary to run, and most uptodated apis, without fallbacks/polyfills.",
+  "description": "The architecture used by minimalist components",
   "main": "sources/scripts/mn-input.js",
   "files": [
     "dist"
