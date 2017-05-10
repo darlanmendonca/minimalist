@@ -13,7 +13,7 @@ The core is writed in a es6 class, and the components will be available in
 - React (component)
 - Vue (component)
 
-The target is implement a webcomponent using only javascript, and easiliy offer their to any framework or anyone.
+The target is implement a webcomponent using only javascript, and easiliy offer their to any framework.
 
 ### Demo
 
