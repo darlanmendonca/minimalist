@@ -39,7 +39,7 @@
     "eslint-config-mn-component": "^1.1.0",
     "istanbul": "1.0.0-alpha.2",
     "jsdom": "^10.0.0",
-    "karma": "^1.6.0",
+    "karma": "^1.7.0",
     "karma-browserify": "^5.1.1",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.1",

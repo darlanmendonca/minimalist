@@ -7,8 +7,29 @@ const {expect} = require('chai')
 let element
 let MnInput
 
+before(fallbackCustomElements)
 before(loadMnInput)
 beforeEach(instanciateElement)
+
+function fallbackCustomElements() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    // fallback to custom elements, using document-register-element
+    require('document-register-element/pony')(window)
+
+    // document-register-element dont call method connectedCallback
+    // maybe add this in document-register-element in a Pull Request be good
+    const {Element} = window
+    const appendChild = Element.prototype.appendChild
+    Element.prototype.appendChild = function(element){
+      appendChild.apply(this, arguments)
+      if (element && element.connectedCallback) {
+        element.connectedCallback()
+      }
+    }
+  }
+}
 
 function loadMnInput() {
   MnInput = require('./mn-input.class.js')
