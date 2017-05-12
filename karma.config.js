@@ -55,6 +55,7 @@ function KarmaConfig(config) {
     frameworks: [
       'browserify',
       'mocha',
+      'detectBrowsers',
     ],
 
     files: [
@@ -84,5 +85,9 @@ function KarmaConfig(config) {
     mochaReporter: {
       output: 'autowatch',
     },
+
+    detectBrowsers: {
+      usePhantomJS: false,
+    }
   })
 }
