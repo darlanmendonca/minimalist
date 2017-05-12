@@ -87,7 +87,7 @@ function KarmaConfig(config) {
     },
 
     detectBrowsers: {
-      enabled: Boolean(process.env.BROWSER_STACK_ENV),
+      enabled: !Boolean(process.env.BROWSER_STACK_ENV),
       usePhantomJS: false,
     }
   })
