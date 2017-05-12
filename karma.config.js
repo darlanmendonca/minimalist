@@ -42,6 +42,16 @@ function KarmaConfig(config) {
       },
     },
 
+    browserStack: {
+      username: process.env.BROWSERSTACK_USERNAME,
+      accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+    },
+
+    browserDisconnectTimeout: 10000,
+    browserDisconnectTolerance: 1,
+    browserNoActivityTimeout: 4 * 60 * 1000,
+    captureTimeout : 4 * 60 * 1000,
+
     frameworks: [
       'browserify',
       'mocha',
