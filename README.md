@@ -10,7 +10,7 @@ This means that you can use it without any framework, or with frameworks such as
 
 ## architecture
 
-The core of each component, is a ES6 Class, and for each framework we create a respective component (directive in angular, component in react, ...). So, the core is just one, the ES6 Classs, and we move their to frameworks, respecting the architecture of each one of them.
+The core of each component, is a ES6 Class, and for each framework we create a respective component (directive in angular, component in react, ...). So, the core is just one, the ES6 Class, and we move their to frameworks, respecting the architecture of each one of them.
 
 ## design
 
