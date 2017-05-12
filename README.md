@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/minimalist-components/webcomponent.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponent)
-[![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponent/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponent?branch=master)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponent/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponent?branch=master) -->
 
 The architecture used by minimalist components
 

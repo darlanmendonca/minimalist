@@ -7,8 +7,17 @@ const {expect} = require('chai')
 let element
 let MnInput
 
+before(fallbackCustomElements)
 before(loadMnInput)
 beforeEach(instanciateElement)
+
+function fallbackCustomElements() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    require('@webcomponents/custom-elements')
+  }
+}
 
 function loadMnInput() {
   MnInput = require('./mn-input.class.js')
