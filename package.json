@@ -1,8 +1,8 @@
 {
-  "name": "webcomponent",
+  "name": "webcomponents",
   "private": true,
   "version": "1.0.0",
-  "description": "The architecture used by minimalist components",
+  "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
   "main": "sources/scripts/mn-input.js",
   "files": [
     "dist"
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/minimalist-components/webcomponent.git"
+    "url": "git+https://github.com/minimalist-components/webcomponents.git"
   },
   "keywords": [],
   "author": "Darlan Mendonça <darlanmendonca@gmail.com> (https://darlanmendonca.github.io)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/minimalist-components/webcomponent/issues"
+    "url": "https://github.com/minimalist-components/webcomponents/issues"
   },
-  "homepage": "https://github.com/minimalist-components/webcomponent#readme",
+  "homepage": "https://github.com/minimalist-components/webcomponents#readme",
   "engines": {
     "node": ">=0.7.0"
   },

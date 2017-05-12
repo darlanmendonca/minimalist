@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/minimalist-components/webcomponent.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponent)
-<!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponent/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponent?branch=master) -->
+[![Build Status](https://travis-ci.org/minimalist-components/webcomponents.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponents)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponents/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponents?branch=master) -->
 
 The architecture used by minimalist components
 
@@ -17,7 +17,7 @@ The target is implement a webcomponent using only javascript, and easiliy offer 
 
 ### Demo
 
-The url [minimalist-components.github.io/webcomponent](http://minimalist-components.github.io/webcomponent) (not available yet)
+The url [minimalist-components.github.io/webcomponents](http://minimalist-components.github.io/webcomponents) (not available yet)
 
 At now, clone this project and run locally. You need `node` and `npm` only.
 
