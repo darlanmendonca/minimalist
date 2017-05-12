@@ -41,6 +41,26 @@ We abstract all stuffs in components, so our input component is just
 
 You can see all of our components here in our site [minimalist/components](http://reservafacil.github.io/minimalist) ~~not available yet, working in that~~.
 
+### Usage
+
+```sh
+# working in progress, not available yet
+npm install @reservafacil/minimalist
+```
+
+```js
+// In your scripts, just import the module, and bundle using a tool like webpack, or browserify
+const {input} from '@reservafacil/minimalist'
+```
+
+```html
+<!-- in your html, just use the component -->
+<mn-input placeholder="lorem ipsum" />
+```
+
+Using a framework? Check the directory `sources/COMPONENT-NAME-HERE` to see entire documentation of component.
+
+
 ### Tests
 
 We believe in tests as the unique way to have sure that our work really works, in different browsers and operational systems. So, we cover all with tests.
