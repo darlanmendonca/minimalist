@@ -14,11 +14,11 @@ The core of each component, is a ES6 Class, and for each framework we create a r
 
 ## design
 
-We like flat design, but minimalism is more easy to use, and overwite. And have less kbs, so we choose for a minimalist design. This means that our components has a design specification, but if you need (and you will), you can easily change the design, to follow your identity.
+We like flat design, but minimalism is more easy to use and overwite. And have less kbs, so we choose for a minimalist design. This means that our components has a design specification, but if you need (and you will), you can easily change the design to follow your identity.
 
 ## productive
 
-During development, you maybe write more than you want, for example, the following code below, just implement a input text with a text as placeholder, and validation messages to required field.
+During development you maybe write more than you want, for example, the code below, just implement a input text with a text as placeholder, and validation messages to required field.
 
 ```html
 <md-input-container no-ink="no-ink" class="md-icon-float md-block md-has-icon">
@@ -58,7 +58,7 @@ const {input} from '@reservafacil/minimalist'
 <mn-input placeholder="lorem ipsum" />
 ```
 
-Using a framework? Check the directory `sources/COMPONENT-NAME-HERE` to see entire documentation of component.
+Using a framework? Check the directory `sources/COMPONENT-NAME-HERE` to see the entire documentation of component.
 
 
 ### Tests
@@ -81,4 +81,4 @@ Actually we supports latest versions of chrome, firefox, and safari. We will add
 
 ### Contributions
 
-Found a bug, or have an idea? Please, create a issue, or a pull request, we love open source!!
+Found a bug, or have an idea? Please, create a issue or a pull request, always have enhancements to do!!
