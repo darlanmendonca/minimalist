@@ -45,6 +45,8 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    this.input.value = value
+    this.input
+      ? this.input.value = value
+      : null
   }
 }

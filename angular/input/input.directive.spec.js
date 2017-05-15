@@ -13,18 +13,13 @@ describe('mn-input (directive)', () => {
 
   beforeEach(angular.mock.module('minimalist'))
 
-  beforeEach(angular.mock.inject(function($rootScope, $compile) {
+  beforeEach(angular.mock.inject(($rootScope, $compile) => {
     scope = $rootScope.$new()
-    element = '<mn-input ng-model="username" placeholder="{{ placeholder }}"></mn-input>'
-    scope.placeholder = 'Username'
-
-    element = $compile(element)(scope)
-    // console.log(element)
-    scope.$digest()
+    scope.value = 'Darlan'
+    document.body.innerHTML = '<mn-input ng-model="username" value="{{ value }}"></mn-input>'
     element = document.querySelector('mn-input')
-    angular
-      .element(document.body)
-      .append(element)
+    $compile(element)(scope)
+    scope.$digest()
   }))
 
   describe('element', () => {
