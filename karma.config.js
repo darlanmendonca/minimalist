@@ -1,6 +1,8 @@
 module.exports = KarmaConfig
 
 function KarmaConfig(config) {
+  const browsers = process.argv[5]
+
   config.set({
     basePath: '',
     port: 9876,
@@ -87,7 +89,7 @@ function KarmaConfig(config) {
     },
 
     detectBrowsers: {
-      enabled: process.env.BROWSER_STACK_ENV === 'true',
+      enabled: browsers === 'all',
       usePhantomJS: false,
     }
   })
