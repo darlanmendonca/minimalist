@@ -20,9 +20,8 @@ function fallbackCustomElements() {
 }
 
 function loadMnInput() {
-  MnInput = require('./input.class.js')
-  window.customElements.define('mn-input', MnInput)
-  window.MnInput = MnInput
+  require('./index.js') // require('minimalist/input')
+  MnInput = window.customElements.get('mn-input')
 }
 
 function instanciateElement() {

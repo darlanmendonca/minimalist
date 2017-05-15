@@ -1,6 +1,6 @@
 const {HTMLElement} = window
 
-class MnInput extends HTMLElement {
+module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -48,5 +48,3 @@ class MnInput extends HTMLElement {
     this.input.value = value
   }
 }
-
-module.exports = MnInput
