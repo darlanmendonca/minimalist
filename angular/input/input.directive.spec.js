@@ -4,8 +4,9 @@ const {expect} = require('chai')
 
 const angular = require('angular')
 require('angular-mocks')
-require('./input.directive.js')
 
+before(polyfills)
+before(loadComponent)
 
 describe('mn-input (directive)', () => {
   let element
@@ -44,3 +45,15 @@ describe('mn-input (directive)', () => {
     })
   })
 })
+
+function polyfills() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    require('@webcomponents/custom-elements')
+  }
+}
+
+function loadComponent() {
+  require('./input.directive.js')
+}
