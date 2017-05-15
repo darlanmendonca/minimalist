@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
-  "main": "sources",
+  "main": "sources/index.js",
   "files": [
     "dist"
   ],
