@@ -5,7 +5,7 @@
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
   "main": "sources/index.js",
   "files": [
-    "dist"
+    "sources"
   ],
   "scripts": {
     "start": "scripts/start",

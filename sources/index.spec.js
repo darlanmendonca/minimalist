@@ -1,17 +1,16 @@
-const {describe, it, beforeEach} = require('mocha')
+const {describe, it} = require('mocha')
 const {expect} = require('chai')
 
-let npmModule
-beforeEach(loadModule)
-
-function loadModule() {
-  npmModule = require('./index.js')
-}
+const packageJSON = require('../package.json')
+const npmModule = require('./index.js')
 
 describe('module', () => {
   it('should have a package.json, with a main file', () => {
-    const packageJSON = require('../package.json')
     expect(packageJSON).to.have.property('main', 'sources/index.js')
+  })
+
+  it('should have sources in package.json files', () => {
+    expect(packageJSON.files).to.have.members(['sources'])
   })
 
   it('should export input component', () => {
