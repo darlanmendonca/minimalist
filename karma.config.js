@@ -91,6 +91,10 @@ function KarmaConfig(config) {
     detectBrowsers: {
       enabled: browsers === 'all',
       usePhantomJS: false,
+      postDetection(availableBrowsers) {
+        console.log(`Testing specs in ${availableBrowsers.length} browsers (${availableBrowsers.join(', ')})`)
+        return availableBrowsers
+      },
     }
   })
 }
