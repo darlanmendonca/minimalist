@@ -21,6 +21,16 @@ function KarmaConfig(config) {
 
     browsers,
 
+    files: [
+      'sources/**/*.scss',
+      'sources/**/*.spec.js',
+    ],
+
+    preprocessors: {
+      'sources/**/*.scss': ['scss'],
+      'sources/**/*.js': ['browserify'],
+    },
+
     customLaunchers: {
       'browserstack:chrome': {
         base: 'BrowserStack',
@@ -60,18 +70,6 @@ function KarmaConfig(config) {
       'mocha',
       'detectBrowsers',
     ],
-
-    files: [
-      'sources/**/*.scss',
-      'sources/**/*.unit.spec.js',
-    ],
-
-    exclude: [],
-
-    preprocessors: {
-      'sources/**/*.scss': ['scss'],
-      'sources/**/*.js': ['browserify'],
-    },
 
     client: {
       captureConsole: true,

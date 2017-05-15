@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
-  "main": "sources/scripts/mn-input.js",
+  "main": "sources",
   "files": [
     "dist"
   ],
@@ -34,11 +34,8 @@
     "chai-colors": "^1.0.1",
     "chai-dom": "^1.4.3",
     "chai-style": "~1.0.0",
-    "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-config-mn-component": "^1.1.0",
-    "istanbul": "1.0.0-alpha.2",
-    "jsdom": "^10.0.0",
     "karma": "^1.7.0",
     "karma-browserify": "^5.1.1",
     "karma-browserstack-launcher": "^1.2.0",
