@@ -35,4 +35,12 @@ describe('mn-input (directive)', () => {
       expect(element).to.contain('input').with.length(1)
     })
   })
+
+  describe('attribute value', () => {
+    it('should set property value when scope change', () => {
+      scope.value = 'Clara'
+      scope.$digest()
+      expect(element).to.have.value('Clara')
+    })
+  })
 })
