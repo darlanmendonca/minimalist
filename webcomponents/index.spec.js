@@ -5,11 +5,15 @@ const packageJSON = require('../package.json')
 
 describe('module', () => {
   it('should have a package.json, with a main file', () => {
-    expect(packageJSON).to.have.property('main', 'sources/index.js')
+    expect(packageJSON).to.have.property('main', 'webcomponents/index.js')
   })
 
-  it('should have sources in package.json files', () => {
-    expect(packageJSON.files).to.have.members(['sources'])
+  it('should have webcomponents in package.json files', () => {
+    expect(packageJSON.files).to.have.members([
+      'webcomponents',
+      'angular',
+      'react',
+    ])
   })
 
   it('should export input component', () => {

@@ -11,7 +11,7 @@ before(polyfills)
 before(loadComponent)
 beforeEach(createElement)
 
-describe('mn-input', () => {
+describe('mn-input (webcomponent)', () => {
   describe('es6 class', () => {
     it('should be defined in window', () => {
       expect(window).to.have.property('MnInput')
@@ -108,7 +108,7 @@ function polyfills() {
 
 function loadComponent() {
   // const {input} from 'minimalist'
-  MnInput = require('./index.js')
+  MnInput = require('./input.webcomponent.js')
 }
 
 function createElement() {

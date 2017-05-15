@@ -3,9 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
-  "main": "sources/index.js",
+  "main": "webcomponents/index.js",
   "files": [
-    "sources"
+    "webcomponents",
+    "angular",
+    "react"
   ],
   "scripts": {
     "start": "scripts/start",
@@ -29,6 +31,8 @@
   },
   "devDependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
+    "angular": "^1.6.4",
+    "angular-mocks": "^1.6.4",
     "browserify": "^14.3.0",
     "chai": "^3.5.0",
     "chai-colors": "^1.0.1",
