@@ -20,8 +20,8 @@ function polyfills() {
 }
 
 function loadComponent() {
-  require('./index.js') // require('minimalist/input')
-  MnInput = window.customElements.get('mn-input')
+  // const {input} from 'minimalist'
+  MnInput = require('./index.js')
 }
 
 function createElement() {

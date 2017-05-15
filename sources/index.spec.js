@@ -2,7 +2,6 @@ const {describe, it} = require('mocha')
 const {expect} = require('chai')
 
 const packageJSON = require('../package.json')
-const npmModule = require('./index.js')
 
 describe('module', () => {
   it('should have a package.json, with a main file', () => {
@@ -14,6 +13,7 @@ describe('module', () => {
   })
 
   it('should export input component', () => {
+    const npmModule = require('./index.js')
     expect(npmModule).to.have.property('input')
   })
 })
