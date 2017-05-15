@@ -11,24 +11,6 @@ before(polyfills)
 before(loadComponent)
 beforeEach(createElement)
 
-function polyfills() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    require('@webcomponents/custom-elements')
-  }
-}
-
-function loadComponent() {
-  // const {input} from 'minimalist'
-  MnInput = require('./index.js')
-}
-
-function createElement() {
-  element = document.createElement('mn-input')
-  document.body.appendChild(element)
-}
-
 describe('mn-input', () => {
   describe('es6 class', () => {
     it('should be defined in window', () => {
@@ -115,3 +97,21 @@ describe('mn-input', () => {
     })
   })
 })
+
+function polyfills() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    require('@webcomponents/custom-elements')
+  }
+}
+
+function loadComponent() {
+  // const {input} from 'minimalist'
+  MnInput = require('./index.js')
+}
+
+function createElement() {
+  element = document.createElement('mn-input')
+  document.body.appendChild(element)
+}
