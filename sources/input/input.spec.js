@@ -7,11 +7,11 @@ const {expect} = require('chai')
 let element
 let MnInput
 
-before(fallbackCustomElements)
-before(loadMnInput)
-beforeEach(instanciateElement)
+before(polyfills)
+before(loadComponent)
+beforeEach(createElement)
 
-function fallbackCustomElements() {
+function polyfills() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
@@ -19,12 +19,12 @@ function fallbackCustomElements() {
   }
 }
 
-function loadMnInput() {
+function loadComponent() {
   require('./index.js') // require('minimalist/input')
   MnInput = window.customElements.get('mn-input')
 }
 
-function instanciateElement() {
+function createElement() {
   element = document.createElement('mn-input')
   document.body.appendChild(element)
 }
