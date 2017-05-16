@@ -45,8 +45,11 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    this.input
-      ? this.input.value = value
-      : null
+    const differentValue = this.input.value !== value
+
+    if (this.input && differentValue) {
+      this.input.value = value
+      this.input.dispatchEvent(new Event('change'))
+    }
   }
 }

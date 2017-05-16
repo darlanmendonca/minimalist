@@ -27,13 +27,38 @@ describe('mn-input (directive)', () => {
     })
   })
 
-  describe('attribute value', () => {
-    it('should get value', () => {
-      expect(element).to.have.value('Darlan')
+  describe('ngModel', () => {
+    it('should return empty string when it is undefined', () => {
+      expect(element).to.be.value('')
     })
 
+    it('should get empty string when it is setted with undefined', () => {
+      scope.username = undefined
+      scope.$digest()
+      expect(element).to.have.value('')
+    })
+
+    it('should get empty string when it is setted with null', () => {
+      scope.username = null
+      scope.$digest()
+      expect(element).to.have.value('')
+    })
+
+    it('should setter and getter as string changing the ngModel', () => {
+      scope.username = 'test'
+      scope.$digest()
+      expect(element).to.have.value('test')
+    })
+
+    it('should setter and getter as string changing property value', () => {
+      element.value = 'test2'
+      expect(scope.username).to.be.equal('test2')
+    })
+  })
+
+  describe('attribute value', () => {
     it('should set property value when scope change', () => {
-      scope.value = 'Clara'
+      scope.username = 'Clara'
       scope.$digest()
       expect(element).to.have.value('Clara')
     })
@@ -49,12 +74,10 @@ function loadComponent() {
 function createElement() {
   return angular.mock.inject(($rootScope, $compile) => {
     scope = $rootScope.$new()
-    scope.value = 'Darlan'
     element = document.createElement('mn-input')
     element.setAttribute('ng-model', 'username')
-    element.setAttribute('value', '{{ value }}')
-    $compile(element)(scope)
     document.body.appendChild(element)
+    $compile(element)(scope)
     scope.$digest()
   })
 }

@@ -5,15 +5,20 @@ angular
   .module('minimalist', [])
   .directive('mnInput', MnInputDirective)
 
-function MnInputDirective($compile, $parse) {
+function MnInputDirective() {
   return {
     restrict: 'E',
     require: 'ngModel',
-    link(scope, element, attributes) {
-      const input = element.find('input')
-      element[0].value = $parse(attributes.ngModel)(scope)
-      input.attr('ng-model', attributes.ngModel)
-      $compile(input)(scope)
+    link(scope, element, attributes, ngModel) {
+      const input = element[0].querySelector('input')
+
+      input.addEventListener('change', () => {
+        ngModel.$setViewValue(input.value)
+      })
+
+      scope.$watch(attributes.ngModel, value => {
+        element[0].value = value
+      })
     }
   }
 }
