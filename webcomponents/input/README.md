@@ -38,7 +38,7 @@ In your html, you can use the tag `mn-input` i.e.
 <mn-input placeholder="Username" name='username'></mn-input>
 ```
 
-The following attributes from inputs are supported in this component
+The following attributes are supported in this component
 
 - [value](http://www.w3schools.com/tags/att_input_value.asp)
 - [name](http://www.w3schools.com/tags/att_input_name.asp)
@@ -68,4 +68,7 @@ In your template is all similar, but you use `ng-model` and other directives fro
 <!-- in angular, the attr 'name' dont be required, they will be created automatically, using the last part of ngModel name, e.g. ng-model="data.username" will generate a attribute name="username" -->
 <mn-input placeholder="Username" ng-model='username'></mn-input>
 ```
+
+Others directives like `ng-disabled`, and `ng-required`, are also supported.
+
 
