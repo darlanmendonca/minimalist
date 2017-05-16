@@ -28,39 +28,29 @@ describe('mn-input (directive)', () => {
   })
 
   describe('ngModel', () => {
-    it('should return empty string when it is undefined', () => {
-      expect(element).to.be.value('')
+    it('should be undefined if it doesn\'t exist', () => {
+      expect(scope.username).to.be.undefined
+      expect(element).to.have.value('')
     })
 
-    it('should get empty string when it is setted with undefined', () => {
+    it('should be undefined if applied undefined', () => {
       scope.username = undefined
       scope.$digest()
+      expect(scope.username).to.be.undefined
       expect(element).to.have.value('')
     })
 
-    it('should get empty string when it is setted with null', () => {
-      scope.username = null
-      scope.$digest()
-      expect(element).to.have.value('')
-    })
-
-    it('should setter and getter as string changing the ngModel', () => {
+    it('should be a string if applied a string to ngModel', () => {
       scope.username = 'test'
       scope.$digest()
+      expect(scope.username).to.be.equal('test')
       expect(element).to.have.value('test')
     })
 
-    it('should setter and getter as string changing property value', () => {
+    it('should be a string if applied a string to property value', () => {
       element.value = 'test2'
       expect(scope.username).to.be.equal('test2')
-    })
-  })
-
-  describe('attribute value', () => {
-    it('should set property value when scope change', () => {
-      scope.username = 'Clara'
-      scope.$digest()
-      expect(element).to.have.value('Clara')
+      expect(element).to.have.value('test2')
     })
   })
 })
