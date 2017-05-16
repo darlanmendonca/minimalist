@@ -1,7 +1,8 @@
 module.exports = KarmaConfig
 
 function KarmaConfig(config) {
-  const browser = process.argv[5]
+  const argv = require('shell-arguments')
+  const browser = argv.browsers
   const browsers = [
     'Chrome',
     'Safari',

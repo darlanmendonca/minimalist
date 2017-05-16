@@ -50,7 +50,8 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-scss-preprocessor": "^2.0.0",
     "mocha": "^3.3.0",
-    "node-sass": "^4.5.2"
+    "node-sass": "^4.5.2",
+    "shell-arguments": "^1.2.3"
   },
   "dependencies": {
     "open-color": "^1.5.1",
