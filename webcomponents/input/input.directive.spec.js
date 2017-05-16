@@ -21,8 +21,8 @@ describe('mn-input (directive)', () => {
     element.setAttribute('ng-model', 'username')
     element.setAttribute('value', '{{ value }}')
     $compile(element)(scope)
-    scope.$digest()
     document.body.appendChild(element)
+    scope.$digest()
   }))
 
   describe('element', () => {
