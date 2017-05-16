@@ -20,9 +20,9 @@ describe('mn-input (directive)', () => {
     element = document.createElement('mn-input')
     element.setAttribute('ng-model', 'username')
     element.setAttribute('value', '{{ value }}')
-    document.body.appendChild(element)
     $compile(element)(scope)
     scope.$digest()
+    document.body.appendChild(element)
   }))
 
   describe('element', () => {
@@ -40,6 +40,10 @@ describe('mn-input (directive)', () => {
   })
 
   describe('attribute value', () => {
+    it('should get value', () => {
+      expect(element).to.have.value('Darlan')
+    })
+
     it('should set property value when scope change', () => {
       scope.value = 'Clara'
       scope.$digest()
