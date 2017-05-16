@@ -2,7 +2,7 @@ const angular = require('angular')
 require('minimalist').input
 
 angular
-  .module('minimalist', [])
+  .module('minimalist')
   .directive('mnInput', MnInputDirective)
 
 function MnInputDirective() {
