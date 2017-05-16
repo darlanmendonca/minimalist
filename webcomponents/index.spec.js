@@ -9,11 +9,7 @@ describe('module', () => {
   })
 
   it('should have webcomponents in package.json files', () => {
-    expect(packageJSON.files).to.have.members([
-      'webcomponents',
-      'angular',
-      'react',
-    ])
+    expect(packageJSON.files).to.have.members(['webcomponents'])
   })
 
   it('should export input component', () => {

@@ -5,9 +5,7 @@
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
   "main": "webcomponents/index.js",
   "files": [
-    "webcomponents",
-    "angular",
-    "react"
+    "webcomponents"
   ],
   "scripts": {
     "start": "scripts/start",
