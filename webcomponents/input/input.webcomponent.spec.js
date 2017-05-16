@@ -93,8 +93,9 @@ describe('mn-input (webcomponent)', () => {
 })
 
 function loadComponent() {
-  // const {input} from 'minimalist'
-  require('./input.webcomponent.js')
+  require('minimalist').input
+  // or
+  // const {input} = require('minimalist')
 }
 
 function createElement() {

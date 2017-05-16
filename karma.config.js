@@ -24,15 +24,16 @@ function KarmaConfig(config) {
 
     files: [
       'webcomponents/**/*.scss',
-      'webcomponents/*.spec.js',
+      'index.spec.js',
+      'angular.spec.js',
       'webcomponents/**/*.webcomponent.spec.js',
       'webcomponents/**/*.directive.spec.js',
     ],
 
     preprocessors: {
-      'webcomponents/**/*.scss': ['scss'],
+      '*.js': ['browserify'],
       'webcomponents/**/*.js': ['browserify'],
-      'angular/**/*.js': ['browserify'],
+      'webcomponents/**/*.scss': ['scss'],
     },
 
     customLaunchers: {

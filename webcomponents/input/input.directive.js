@@ -1,5 +1,5 @@
 const angular = require('angular')
-require('./input.webcomponent.js')
+require('minimalist').input
 
 angular
   .module('minimalist', [])
@@ -17,3 +17,5 @@ function MnInputDirective($compile, $parse) {
     }
   }
 }
+
+module.exports = 'wow'
