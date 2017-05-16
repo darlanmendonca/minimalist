@@ -24,7 +24,9 @@ function KarmaConfig(config) {
 
     files: [
       'webcomponents/**/*.scss',
-      'webcomponents/**/*.spec.js',
+      'webcomponents/*.spec.js',
+      'webcomponents/**/*.webcomponent.spec.js',
+      'webcomponents/**/*.directive.spec.js',
     ],
 
     preprocessors: {
