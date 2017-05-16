@@ -1,17 +1,16 @@
-const {describe, it, beforeEach} = require('mocha')
+const {describe, it, before, beforeEach} = require('mocha')
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
 const angular = require('angular')
 require('angular-mocks')
 
-before(polyfills)
-before(loadComponent)
+let element
+let scope
 
 describe('mn-input (directive)', () => {
-  let element
-  let scope
-
+  before(polyfills)
+  before(loadComponent)
   beforeEach(angular.mock.module('minimalist'))
 
   beforeEach(angular.mock.inject(($rootScope, $compile) => {

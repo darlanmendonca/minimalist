@@ -1,5 +1,5 @@
 const angular = require('angular')
-const webcomponent = require('./input.webcomponent.js')
+require('./input.webcomponent.js')
 
 angular
   .module('minimalist', [])
