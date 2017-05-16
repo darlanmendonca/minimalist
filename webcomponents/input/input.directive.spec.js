@@ -17,8 +17,10 @@ describe('mn-input (directive)', () => {
   beforeEach(angular.mock.inject(($rootScope, $compile) => {
     scope = $rootScope.$new()
     scope.value = 'Darlan'
-    document.body.innerHTML = '<mn-input ng-model="username" value="{{ value }}"></mn-input>'
-    element = document.querySelector('mn-input')
+    element = document.createElement('mn-input')
+    element.setAttribute('ng-model', 'username')
+    element.setAttribute('value', '{{ value }}')
+    document.body.appendChild(element)
     $compile(element)(scope)
     scope.$digest()
   }))
