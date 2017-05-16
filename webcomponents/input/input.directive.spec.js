@@ -9,20 +9,9 @@ let element
 let scope
 
 describe('mn-input (directive)', () => {
-  before(polyfills)
   before(loadComponent)
   beforeEach(angular.mock.module('minimalist'))
-
-  beforeEach(angular.mock.inject(($rootScope, $compile) => {
-    scope = $rootScope.$new()
-    scope.value = 'Darlan'
-    element = document.createElement('mn-input')
-    element.setAttribute('ng-model', 'username')
-    element.setAttribute('value', '{{ value }}')
-    $compile(element)(scope)
-    document.body.appendChild(element)
-    scope.$digest()
-  }))
+  beforeEach(createElement)
 
   describe('element', () => {
     it('should have a ngModel attribute', () => {
@@ -51,14 +40,19 @@ describe('mn-input (directive)', () => {
   })
 })
 
-function polyfills() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    require('@webcomponents/custom-elements')
-  }
-}
-
 function loadComponent() {
   require('./input.directive.js')
+}
+
+function createElement() {
+  return angular.mock.inject(($rootScope, $compile) => {
+    scope = $rootScope.$new()
+    scope.value = 'Darlan'
+    element = document.createElement('mn-input')
+    element.setAttribute('ng-model', 'username')
+    element.setAttribute('value', '{{ value }}')
+    $compile(element)(scope)
+    document.body.appendChild(element)
+    scope.$digest()
+  })
 }

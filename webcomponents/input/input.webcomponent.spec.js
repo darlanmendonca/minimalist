@@ -7,7 +7,6 @@ const {expect} = require('chai')
 let element
 
 describe('mn-input (webcomponent)', () => {
-  before(polyfills)
   before(loadComponent)
   beforeEach(createElement)
 
@@ -92,14 +91,6 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 })
-
-function polyfills() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    require('@webcomponents/custom-elements')
-  }
-}
 
 function loadComponent() {
   // const {input} from 'minimalist'
