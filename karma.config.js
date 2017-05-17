@@ -12,6 +12,11 @@ function KarmaConfig(config) {
     'browserstack:firefox',
   ]
 
+  if (process.env.BROWSER_STACK_ENV) {
+    const browserStackBrowsers = browsers.filter(browser => browser.startsWith('browserstack'))
+    console.log(`Testing specs in ${browserStackBrowsers.length} browsers (${browserStackBrowsers.join(', ')})`)
+  }
+
   config.set({
     basePath: '',
     port: 9876,
