@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/minimalist-components/webcomponents.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponents)
-<!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponents/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponents?branch=master) -->
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponents/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponents?branch=master) -->
 
 # minimalist
 

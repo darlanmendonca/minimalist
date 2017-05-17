@@ -26,7 +26,7 @@ const {input} = require('@reservafacil/minimalist')
 
 ```sass
 // Dont forget the .scss file, to style component
-@import @import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/input/.scss';
+@import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/input/.scss';
 ```
 
 
