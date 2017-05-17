@@ -11,7 +11,7 @@
   "scripts": {
     "start": "scripts/start",
     "lint": "scripts/lint",
-    "pretest": "scripts/lint && require-self",
+    "pretest": "scripts/lint",
     "test": "scripts/test"
   },
   "repository": {
