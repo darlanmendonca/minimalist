@@ -44,12 +44,12 @@ The following attributes are supported in this component
 - [name](http://www.w3schools.com/tags/att_input_name.asp)
 - [placeholder](http://www.w3schools.com/tags/att_input_placeholder.asp)
 - [autofocus](http://www.w3schools.com/tags/att_input_autofocus.asp)
+- [autocapitalize](https://developers.google.com/web/updates/2015/04/autocapitalize)
 - [maxlength](http://www.w3schools.com/tags/att_input_maxlength.asp)
 - [pattern](http://www.w3schools.com/tags/att_input_pattern.asp)
 - [readonly](http://www.w3schools.com/tags/att_input_readonly.asp)
 - [required](http://www.w3schools.com/tags/att_input_required.asp)
 - [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
-- [autocapitalize](https://developers.google.com/web/updates/2015/04/autocapitalize)
 
 ### Angular
 
@@ -66,7 +66,7 @@ In your template is all similar, but you use `ng-model` and other directives fro
 
 ```html
 <!-- in angular, the attr 'name' dont be required, they will be created automatically, using the last part of ngModel name, e.g. ng-model="data.username" will generate a attribute name="username" -->
-<mn-input placeholder="Username" ng-model='username'></mn-input>
+<mn-input placeholder="Username" ng-model='username' />
 ```
 
 Others directives like `ng-disabled`, and `ng-required`, are also supported.
