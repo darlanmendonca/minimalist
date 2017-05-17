@@ -1,7 +1,8 @@
 module.exports = KarmaConfig
 
 function KarmaConfig(config) {
-  const browser = process.argv[5]
+  const argv = require('shell-arguments')
+  const browser = argv.browsers
   const browsers = [
     'Chrome',
     'Safari',
@@ -22,13 +23,17 @@ function KarmaConfig(config) {
     browsers,
 
     files: [
-      'sources/**/*.scss',
-      'sources/**/*.spec.js',
+      'webcomponents/**/*.scss',
+      'index.spec.js',
+      'angular.spec.js',
+      'webcomponents/**/*.webcomponent.spec.js',
+      'webcomponents/**/*.directive.spec.js',
     ],
 
     preprocessors: {
-      'sources/**/*.scss': ['scss'],
-      'sources/**/*.js': ['browserify'],
+      '*.js': ['browserify'],
+      'webcomponents/**/*.js': ['browserify'],
+      'webcomponents/**/*.scss': ['scss'],
     },
 
     customLaunchers: {

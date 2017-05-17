@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/minimalist-components/webcomponents.svg?branch=master)](https://travis-ci.org/minimalist-components/webcomponents)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 <!-- [![Coverage Status](https://coveralls.io/repos/github/minimalist-components/webcomponents/badge.svg?branch=master)](https://coveralls.io/github/minimalist-components/webcomponents?branch=master) -->
 
 # minimalist
@@ -50,7 +51,7 @@ npm install @reservafacil/minimalist
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {input} from '@reservafacil/minimalist'
+const {input} = require('@reservafacil/minimalist')
 ```
 
 ```html

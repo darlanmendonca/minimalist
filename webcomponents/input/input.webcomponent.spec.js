@@ -5,26 +5,20 @@ const {expect} = require('chai')
   .use(require('chai-style'))
 
 let element
-let MnInput
 
-before(polyfills)
-before(loadComponent)
-beforeEach(createElement)
-
-describe('mn-input', () => {
-  describe('es6 class', () => {
-    it('should be defined in window', () => {
-      expect(window).to.have.property('MnInput')
-    })
-  })
+describe('mn-input (webcomponent)', () => {
+  before(loadComponent)
+  beforeEach(createElement)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
+      const MnInput = window.customElements.get('mn-input')
       element = new MnInput()
       expect(element).to.be.instanceof(MnInput)
     })
 
     it('should work with document.createElement()', () => {
+      const MnInput = window.customElements.get('mn-input')
       element = document.createElement('mn-input')
       expect(element).to.be.instanceof(MnInput)
     })
@@ -98,17 +92,10 @@ describe('mn-input', () => {
   })
 })
 
-function polyfills() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    require('@webcomponents/custom-elements')
-  }
-}
-
 function loadComponent() {
-  // const {input} from 'minimalist'
-  MnInput = require('./index.js')
+  require('minimalist').input
+  // or
+  // const {input} = require('minimalist')
 }
 
 function createElement() {
