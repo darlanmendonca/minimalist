@@ -90,6 +90,32 @@ describe('mn-input (webcomponent)', () => {
       expect(element).to.have.attribute('autocomplete', 'off')
     })
   })
+
+  describe('attribute name', () => {
+    it.skip('should get element by form name getter', () => {
+      element.setAttribute('name', 'teste')
+      const {formName} = window
+      console.log(formName)
+      expect(formName.teste).to.be.equal(element)
+    })
+
+    // it('should get element with new name by form name getter', () => {
+    //   element.setAttribute('name', 'test2')
+    //   expect(formName.name).to.be.undefined
+    //   expect(formName.test2).to.be.equal(element)
+    // })
+
+    // it('should get element by form id getter', () => {
+    //   element.setAttribute('id', 'test')
+    //   expect(formID.name).to.be.equal(element)
+    // })
+
+    // it('should get element with new id by form id getter', () => {
+    //   element.setAttribute('id', 'test2')
+    //   expect(formID.name).to.be.undefined
+    //   expect(formID.test2).to.be.equal(element)
+    // })
+  })
 })
 
 function loadComponent() {
@@ -99,6 +125,12 @@ function loadComponent() {
 }
 
 function createElement() {
+  const form = document.createElement('form')
+  form.setAttribute('name', 'formName')
+  form.setAttribute('id', 'formID')
+
   element = document.createElement('mn-input')
-  document.body.appendChild(element)
+  form.appendChild(element)
+
+  document.body.appendChild(form)
 }
