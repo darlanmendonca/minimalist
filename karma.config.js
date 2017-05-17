@@ -1,8 +1,7 @@
 module.exports = KarmaConfig
 
 function KarmaConfig(config) {
-  const argv = require('shell-arguments')
-  const browser = argv.browsers
+  const {argv} = require('yargs')
   const browsers = [
     'Chrome',
     'Safari',
@@ -78,6 +77,10 @@ function KarmaConfig(config) {
 
     client: {
       captureConsole: true,
+
+      mocha: {
+        grep: argv.grep,
+      },
     },
 
     reporters: [
@@ -93,7 +96,7 @@ function KarmaConfig(config) {
     },
 
     detectBrowsers: {
-      enabled: browser === 'all',
+      enabled: argv.browsers === 'all',
       usePhantomJS: false,
       postDetection(availableBrowsers) {
         const runnableBrowsers = availableBrowsers.filter(browser => browsers.indexOf(browser) > -1)

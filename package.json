@@ -51,7 +51,7 @@
     "mocha": "^3.3.0",
     "node-sass": "^4.5.2",
     "require-self": "^0.1.0",
-    "shell-arguments": "^1.2.3"
+    "yargs": "^8.0.1"
   },
   "dependencies": {
     "open-color": "^1.5.1",
