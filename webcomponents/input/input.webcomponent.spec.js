@@ -92,29 +92,38 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute name', () => {
-    it.skip('should get element by form name getter', () => {
-      element.setAttribute('name', 'teste')
+    it('should get element by form name getter', () => {
+      element.setAttribute('name', 'testName')
       const {formName} = window
-      console.log(formName)
-      expect(formName.teste).to.be.equal(element)
+      expect(formName.test).to.be.equal(element)
     })
 
-    // it('should get element with new name by form name getter', () => {
-    //   element.setAttribute('name', 'test2')
-    //   expect(formName.name).to.be.undefined
-    //   expect(formName.test2).to.be.equal(element)
-    // })
+    it('should get element with new name by form name getter', () => {
+      element.setAttribute('name', 'testName')
+      const {formName} = window
+      expect(formName.testName).to.be.undefined
+      expect(formName.testName).to.be.equal(element)
+    })
 
-    // it('should get element by form id getter', () => {
-    //   element.setAttribute('id', 'test')
-    //   expect(formID.name).to.be.equal(element)
-    // })
+    it('should get element by form id getter', () => {
+      element.setAttribute('id', 'testID')
+      const {formID} = window
+      expect(formID.testID).to.be.equal(element)
+    })
 
-    // it('should get element with new id by form id getter', () => {
-    //   element.setAttribute('id', 'test2')
-    //   expect(formID.name).to.be.undefined
-    //   expect(formID.test2).to.be.equal(element)
-    // })
+    it('should get element with new id by form id getter', () => {
+      element.setAttribute('id', 'testID')
+      const {formID} = window
+      expect(formID.testID).to.be.undefined
+      expect(formID.testID).to.be.equal(element)
+    })
+
+    it('should get empty string when it is setted with null', () => {
+      element.setAttribute('id', '')
+      const {formID} = window
+      expect(formID.testID).to.be.null
+      expect(formID.testID).to.be.equal(element)
+    })
   })
 })
 
