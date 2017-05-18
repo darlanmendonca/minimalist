@@ -8,6 +8,7 @@ let element
 
 describe('mn-input (webcomponent)', () => {
   before(loadComponent)
+  beforeEach(cleanView)
   beforeEach(createElement)
 
   describe('instance', () => {
@@ -92,37 +93,44 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute name', () => {
-    it('should get element by form name getter', () => {
-      element.setAttribute('name', 'testName')
+    it.skip('should define a form getter if parent form exist and has an id', () => {
+      element.setAttribute('name', 'test')
+      const {formID} = window
+      expect(formID.test).to.be.equal(element)
+    })
+
+    it.skip('should define a form getter if parent form exist and has an name', () => {
+      element.setAttribute('name', 'test')
       const {formName} = window
       expect(formName.test).to.be.equal(element)
     })
 
-    it('should get element with new name by form name getter', () => {
-      element.setAttribute('name', 'testName')
+    it.skip('should undefine form getter (name) if element name was removed', () => {
+      element.setAttribute('name', 'test')
+      element.removeAttribute('name')
       const {formName} = window
-      expect(formName.testName).to.be.undefined
-      expect(formName.testName).to.be.equal(element)
+      expect(formName.test).to.be.undefined
     })
 
-    it('should get element by form id getter', () => {
-      element.setAttribute('id', 'testID')
+    it.skip('should undefine form getter (id) if element name was removed', () => {
+      element.setAttribute('name', 'test')
+      element.removeAttribute('name')
       const {formID} = window
-      expect(formID.testID).to.be.equal(element)
+      expect(formID.test).to.be.undefined
     })
 
-    it('should get element with new id by form id getter', () => {
-      element.setAttribute('id', 'testID')
-      const {formID} = window
-      expect(formID.testID).to.be.undefined
-      expect(formID.testID).to.be.equal(element)
+    it.skip('should redefine form getter (name) if element name changed', () => {
+      element.setAttribute('name', 'test')
+      element.setAttribute('name', 'test2')
+      const {formName} = window
+      expect(formName.test2).to.be.equal(element)
     })
 
-    it('should get empty string when it is setted with null', () => {
-      element.setAttribute('id', '')
+    it.skip('should redefine form getter (id) if element name changed', () => {
+      element.setAttribute('name', 'test')
+      element.setAttribute('name', 'test2')
       const {formID} = window
-      expect(formID.testID).to.be.null
-      expect(formID.testID).to.be.equal(element)
+      expect(formID.test2).to.be.equal(element)
     })
   })
 })
@@ -131,6 +139,14 @@ function loadComponent() {
   require('minimalist').input
   // or
   // const {input} = require('minimalist')
+}
+
+function cleanView() {
+  const form = document.querySelector('form')
+
+  if (form) {
+    form.parentNode.removeChild(form)
+  }
 }
 
 function createElement() {
@@ -142,4 +158,5 @@ function createElement() {
   form.appendChild(element)
 
   document.body.appendChild(form)
+  console.log(document.body)
 }
