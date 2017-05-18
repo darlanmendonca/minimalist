@@ -8,6 +8,7 @@ let element
 
 describe('mn-input (webcomponent)', () => {
   before(loadComponent)
+  beforeEach(cleanView)
   beforeEach(createElement)
 
   describe('instance', () => {
@@ -90,6 +91,48 @@ describe('mn-input (webcomponent)', () => {
       expect(element).to.have.attribute('autocomplete', 'off')
     })
   })
+
+  describe('attribute name', () => {
+    it('should define a form getter if parent form exist and has an id', () => {
+      element.setAttribute('name', 'test')
+      const {formID} = window
+      expect(formID.test).to.be.equal(element)
+    })
+
+    it('should define a form getter if parent form exist and has a name', () => {
+      element.setAttribute('name', 'test')
+      const {formName} = window
+      expect(formName.test).to.be.equal(element)
+    })
+
+    it('should undefine form getter (name) if element name was removed', () => {
+      element.setAttribute('name', 'test')
+      element.removeAttribute('name')
+      const {formName} = window
+      expect(formName.test).to.be.undefined
+    })
+
+    it('should undefine form getter (id) if element name was removed', () => {
+      element.setAttribute('name', 'test')
+      element.removeAttribute('name')
+      const {formID} = window
+      expect(formID.test).to.be.undefined
+    })
+
+    it('should redefine form getter (name) if element name changed', () => {
+      element.setAttribute('name', 'test')
+      element.setAttribute('name', 'test2')
+      const {formName} = window
+      expect(formName.test2).to.be.equal(element)
+    })
+
+    it('should redefine form getter (id) if element name changed', () => {
+      element.setAttribute('name', 'test')
+      element.setAttribute('name', 'test2')
+      const {formID} = window
+      expect(formID.test2).to.be.equal(element)
+    })
+  })
 })
 
 function loadComponent() {
@@ -98,7 +141,21 @@ function loadComponent() {
   // const {input} = require('minimalist')
 }
 
+function cleanView() {
+  const form = document.querySelector('form')
+
+  if (form) {
+    form.parentNode.removeChild(form)
+  }
+}
+
 function createElement() {
+  const form = document.createElement('form')
+  form.setAttribute('name', 'formName')
+  form.setAttribute('id', 'formID')
+
   element = document.createElement('mn-input')
-  document.body.appendChild(element)
+  form.appendChild(element)
+
+  document.body.appendChild(form)
 }

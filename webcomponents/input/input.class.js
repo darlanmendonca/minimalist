@@ -33,7 +33,10 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['value']
+    return [
+      'value',
+      'name',
+    ]
   }
 
   attributeChangedCallback(name, old, value) {
@@ -50,6 +53,22 @@ module.exports = class MnInput extends HTMLElement {
     if (this.input && differentValue) {
       this.input.value = value
       this.input.dispatchEvent(new Event('change'))
+    }
+  }
+
+  set name(value) {
+    const form = this.closest('form')
+    const name = this.getAttribute('name')
+    const element = this
+
+    if (form) {
+      Object.defineProperty(form, name, {
+        get: () => {
+          return element.getAttribute('name')
+            ? element
+            : undefined
+        },
+      })
     }
   }
 }
