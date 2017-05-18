@@ -96,6 +96,12 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 
+  describe('attribute spellcheck', () => {
+    it('should be "off" by default', () => {
+      expect(element).to.have.attribute('spellcheck', 'off')
+    })
+  })
+
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
       element.setAttribute('name', 'test')

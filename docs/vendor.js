@@ -63,6 +63,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setInput()
     this._setAttributeValue()
     this._setAttributeAutocomplete()
+    this._setAttributeSpellcheck()
   }
 
   _setCssClasses() {
@@ -95,6 +96,10 @@ module.exports = class MnInput extends HTMLElement {
 
   _setAttributeAutocomplete() {
     this.setAttribute('autocomplete', 'off')
+  }
+
+  _setAttributeSpellcheck() {
+    this.setAttribute('spellcheck', 'off')
   }
 
   static get observedAttributes() {
