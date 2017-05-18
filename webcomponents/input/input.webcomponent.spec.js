@@ -135,26 +135,11 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute placeholder', () => {
-    it.skip('should get the placeholder as string', () => {
-      const {placeholder} = window
-      element.setAttribute('placeholder', 'test')
-      expect(placeholder.test).to.have.value('test')
-    })
-
-    it.skip('should show the placeholder when there is no string typed', () => {
-      const {placeholder} = window
-      element.removeAttribute('placeholder')
-      expect(placeholder.test).to.have.value('test')
-    })
-
-    it.skip('should show the placeholder when it is typped and after deleted some string', () => {
-      const {placeholder} = window
-      element.setAttribute('placeholder', 'test')
-      element.removeAttribute('placeholder')
-      expect(placeholder.test).to.have.value('test')
+    it('should define a label to the placeholder', () => {
+      element.setAttribute('placeholder','test')
+      expect(element.querySelector('label')).to.contain('test')
     })
   })
-})
 
 function loadComponent() {
   require('minimalist').input
