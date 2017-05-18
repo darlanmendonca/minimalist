@@ -5,12 +5,16 @@ set -e
 port=3000
 
 if [[ $1 == 'dev' ]]; then
+  npm run styles $1 & \
+
   ./node_modules/.bin/browser-sync start \
   --server 'docs' \
   --files 'docs/*.*' \
   --no-open \
-  --no-ui
+  --no-ui \
+  --no-notify
 else
+  npm run styles && \
   echo "=> http://localhost:$port" && \
   ./node_modules/.bin/http-server docs -s -p $port
 fi
