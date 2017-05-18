@@ -13,7 +13,8 @@
     "lint": "scripts/lint",
     "pretest": "scripts/lint",
     "test": "scripts/test",
-    "styles": "scripts/styles"
+    "sass": "scripts/sass",
+    "javascript": "scripts/javascript"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "mocha": "^3.3.0",
     "node-sass": "^4.5.2",
     "require-self": "^0.1.0",
+    "watchify": "^3.9.0",
     "yargs": "^8.0.1"
   },
   "dependencies": {
