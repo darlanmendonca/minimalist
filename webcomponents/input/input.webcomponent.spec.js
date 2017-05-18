@@ -31,7 +31,11 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should contain a input child', () => {
-      expect(element).to.contain('input').with.length(1)
+      // expect(element).to.contain('input').with.length(1)
+      // the length above count childrens of elements, not amount of inputs
+      // need to be refactor, chai-dom dont offer a counter yet
+      expect(element).to.contain('input')
+      expect(element.querySelectorAll('input')).to.have.length(1)
     })
   })
 
