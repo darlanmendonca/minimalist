@@ -12,7 +12,8 @@
     "start": "scripts/start",
     "lint": "scripts/lint",
     "pretest": "scripts/lint",
-    "test": "scripts/test"
+    "test": "scripts/test",
+    "styles": "scripts/styles"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "angular-mocks": "^1.6.4",
+    "browser-sync": "^2.18.11",
     "browserify": "^14.3.0",
     "chai": "^3.5.0",
     "chai-colors": "^1.0.1",
@@ -37,6 +39,7 @@
     "chai-style": "~1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-mn-component": "^1.1.0",
+    "http-server": "^0.10.0",
     "karma": "^1.7.0",
     "karma-browserify": "^5.1.1",
     "karma-browserstack-launcher": "^1.2.0",

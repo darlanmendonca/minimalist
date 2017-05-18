@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "vendor.css",
+	"sources": [
+		"../webcomponents/input/input.style.scss",
+		"../node_modules/open-color/open-color.scss"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,SAAS,AAAC,CACR,QAAQ,CAAE,QAAQ,CAClB,OAAO,CAAE,YAAY,CACrB,UAAU,CAAE,CAAC,CAAC,GAAG,CAAC,CAAC,CCkBd,OAAO,CDjBZ,MAAM,CAAE,WAAW,CACpB"
+}
