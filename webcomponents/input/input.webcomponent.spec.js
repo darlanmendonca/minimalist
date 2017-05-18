@@ -99,7 +99,7 @@ describe('mn-input (webcomponent)', () => {
       expect(formID.test).to.be.equal(element)
     })
 
-    it.skip('should define a form getter if parent form exist and has an name', () => {
+    it.skip('should define a form getter if parent form exist and has a name', () => {
       element.setAttribute('name', 'test')
       const {formName} = window
       expect(formName.test).to.be.equal(element)
@@ -158,5 +158,4 @@ function createElement() {
   form.appendChild(element)
 
   document.body.appendChild(form)
-  console.log(document.body)
 }
