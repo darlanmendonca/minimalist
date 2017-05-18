@@ -133,6 +133,10 @@ describe('mn-input (webcomponent)', () => {
       expect(formID.test2).to.be.equal(element)
     })
   })
+
+  describe('attribute placeholder', () => {
+
+  })
 })
 
 function loadComponent() {
