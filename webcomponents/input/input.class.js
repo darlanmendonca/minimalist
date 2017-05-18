@@ -9,6 +9,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this._setCssClasses()
+    this._setLabel()
     this._setInput()
     this._setAttributeValue()
     this._setAttributeAutocomplete()
@@ -20,7 +21,21 @@ module.exports = class MnInput extends HTMLElement {
 
   _setInput() {
     this.input = document.createElement('input')
+    this.input.classList.add('input')
     this.insertBefore(this.input, this.firstChild)
+
+    this.input.addEventListener('change', () => {
+      this.input.value
+        ? this.classList.add('has-value')
+        : this.classList.remove('has-value')
+    })
+  }
+
+  _setLabel() {
+    this.label = document.createElement('label')
+    this.label.classList.add('label')
+    this.label.textContent = this.getAttribute('placeholder')
+    this.insertBefore(this.label, this.firstChild)
   }
 
   _setAttributeValue() {
