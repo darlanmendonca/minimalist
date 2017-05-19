@@ -141,35 +141,43 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 
+  describe('property placeholder', () => {
+    it('should set the placeholder text in label', () => {
+      element.placeholder = 'test'
+      expect(element).to.contain('label').with.text('test')
+    })
+
+    it('should set the placeholder text in label', () => {
+      element.placeholder = 'test'
+      element.placeholder = 'test2'
+      expect(element).to.contain('label').with.text('test2')
+    })
+
+    it('should set emtpy text if is undefined', () => {
+      element.placeholder = undefined
+      expect(element).to.contain('label').with.text('')
+    })
+  })
+
   describe('attribute placeholder', () => {
     it('should define a label to the placeholder', () => {
       element.setAttribute('placeholder','test')
       expect(element).to.contain('label').with.text('test')
     })
 
-    it('should change the placeholder', () => {
+    it('should change the text', () => {
       element.setAttribute('placeholder','test')
       element.setAttribute('placeholder','test2')
       expect(element).to.contain('label').with.text('test2')
     })
 
-    it('should set empty label if is undefined', () => {
+    it('should set empty text if is undefined', () => {
       expect(element).to.contain('label').with.text('')
     })
 
-    it('should set empty to label when placeholder is removed', () => {
+    it('should set empty text to label when attribute is removed', () => {
       element.setAttribute('placeholder','test')
       element.removeAttribute('placeholder')
-      expect(element).to.contain('label').with.text('')
-    })
-
-    it('should get property value ', () => {
-      element.placeholder = 'test'
-      expect(element).to.contain('label').with.text('test')
-    })
-
-    it('should get empty label when attribute is undefined', () => {
-      element.placeholder = undefined
       expect(element).to.contain('label').with.text('')
     })
   })

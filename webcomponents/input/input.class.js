@@ -95,7 +95,7 @@ module.exports = class MnInput extends HTMLElement {
 
   set placeholder(value) {
     this.label
-      ? this.label.textContent = this.getAttribute('placeholder')
+      ? this.label.textContent = value
       : null
   }
 }
