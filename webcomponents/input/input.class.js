@@ -9,9 +9,11 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this._setCssClasses()
+    this._setPlaceholder()
     this._setInput()
     this._setAttributeValue()
     this._setAttributeAutocomplete()
+    this._setAttributeSpellcheck()
   }
 
   _setCssClasses() {
@@ -20,7 +22,21 @@ module.exports = class MnInput extends HTMLElement {
 
   _setInput() {
     this.input = document.createElement('input')
+    this.input.classList.add('input')
     this.insertBefore(this.input, this.firstChild)
+
+    this.input.addEventListener('change', () => {
+      this.input.value
+        ? this.classList.add('has-value')
+        : this.classList.remove('has-value')
+    })
+  }
+
+  _setPlaceholder() {
+    this.label = document.createElement('label')
+    this.label.classList.add('placeholder')
+    this.insertBefore(this.label, this.firstChild)
+    this.placeholder = this.getAttribute('placeholder')
   }
 
   _setAttributeValue() {
@@ -32,10 +48,15 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('autocomplete', 'off')
   }
 
+  _setAttributeSpellcheck() {
+    this.setAttribute('spellcheck', 'off')
+  }
+
   static get observedAttributes() {
     return [
       'value',
       'name',
+      'placeholder',
     ]
   }
 
@@ -48,7 +69,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    const differentValue = this.input.value !== value
+    const differentValue = this.input && this.input.value !== value
 
     if (this.input && differentValue) {
       this.input.value = value
@@ -70,5 +91,11 @@ module.exports = class MnInput extends HTMLElement {
         },
       })
     }
+  }
+
+  set placeholder(value) {
+    this.label
+      ? this.label.textContent = value
+      : null
   }
 }

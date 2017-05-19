@@ -31,10 +31,15 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should contain a input child', () => {
-      expect(element).to.contain('input').with.length(1)
+      // expect(element).to.contain('input').with.length(1)
+      // the length above count childrens of elements, not amount of inputs
+      // need to be refactor, chai-dom dont offer a counter yet
+      expect(element).to.contain('input')
+      expect(element.querySelectorAll('input')).to.have.length(1)
     })
   })
 
+  // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {
       expect(element).to.have.style('display', 'inline-block')
@@ -42,10 +47,6 @@ describe('mn-input (webcomponent)', () => {
 
     it('should have a relative position', () => {
       expect(element).to.have.style('position', 'relative')
-    })
-
-    it('should have a border using box-shadow', () => {
-      expect(element).to.have.style('box-shadow', '0 1px 0 #ced4da')
     })
 
     it('should have a margin', () => {
@@ -92,6 +93,12 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 
+  describe('attribute spellcheck', () => {
+    it('should be "off" by default', () => {
+      expect(element).to.have.attribute('spellcheck', 'off')
+    })
+  })
+
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
       element.setAttribute('name', 'test')
@@ -133,6 +140,47 @@ describe('mn-input (webcomponent)', () => {
       expect(formID.test2).to.be.equal(element)
     })
   })
+
+  describe('property placeholder', () => {
+    it('should set the placeholder text in label', () => {
+      element.placeholder = 'test'
+      expect(element).to.contain('label').with.text('test')
+    })
+
+    it('should set the placeholder text in label', () => {
+      element.placeholder = 'test'
+      element.placeholder = 'test2'
+      expect(element).to.contain('label').with.text('test2')
+    })
+
+    it('should set emtpy text if is undefined', () => {
+      element.placeholder = undefined
+      expect(element).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute placeholder', () => {
+    it('should define a label to the placeholder', () => {
+      element.setAttribute('placeholder','test')
+      expect(element).to.contain('label').with.text('test')
+    })
+
+    it('should change the text', () => {
+      element.setAttribute('placeholder','test')
+      element.setAttribute('placeholder','test2')
+      expect(element).to.contain('label').with.text('test2')
+    })
+
+    it('should set empty text if is undefined', () => {
+      expect(element).to.contain('label').with.text('')
+    })
+
+    it('should set empty text to label when attribute is removed', () => {
+      element.setAttribute('placeholder','test')
+      element.removeAttribute('placeholder')
+      expect(element).to.contain('label').with.text('')
+    })
+  })
 })
 
 function loadComponent() {
@@ -155,7 +203,7 @@ function createElement() {
   form.setAttribute('id', 'formID')
 
   element = document.createElement('mn-input')
-  form.appendChild(element)
 
+  form.appendChild(element)
   document.body.appendChild(form)
 }

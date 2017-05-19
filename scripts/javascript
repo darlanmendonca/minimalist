@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+if [[ $1 = 'dev' ]]; then
+
+  # ./node_modules/.bin/watchify docs/sources/app.js -o docs/vendor.js
+  ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
+  --devtool source-map \
+  --hide-modules true \
+  --watch \
+
+else
+
+  # ./node_modules/.bin/browserify docs/sources/app.js -o docs/vendor.js
+  ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
+  -p \
+  --hide-modules true \
+
+fi
