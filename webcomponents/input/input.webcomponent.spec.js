@@ -149,7 +149,7 @@ describe('mn-input (webcomponent)', () => {
   describe('attribute placeholder', () => {
     it('should define a label to the placeholder', () => {
       element.setAttribute('placeholder','test')
-      expect(element.querySelector('label')).with.text('test')
+      expect(element).to.contain('label').with.text('test')
     })
   })
 })
@@ -174,7 +174,7 @@ function createElement() {
   form.setAttribute('id', 'formID')
 
   element = document.createElement('mn-input')
-  form.appendChild(element)
 
+  form.appendChild(element)
   document.body.appendChild(form)
 }

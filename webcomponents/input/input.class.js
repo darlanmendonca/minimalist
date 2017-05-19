@@ -9,7 +9,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this._setCssClasses()
-    this._setLabel()
+    this._setPlaceholder()
     this._setInput()
     this._setAttributeValue()
     this._setAttributeAutocomplete()
@@ -32,11 +32,10 @@ module.exports = class MnInput extends HTMLElement {
     })
   }
 
-  _setLabel() {
+  _setPlaceholder() {
     this.label = document.createElement('label')
-    this.label.classList.add('label')
-    this.label.textContent = this.getAttribute('placeholder')
     this.insertBefore(this.label, this.firstChild)
+    this.placeholder = this.getAttribute('placeholder')
   }
 
   _setAttributeValue() {
@@ -56,6 +55,7 @@ module.exports = class MnInput extends HTMLElement {
     return [
       'value',
       'name',
+      'placeholder',
     ]
   }
 
@@ -90,5 +90,11 @@ module.exports = class MnInput extends HTMLElement {
         },
       })
     }
+  }
+
+  set placeholder(value) {
+    this.label
+      ? this.label.textContent = this.getAttribute('placeholder')
+      : null
   }
 }
