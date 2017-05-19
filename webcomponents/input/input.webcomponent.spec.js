@@ -151,6 +151,17 @@ describe('mn-input (webcomponent)', () => {
       element.setAttribute('placeholder','test')
       expect(element).to.contain('label').with.text('test')
     })
+
+    it('should change the placeholder', () => {
+      element.setAttribute('placeholder','test')
+      element.setAttribute('placeholder','test2')
+      expect(element).to.contain('label').with.text('test2')
+    })
+
+    it('should set property value when attribute is removed', () => {
+      element.removeAttribute('placeholder')
+      expect(element).to.contain('label').with.text('')
+    })
   })
 })
 
