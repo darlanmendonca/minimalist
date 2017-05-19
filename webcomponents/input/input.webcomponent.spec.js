@@ -160,7 +160,7 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute placeholder', () => {
-    it('should define a label to the placeholder', () => {
+    it('should define a label to the attribute', () => {
       element.setAttribute('placeholder','test')
       expect(element).to.contain('label').with.text('test')
     })
@@ -183,6 +183,16 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute readonly', () => {
+    it('should define attribute inside of a element', () => {
+      element.setAttribute('readonly','readonly')                     // even no setting value, the attribute readonly is receiving value readonly as value.
+      expect(element).to.contain('input').to.have.attribute('readonly')
+    })
+
+    it('should define a element without a attribute', () => {
+      element.removeAttribute('readonly')
+      console.log(element)
+      expect(element).to.contain('input').not.have.attribute('readonly')
+    })
   })
 })
 
