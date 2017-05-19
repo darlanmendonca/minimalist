@@ -140,7 +140,6 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
-    console.log('test')
     return self
   }
 
