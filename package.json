@@ -55,7 +55,6 @@
     "mocha": "^3.3.0",
     "node-sass": "^4.5.2",
     "require-self": "^0.1.0",
-    "watchify": "^3.9.0",
     "webpack": "^2.5.1",
     "yargs": "^8.0.1"
   },
