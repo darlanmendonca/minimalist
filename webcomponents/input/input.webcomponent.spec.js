@@ -184,14 +184,19 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute readonly', () => {
     it('should define attribute inside of a element', () => {
-      element.setAttribute('readonly','readonly')                     // even no setting value, the attribute readonly is receiving value readonly as value.
-      expect(element).to.contain('input').to.have.attribute('readonly')
+      element.setAttribute('readonly','readonly')
+       // even no setting value, the attribute readonly is receiving value readonly as value.
+      // expect(element).to.contain('input').to.have.attribute('readonly')
+
+      // temporary assertion, because above not work, need to be refactor
+      expect(element.querySelector('input')).to.have.attribute('readonly')
     })
 
     it('should define a element without a attribute', () => {
       element.removeAttribute('readonly')
-      console.log(element)
-      expect(element).to.contain('input').not.have.attribute('readonly')
+      // expect(element).to.contain('input').not.have.attribute('readonly')
+      // temporary assertion, because above not work, need to be refactor
+      expect(element.querySelector('input')).to.not.have.attribute('readonly')
     })
   })
 })
