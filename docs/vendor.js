@@ -171,6 +171,7 @@ module.exports = class MnInput extends HTMLElement {
 
   _setPlaceholder() {
     this.label = document.createElement('label')
+    this.label.classList.add('placeholder')
     this.insertBefore(this.label, this.firstChild)
     this.placeholder = this.getAttribute('placeholder')
   }

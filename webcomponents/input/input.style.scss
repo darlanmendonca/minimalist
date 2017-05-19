@@ -23,22 +23,21 @@
     font-size: 1em;
     box-sizing: border-box;
     padding: 0;
-    appearance: none;
     border-radius: 0;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     transition: box-shadow .2s ease;
     text-overflow: inherit;
     background-color: transparent;
-    color: $oc-gray-9;
-    box-shadow: 0 1px 0 $oc-gray-4;
+    color: var(--text-color, $oc-gray-9);
+    box-shadow: 0 var(--border-width, 1px) 0 var(--border-color, $oc-gray-4);
 
     &:focus {
-      box-shadow: 0 2px 0 $oc-gray-8;
+      box-shadow: 0 var(--border-width, 2px) 0 var(--border-color, $oc-gray-8);
     }
   }
 
-  label {
+  .placeholder {
     position: absolute;
     top: 0;
     left: 0;
@@ -50,15 +49,15 @@
     font-size: 1em;
     font-family: sans-serif;
 
-    color: $oc-gray-6;
+    color: var(--placeholder-color, $oc-gray-6);
     transition: transform .2s ease, color .2s ease;
     transform-origin: left center;
     transform: translateZ(0);
     pointer-events: none;
   }
 
-  &.has-value label,
-  .input:focus + label {
+  &.has-value .placeholder,
+  .input:focus + .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
 }

@@ -1,1 +1,18 @@
 @import '../../webcomponents/input/input.style.scss';
+
+// :root {
+//   --header-color: #42A5F5;
+//   --border-color: #2196F3;
+// }
+
+.mn-input {
+  // font-size: 2em;
+
+  .input:focus {
+    --border-color: #2196F3;
+  }
+
+  .input:focus + label {
+    --placeholder-color: #42A5F5;
+  }
+}
