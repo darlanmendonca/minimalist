@@ -2,4 +2,23 @@
 
 set -e
 
-echo "the script start will be implemented soon"
+port=3000
+
+if [[ $1 == 'dev' ]]; then
+  npm run sass $1 &
+  npm run javascript $1 & \
+
+  ./node_modules/.bin/browser-sync start \
+  --server 'docs' \
+  --files 'docs/*.*' \
+  --no-ui \
+  --no-notify
+else
+  npm run sass &&
+  npm run javascript && \
+
+  echo "=> http://localhost:$port" && \
+  ./node_modules/.bin/http-server docs -s -p $port
+fi
+
+echo $1
