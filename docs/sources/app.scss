@@ -12,7 +12,7 @@
     --border-color: #2196F3;
   }
 
-  .input:focus + label {
+  .input:focus:not([readonly]) + label {
     --placeholder-color: #42A5F5;
   }
 }

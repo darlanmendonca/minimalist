@@ -151,6 +151,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeReadonly()
   }
 
   _setCssClasses() {
@@ -189,11 +190,16 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeReadonly() {
+    this.readonly = this.getAttribute('readonly')
+  }
+
   static get observedAttributes() {
     return [
       'value',
       'name',
       'placeholder',
+      'readonly',
     ]
   }
 
@@ -232,8 +238,14 @@ module.exports = class MnInput extends HTMLElement {
 
   set placeholder(value) {
     this.label
-      ? this.label.textContent = this.getAttribute('placeholder')
+      ? this.label.textContent = value
       : null
+  }
+
+  set readonly(value) {
+    if (this.input) {
+      this.input.readOnly = this.hasAttribute('readonly')
+    }
   }
 }
 
@@ -259,3 +271,4 @@ function MnInputCustomElement() {
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=vendor.js.map
