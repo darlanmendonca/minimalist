@@ -181,6 +181,9 @@ describe('mn-input (webcomponent)', () => {
       expect(element).to.contain('label').with.text('')
     })
   })
+
+  describe('attribute readonly', () => {
+  })
 })
 
 function loadComponent() {
