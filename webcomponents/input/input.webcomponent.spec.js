@@ -149,7 +149,7 @@ describe('mn-input (webcomponent)', () => {
   describe('attribute placeholder', () => {
     it('should define a label to the placeholder', () => {
       element.setAttribute('placeholder','test')
-      expect(element).to.contain('label')
+      expect(element.querySelector('label')).with.text('test')
     })
   })
 })
