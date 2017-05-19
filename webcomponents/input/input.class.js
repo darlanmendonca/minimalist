@@ -14,6 +14,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeDisabled()
   }
 
   _setCssClasses() {
@@ -52,11 +53,16 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeDisabled() {
+    this.disabled = this.getAttribute('disabled')
+  }
+
   static get observedAttributes() {
     return [
       'value',
       'name',
       'placeholder',
+      'disabled',
     ]
   }
 
@@ -97,5 +103,11 @@ module.exports = class MnInput extends HTMLElement {
     this.label
       ? this.label.textContent = value
       : null
+  }
+
+  set disabled(value) {
+    if (this.input) {
+      this.input.disabled = this.hasAttribute('disabled')
+    }
   }
 }
