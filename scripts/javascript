@@ -13,6 +13,8 @@ if [[ $1 = 'dev' ]]; then
 else
 
   # ./node_modules/.bin/browserify docs/sources/app.js -o docs/vendor.js
-  ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js -p
+  ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
+  -p \
+  --hide-modules true \
 
 fi
