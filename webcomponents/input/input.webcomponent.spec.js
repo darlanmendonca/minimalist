@@ -162,6 +162,16 @@ describe('mn-input (webcomponent)', () => {
       element.removeAttribute('placeholder')
       expect(element).to.contain('label').with.text('')
     })
+
+    it('should get property value ', () => {
+      element.placeholder = 'test'
+      expect(element).to.contain('label').with.text('test')
+    })
+
+    it('should get empty label when attribute is undefined', () => {
+      element.placeholder = undefined
+      expect(element).to.contain('label').with.text('')
+    })
   })
 })
 
