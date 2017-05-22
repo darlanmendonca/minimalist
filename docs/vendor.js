@@ -152,6 +152,8 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
+    this._setAttributeMaxlength()
   }
 
   _setCssClasses() {
@@ -191,7 +193,15 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeDisabled() {
-    this.disabled = this.getAttribute('disabled')
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  _setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
+  _setAttributeMaxlength() {
+    this.maxlength = this.getAttribute('maxlength')
   }
 
   static get observedAttributes() {
@@ -200,6 +210,8 @@ module.exports = class MnInput extends HTMLElement {
       'name',
       'placeholder',
       'disabled',
+      'readonly',
+      'maxlength',
     ]
   }
 
@@ -244,7 +256,21 @@ module.exports = class MnInput extends HTMLElement {
 
   set disabled(value) {
     if (this.input) {
-      this.input.disabled = this.hasAttribute('disabled')
+      this.input.disabled = value
+    }
+  }
+
+  set readonly(value) {
+    if (this.input) {
+      this.input.readOnly = value
+    }
+  }
+
+  set maxlength(value) {
+    if (this.input) {
+      value
+        ? this.input.setAttribute('maxlength', value)
+        : this.input.removeAttribute('maxlength')
     }
   }
 }

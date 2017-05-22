@@ -160,14 +160,14 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute placeholder', () => {
-    it('should define a label to the placeholder', () => {
+    it('should define a label as placeholder', () => {
       element.setAttribute('placeholder','test')
       expect(element).to.contain('label').with.text('test')
     })
 
     it('should change the text', () => {
-      element.setAttribute('placeholder','test')
-      element.setAttribute('placeholder','test2')
+      element.setAttribute('placeholder', 'test')
+      element.setAttribute('placeholder', 'test2')
       expect(element).to.contain('label').with.text('test2')
     })
 
@@ -176,9 +176,40 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should set empty text to label when attribute is removed', () => {
-      element.setAttribute('placeholder','test')
+      element.setAttribute('placeholder', 'test')
       element.removeAttribute('placeholder')
       expect(element).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute readonly', () => {
+    it('should define attribute in child input', () => {
+      element.setAttribute('readonly','readonly')
+      expect(element).to.contain('input').to.have.attribute('readonly')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.removeAttribute('readonly')
+      expect(element).to.contain('input').not.have.attribute('readonly')
+    })
+  })
+
+  describe('attribute maxlength', () => {
+    it('should define attribute in child input', () => {
+      element.setAttribute('maxlength', '2')
+      expect(element).to.contain('input').with.attribute('maxlength', '2')
+    })
+
+    it('should update attribute in child input', () => {
+      element.setAttribute('maxlength', '2')
+      element.setAttribute('maxlength', '3')
+      expect(element).to.contain('input').with.attribute('maxlength', '3')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.setAttribute('maxlength', '2')
+      element.removeAttribute('maxlength')
+      expect(element).to.contain('input').to.not.have.attribute('maxlength')
     })
   })
 })
