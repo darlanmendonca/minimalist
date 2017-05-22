@@ -191,7 +191,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeReadonly() {
-    this.readonly = this.getAttribute('readonly')
+    this.readonly = this.hasAttribute('readonly')
   }
 
   static get observedAttributes() {
@@ -244,7 +244,7 @@ module.exports = class MnInput extends HTMLElement {
 
   set readonly(value) {
     if (this.input) {
-      this.input.readOnly = this.hasAttribute('readonly')
+      this.input.readOnly = value
     }
   }
 }
