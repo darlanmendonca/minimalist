@@ -196,7 +196,7 @@ describe('mn-input (webcomponent)', () => {
 
     it('should autocapitalize characters', () => {
       element.setAttribute('autocapitalize', 'characters')
-      expect(element).to.contain('input').to.have.attribute('autocapitalize', '111')
+      expect(element).to.contain('input').to.have.attribute('autocapitalize', 'characters')
     })
   })
 })
