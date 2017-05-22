@@ -106,8 +106,10 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set autocapitalize(value) {
-    this.input
-      ? this.input.setAttribute('autocapitalize', value)
-      : null
+    if (this.input) {
+      value
+        ? this.input.setAttribute('autocapitalize', value)
+        : this.input.removeAttribute('autocapitalize')
+    }
   }
 }
