@@ -80,8 +80,8 @@ const {input} = __webpack_require__(0)
 
 mnInput = document.querySelector('mn-input')
 mnInput.validate()
-mnInput.value = 'darlan'
-mnInput.validate()
+// mnInput.value = 'darlan'
+// mnInput.validate()
 
 
 /***/ }),
