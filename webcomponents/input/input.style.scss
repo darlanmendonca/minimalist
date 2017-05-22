@@ -35,6 +35,10 @@
     &:focus {
       box-shadow: 0 var(--border-width, 2px) 0 var(--border-color, $oc-gray-8);
     }
+
+    &:after {
+      color: inherit;
+    }
   }
 
   .input:disabled {
@@ -47,7 +51,6 @@
 
       &:after {
         content: ' disabled';
-        color: var(--placeholder-color-disabled);
       }
     }
   }
@@ -77,8 +80,14 @@
   }
 
   &.invalid {
+    &.required {--invalid-message: ' is required'}
+
     .placeholder {
       color: var(--placeholder-color-invalid, $oc-red-7);
+
+      &:after {
+        content: var(--invalid-message, ' is invalid');
+      }
     }
 
     .input {
