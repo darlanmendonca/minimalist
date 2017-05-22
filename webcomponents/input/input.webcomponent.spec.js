@@ -212,6 +212,24 @@ describe('mn-input (webcomponent)', () => {
       expect(element).to.contain('input').to.not.have.attribute('maxlength')
     })
   })
+
+  describe('attribute disabled', () => {
+    it('should define attribute in child input', () => {
+      element.disabled = true
+      console.log(element)
+      // expect(element).to.contain('input').to.have.attribute('disabled')
+      // need to be refactore because by 'to contain' is not possible to get the input child
+      expect(element.querySelector('input')).to.have.attribute('disabled')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.disabled = false
+      console.log(element)
+      // expect(element).to.contain('input').not.have.attribute('disabled')
+      // need to be refactore because by 'to contain' is not possible to get the input child
+      expect(element.querySelector('input')).not.to.have.attribute('disabled')
+    })
+  })
 })
 
 function loadComponent() {
