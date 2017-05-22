@@ -224,8 +224,8 @@ describe('mn-input (webcomponent)', () => {
     it('should remove attribute from child input', () => {
       element.disabled = false
       // expect(element).to.contain('input').not.have.attribute('disabled')
-      // need to be refactore because by 'to contain' is not possible to get the input child
-      expect(element.querySelector('input')).not.to.have.attribute('disabled')
+      // need to be refactore because by 'to contain' is not possible to get the input child('autocapitalize', 'off')
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
     })
   })
 
@@ -248,6 +248,11 @@ describe('mn-input (webcomponent)', () => {
     it('should autocapitalize characters', () => {
       element.setAttribute('autocapitalize', 'characters')
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'characters')
+    })
+    it('should be the last status to autocapitalize', () => {
+      element.setAttribute('autocapitalize', 'on')
+      element.setAttribute('autocapitalize', 'off')
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
     })
   })
 })
