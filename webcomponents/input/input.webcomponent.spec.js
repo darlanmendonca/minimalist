@@ -249,7 +249,7 @@ describe('mn-input (webcomponent)', () => {
       element.setAttribute('autocapitalize', 'characters')
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'characters')
     })
-    it('should be the last status to autocapitalize', () => {
+    it('should change the attribute', () => {
       element.setAttribute('autocapitalize', 'on')
       element.setAttribute('autocapitalize', 'off')
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
