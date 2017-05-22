@@ -266,7 +266,7 @@ describe('mn-input (webcomponent)', () => {
       expect(sinon.spy(element, 'validate')).to.have.been.called()
     })
 
-    it('should be called on event keyup, if not have a parent form.submitted', () => {
+    it('should not called on event keyup, if not have a parent form.submitted', () => {
       element.querySelector('input').dispatchEvent(new Event('keyup'))
       // need spy method .validate(), and check if it was called
       expect(sinon.spy(element, 'validate')).to.have.been.called()
