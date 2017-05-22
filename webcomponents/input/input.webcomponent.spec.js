@@ -1,8 +1,10 @@
 const {describe, it, before, beforeEach} = require('mocha')
+const sinon = require('sinon')
 const {expect} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
   .use(require('chai-style'))
+  .use(require('sinon-chai'))
 
 let element
 
@@ -253,6 +255,15 @@ describe('mn-input (webcomponent)', () => {
       element.setAttribute('autocapitalize', 'on')
       element.setAttribute('autocapitalize', 'off')
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
+    })
+  })
+
+  describe('method validate()', () => {
+    it('should be called on event keyup, if have a parent form.submitted', () => {
+      element.closest('form').classList.add('submitted')
+      element.querySelector('input').dispatchEvent(new Event('keyup'))
+      // need spy method .validate(), and check if it was called
+      expect(sinon.spy(element, 'validate')).to.have.been.called()
     })
   })
 

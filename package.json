@@ -55,6 +55,8 @@
     "mocha": "^3.3.0",
     "node-sass": "^4.5.2",
     "require-self": "^0.1.0",
+    "sinon": "^2.3.0",
+    "sinon-chai": "^2.10.0",
     "webpack": "^2.5.1",
     "yargs": "^8.0.1"
   },
