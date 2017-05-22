@@ -34,10 +34,17 @@ module.exports = class MnInput extends HTMLElement {
     this.input.classList.add('input')
     this.insertBefore(this.input, this.firstChild)
 
-    this.input.addEventListener('change', () => {
+    this.input.addEventListener('change', () => { // set class .has-value
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+    })
+
+    this.input.addEventListener('keyup', () => { // validate
+      const closestForm = this.closest('form')
+      closestForm && closestForm.classList.contains('submitted')
+        ? this.validate()
+        : null
     })
   }
 

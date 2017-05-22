@@ -78,10 +78,19 @@ module.exports = __webpack_require__(2);
 
 const {input} = __webpack_require__(0)
 
-mnInput = document.querySelector('mn-input')
-mnInput.validate()
-// mnInput.value = 'darlan'
-// mnInput.validate()
+const form = document.querySelector('form')
+
+form.addEventListener('submit', event => {
+  form.classList.add('submitted')
+  const inputs = form.querySelectorAll('.mn-input')
+  Array
+    .from(inputs)
+    .forEach(element => element.validate())
+
+  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
+  console.log(`form isInvalid: ${isInvalid}`)
+  event.preventDefault()
+})
 
 
 /***/ }),
@@ -176,10 +185,17 @@ module.exports = class MnInput extends HTMLElement {
     this.input.classList.add('input')
     this.insertBefore(this.input, this.firstChild)
 
-    this.input.addEventListener('change', () => {
+    this.input.addEventListener('change', () => { // set class .has-value
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+    })
+
+    this.input.addEventListener('keyup', () => { // validate
+      const closestForm = this.closest('form')
+      closestForm && closestForm.classList.contains('submitted')
+        ? this.validate()
+        : null
     })
   }
 
