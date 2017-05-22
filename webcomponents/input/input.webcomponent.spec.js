@@ -216,7 +216,6 @@ describe('mn-input (webcomponent)', () => {
   describe('attribute disabled', () => {
     it('should define attribute in child input', () => {
       element.disabled = true
-      console.log(element)
       // expect(element).to.contain('input').to.have.attribute('disabled')
       // need to be refactore because by 'to contain' is not possible to get the input child
       expect(element.querySelector('input')).to.have.attribute('disabled')
@@ -224,7 +223,6 @@ describe('mn-input (webcomponent)', () => {
 
     it('should remove attribute from child input', () => {
       element.disabled = false
-      console.log(element)
       // expect(element).to.contain('input').not.have.attribute('disabled')
       // need to be refactore because by 'to contain' is not possible to get the input child
       expect(element.querySelector('input')).not.to.have.attribute('disabled')
@@ -232,20 +230,24 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute autocapitalize', () => {
-    // capitalization is testable in mobile as e2e
-    it('should define attribute to child input ', () => {
+    it('should be off by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
+    })
+
+    // autocapitalize is fully testable in mobile
+    it('should turn on autocapitalize ', () => {
       element.setAttribute('autocapitalize', 'on')
-      expect(element).to.contain('input').to.have.attribute('autocapitalize')
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'on')
     })
 
     it('should turn off autocapitalize', () => {
       element.setAttribute('autocapitalize', 'off')
-      expect(element).to.contain('input').to.have.attribute('autocapitalize', 'off')
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
     })
 
     it('should autocapitalize characters', () => {
       element.setAttribute('autocapitalize', 'characters')
-      expect(element).to.contain('input').to.have.attribute('autocapitalize', 'characters')
+      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'characters')
     })
   })
 })
