@@ -255,6 +255,23 @@ describe('mn-input (webcomponent)', () => {
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
     })
   })
+
+  describe('attribute required', () => {
+    it('should be invalid if validate without fill value', () => {
+      element.setAttributeNode(document.createAttribute('required'))
+      element.validate()
+      expect(element).to.have.class('invalid')
+      expect(element).to.have.class('required')
+    })
+
+    it('should be valid if validate with filled value', () => {
+      element.setAttributeNode(document.createAttribute('required'))
+      element.value = 'test'
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('required')
+    })
+  })
 })
 
 function loadComponent() {
