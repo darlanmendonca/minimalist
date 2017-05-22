@@ -154,6 +154,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
+    this._setAttributeAutocapitalize()
   }
 
   _setCssClasses() {
@@ -204,6 +205,10 @@ module.exports = class MnInput extends HTMLElement {
     this.maxlength = this.getAttribute('maxlength')
   }
 
+  _setAttributeAutocapitalize() {
+    this.autocapitalize = this.getAttribute('autocapitalize') || 'off'
+  }
+
   static get observedAttributes() {
     return [
       'value',
@@ -212,6 +217,7 @@ module.exports = class MnInput extends HTMLElement {
       'disabled',
       'readonly',
       'maxlength',
+      'autocapitalize',
     ]
   }
 
@@ -271,6 +277,14 @@ module.exports = class MnInput extends HTMLElement {
       value
         ? this.input.setAttribute('maxlength', value)
         : this.input.removeAttribute('maxlength')
+    }
+  }
+
+  set autocapitalize(value) {
+    if (this.input) {
+      value
+        ? this.input.setAttribute('autocapitalize', value)
+        : this.input.removeAttribute('autocapitalize')
     }
   }
 }
