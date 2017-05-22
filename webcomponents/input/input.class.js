@@ -157,18 +157,17 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   validate() {
-    const validations = Object.assign({}, this.validations)
+    const validations = {}
 
     for (const attribute of Object.keys(this.validations)) {
       const hasAttribute = this.hasAttribute(attribute)
-      const attributeIsInvalid = validations[attribute]()
+      const attributeIsInvalid = this.validations[attribute]()
 
       if (hasAttribute && attributeIsInvalid) {
         this.classList.add(attribute)
         validations[attribute] = true
       } else {
         this.classList.remove(attribute)
-        delete validations[attribute]
       }
     }
 
