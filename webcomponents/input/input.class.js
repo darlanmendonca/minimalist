@@ -14,6 +14,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeAutocapitalize()
   }
 
   _setCssClasses() {
@@ -52,11 +53,16 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeAutocapitalize() {
+    this.autocapitalize = this.getAttribute('autocapitalize') || 'off'
+  }
+
   static get observedAttributes() {
     return [
       'value',
       'name',
       'placeholder',
+      'autocapitalize',
     ]
   }
 
@@ -96,6 +102,12 @@ module.exports = class MnInput extends HTMLElement {
   set placeholder(value) {
     this.label
       ? this.label.textContent = value
+      : null
+  }
+
+  set autocapitalize(value) {
+    this.input
+      ? this.input.setAttribute('autocapitalize', value)
       : null
   }
 }

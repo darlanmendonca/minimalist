@@ -161,13 +161,13 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute placeholder', () => {
     it('should define a label to the placeholder', () => {
-      element.setAttribute('placeholder','test')
+      element.setAttribute('placeholder', 'test')
       expect(element).to.contain('label').with.text('test')
     })
 
     it('should change the text', () => {
-      element.setAttribute('placeholder','test')
-      element.setAttribute('placeholder','test2')
+      element.setAttribute('placeholder', 'test')
+      element.setAttribute('placeholder', 'test2')
       expect(element).to.contain('label').with.text('test2')
     })
 
@@ -176,9 +176,27 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should set empty text to label when attribute is removed', () => {
-      element.setAttribute('placeholder','test')
+      element.setAttribute('placeholder', 'test')
       element.removeAttribute('placeholder')
       expect(element).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute autocapitalize', () => {
+    // capitalization is testable in mobile as e2e
+    it('should define attribute to child input ', () => {
+      element.setAttribute('autocapitalize', 'on')
+      expect(element).to.contain('input').to.have.attribute('autocapitalize')
+    })
+
+    it('should turn off autocapitalize', () => {
+      element.setAttribute('autocapitalize', 'off')
+      expect(element).to.contain('input').to.have.attribute('autocapitalize', 'off')
+    })
+
+    it('should autocapitalize characters', () => {
+      element.setAttribute('autocapitalize', 'characters')
+      expect(element).to.contain('input').to.have.attribute('autocapitalize', '111')
     })
   })
 })
