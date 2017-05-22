@@ -14,6 +14,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeMaxlength()
   }
 
   _setCssClasses() {
@@ -52,11 +53,16 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeMaxlength() {
+    this.maxlength = this.getAttribute('maxlength')
+  }
+
   static get observedAttributes() {
     return [
       'value',
       'name',
       'placeholder',
+      'maxlength',
     ]
   }
 
@@ -97,5 +103,13 @@ module.exports = class MnInput extends HTMLElement {
     this.label
       ? this.label.textContent = value
       : null
+  }
+
+  set maxlength(value) {
+    if (this.input) {
+      value
+        ? this.input.setAttribute('maxlength', value)
+        : this.input.removeAttribute('maxlength')
+    }
   }
 }
