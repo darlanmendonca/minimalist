@@ -151,6 +151,9 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
+    this._setAttributeMaxlength()
     this._setAttributeAutocapitalize()
   }
 
@@ -190,6 +193,18 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  _setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
+  _setAttributeMaxlength() {
+    this.maxlength = this.getAttribute('maxlength')
+  }
+
   _setAttributeAutocapitalize() {
     this.autocapitalize = this.getAttribute('autocapitalize') || 'off'
   }
@@ -199,6 +214,9 @@ module.exports = class MnInput extends HTMLElement {
       'value',
       'name',
       'placeholder',
+      'disabled',
+      'readonly',
+      'maxlength',
       'autocapitalize',
     ]
   }
@@ -242,10 +260,32 @@ module.exports = class MnInput extends HTMLElement {
       : null
   }
 
+  set disabled(value) {
+    if (this.input) {
+      this.input.disabled = value
+    }
+  }
+
+  set readonly(value) {
+    if (this.input) {
+      this.input.readOnly = value
+    }
+  }
+
+  set maxlength(value) {
+    if (this.input) {
+      value
+        ? this.input.setAttribute('maxlength', value)
+        : this.input.removeAttribute('maxlength')
+    }
+  }
+
   set autocapitalize(value) {
-    this.input
-      ? this.input.setAttribute('autocapitalize', value)
-      : null
+    if (this.input) {
+      value
+        ? this.input.setAttribute('autocapitalize', value)
+        : this.input.removeAttribute('autocapitalize')
+    }
   }
 }
 

@@ -37,6 +37,21 @@
     }
   }
 
+  .input:disabled {
+    box-shadow: 0 1px 0 var(--border-color-disabled, $oc-gray-3);
+    color: var(--text-color-disabled, $oc-gray-6);
+    cursor: not-allowed;
+
+    & + .placeholder {
+      color: var(--placeholder-color-disabled, $oc-gray-5);
+
+      &:after {
+        content: ' disabled';
+        color: var(--placeholder-color-disabled);
+      }
+    }
+  }
+
   .placeholder {
     position: absolute;
     top: 0;
@@ -57,7 +72,7 @@
   }
 
   &.has-value .placeholder,
-  .input:focus + .placeholder {
+  .input:focus:not([readonly]) + .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
 }

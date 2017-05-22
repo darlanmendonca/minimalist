@@ -160,7 +160,7 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute placeholder', () => {
-    it('should define a label to the placeholder', () => {
+    it('should define a label as placeholder', () => {
       element.setAttribute('placeholder', 'test')
       expect(element).to.contain('label').with.text('test')
     })
@@ -179,6 +179,55 @@ describe('mn-input (webcomponent)', () => {
       element.setAttribute('placeholder', 'test')
       element.removeAttribute('placeholder')
       expect(element).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute readonly', () => {
+    it('should define attribute in child input', () => {
+      element.setAttribute('readonly', 'readonly')
+      expect(element).to.contain('input').to.have.attribute('readonly')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.removeAttribute('readonly')
+      expect(element).to.contain('input').not.have.attribute('readonly')
+    })
+  })
+
+  describe('attribute maxlength', () => {
+    it('should define attribute in child input', () => {
+      element.setAttribute('maxlength', '2')
+      expect(element).to.contain('input').with.attribute('maxlength', '2')
+    })
+
+    it('should update attribute in child input', () => {
+      element.setAttribute('maxlength', '2')
+      element.setAttribute('maxlength', '3')
+      expect(element).to.contain('input').with.attribute('maxlength', '3')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.setAttribute('maxlength', '2')
+      element.removeAttribute('maxlength')
+      expect(element).to.contain('input').to.not.have.attribute('maxlength')
+    })
+  })
+
+  describe('attribute disabled', () => {
+    it('should define attribute in child input', () => {
+      element.disabled = true
+      console.log(element)
+      // expect(element).to.contain('input').to.have.attribute('disabled')
+      // need to be refactore because by 'to contain' is not possible to get the input child
+      expect(element.querySelector('input')).to.have.attribute('disabled')
+    })
+
+    it('should remove attribute from child input', () => {
+      element.disabled = false
+      console.log(element)
+      // expect(element).to.contain('input').not.have.attribute('disabled')
+      // need to be refactore because by 'to contain' is not possible to get the input child
+      expect(element.querySelector('input')).not.to.have.attribute('disabled')
     })
   })
 
