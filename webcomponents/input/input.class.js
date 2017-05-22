@@ -5,7 +5,7 @@ module.exports = class MnInput extends HTMLElement {
     self = super(self)
 
     this.validations = {
-      required: () => this.input.value === ''
+      required: () => this.value === ''
     }
 
     return self
