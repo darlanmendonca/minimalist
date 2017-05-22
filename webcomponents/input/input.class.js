@@ -106,8 +106,8 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set maxlength(value) {
-    this.input
+    this.input && value
       ? this.input.setAttribute('maxlength', value)
-      : null
+      : this.input.removeAttribute('maxlength')
   }
 }
