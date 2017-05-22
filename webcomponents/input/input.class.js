@@ -14,6 +14,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeValue()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeReadonly()
     this._setAttributeMaxlength()
   }
 
@@ -53,6 +54,10 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
   _setAttributeMaxlength() {
     this.maxlength = this.getAttribute('maxlength')
   }
@@ -62,6 +67,7 @@ module.exports = class MnInput extends HTMLElement {
       'value',
       'name',
       'placeholder',
+      'readonly',
       'maxlength',
     ]
   }
@@ -103,6 +109,12 @@ module.exports = class MnInput extends HTMLElement {
     this.label
       ? this.label.textContent = value
       : null
+  }
+
+  set readonly(value) {
+    if (this.input) {
+      this.input.readOnly = value
+    }
   }
 
   set maxlength(value) {
