@@ -3,6 +3,11 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+
+    this.validations = {
+      required: () => this.input.value === ''
+    }
+
     return self
   }
 
@@ -149,5 +154,28 @@ module.exports = class MnInput extends HTMLElement {
         ? this.input.setAttribute('autocapitalize', value)
         : this.input.removeAttribute('autocapitalize')
     }
+  }
+
+  validate() {
+    const validations = Object.assign({}, this.validations)
+
+    for (const attribute of Object.keys(this.validations)) {
+      const hasAttribute = this.hasAttribute(attribute)
+      const attributeIsInvalid = validations[attribute]()
+
+      if (hasAttribute && attributeIsInvalid) {
+        this.classList.add(attribute)
+        validations[attribute] = true
+      } else {
+        this.classList.remove(attribute)
+        delete validations[attribute]
+      }
+    }
+
+    const isInvalid = Object.values(validations).some(item => item === true)
+
+    isInvalid
+      ? this.classList.add('invalid')
+      : this.classList.remove('invalid')
   }
 }
