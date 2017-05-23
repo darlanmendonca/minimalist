@@ -32,23 +32,13 @@
     color: var(--text-color, $oc-gray-9);
     box-shadow: 0 var(--border-width, 1px) 0 var(--border-color, $oc-gray-4);
 
-    &:focus {
-      box-shadow: 0 var(--border-width, 2px) 0 var(--border-color, $oc-gray-8);
+    &::selection {
+      background: var(--selection-color, $oc-gray-4);
     }
-  }
 
-  .input:disabled {
-    box-shadow: 0 1px 0 var(--border-color-disabled, $oc-gray-3);
-    color: var(--text-color-disabled, $oc-gray-6);
-    cursor: not-allowed;
-
-    & + .placeholder {
-      color: var(--placeholder-color-disabled, $oc-gray-5);
-
-      &:after {
-        content: ' disabled';
-        color: var(--placeholder-color-disabled);
-      }
+    &:focus {
+      --border-width: 2px;
+      --border-color: $oc-gray-8;
     }
   }
 
@@ -75,4 +65,34 @@
   .input:focus:not([readonly]) + .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
+}
+
+.mn-input[disabled] {
+  .input {
+    cursor: not-allowed;
+    --border-color: $oc-gray-3;
+    --text-color: $oc-gray-6;
+  }
+
+  .placeholder {
+    --placeholder-color: $oc-gray-5;
+
+    &:after {
+      content: ' disabled';
+    }
+  }
+}
+
+.mn-input.invalid {
+  --placeholder-color: $oc-red-7;
+
+  .input {
+    --border-color: $oc-red-5;
+  }
+
+  .placeholder:after {
+    content: var(--invalid-message, ' is invalid');
+  }
+
+  &.required {--invalid-message: ' is required'}
 }

@@ -1,8 +1,9 @@
 const {describe, it, before, beforeEach} = require('mocha')
-const {expect} = require('chai')
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
   .use(require('chai-style'))
+  .use(require('chai-spies'))
 
 let element
 
@@ -36,6 +37,16 @@ describe('mn-input (webcomponent)', () => {
       // need to be refactor, chai-dom dont offer a counter yet
       expect(element).to.contain('input')
       expect(element.querySelectorAll('input')).to.have.length(1)
+    })
+  })
+
+  describe('input', () => {
+    it('should have autocomplete off by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('autocomplete', 'off')
+    })
+
+    it('should have spellcheck off by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('spellcheck', 'off')
     })
   })
 
@@ -84,18 +95,6 @@ describe('mn-input (webcomponent)', () => {
     it('should set property value when attribute is removed', () => {
       element.removeAttribute('value')
       expect(element).to.have.value('')
-    })
-  })
-
-  describe('attribute autocomplete', () => {
-    it('should be "off" by default', () => {
-      expect(element).to.have.attribute('autocomplete', 'off')
-    })
-  })
-
-  describe('attribute spellcheck', () => {
-    it('should be "off" by default', () => {
-      expect(element).to.have.attribute('spellcheck', 'off')
     })
   })
 
@@ -225,7 +224,7 @@ describe('mn-input (webcomponent)', () => {
       element.disabled = false
       // expect(element).to.contain('input').not.have.attribute('disabled')
       // need to be refactore because by 'to contain' is not possible to get the input child('autocapitalize', 'off')
-      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
+      expect(element.querySelector('input')).not.to.have.attribute('disabled')
     })
   })
 
@@ -253,6 +252,38 @@ describe('mn-input (webcomponent)', () => {
       element.setAttribute('autocapitalize', 'on')
       element.setAttribute('autocapitalize', 'off')
       expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
+    })
+  })
+
+  describe('method validate()', () => {
+    it('should be called on event keyup, if have a parent form.submitted', () => {
+      element.closest('form').classList.add('submitted')
+      const validate = spy.on(element, 'validate')
+      element.querySelector('input').dispatchEvent(new Event('keyup'))
+      expect(validate).to.have.been.called()
+    })
+
+    it('should not called on event keyup, if not have a parent form.submitted', () => {
+      const validate = spy.on(element, 'validate')
+      element.querySelector('input').dispatchEvent(new Event('keyup'))
+      expect(validate).to.not.have.been.called
+    })
+  })
+
+  describe('attribute required', () => {
+    it('should be invalid if validate without fill value', () => {
+      element.setAttribute('required', '')
+      element.validate()
+      expect(element).to.have.class('invalid')
+      expect(element).to.have.class('required')
+    })
+
+    it('should be valid if validate with filled value', () => {
+      element.setAttribute('required', '')
+      element.value = 'test'
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('required')
     })
   })
 })

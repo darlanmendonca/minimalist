@@ -1,19 +1,16 @@
 @import '../../webcomponents/input/input.style.scss';
 
-// :root {
-//   --header-color: #42A5F5;
-//   --border-color: #2196F3;
-// }
-
 .mn-input {
   // font-size: 2em;
-  // --placeholder-color-disabled: blue;
+}
 
+.mn-input:not(.invalid) {
+  --selection-color: #BBDEFB;
   .input:focus {
     --border-color: #2196F3;
-  }
 
-  .input:focus:not([readonly]) + label {
-    --placeholder-color: #42A5F5;
+    & + label {
+      --placeholder-color: #42A5F5;
+    }
   }
 }

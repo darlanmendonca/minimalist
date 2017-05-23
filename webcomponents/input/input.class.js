@@ -3,17 +3,20 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+
+    this.validations = {
+      required: () => this.value === ''
+    }
+
     return self
   }
 
   connectedCallback() {
     this.innerHTML = ''
     this._setCssClasses()
-    this._setPlaceholder()
     this._setInput()
+    this._setPlaceholder()
     this._setAttributeValue()
-    this._setAttributeAutocomplete()
-    this._setAttributeSpellcheck()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -27,33 +30,35 @@ module.exports = class MnInput extends HTMLElement {
   _setInput() {
     this.input = document.createElement('input')
     this.input.classList.add('input')
-    this.insertBefore(this.input, this.firstChild)
+    this.input.setAttribute('autocomplete', 'off')
+    this.input.setAttribute('spellcheck', 'off')
 
-    this.input.addEventListener('change', () => {
+    this.appendChild(this.input)
+
+    this.input.addEventListener('change', () => { // set class .has-value
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+    })
+
+    this.input.addEventListener('keyup', () => { // validate
+      const closestForm = this.closest('form')
+      closestForm && closestForm.classList.contains('submitted')
+        ? this.validate()
+        : null
     })
   }
 
   _setPlaceholder() {
     this.label = document.createElement('label')
     this.label.classList.add('placeholder')
-    this.insertBefore(this.label, this.firstChild)
+    this.appendChild(this.label)
     this.placeholder = this.getAttribute('placeholder')
   }
 
   _setAttributeValue() {
     const value = this.getAttribute('value') || ''
     this.setAttribute('value', value)
-  }
-
-  _setAttributeAutocomplete() {
-    this.setAttribute('autocomplete', 'off')
-  }
-
-  _setAttributeSpellcheck() {
-    this.setAttribute('spellcheck', 'off')
   }
 
   _setAttributeDisabled() {
@@ -149,5 +154,27 @@ module.exports = class MnInput extends HTMLElement {
         ? this.input.setAttribute('autocapitalize', value)
         : this.input.removeAttribute('autocapitalize')
     }
+  }
+
+  validate() {
+    const validations = {}
+
+    for (const attribute of Object.keys(this.validations)) {
+      const hasAttribute = this.hasAttribute(attribute)
+      const attributeIsInvalid = this.validations[attribute]()
+
+      if (hasAttribute && attributeIsInvalid) {
+        this.classList.add(attribute)
+        validations[attribute] = true
+      } else {
+        this.classList.remove(attribute)
+      }
+    }
+
+    const isInvalid = Object.values(validations).some(item => item === true)
+
+    isInvalid
+      ? this.classList.add('invalid')
+      : this.classList.remove('invalid')
   }
 }

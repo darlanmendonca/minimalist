@@ -14,7 +14,6 @@ else
 
   # ./node_modules/.bin/browserify docs/sources/app.js -o docs/vendor.js
   ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
-  -p \
-  --hide-modules true \
-
+  --hide-modules true  && \
+  ./node_modules/.bin/uglifyjs docs/vendor.js -c -m -o docs/vendor.min.js
 fi
