@@ -63,49 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(2);
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const {input, password} = __webpack_require__(0)
-
-const form = document.querySelector('form')
-
-form.addEventListener('submit', event => {
-  form.classList.add('submitted')
-  const inputs = form.querySelectorAll('.mn-input:not([disabled]):not([readonly]')
-
-  Array
-    .from(inputs)
-    .forEach(element => element.validate())
-
-  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-  console.log(`form isInvalid: ${isInvalid}`)
-  event.preventDefault()
-})
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(5),
-  password: __webpack_require__(6),
-}
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 (function(){
@@ -148,7 +110,7 @@ var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define|
 
 
 /***/ }),
-/* 4 */
+/* 1 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -342,6 +304,44 @@ module.exports = class MnInput extends HTMLElement {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(4);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const {input, password} = __webpack_require__(2)
+
+const form = document.querySelector('form')
+
+form.addEventListener('submit', event => {
+  form.classList.add('submitted')
+  const inputs = form.querySelectorAll('.mn-input:not([disabled]):not([readonly]')
+
+  Array
+    .from(inputs)
+    .forEach(element => element.validate())
+
+  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
+  console.log(`form isInvalid: ${isInvalid}`)
+  event.preventDefault()
+})
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  input: __webpack_require__(5),
+  password: __webpack_require__(7),
+}
+
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -351,10 +351,10 @@ function MnInputCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(3)
+    __webpack_require__(0)
   }
 
-  const MnInput = __webpack_require__(4)
+  const MnInput = __webpack_require__(1)
   window.customElements.define('mn-input', MnInput)
   return window.customElements.get('mn-input')
 }
@@ -364,26 +364,7 @@ function MnInputCustomElement() {
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = MnPasswordCustomElement()
-
-function MnPasswordCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(3)
-  }
-
-  const MnPassword = __webpack_require__(7)
-  window.customElements.define('mn-password', MnPassword)
-  return window.customElements.get('mn-password')
-}
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(4)
+const MnInput = __webpack_require__(1)
 
 module.exports = class MnPassword extends MnInput {
   constructor(self) {
@@ -392,10 +373,13 @@ module.exports = class MnPassword extends MnInput {
   }
 
   connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-password')
     this._setType()
     this._setCssClasses()
     this._setInput()
     this._setType()
+    this._setButton()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
@@ -417,6 +401,53 @@ module.exports = class MnPassword extends MnInput {
       ? this.input.setAttribute('type', 'password')
       : null
   }
+
+  _setButton() {
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
+    button.setAttribute('tabindex', '-1')
+
+    this.appendChild(button)
+    this.button = button
+
+    this.input.addEventListener('blur', () => {
+      this.input.setAttribute('type', 'password')
+      this.classList.remove('show-password')
+      this.input.dispatchEvent(new Event('change'))
+    })
+
+    button.addEventListener('mousedown', event => {
+      event.preventDefault()
+    })
+
+    button.addEventListener('click', () => {
+      const toggledType = this.input.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password'
+      this.input.setAttribute('type', toggledType)
+      this.classList.toggle('show-password')
+      this.input.focus()
+    })
+  }
+}
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnPassword = __webpack_require__(6)
+  window.customElements.define('mn-password', MnPassword)
+  return window.customElements.get('mn-password')
 }
 
 
