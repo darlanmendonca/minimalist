@@ -4,7 +4,8 @@ const form = document.querySelector('form')
 
 form.addEventListener('submit', event => {
   form.classList.add('submitted')
-  const inputs = form.querySelectorAll('.mn-input')
+  const inputs = form.querySelectorAll('.mn-input:not([disabled]):not([readonly]')
+
   Array
     .from(inputs)
     .forEach(element => element.validate())
