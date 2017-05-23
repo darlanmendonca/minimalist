@@ -76,7 +76,7 @@ module.exports = __webpack_require__(2);
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input} = __webpack_require__(0)
+const {input, password} = __webpack_require__(0)
 
 const form = document.querySelector('form')
 
@@ -100,6 +100,7 @@ form.addEventListener('submit', event => {
 
 module.exports = {
   input: __webpack_require__(5),
+  password: __webpack_require__(6),
 }
 
 
@@ -348,6 +349,58 @@ function MnInputCustomElement() {
   const MnInput = __webpack_require__(4)
   window.customElements.define('mn-input', MnInput)
   return window.customElements.get('mn-input')
+}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(3)
+  }
+
+  const MnPassword = __webpack_require__(7)
+  window.customElements.define('mn-password', MnPassword)
+  return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(4)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setType()
+    this._setCssClasses()
+    this._setInput()
+    this._setType()
+    this._setPlaceholder()
+    this._setAttributeValue()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
+    this._setAttributeMaxlength()
+    this._setAttributeAutocapitalize()
+  }
+
+  _setType() {
+    this.input
+      ? this.input.setAttribute('type', 'password')
+      : null
+  }
 }
 
 

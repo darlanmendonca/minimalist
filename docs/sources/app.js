@@ -1,4 +1,4 @@
-const {input} = require('minimalist')
+const {input, password} = require('minimalist')
 
 const form = document.querySelector('form')
 
