@@ -41,6 +41,16 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 
+  describe('input', () => {
+    it('should have autocomplete off by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('autocomplete', 'off')
+    })
+
+    it('should have spellcheck off by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('spellcheck', 'off')
+    })
+  })
+
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {
@@ -86,18 +96,6 @@ describe('mn-input (webcomponent)', () => {
     it('should set property value when attribute is removed', () => {
       element.removeAttribute('value')
       expect(element).to.have.value('')
-    })
-  })
-
-  describe('attribute autocomplete', () => {
-    it('should be "off" by default', () => {
-      expect(element).to.have.attribute('autocomplete', 'off')
-    })
-  })
-
-  describe('attribute spellcheck', () => {
-    it('should be "off" by default', () => {
-      expect(element).to.have.attribute('spellcheck', 'off')
     })
   })
 

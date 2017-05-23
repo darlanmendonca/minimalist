@@ -169,8 +169,6 @@ module.exports = class MnInput extends HTMLElement {
     this._setPlaceholder()
     this._setInput()
     this._setAttributeValue()
-    this._setAttributeAutocomplete()
-    this._setAttributeSpellcheck()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -184,6 +182,9 @@ module.exports = class MnInput extends HTMLElement {
   _setInput() {
     this.input = document.createElement('input')
     this.input.classList.add('input')
+    this.input.setAttribute('autocomplete', 'off')
+    this.input.setAttribute('spellcheck', 'off')
+
     this.insertBefore(this.input, this.firstChild)
 
     this.input.addEventListener('change', () => { // set class .has-value
@@ -210,14 +211,6 @@ module.exports = class MnInput extends HTMLElement {
   _setAttributeValue() {
     const value = this.getAttribute('value') || ''
     this.setAttribute('value', value)
-  }
-
-  _setAttributeAutocomplete() {
-    this.setAttribute('autocomplete', 'off')
-  }
-
-  _setAttributeSpellcheck() {
-    this.setAttribute('spellcheck', 'off')
   }
 
   _setAttributeDisabled() {

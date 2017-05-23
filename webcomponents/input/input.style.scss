@@ -38,19 +38,6 @@
     }
   }
 
-  .input:disabled {
-    cursor: not-allowed;
-    --border-color: $oc-gray-3;
-    --text-color: $oc-gray-6;
-
-    & + .placeholder {
-      --placeholder-color: $oc-gray-5;
-      &:after {
-        content: ' disabled';
-      }
-    }
-  }
-
   .placeholder {
     position: absolute;
     top: 0;
@@ -74,18 +61,34 @@
   .input:focus:not([readonly]) + .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
+}
 
-  &.invalid {
-    --placeholder-color: $oc-red-7;
-
-    .input {
-      --border-color: $oc-red-5;
-    }
-
-    .placeholder:after {
-      content: var(--invalid-message, ' is invalid');
-    }
-
-    &.required {--invalid-message: ' is required'}
+.mn-input[disabled] {
+  .input {
+    cursor: not-allowed;
+    --border-color: $oc-gray-3;
+    --text-color: $oc-gray-6;
   }
+
+  .placeholder {
+    --placeholder-color: $oc-gray-5;
+
+    &:after {
+      content: ' disabled';
+    }
+  }
+}
+
+.mn-input.invalid {
+  --placeholder-color: $oc-red-7;
+
+  .input {
+    --border-color: $oc-red-5;
+  }
+
+  .placeholder:after {
+    content: var(--invalid-message, ' is invalid');
+  }
+
+  &.required {--invalid-message: ' is required'}
 }
