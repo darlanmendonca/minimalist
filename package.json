@@ -37,6 +37,7 @@
     "chai": "^3.5.0",
     "chai-colors": "^1.0.1",
     "chai-dom": "^1.4.3",
+    "chai-spies": "^0.7.1",
     "chai-style": "~1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-mn-component": "^1.1.0",
@@ -55,8 +56,6 @@
     "mocha": "^3.3.0",
     "node-sass": "^4.5.2",
     "require-self": "^0.1.0",
-    "sinon": "^2.3.0",
-    "sinon-chai": "^2.10.0",
     "webpack": "^2.5.1",
     "yargs": "^8.0.1"
   },

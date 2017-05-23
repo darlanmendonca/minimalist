@@ -1,10 +1,9 @@
 const {describe, it, before, beforeEach} = require('mocha')
-const sinon = require('sinon')
-const {expect} = require('chai')
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
   .use(require('chai-style'))
-  .use(require('sinon-chai'))
+  .use(require('chai-spies'))
 
 let element
 
@@ -259,28 +258,28 @@ describe('mn-input (webcomponent)', () => {
   describe('method validate()', () => {
     it('should be called on event keyup, if have a parent form.submitted', () => {
       element.closest('form').classList.add('submitted')
+      const validate = spy.on(element, 'validate')
       element.querySelector('input').dispatchEvent(new Event('keyup'))
-      // need spy method .validate(), and check if it was called
-      expect(sinon.spy(element, 'validate')).to.have.been.called()
+      expect(validate).to.have.been.called()
     })
 
     it('should not called on event keyup, if not have a parent form.submitted', () => {
+      const validate = spy.on(element, 'validate')
       element.querySelector('input').dispatchEvent(new Event('keyup'))
-      // need spy method .validate(), and check if it was called
-      expect(sinon.spy(element, 'validate')).to.have.been.called()
+      expect(validate).to.not.have.been.called
     })
   })
 
   describe('attribute required', () => {
     it('should be invalid if validate without fill value', () => {
-      element.setAttributeNode(document.createAttribute('required'))
+      element.setAttribute('required', '')
       element.validate()
       expect(element).to.have.class('invalid')
       expect(element).to.have.class('required')
     })
 
     it('should be valid if validate with filled value', () => {
-      element.setAttributeNode(document.createAttribute('required'))
+      element.setAttribute('required', '')
       element.value = 'test'
       element.validate()
       expect(element).to.not.have.class('invalid')
