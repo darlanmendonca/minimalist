@@ -14,8 +14,8 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this._setCssClasses()
-    this._setPlaceholder()
     this._setInput()
+    this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
@@ -33,7 +33,7 @@ module.exports = class MnInput extends HTMLElement {
     this.input.setAttribute('autocomplete', 'off')
     this.input.setAttribute('spellcheck', 'off')
 
-    this.insertBefore(this.input, this.firstChild)
+    this.appendChild(this.input)
 
     this.input.addEventListener('change', () => { // set class .has-value
       this.input.value
@@ -52,7 +52,7 @@ module.exports = class MnInput extends HTMLElement {
   _setPlaceholder() {
     this.label = document.createElement('label')
     this.label.classList.add('placeholder')
-    this.insertBefore(this.label, this.firstChild)
+    this.appendChild(this.label)
     this.placeholder = this.getAttribute('placeholder')
   }
 
