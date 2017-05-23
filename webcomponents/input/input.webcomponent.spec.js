@@ -224,7 +224,7 @@ describe('mn-input (webcomponent)', () => {
       element.disabled = false
       // expect(element).to.contain('input').not.have.attribute('disabled')
       // need to be refactore because by 'to contain' is not possible to get the input child('autocapitalize', 'off')
-      expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
+      expect(element.querySelector('input')).not.to.have.attribute('disabled')
     })
   })
 
