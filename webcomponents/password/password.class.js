@@ -16,7 +16,17 @@ module.exports = class MnPassword extends MnInput {
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
-    this._setAttributeAutocapitalize()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'maxlength',
+    ]
   }
 
   _setType() {
