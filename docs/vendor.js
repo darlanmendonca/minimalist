@@ -399,7 +399,6 @@ module.exports = class MnPassword extends MnInput {
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
-    this._setAttributeReadonly()
     this._setAttributeMaxlength()
   }
 
@@ -409,7 +408,6 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
-      'readonly',
       'maxlength',
     ]
   }
