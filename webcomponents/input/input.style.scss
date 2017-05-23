@@ -32,6 +32,10 @@
     color: var(--text-color, $oc-gray-9);
     box-shadow: 0 var(--border-width, 1px) 0 var(--border-color, $oc-gray-4);
 
+    &::selection {
+      background: var(--selection-color, $oc-gray-4);
+    }
+
     &:focus {
       --border-width: 2px;
       --border-color: $oc-gray-8;
