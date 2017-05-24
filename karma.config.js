@@ -10,6 +10,7 @@ function KarmaConfig(config) {
     'browserstack:chrome',
     'browserstack:safari',
     'browserstack:firefox',
+    'browserstack:edge',
   ]
 
   if (process.env.BROWSER_STACK_ENV) {
@@ -61,6 +62,13 @@ function KarmaConfig(config) {
         'browser_version': '10',
         os: 'OS X',
         'os_version': 'Sierra',
+      },
+      'browserstack:edge': {
+        base: 'BrowserStack',
+        browser: 'edge',
+        'browser_version': '15',
+        os: 'Windows',
+        'os_version': '10',
       },
     },
 
