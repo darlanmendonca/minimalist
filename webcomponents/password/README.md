@@ -20,7 +20,7 @@ npm install @reservafacil/minimalist
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {passowrd} = require('@reservafacil/minimalist')
+const {password} = require('@reservafacil/minimalist')
 ```
 
 
