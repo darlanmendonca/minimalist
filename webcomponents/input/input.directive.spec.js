@@ -60,8 +60,7 @@ describe('mn-input (directive)', () => {
 })
 
 function loadComponent() {
-  // const {input} = require('minimalist/angular')
-  // require('minimalist/angular').input
+  require('minimalist').input
   require('./input.directive.js')
 }
 

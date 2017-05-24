@@ -20,7 +20,7 @@ npm install @reservafacil/minimalist
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {passowrd} = require('@reservafacil/minimalist')
+const {password} = require('@reservafacil/minimalist')
 ```
 
 
@@ -53,9 +53,8 @@ The following attributes are supported in this component
 ### Angular
 
 ```js
-// instead this => const {password} = require('@reservafacil/minimalist')
-// use the following code
-const {password} = require('@reservafacil/minimalist/angular')
+const {password} = require('@reservafacil/minimalist')
+require('@reservafacil/minimalist/angular') // import minimalist module
 
 // and in your module, add the module 'minimalist', like below
 angular.module('app', ['minimalist'])
