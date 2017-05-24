@@ -1,4 +1,5 @@
 @import '../../webcomponents/input/input.style.scss';
+@import '../../webcomponents/password/password.style.scss';
 
 .mn-input {
   // font-size: 2em;
@@ -6,6 +7,7 @@
 
 .mn-input:not(.invalid) {
   --selection-color: #BBDEFB;
+
   .input:focus {
     --border-color: #2196F3;
 

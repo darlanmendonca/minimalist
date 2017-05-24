@@ -10,6 +10,7 @@ function KarmaConfig(config) {
     'browserstack:chrome',
     'browserstack:safari',
     'browserstack:firefox',
+    'browserstack:edge',
   ]
 
   if (process.env.BROWSER_STACK_ENV) {
@@ -44,23 +45,30 @@ function KarmaConfig(config) {
       'browserstack:chrome': {
         base: 'BrowserStack',
         browser: 'chrome',
-        browser_version: '57', // eslint-disable-line camelcase
+        'browser_version': '57',
         os: 'Windows',
-        os_version: '10', // eslint-disable-line camelcase
+        'os_version': '10',
       },
       'browserstack:firefox': {
         base: 'BrowserStack',
         browser: 'firefox',
-        browser_version: '53', // eslint-disable-line camelcase
+        'browser_version': '53',
         os: 'Windows',
-        os_version: '10', // eslint-disable-line camelcase
+        'os_version': '10',
       },
       'browserstack:safari': {
         base: 'BrowserStack',
         browser: 'safari',
-        browser_version: '10', // eslint-disable-line camelcase
+        'browser_version': '10',
         os: 'OS X',
-        os_version: 'Sierra', // eslint-disable-line camelcase
+        'os_version': 'Sierra',
+      },
+      'browserstack:edge': {
+        base: 'BrowserStack',
+        browser: 'edge',
+        'browser_version': '15',
+        os: 'Windows',
+        'os_version': '10',
       },
     },
 
