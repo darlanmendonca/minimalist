@@ -407,7 +407,6 @@ module.exports = class MnPassword extends MnInput {
 
     this.appendChild(button)
     this.button = button
-
     this.input.addEventListener('blur', () => {
       this.input.setAttribute('type', 'password')
       this.classList.remove('show-password')

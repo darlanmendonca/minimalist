@@ -236,20 +236,20 @@ describe('mn-password (webcomponent)', () => {
       expect(element).to.contain('button')
     })
 
-    it('should display password', () => {
+    it('should display password on button click', () => {
       element.querySelector('button').click()
       expect(element.querySelector('input')).to.have.attribute('type', 'text')
     })
 
-    it('should hide password', () => {
+    it('should hide password on consecutive button click', () => {
       element.querySelector('button').click()
       element.querySelector('button').click()
       expect(element.querySelector('input')).to.have.attribute('type', 'password')
     })
 
-    it('should hide password when unfocused', () => {
+    it('should hide password on blur', () => {
       element.querySelector('button').click()
-      element.querySelector('input').blur()
+      element.querySelector('input').dispatchEvent(new Event('blur'))
       expect(element.querySelector('input')).to.have.attribute('type', 'password')
     })
   })
