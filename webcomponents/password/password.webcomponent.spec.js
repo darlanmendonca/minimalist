@@ -228,7 +228,7 @@ describe('mn-password (webcomponent)', () => {
   })
 
   describe('password visibility', () => {
-    it('should have a password type by default', () => {
+    it('should be hidden by default', () => {
       expect(element.querySelector('input')).to.have.attribute('type', 'password')
     })
 
