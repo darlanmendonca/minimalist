@@ -182,7 +182,6 @@ describe('mn-password (webcomponent)', () => {
   describe('attribute maxlength', () => {
     it('should define attribute in child password', () => {
       element.setAttribute('maxlength', '2')
-      console.log(element)
       expect(element).to.contain('input').with.attribute('maxlength', '2')
     })
 
@@ -214,33 +213,6 @@ describe('mn-password (webcomponent)', () => {
       expect(element.querySelector('input')).not.to.have.attribute('disabled')
     })
   })
-
-  // describe('attribute autocapitalize', () => {
-  //   it('should be off by default', () => {
-  //     expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
-  //   })
-
-  //   // autocapitalize is fully testable in mobile
-  //   it('should turn on autocapitalize ', () => {
-  //     element.setAttribute('autocapitalize', 'on')
-  //     expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'on')
-  //   })
-
-  //   it('should turn off autocapitalize', () => {
-  //     element.setAttribute('autocapitalize', 'off')
-  //     expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
-  //   })
-
-  //   it('should autocapitalize characters', () => {
-  //     element.setAttribute('autocapitalize', 'characters')
-  //     expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'characters')
-  //   })
-  //   it('should change the attribute', () => {
-  //     element.setAttribute('autocapitalize', 'on')
-  //     element.setAttribute('autocapitalize', 'off')
-  //     expect(element.querySelector('input')).to.have.attribute('autocapitalize', 'off')
-  //   })
-  // })
 
   describe('method validate()', () => {
     it('should be called on event keyup, if have a parent form.submitted', () => {
