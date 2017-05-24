@@ -1,5 +1,4 @@
 const angular = require('angular')
-require('minimalist').input
 
 angular
   .module('minimalist')
@@ -7,7 +6,7 @@ angular
 
 function MnInputDirective() {
   return {
-    restrict: 'E',
+    restrict: 'C',
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
       const input = element[0].querySelector('input')
