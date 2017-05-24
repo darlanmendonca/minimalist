@@ -5,12 +5,6 @@
 
 A password component with minimalist design
 
-<!-- See the [demo](https://minimalist-components.github.io/mn-password/) -->
-
-<!-- <a href="https://minimalist-components.github.io/mn-password/">
-<img src="https://raw.githubusercontent.com/minimalist-components/mn-password/master/preview.gif">
-</a> -->
-
 ### Install
 
 ```sh

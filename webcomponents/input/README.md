@@ -5,12 +5,6 @@
 
 A input component (only for text), with minimalist design
 
-<!-- See the [demo](https://minimalist-components.github.io/mn-input/) -->
-
-<!-- <a href="https://minimalist-components.github.io/mn-input/">
-<img src="https://raw.githubusercontent.com/minimalist-components/mn-input/master/preview.gif">
-</a> -->
-
 ### Install
 
 ```sh
