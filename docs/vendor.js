@@ -118,11 +118,16 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
-
     this.validations = {
-      required: () => this.value === ''
-    }
+      required: () => this.value === '',
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
 
+        return this.value
+          ? !reg.test(this.value)
+          : false
+      },
+    }
     return self
   }
 
