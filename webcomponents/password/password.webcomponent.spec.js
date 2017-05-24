@@ -252,6 +252,14 @@ describe('mn-password (webcomponent)', () => {
       element.querySelector('input').dispatchEvent(new Event('blur'))
       expect(element.querySelector('input')).to.have.attribute('type', 'password')
     })
+
+    it.skip('should hide button in desktop browsers', () => {
+      // need to be implemented
+    })
+
+    it.skip('should display button in mobile browsers, only on focus', () => {
+      // need to be implemented
+    })
   })
 })
 
