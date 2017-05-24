@@ -54,9 +54,8 @@ The following attributes are supported in this component
 ### Angular
 
 ```js
-// instead this => const {input} = require('@reservafacil/minimalist')
-// use the following code
-const {input} = require('@reservafacil/minimalist/angular')
+const {input} = require('@reservafacil/minimalist')
+require('@reservafacil/minimalist/angular') // import minimalist module
 
 // and in your module, add the module 'minimalist', like below
 angular.module('app', ['minimalist'])
