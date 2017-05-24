@@ -296,18 +296,16 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should be invalid if dont have a valid value', () => {
-      // regex to check if element starts with letter t
       element.setAttribute('required', '')
-      element.setAttribute('pattern', '^t')
+      element.setAttribute('pattern', '^t') // starts with t
       element.validate()
       expect(element).to.have.class('invalid')
       expect(element).to.have.class('required')
     })
 
     it('should be valid if have a valid value', () => {
-      // regex to check if element starts with letter t
       element.setAttribute('required', '')
-      element.setAttribute('pattern', '^t')
+      element.setAttribute('pattern', '^t') // starts with t
       element.value = 'test'
       element.validate()
       expect(element).to.not.have.class('invalid')
