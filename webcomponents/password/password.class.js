@@ -17,7 +17,6 @@ module.exports = class MnPassword extends MnInput {
     this._setButton()
     this._setAttributeValue()
     this._setAttributeDisabled()
-    this._setAttributeMaxlength()
   }
 
   static get observedAttributes() {
@@ -26,7 +25,6 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
-      'maxlength',
     ]
   }
 

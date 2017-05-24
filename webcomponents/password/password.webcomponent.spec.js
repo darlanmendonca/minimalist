@@ -179,25 +179,6 @@ describe('mn-password (webcomponent)', () => {
     })
   })
 
-  describe('attribute maxlength', () => {
-    it('should define attribute in child password', () => {
-      element.setAttribute('maxlength', '2')
-      expect(element).to.contain('input').with.attribute('maxlength', '2')
-    })
-
-    it('should update attribute in child password', () => {
-      element.setAttribute('maxlength', '2')
-      element.setAttribute('maxlength', '3')
-      expect(element).to.contain('input').with.attribute('maxlength', '3')
-    })
-
-    it('should remove attribute from child password', () => {
-      element.setAttribute('maxlength', '2')
-      element.removeAttribute('maxlength')
-      expect(element).to.contain('input').to.not.have.attribute('maxlength')
-    })
-  })
-
   describe('attribute disabled', () => {
     it('should define attribute in child password', () => {
       element.disabled = true
