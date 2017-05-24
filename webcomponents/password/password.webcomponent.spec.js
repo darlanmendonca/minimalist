@@ -245,6 +245,33 @@ describe('mn-password (webcomponent)', () => {
       expect(element).to.not.have.class('required')
     })
   })
+
+  describe('password visibility', () => {
+    it('should have a password type by default', () => {
+      expect(element.querySelector('input')).to.have.attribute('type', 'password')
+    })
+
+    it('should have a button to show/hide password', () => {
+      expect(element).to.contain('button')
+    })
+
+    it('should display password', () => {
+      element.querySelector('button').click()
+      expect(element.querySelector('input')).to.have.attribute('type', 'text')
+    })
+
+    it('should hide password', () => {
+      element.querySelector('button').click()
+      element.querySelector('button').click()
+      expect(element.querySelector('input')).to.have.attribute('type', 'password')
+    })
+
+    it('should hide password when unfocused', () => {
+      element.querySelector('button').click()
+      element.querySelector('input').blur()
+      expect(element.querySelector('input')).to.have.attribute('type', 'password')
+    })
+  })
 })
 
 function loadComponent() {
