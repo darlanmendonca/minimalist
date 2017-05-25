@@ -255,6 +255,19 @@ describe('mn-password (webcomponent)', () => {
     })
   })
 
+  describe('attribute autofocus', () => {
+    it('should set attribute on child input', () => {
+      element.autofocus = true
+      expect(element.input).to.have.attribute('autofocus')
+    })
+
+    it('should unset attribute from child input', () => {
+      element.autofocus = true
+      element.autofocus = false
+      expect(element.input).to.not.have.attribute('autofocus')
+    })
+  })
+
   describe('password visibility', () => {
     it('should be hidden by default', () => {
       expect(element.querySelector('input')).to.have.attribute('type', 'password')
