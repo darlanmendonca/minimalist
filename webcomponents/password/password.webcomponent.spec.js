@@ -235,16 +235,17 @@ describe('mn-password (webcomponent)', () => {
       expect(element).to.not.have.class('pattern')
     })
 
-    it('should be invalid if dont have a valid value', () => {
+    it('should be invalid if value is not setted', () => {
       // regex to check if element starts with letter t
       element.setAttribute('required', '')
       element.setAttribute('pattern', '^t')
       element.validate()
+      console.log(element)
       expect(element).to.have.class('invalid')
       expect(element).to.have.class('required')
     })
 
-    it('should be valid if have a valid value', () => {
+    it('should be valid if value is setted', () => {
       // regex to check if element starts with letter t
       element.setAttribute('required', '')
       element.setAttribute('pattern', '^t')
