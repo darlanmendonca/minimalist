@@ -400,6 +400,7 @@ module.exports = class MnPassword extends MnInput {
     this._setButton()
     this._setAttributeValue()
     this._setAttributeDisabled()
+    this._setAttributeAutofocus()
   }
 
   static get observedAttributes() {
