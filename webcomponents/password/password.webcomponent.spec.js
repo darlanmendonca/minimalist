@@ -227,6 +227,34 @@ describe('mn-password (webcomponent)', () => {
     })
   })
 
+  describe('attribute pattern', () => {
+    it('should ignore validation if value and required dont exist', () => {
+      element.setAttribute('pattern', '^a')
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('pattern')
+    })
+
+    it('should be invalid if value is not setted', () => {
+      // regex to check if element starts with letter t
+      element.setAttribute('required', '')
+      element.setAttribute('pattern', '^t')
+      element.validate()
+      expect(element).to.have.class('invalid')
+      expect(element).to.have.class('required')
+    })
+
+    it('should be valid if value is setted', () => {
+      // regex to check if element starts with letter t
+      element.setAttribute('required', '')
+      element.setAttribute('pattern', '^t')
+      element.value = 'test'
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('pattern')
+    })
+  })
+
   describe('password visibility', () => {
     it('should be hidden by default', () => {
       expect(element.querySelector('input')).to.have.attribute('type', 'password')

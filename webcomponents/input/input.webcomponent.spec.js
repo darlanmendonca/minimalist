@@ -286,6 +286,32 @@ describe('mn-input (webcomponent)', () => {
       expect(element).to.not.have.class('required')
     })
   })
+
+  describe('attribute pattern', () => {
+    it('should ignore validation if it dont have value and required', () => {
+      element.setAttribute('pattern', '^a')
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('pattern')
+    })
+
+    it('should be invalid if dont have a valid value', () => {
+      element.setAttribute('required', '')
+      element.setAttribute('pattern', '^t') // starts with t
+      element.validate()
+      expect(element).to.have.class('invalid')
+      expect(element).to.have.class('required')
+    })
+
+    it('should be valid if have a valid value', () => {
+      element.setAttribute('required', '')
+      element.setAttribute('pattern', '^t') // starts with t
+      element.value = 'test'
+      element.validate()
+      expect(element).to.not.have.class('invalid')
+      expect(element).to.not.have.class('pattern')
+    })
+  })
 })
 
 function loadComponent() {
