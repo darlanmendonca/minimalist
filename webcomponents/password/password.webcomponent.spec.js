@@ -40,9 +40,6 @@ describe('mn-password (webcomponent)', () => {
     })
 
     it('should contain a input child', () => {
-      // expect(component).to.contain('password').with.length(1)
-      // the length above count childrens of elements, not amount of passwords
-      // need to be refactor, chai-dom dont offer a counter yet
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
@@ -69,7 +66,7 @@ describe('mn-password (webcomponent)', () => {
 
   describe('property value', () => {
     it('should return empty string when it is undefined', () => {
-      expect(component).to.be.value('')
+      expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with undefined', () => {
@@ -186,16 +183,12 @@ describe('mn-password (webcomponent)', () => {
   describe('attribute disabled', () => {
     it('should define attribute in child password', () => {
       component.disabled = true
-      // expect(component).to.contain('password').to.have.attribute('disabled')
-      // need to be refactore because by 'to contain' is not possible to get the password child
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child password', () => {
       component.disabled = false
-      // expect(component).to.contain('password').not.have.attribute('disabled')
-      // need to be refactore because by 'to contain' is not possible to get the password child('autocapitalize', 'off')
-      expect(component.input).not.to.have.attribute('disabled')
+      expect(component.input).to.not.have.attribute('disabled')
     })
   })
 
@@ -308,8 +301,6 @@ describe('mn-password (webcomponent)', () => {
 
 function loadComponent() {
   require('minimalist').password
-  // or
-  // const {password} = require('minimalist')
 }
 
 function cleanView() {

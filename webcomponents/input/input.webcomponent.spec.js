@@ -36,10 +36,6 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should contain a input child', () => {
-      // expect(component).to.contain('input').with.length(1)
-      // the length above count childrens of elements, not amount of inputs
-      // need to be refactor, chai-dom dont offer a counter yet
-      expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
   })
@@ -71,7 +67,7 @@ describe('mn-input (webcomponent)', () => {
 
   describe('property value', () => {
     it('should return empty string when it is undefined', () => {
-      expect(component).to.be.value('')
+      expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with undefined', () => {
@@ -219,16 +215,12 @@ describe('mn-input (webcomponent)', () => {
   describe('attribute disabled', () => {
     it('should define attribute in child input', () => {
       component.disabled = true
-      // expect(component).to.contain('input').to.have.attribute('disabled')
-      // need to be refactore because by 'to contain' is not possible to get the input child
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child input', () => {
       component.disabled = false
-      // expect(component).to.contain('input').not.have.attribute('disabled')
-      // need to be refactore because by 'to contain' is not possible to get the input child('autocapitalize', 'off')
-      expect(component.input).not.to.have.attribute('disabled')
+      expect(component.input).to.not.have.attribute('disabled')
     })
   })
 
@@ -237,7 +229,6 @@ describe('mn-input (webcomponent)', () => {
       expect(component.input).to.have.attribute('autocapitalize', 'off')
     })
 
-    // autocapitalize is fully testable in mobile
     it('should turn on autocapitalize ', () => {
       component.setAttribute('autocapitalize', 'on')
       expect(component.input).to.have.attribute('autocapitalize', 'on')
@@ -333,8 +324,6 @@ describe('mn-input (webcomponent)', () => {
 
 function loadComponent() {
   require('minimalist').input
-  // or
-  // const {input} = require('minimalist')
 }
 
 function cleanView() {
