@@ -228,7 +228,7 @@ describe('mn-password (webcomponent)', () => {
   })
 
   describe('attribute pattern', () => {
-    it('should ignore validation if it dont have value and required', () => {
+    it('should ignore validation if value and required dont exist', () => {
       element.setAttribute('pattern', '^a')
       element.validate()
       expect(element).to.not.have.class('invalid')
@@ -240,7 +240,6 @@ describe('mn-password (webcomponent)', () => {
       element.setAttribute('required', '')
       element.setAttribute('pattern', '^t')
       element.validate()
-      console.log(element)
       expect(element).to.have.class('invalid')
       expect(element).to.have.class('required')
     })
