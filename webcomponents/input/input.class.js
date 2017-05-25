@@ -28,6 +28,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeAutocapitalize()
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
+    this._setAttributeAutofocus()
   }
 
   _setCssClasses() {
@@ -90,6 +91,10 @@ module.exports = class MnInput extends HTMLElement {
     this.input.setAttribute('spellcheck', 'off')
   }
 
+  _setAttributeAutofocus() {
+    this.autofocus = this.hasAttribute('autofocus')
+  }
+
   static get observedAttributes() {
     return [
       'value',
@@ -99,6 +104,7 @@ module.exports = class MnInput extends HTMLElement {
       'readonly',
       'maxlength',
       'autocapitalize',
+      'autofocus',
     ]
   }
 
@@ -166,6 +172,12 @@ module.exports = class MnInput extends HTMLElement {
       value
         ? this.input.setAttribute('autocapitalize', value)
         : this.input.removeAttribute('autocapitalize')
+    }
+  }
+
+  set autofocus(value) {
+    if (this.input) {
+      this.input.autofocus = value
     }
   }
 
