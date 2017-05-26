@@ -77,3 +77,27 @@ form.perspective {
     }
   }
 }
+
+.mn-input.rounded {
+  --text-color: white;
+  --placeholder-color: white;
+  --selection-color: $oc-gray-6;
+
+  .input {
+    padding: 0 20px;
+    border-radius: 1em;
+    background-color: $oc-gray-5;
+    box-shadow: inset 0 0 0 2px white;
+  }
+
+  .placeholder {
+    left: 20px;
+    text-transform: uppercase;
+  }
+
+  &:after {display: none}
+
+  &.focus, &.has-value {
+    --placeholder-color: $oc-gray-5;
+  }
+}
