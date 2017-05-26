@@ -8,11 +8,8 @@
 .mn-input:not(.invalid) {
   --selection-color: #BBDEFB;
 
-  .input:focus {
-    --border-color: #2196F3;
-
-    & + label {
-      --placeholder-color: #42A5F5;
-    }
+  &.focus {
+    &:after {--border-color: #2196F3}
+    .placeholder {--placeholder-color: #42A5F5}
   }
 }

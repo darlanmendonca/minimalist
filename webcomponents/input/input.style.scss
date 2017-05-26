@@ -26,20 +26,30 @@
     border-radius: 0;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    transition: box-shadow .2s ease;
+    // transition: box-shadow .2s ease;
     text-overflow: inherit;
     background-color: transparent;
     color: var(--text-color, $oc-gray-9);
-    box-shadow: 0 var(--border-width, 1px) 0 var(--border-color, $oc-gray-4);
 
     &::selection {
       background: var(--selection-color, $oc-gray-4);
     }
+  }
 
-    &:focus {
-      --border-width: 2px;
-      --border-color: $oc-gray-8;
-    }
+  &.focus:after {
+    --border-width: 2px;
+    --border-color: $oc-gray-8;
+  }
+
+  &:after {
+    content: '';
+    height: var(--border-width, 1px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--border-color, $oc-gray-4);
+    transition: all .2s ease;
   }
 
   .placeholder {
@@ -86,7 +96,7 @@
 .mn-input.invalid {
   --placeholder-color: $oc-red-7;
 
-  .input {
+  &:after {
     --border-color: $oc-red-5;
   }
 
