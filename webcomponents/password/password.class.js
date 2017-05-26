@@ -9,7 +9,6 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.classList.add('mn-password')
-    this._setType()
     this._setCssClasses()
     this._setInput()
     this._setType()
@@ -26,13 +25,12 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
+      'autofocus',
     ]
   }
 
   _setType() {
-    this.input
-      ? this.input.setAttribute('type', 'password')
-      : null
+    this.input.setAttribute('type', 'password')
   }
 
   _setButton() {

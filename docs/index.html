@@ -2,37 +2,17 @@
   <head>
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="/vendor.css" />
   </head>
 
   <body>
     <form>
-      <!-- <mn-input placeholder="Zipcode" required pattern="^\d{5}-\d{3}"></mn-input> -->
-      <mn-input placeholder="Username" autofocus value="darlan"></mn-input>
-      <mn-password placeholder="Password"></mn-password>
-      <!-- <button>submit</button> -->
-    </form>
-
-    <form>
-      <mn-input placeholder="Username" class="blue"></mn-input>
-      <mn-password placeholder="Password" class="blue"></mn-password>
-    </form>
-
-    <form>
-      <mn-input placeholder="Username" class="icon zmdi zmdi-account"></mn-input>
-      <mn-password placeholder="Password" class="icon zmdi zmdi-lock"></mn-password>
-    </form>
-
-    <form class="perspective">
-      <mn-input placeholder="Username" class="perspective zmdi zmdi-account"></mn-input>
-      <mn-password placeholder="Password" class="perspective zmdi zmdi-lock"></mn-password>
-    </form>
-
-    <form>
-      <mn-input placeholder="Username" class="rounded"></mn-input>
-      <mn-password placeholder="Password" class="rounded"></mn-password>
+      <mn-number placeholder="Number" value="10"></mn-number>
     </form>
     <script src="/vendor.js"></script>
+    <script>
+      const mnNumber = document.querySelector('mn-number')
+      console.log(typeof mnNumber.value, mnNumber.value)
+    </script>
   </body>
 </html>

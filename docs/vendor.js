@@ -337,7 +337,7 @@ module.exports = __webpack_require__(4);
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password} = __webpack_require__(2)
+const {input, password, number} = __webpack_require__(2)
 
 const form = document.querySelector('form')
 
@@ -362,6 +362,7 @@ form.addEventListener('submit', event => {
 module.exports = {
   input: __webpack_require__(5),
   password: __webpack_require__(7),
+  number: __webpack_require__(9),
 }
 
 
@@ -399,7 +400,6 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.classList.add('mn-password')
-    this._setType()
     this._setCssClasses()
     this._setInput()
     this._setType()
@@ -416,13 +416,12 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
+      'autofocus',
     ]
   }
 
   _setType() {
-    this.input
-      ? this.input.setAttribute('type', 'password')
-      : null
+    this.input.setAttribute('type', 'password')
   }
 
   _setButton() {
@@ -470,6 +469,81 @@ function MnPasswordCustomElement() {
   const MnPassword = __webpack_require__(6)
   window.customElements.define('mn-password', MnPassword)
   return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnNumber extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-number')
+    this._setCssClasses()
+    this._setInput()
+    this._setType()
+    this._setPlaceholder()
+    this._setAttributeValue()
+    this._setAttributeDisabled()
+    this._setAttributeAutofocus()
+  }
+
+  _setType() {
+    this.input.setAttribute('type', 'number')
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  get value() {
+    return this.input.value
+      ? +this.input.value
+      : undefined
+  }
+
+  set value(value = '') {
+    const differentValue = this.input && this.input.value !== value
+
+    if (this.input && differentValue) {
+      this.input.value = value
+      this.input.dispatchEvent(new Event('change'))
+    }
+  }
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnNumber = __webpack_require__(8)
+  window.customElements.define('mn-number', MnNumber)
+  return window.customElements.get('mn-number')
 }
 
 
