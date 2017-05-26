@@ -41,6 +41,17 @@ form.perspective {
   --border-color: white;
   --text-color: $oc-gray-7;
 
+  &:before {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+    z-index: 10;
+    color: $oc-gray-6;
+    transform: scale(.4);
+    opacity: 0;
+    transition: all .2s ease;
+  }
+
   &:after {
     border-radius: 3px;
     bottom: 5px;
@@ -52,10 +63,17 @@ form.perspective {
     z-index: 10;
     padding: 0 10px;
     line-height: 2.4em;
+    padding-left: 30px;
   }
 
   &.focus, &.has-value {
     --placeholder-color: $oc-gray-5;
     --border-width: calc(100% - 10px);
+
+    &:before {
+      transition: transform .2s .05s ease;
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 }
