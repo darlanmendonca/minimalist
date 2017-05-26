@@ -9,7 +9,7 @@
   --selection-color: #BBDEFB;
 
   &.focus {
-    &:after {--border-color: #2196F3}
-    .placeholder {--placeholder-color: #42A5F5}
+    --border-color: #2196F3;
+    --placeholder-color: #42A5F5;
   }
 }
