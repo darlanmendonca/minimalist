@@ -14,6 +14,14 @@
   line-height: 2em;
   text-overflow: ellipsis;
   -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+
+  --text-color: $oc-gray-9;
+  --selection-color: $oc-gray-4;
+  --border-width: 1px;
+  --border-color: $oc-gray-4;
+  --placeholder-color: $oc-gray-6;
+  --invalid-message: ' is invalid';
 
   .input {
     width: 100%;
@@ -26,20 +34,24 @@
     border-radius: 0;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    transition: box-shadow .2s ease;
     text-overflow: inherit;
     background-color: transparent;
-    color: var(--text-color, $oc-gray-9);
-    box-shadow: 0 var(--border-width, 1px) 0 var(--border-color, $oc-gray-4);
+    color: var(--text-color);
 
     &::selection {
-      background: var(--selection-color, $oc-gray-4);
+      background: var(--selection-color);
     }
+  }
 
-    &:focus {
-      --border-width: 2px;
-      --border-color: $oc-gray-8;
-    }
+  &:after {
+    content: '';
+    height: var(--border-width);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--border-color);
+    transition: all .2s ease;
   }
 
   .placeholder {
@@ -54,7 +66,7 @@
     font-size: 1em;
     font-family: sans-serif;
 
-    color: var(--placeholder-color, $oc-gray-6);
+    color: var(--placeholder-color);
     transition: transform .2s ease, color .2s ease;
     transform-origin: left center;
     transform: translateZ(0);
@@ -62,36 +74,36 @@
   }
 
   &.has-value .placeholder,
-  .input:focus:not([readonly]) ~ .placeholder {
+  &.focus .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
 }
 
+.mn-input.focus {
+  --border-width: 2px;
+  --border-color: $oc-gray-8;
+}
+
 .mn-input[disabled] {
+  --text-color: $oc-gray-6;
+  --border-color: $oc-gray-3;
+  --placeholder-color: $oc-gray-5;
+
   .input {
     cursor: not-allowed;
-    --border-color: $oc-gray-3;
-    --text-color: $oc-gray-6;
   }
 
-  .placeholder {
-    --placeholder-color: $oc-gray-5;
-
-    &:after {
-      content: ' disabled';
-    }
+  .placeholder:after {
+    content: ' disabled';
   }
 }
 
 .mn-input.invalid {
-  --placeholder-color: $oc-red-7;
-
-  .input {
-    --border-color: $oc-red-5;
-  }
+  --placeholder-color: $oc-red-7 !important;
+  --border-color: $oc-red-5 !important;
 
   .placeholder:after {
-    content: var(--invalid-message, ' is invalid');
+    content: var(--invalid-message);
   }
 
   &.required {--invalid-message: ' is required'}

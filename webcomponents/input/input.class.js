@@ -53,6 +53,13 @@ module.exports = class MnInput extends HTMLElement {
         ? this.validate()
         : null
     })
+
+    this.input.addEventListener('focus', () => {
+      if (!this.hasAttribute('readonly') && !this.hasAttribute('disabled')) {
+        this.classList.add('focus')
+      }
+    })
+    this.input.addEventListener('blur', () => this.classList.remove('focus'))
   }
 
   _setPlaceholder() {

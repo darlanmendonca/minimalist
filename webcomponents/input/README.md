@@ -45,6 +45,28 @@ The following attributes are supported in this component
 - [required](http://www.w3schools.com/tags/att_input_required.asp)
 - [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
 
+### Style
+
+If you need to change identity of element (and you will), we offer the following css variables
+
+- text-color - color of typed text
+- selection-color - the background of typed text on user selection
+- border-width
+- border-color
+- placeholder-color
+- invalid-message - a message to concat when are invalid
+
+<!-- This comment will be added when site is ready
+Below you can found some examples of styles in codepen
+
+- [default](default url here)
+- [blue](blur url here)
+- [icon] (icon url here)
+- [perspective](perspective url here)
+- [rounded](rounded url here) -->
+
+Working in a new style? Open a issue to add it here.
+
 ### Angular
 
 ```js
