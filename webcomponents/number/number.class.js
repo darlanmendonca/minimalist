@@ -20,10 +20,15 @@ module.exports = class MnNumber extends MnInput {
     this._setAttributeValue()
     this._setAttributeDisabled()
     this._setAttributeAutofocus()
+    this._setAttributeStep()
   }
 
   _setType() {
     this.input.setAttribute('type', 'number')
+  }
+
+  _setAttributeStep() {
+    this.step = this.getAttribute('step')
   }
 
   static get observedAttributes() {
@@ -49,6 +54,14 @@ module.exports = class MnNumber extends MnInput {
     if (this.input && differentValue) {
       this.input.value = value
       this.input.dispatchEvent(new Event('change'))
+    }
+  }
+
+  set step(value) {
+    if (this.input) {
+      value
+        ? this.input.setAttribute('step', value)
+        : this.input.removeAttribute('step')
     }
   }
 }
