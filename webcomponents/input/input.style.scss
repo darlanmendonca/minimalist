@@ -42,11 +42,6 @@
     }
   }
 
-  &.focus {
-    --border-width: 2px;
-    --border-color: $oc-gray-8;
-  }
-
   &:after {
     content: '';
     height: var(--border-width);
@@ -83,6 +78,11 @@
   }
 }
 
+.mn-input.focus {
+  --border-width: 2px;
+  --border-color: $oc-gray-8;
+}
+
 .mn-input[disabled] {
   --text-color: $oc-gray-6;
   --border-color: $oc-gray-3;
@@ -98,8 +98,8 @@
 }
 
 .mn-input.invalid {
-  --placeholder-color: $oc-red-7;
-  --border-color: $oc-red-5;
+  --placeholder-color: $oc-red-7 !important;
+  --border-color: $oc-red-5 !important;
 
   .placeholder:after {
     content: var(--invalid-message);

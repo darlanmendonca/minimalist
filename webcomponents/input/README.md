@@ -50,10 +50,10 @@ The following attributes are supported in this component
 If you need to change identity of element (and you will), we offer the following css variables
 
 - text-color - color of typed text
+- selection-color - the background of typed text on user selection
 - border-width
 - border-color
 - placeholder-color
-- selection-color - the background of typed text on user selection
 - invalid-message - a message to concat when are invalid
 
 <!-- This comment will be added when site is ready
