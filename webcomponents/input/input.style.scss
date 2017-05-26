@@ -74,7 +74,7 @@
   }
 
   &.has-value .placeholder,
-  .input:focus:not([readonly]) ~ .placeholder {
+  &.focus .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
 }

@@ -54,7 +54,11 @@ module.exports = class MnInput extends HTMLElement {
         : null
     })
 
-    this.input.addEventListener('focus', () => this.classList.add('focus'))
+    this.input.addEventListener('focus', () => {
+      if (!this.hasAttribute('readonly') && !this.hasAttribute('disabled')) {
+        this.classList.add('focus')
+      }
+    })
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
   }
 
