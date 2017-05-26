@@ -14,6 +14,7 @@
   line-height: 2em;
   text-overflow: ellipsis;
   -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
 
   --text-color: $oc-gray-9;
   --selection-color: $oc-gray-4;
