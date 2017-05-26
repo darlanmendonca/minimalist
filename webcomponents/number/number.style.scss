@@ -1,0 +1,11 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-number {
+  .input {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
