@@ -481,6 +481,10 @@ const MnInput = __webpack_require__(1)
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
+    this.validations.required = () => this.value === undefined,
+    delete this.validations.pattern
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
     return self
   }
 

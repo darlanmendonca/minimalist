@@ -9,3 +9,8 @@
     }
   }
 }
+
+.mn-number.invalid {
+  &.min {--invalid-message: ' must be at least ' attr(min)}
+  &.max {--invalid-message: ' must be at most ' attr(max)}
+}
