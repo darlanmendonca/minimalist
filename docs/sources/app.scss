@@ -14,6 +14,22 @@
   }
 }
 
+.mn-input.icon {
+  --selection-color: #BBDEFB;
+  margin-left: 30px;
+
+  &.focus {
+    --border-color: #2196F3;
+    --placeholder-color: #42A5F5;
+  }
+
+  &:before {
+    position: absolute;
+    left: -25px;
+    color: var(--placeholder-color);
+  }
+}
+
 form.perspective {
   padding: 2em;
   background-color: $oc-indigo-9;
