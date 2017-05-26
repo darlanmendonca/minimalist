@@ -44,6 +44,13 @@ The following attributes are supported in this component
 - [required](http://www.w3schools.com/tags/att_input_required.asp)
 - [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
 
+### Style
+
+If you need to change identity of element (and you will), we offer the following css variables
+
+- same variables from [mn-input](https://github.com/reserva-facil/minimalist/tree/master/webcomponents/input)
+- buton-color - the color of button that show/hide password
+
 ### Angular
 
 ```js
