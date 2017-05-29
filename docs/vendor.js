@@ -500,7 +500,7 @@ module.exports = class MnNumber extends MnInput {
     this._setAttributeAutofocus()
     this._setAttributeStep()
     this._setAttributeMax()
-    // this._setAttributeMin()
+    this._setAttributeMin()
   }
 
   _setType() {

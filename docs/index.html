@@ -7,13 +7,9 @@
 
   <body>
     <form>
-      <mn-number placeholder="Number" value="10" required max="5" style="width: 250px;"></mn-number>
+      <mn-number placeholder="Number" value="10" required min="20" style="width: 250px;"></mn-number>
       <button>submit</button>
     </form>
     <script src="/vendor.js"></script>
-    <script>
-      const mnNumber = document.querySelector('mn-number')
-      mnNumber.value = undefined
-    </script>
   </body>
 </html>
