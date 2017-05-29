@@ -2,6 +2,15 @@
 @import '../../webcomponents/password/password.style.scss';
 @import '../../webcomponents/number/number.style.scss';
 
+
+form {
+  display: flex;
+}
+
+@media (max-width: 1024px) {
+  form {flex-direction: column}
+}
+
 .mn-input {
   font-size: 1.2em;
 }

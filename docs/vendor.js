@@ -422,6 +422,7 @@ module.exports = class MnNumber extends MnInput {
 
   _setType() {
     this.input.setAttribute('type', 'number')
+    this.input.setAttribute('pattern', '\\d*')
   }
 
   _setPrecision() {
@@ -658,3 +659,4 @@ function MnPasswordCustomElement() {
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=vendor.js.map
