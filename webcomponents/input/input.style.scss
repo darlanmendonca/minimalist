@@ -15,6 +15,7 @@
   text-overflow: ellipsis;
   -webkit-user-select: none;
   -webkit-font-smoothing: antialiased;
+  font-family: sans-serif;
 
   --text-color: $oc-gray-9;
   --selection-color: $oc-gray-4;
@@ -24,7 +25,6 @@
   --invalid-message: ' is invalid';
 
   .input {
-    width: 100%;
     border: 0;
     outline: 0;
     line-height: inherit;
@@ -37,6 +37,8 @@
     text-overflow: inherit;
     background-color: transparent;
     color: var(--text-color);
+    font: inherit;
+    position: relative;
 
     &::selection {
       background: var(--selection-color);

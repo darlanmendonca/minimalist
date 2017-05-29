@@ -29,6 +29,16 @@ module.exports = class MnNumber extends MnInput {
   }
 
   _setPrecision() {
+    if (this.hasAttribute('percentage')) {
+      this.input.addEventListener('input', event => {
+        const value = this.input.value !== ''
+          ? `'${this.input.value} %'`
+          : ''
+
+        this.style.setProperty('--percentage', value)
+      })
+    }
+
     this.input.addEventListener('change', () => {
       const value = this.input.value
       const isDecimal = this.hasAttribute('decimal')
@@ -45,10 +55,12 @@ module.exports = class MnNumber extends MnInput {
           break
 
         case isPercentage:
-          precision = this.getAttribute('percentage')
-          precision
-            ? this.input.value = parseFloat(value).toFixed(precision)
-            : this.input.value = parseFloat(value)
+          if (isNaN(value)) {
+            precision = this.getAttribute('percentage')
+            precision
+              ? this.input.value = parseFloat(value).toFixed(precision)
+              : this.input.value = parseFloat(value)
+          }
           break
 
         default:
@@ -111,6 +123,7 @@ module.exports = class MnNumber extends MnInput {
         : value
       this.input.value = value
       this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
     }
   }
 

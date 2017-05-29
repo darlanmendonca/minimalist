@@ -6,6 +6,10 @@
   font-size: 1.2em;
 }
 
+.mn-number {
+  --currency-symbol: 'R$';
+}
+
 .mn-input.blue {
   --selection-color: #BBDEFB;
 
