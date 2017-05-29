@@ -499,6 +499,8 @@ module.exports = class MnNumber extends MnInput {
     this._setAttributeDisabled()
     this._setAttributeAutofocus()
     this._setAttributeStep()
+    this._setAttributeMax()
+    // this._setAttributeMin()
   }
 
   _setType() {
@@ -514,6 +516,14 @@ module.exports = class MnNumber extends MnInput {
     this.step = this.getAttribute('step')
   }
 
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
   static get observedAttributes() {
     return [
       'value',
@@ -522,6 +532,9 @@ module.exports = class MnNumber extends MnInput {
       'disabled',
       'readonly',
       'autofocus',
+      'step',
+      'max',
+      'min',
     ]
   }
 
@@ -545,6 +558,22 @@ module.exports = class MnNumber extends MnInput {
       value
         ? this.input.setAttribute('step', value)
         : this.input.removeAttribute('step')
+    }
+  }
+
+  set max(value) {
+    if (this.input) {
+      this.hasAttribute('max')
+        ? this.label.setAttribute('max', value)
+        : this.label.removeAttribute('max')
+    }
+  }
+
+  set min(value) {
+    if (this.input) {
+      this.hasAttribute('min')
+        ? this.label.setAttribute('min', value)
+        : this.label.removeAttribute('min')
     }
   }
 }
