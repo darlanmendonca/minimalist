@@ -549,9 +549,9 @@ module.exports = class MnNumber extends MnInput {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = MnPasswordCustomElement()
+module.exports = MnNumberCustomElement()
 
-function MnPasswordCustomElement() {
+function MnNumberCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
