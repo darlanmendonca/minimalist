@@ -12,6 +12,7 @@ module.exports = class MnNumber extends MnInput {
     this._setCssClasses()
     this._setInput()
     this._setType()
+    this._setPrecision()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
@@ -25,11 +26,34 @@ module.exports = class MnNumber extends MnInput {
 
   _setType() {
     this.input.setAttribute('type', 'number')
+  }
+
+  _setPrecision() {
     this.input.addEventListener('change', () => {
       const value = this.input.value
-      const isFloat = Number(value) === value && value % 1 !== 0
-      if (isFloat) {
-        this.input.value = parseInt(value)
+      const isDecimal = this.hasAttribute('decimal')
+      const isCurrency = this.hasAttribute('currency')
+      const isPercentage = this.hasAttribute('percentage')
+
+      let precision
+
+      switch (true) {
+        case isDecimal:
+        case isCurrency:
+          precision = this.getAttribute('decimal') || this.getAttribute('currency')
+          this.input.value = parseFloat(value).toFixed(precision || 2)
+          break
+
+        case isPercentage:
+          precision = this.getAttribute('percentage')
+          precision
+            ? this.input.value = parseFloat(value).toFixed(precision)
+            : this.input.value = parseFloat(value)
+          break
+
+        default:
+          this.input.value = parseInt(value)
+          break
       }
     })
   }
@@ -68,15 +92,23 @@ module.exports = class MnNumber extends MnInput {
   }
 
   get value() {
-    return this.input.value
-      ? +this.input.value
-      : undefined
+    const isUndefined = this.input.value === ''
+
+    return isUndefined
+      ? undefined
+      : this.hasAttribute('percentage')
+        ? this.input.value / 100
+        : parseFloat(this.input.value)
   }
 
   set value(value = '') {
     const differentValue = this.input && this.input.value !== value
 
     if (this.input && differentValue) {
+      value = parseFloat(value)
+      value = this.hasAttribute('percentage')
+        ? value * 100
+        : value
       this.input.value = value
       this.input.dispatchEvent(new Event('change'))
     }
