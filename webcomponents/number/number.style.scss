@@ -18,6 +18,7 @@
   &:before {
     content: var(--currency-symbol);
     margin-right: .25em;
+    line-height: 2.2em;
   }
 }
 
