@@ -31,22 +31,16 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.have.class('mn-number')
     })
 
-    it('should contain a number property', () => {
+    it('should contain a input property', () => {
       expect(component).to.have.property('input')
     })
 
-    it('should contain a number child', () => {
+    it('should contain a input child', () => {
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
-  })
 
-  describe('number', () => {
-    it('should have autocomplete off by default', () => {
-      expect(component.input).to.have.attribute('autocomplete', 'off')
-    })
-
-    it('should have spellcheck off by default', () => {
-      expect(component.input).to.have.attribute('spellcheck', 'off')
+    it('should have type number in child input', () => {
+      expect(component.input).to.have.attribute('type', 'number')
     })
   })
 
@@ -66,35 +60,18 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('property value', () => {
-    it('should return empty string when it is undefined', () => {
-      expect(component).to.have.value('')
+    it('should return undefined by default', () => {
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with undefined', () => {
-      component.value = undefined
-      expect(component).to.have.value('')
+    it('should get undefined when it is setted some string', () => {
+      component.value = 'teste'
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with null', () => {
-      component.value = null
-      expect(component).to.have.value('')
-    })
-
-    it('should setter and getter as string', () => {
-      component.value = 'test'
-      expect(component).to.have.value('test')
-    })
-  })
-
-  describe('attribute value', () => {
-    it('should set property value when attribute changed', () => {
-      component.setAttribute('value', 'test')
-      expect(component).to.have.value('test')
-    })
-
-    it('should set property value when attribute is removed', () => {
-      component.removeAttribute('value')
-      expect(component).to.have.value('')
+    it('should get number when it is setted numbers', () => {
+      component.value = 123
+      expect(component).to.have.value(123)
     })
   })
 
@@ -230,36 +207,22 @@ describe('mn-number (webcomponent)', () => {
 
     it('should be valid if validate with filled value', () => {
       component.setAttribute('required', '')
-      component.value = 'test'
+      component.value = 1
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
     })
   })
 
-  describe('attribute pattern', () => {
-    it('should ignore validation if it dont have value and required', () => {
-      component.setAttribute('pattern', '^a')
-      component.validate()
-      expect(component).to.not.have.class('invalid')
-      expect(component).to.not.have.class('pattern')
+  describe('attribute value', () => {
+    it('should set property value when attribute changed', () => {
+      component.setAttribute('value', 123)
+      expect(component).to.have.value(123)
     })
 
-    it('should be invalid if dont have a valid value', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
-      component.validate()
-      expect(component).to.have.class('invalid')
-      expect(component).to.have.class('required')
-    })
-
-    it('should be valid if have a valid value', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
-      component.value = 'test'
-      component.validate()
-      expect(component).to.not.have.class('invalid')
-      expect(component).to.not.have.class('pattern')
+    it('should set property value when attribute is removed', () => {
+      component.removeAttribute('value')
+      expect(component).to.have.value(undefined)
     })
   })
 

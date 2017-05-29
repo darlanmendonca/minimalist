@@ -286,6 +286,7 @@ describe('mn-input (webcomponent)', () => {
     it('should ignore validation if it dont have value and required', () => {
       component.setAttribute('pattern', '^a')
       component.validate()
+      console.log(component)
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
     })
