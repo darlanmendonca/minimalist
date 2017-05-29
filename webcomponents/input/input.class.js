@@ -99,7 +99,9 @@ module.exports = class MnInput extends HTMLElement {
       pattern: () => {
         const reg = new RegExp(this.getAttribute('pattern'))
 
-        return !reg.test(this.value)
+        return this.value
+          ? !reg.test(this.value)
+          : false
       },
     }
   }
