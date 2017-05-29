@@ -44,6 +44,12 @@ describe('mn-number (webcomponent)', () => {
     })
   })
 
+  describe('input', () => {
+    it('should have type number by default', () => {
+      expect(component.input).to.have.attribute('type', 'number')
+    })
+  })
+
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {

@@ -43,8 +43,10 @@ describe('mn-password (webcomponent)', () => {
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
+  })
 
-    it('should have type password in child input', () => {
+  describe('input', () => {
+    it('should have type password by default', () => {
       expect(component.input).to.have.attribute('type', 'password')
     })
   })
