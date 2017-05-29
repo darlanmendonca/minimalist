@@ -503,6 +503,11 @@ module.exports = class MnNumber extends MnInput {
 
   _setType() {
     this.input.setAttribute('type', 'number')
+    this.input.addEventListener('change', () => {
+      if (!Number.isInteger(this.input.value)) {
+        this.input.value = parseInt(this.input.value)
+      }
+    })
   }
 
   _setAttributeStep() {
