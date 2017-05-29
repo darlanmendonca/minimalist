@@ -177,7 +177,7 @@ module.exports = class MnInput extends HTMLElement {
 
   _setAttributeValue() {
     const value = this.getAttribute('value') || ''
-    this.setAttribute('value', value)
+    this.value = value
   }
 
   _setAttributeDisabled() {
