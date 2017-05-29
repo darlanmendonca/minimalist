@@ -3,10 +3,6 @@ const MnInput = require('../input/input.class.js')
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
-    this.validations.required = () => this.value === undefined,
-    delete this.validations.pattern
-    this.validations.min = () => this.value < this.getAttribute('min')
-    this.validations.max = () => this.value > this.getAttribute('max')
     return self
   }
 
@@ -23,13 +19,17 @@ module.exports = class MnNumber extends MnInput {
     this._setAttributeStep()
     this._setAttributeMax()
     this._setAttributeMin()
+    this._setValidations()
+    this._overrideValidations()
   }
 
   _setType() {
     this.input.setAttribute('type', 'number')
     this.input.addEventListener('change', () => {
-      if (!Number.isInteger(this.input.value)) {
-        this.input.value = parseInt(this.input.value)
+      const value = this.input.value
+      const isFloat = Number(value) === value && value % 1 !== 0
+      if (isFloat) {
+        this.input.value = parseInt(value)
       }
     })
   }
@@ -44,6 +44,13 @@ module.exports = class MnNumber extends MnInput {
 
   _setAttributeMin() {
     this.min = this.getAttribute('min')
+  }
+
+  _overrideValidations() {
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
   }
 
   static get observedAttributes() {

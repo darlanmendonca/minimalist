@@ -17,6 +17,7 @@ module.exports = class MnPassword extends MnInput {
     this._setAttributeValue()
     this._setAttributeDisabled()
     this._setAttributeAutofocus()
+    this._setValidations()
   }
 
   static get observedAttributes() {

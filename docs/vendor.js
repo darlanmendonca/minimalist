@@ -118,16 +118,6 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
-    this.validations = {
-      required: () => this.value === '',
-      pattern: () => {
-        const reg = new RegExp(this.getAttribute('pattern'))
-
-        return this.value
-          ? !reg.test(this.value)
-          : false
-      },
-    }
     return self
   }
 
@@ -144,6 +134,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
     this._setAttributeAutofocus()
+    this._setValidations()
   }
 
   _setCssClasses() {
@@ -215,6 +206,17 @@ module.exports = class MnInput extends HTMLElement {
 
   _setAttributeAutofocus() {
     this.autofocus = this.hasAttribute('autofocus')
+  }
+
+  _setValidations() {
+    this.validations = {
+      required: () => this.value === '',
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
+
+        return !reg.test(this.value)
+      },
+    }
   }
 
   static get observedAttributes() {
@@ -408,6 +410,7 @@ module.exports = class MnPassword extends MnInput {
     this._setAttributeValue()
     this._setAttributeDisabled()
     this._setAttributeAutofocus()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -481,10 +484,6 @@ const MnInput = __webpack_require__(1)
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
-    this.validations.required = () => this.value === undefined,
-    delete this.validations.pattern
-    this.validations.min = () => this.value < this.getAttribute('min')
-    this.validations.max = () => this.value > this.getAttribute('max')
     return self
   }
 
@@ -501,13 +500,17 @@ module.exports = class MnNumber extends MnInput {
     this._setAttributeStep()
     this._setAttributeMax()
     this._setAttributeMin()
+    this._setValidations()
+    this._overrideValidations()
   }
 
   _setType() {
     this.input.setAttribute('type', 'number')
     this.input.addEventListener('change', () => {
-      if (!Number.isInteger(this.input.value)) {
-        this.input.value = parseInt(this.input.value)
+      const value = this.input.value
+      const isFloat = Number(value) === value && value % 1 !== 0
+      if (isFloat) {
+        this.input.value = parseInt(value)
       }
     })
   }
@@ -522,6 +525,13 @@ module.exports = class MnNumber extends MnInput {
 
   _setAttributeMin() {
     this.min = this.getAttribute('min')
+  }
+
+  _overrideValidations() {
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
   }
 
   static get observedAttributes() {
