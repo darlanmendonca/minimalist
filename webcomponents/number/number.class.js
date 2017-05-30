@@ -29,7 +29,21 @@ module.exports = class MnNumber extends MnInput {
     this.input.setAttribute('pattern', '\\d*')
   }
 
+  _setInputPercentageMask() {
+    const value = this.input.value !== ''
+      ? `'${this.input.value} %'`
+      : ''
+
+    this.style.setProperty('--percentage', value)
+  }
+
   _setInputTransforms() {
+    if (this.hasAttribute('percentage')) {
+      this.input.addEventListener('input', () => {
+        this._setInputPercentageMask()
+      })
+    }
+
     this.input.addEventListener('change', () => {
       try {
         const value = eval(this.input.value.replace(',', '.'))
@@ -62,6 +76,8 @@ module.exports = class MnNumber extends MnInput {
       } catch (e) {
         this.value = undefined
       }
+
+      this._setInputPercentageMask()
     })
   }
 
@@ -126,10 +142,12 @@ module.exports = class MnNumber extends MnInput {
           this.input.value = ''
         }
 
-        this.input.dispatchEvent(new Event('change'))
       } catch (e) {
         this.input.value = ''
       }
+
+      this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
     }
   }
 
