@@ -97,11 +97,11 @@ module.exports = class MnNumber extends MnInput {
             ? value * 100
             : value
           this.input.value = value
+        } else {
+          this.input.value = ''
         }
 
         this.input.dispatchEvent(new Event('change'))
-        this.input.dispatchEvent(new Event('input'))
-
       } catch (e) {
         this.input.value = ''
       }
