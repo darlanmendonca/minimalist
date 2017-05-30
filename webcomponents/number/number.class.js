@@ -83,7 +83,7 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
-      switch(event.key) {
+      switch (event.key) {
         case 'ArrowUp':
           this.increment()
           break
