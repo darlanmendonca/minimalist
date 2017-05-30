@@ -13,11 +13,11 @@ module.exports = class MnNumber extends MnInput {
     this._setInput()
     this._setInputType()
     this._setInputTransforms()
+    this._setInputKeys()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
     this._setAttributeAutofocus()
-    this._setAttributeStep()
     this._setAttributeMax()
     this._setAttributeMin()
     this._setValidations()
@@ -81,8 +81,34 @@ module.exports = class MnNumber extends MnInput {
     })
   }
 
-  _setAttributeStep() {
-    this.step = this.getAttribute('step')
+  _setInputKeys() {
+    this.input.addEventListener('keydown', (event) => {
+      switch(event.key) {
+        case 'ArrowUp':
+          this.increment()
+          break
+        case 'ArrowDown':
+          this.decrement()
+          break
+      }
+      event.key === 'ArrowUp' || event.key === 'ArrowDown'
+        ? event.preventDefault()
+        : null
+    })
+  }
+
+  increment() {
+    const value = +this.getAttribute('step') || 1
+    this.value
+      ? this.value += value
+      : this.value = value
+  }
+
+  decrement() {
+    const value = +this.getAttribute('step') || 1
+    this.value
+      ? this.value -= value
+      : this.value = -value
   }
 
   _setAttributeMax() {
@@ -108,7 +134,6 @@ module.exports = class MnNumber extends MnInput {
       'disabled',
       'readonly',
       'autofocus',
-      'step',
       'max',
       'min',
     ]
@@ -148,14 +173,6 @@ module.exports = class MnNumber extends MnInput {
 
       this.input.dispatchEvent(new Event('change'))
       this.input.dispatchEvent(new Event('input'))
-    }
-  }
-
-  set step(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('step', value)
-        : this.input.removeAttribute('step')
     }
   }
 
