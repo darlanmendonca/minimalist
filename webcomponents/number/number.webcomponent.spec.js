@@ -55,22 +55,6 @@ describe('mn-number (webcomponent)', () => {
     })
   })
 
-  describe('property value', () => {
-    it('should return undefined by default', () => {
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should get undefined when it is setted some string', () => {
-      component.value = 'teste'
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should get number when it is setted numbers', () => {
-      component.value = 123
-      expect(component).to.have.value(123)
-    })
-  })
-
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
       component.setAttribute('name', 'test')
@@ -207,6 +191,48 @@ describe('mn-number (webcomponent)', () => {
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
+    })
+  })
+
+  describe('property value', () => {
+    it('should return undefined by default', () => {
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should get undefined when it is setted some string', () => {
+      component.value = 'teste'
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should get number when it is setted numbers', () => {
+      component.value = 123
+      expect(component).to.have.value(123)
+    })
+  })
+
+  describe('attribute currency', () => {
+    it('should have 2 decimal places by default', () => {
+      component.setAttribute('currency')
+      component.value = '10'
+      expect(component.input).to.have.value('10,00')
+    })
+
+    it('should be displayed numbers as decimal places', () => {
+      component.setAttribute('currency', 3)
+      component.value = '10,000'
+      expect(component.input).to.have.value('10,000')
+    })
+
+    it('should replace dot by comma', () => {
+      component.setAttribute('currency', 2)
+      component.value = '10.70'
+      expect(component.input).to.have.value('10,70')
+    })
+
+    it('should set undefined if found strings', () => {
+      component.setAttribute('currency', 2)
+      component.value = '123a'
+      expect(component.input).to.have.value(undefined)
     })
   })
 
