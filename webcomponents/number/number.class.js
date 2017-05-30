@@ -46,9 +46,9 @@ module.exports = class MnNumber extends MnInput {
 
     this.input.addEventListener('change', () => {
       try {
-        const value = eval(this.input.value.replace(',', '.'))
+        const value = eval(this.input.value.replaceAll(',', '.'))
         value !== undefined
-          ? this.input.value = String(value).replace('.', ',')
+          ? this.input.value = String(value).replaceAll('.', ',')
           : null
         const valueIsDefined = value !== undefined
 
@@ -61,11 +61,11 @@ module.exports = class MnNumber extends MnInput {
             case isDecimal:
             case isCurrency:
               const precision = this.getAttribute('decimal') || this.getAttribute('currency')
-              this.input.value = String(value.toFixed(precision || 2)).replace('.', ',')
+              this.input.value = String(value.toFixed(precision || 2)).replaceAll('.', ',')
               break
 
             case isPercentage:
-              this.input.value = String(value).replace('.', ',')
+              this.input.value = String(value).replaceAll('.', ',')
               break
 
             default:
@@ -116,7 +116,7 @@ module.exports = class MnNumber extends MnInput {
 
   get value() {
     const isUndefined = this.input.value === ''
-    const numberString = this.input.value.replace(',', '.')
+    const numberString = this.input.value.replaceAll(',', '.')
 
     const val = isUndefined
       ? undefined
@@ -130,7 +130,7 @@ module.exports = class MnNumber extends MnInput {
   set value(value) {
     if (this.input) {
       try {
-        value = eval(String(value).replace(',', '.'))
+        value = eval(String(value).replaceAll(',', '.'))
         const differentValue = this.input && this.input.value !== value
 
         if (value !== undefined && differentValue) {
