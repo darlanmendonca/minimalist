@@ -212,7 +212,7 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute currency', () => {
     it('should have 2 decimal places by default', () => {
-      component.setAttribute('currency')
+      component.setAttribute('currency', '')
       component.value = '10'
       expect(component.input).to.have.value('10,00')
     })

@@ -8,6 +8,7 @@
   <body>
     <form>
       <mn-number id="int" placeholder="Integer" value="10"></mn-number>
+      <mn-number id="decimal" placeholder="Float" decimal value="10"></mn-number>
       <mn-number id="currency" placeholder="Money" currency value="10"></mn-number>
       <mn-number id="percentage" placeholder="Percent" percentage value="0.1"></mn-number>
       <mn-password id="password" placeholder="Password" required></mn-password>
@@ -15,7 +16,7 @@
     </form>
     <script src="/vendor.js"></script>
     <script>
-      const perc = document.querySelector('#percentage')
+      const currency = document.querySelector('#currency')
     </script>
   </body>
 </html>
