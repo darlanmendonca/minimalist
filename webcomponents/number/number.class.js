@@ -31,7 +31,7 @@ module.exports = class MnNumber extends MnInput {
 
   _setPrecision() {
     if (this.hasAttribute('percentage')) {
-      this.input.addEventListener('input', event => {
+      this.input.addEventListener('input', () => {
         const value = this.input.value !== ''
           ? `'${this.input.value} %'`
           : ''
