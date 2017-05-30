@@ -24,4 +24,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('password')
   })
+
+  it('should export number component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('number')
+  })
 })
