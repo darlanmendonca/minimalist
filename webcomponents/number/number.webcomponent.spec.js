@@ -38,16 +38,6 @@ describe('mn-number (webcomponent)', () => {
     it('should contain a input child', () => {
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
-
-    it('should have type number in child input', () => {
-      expect(component.input).to.have.attribute('type', 'number')
-    })
-  })
-
-  describe('input', () => {
-    it('should have type number by default', () => {
-      expect(component.input).to.have.attribute('type', 'number')
-    })
   })
 
   // all style specs need to be refactor, to better organization and readability

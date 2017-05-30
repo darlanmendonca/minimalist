@@ -7,12 +7,15 @@
 
   <body>
     <form>
-      <mn-number placeholder="Integer" value="10"></mn-number>
-      <mn-number placeholder="Money" currency value="10"></mn-number>
-      <mn-number placeholder="Percent" percentage value="0.1"></mn-number>
-      <mn-password placeholder="Password" required></mn-password>
+      <mn-number id="int" placeholder="Integer" value="10"></mn-number>
+      <mn-number id="currency" placeholder="Money" currency value="10"></mn-number>
+      <mn-number id="percentage" placeholder="Percent" percentage value="0.1"></mn-number>
+      <mn-password id="password" placeholder="Password" required></mn-password>
       <button>submit</button>
     </form>
     <script src="/vendor.js"></script>
+    <script>
+      const input = document.querySelector('#percentage')
+    </script>
   </body>
 </html>

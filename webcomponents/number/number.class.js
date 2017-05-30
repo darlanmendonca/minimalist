@@ -11,8 +11,8 @@ module.exports = class MnNumber extends MnInput {
     this.classList.add('mn-number')
     this._setCssClasses()
     this._setInput()
-    this._setType()
-    this._setPrecision()
+    this._setInputType()
+    this._setInputTransforms()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
@@ -24,49 +24,20 @@ module.exports = class MnNumber extends MnInput {
     this._overrideValidations()
   }
 
-  _setType() {
-    this.input.setAttribute('type', 'number')
+  _setInputType() {
+    // display numeric keyboard in mobile
     this.input.setAttribute('pattern', '\\d*')
   }
 
-  _setPrecision() {
-    if (this.hasAttribute('percentage')) {
-      this.input.addEventListener('input', () => {
-        const value = this.input.value !== ''
-          ? `'${this.input.value} %'`
-          : ''
-
-        this.style.setProperty('--percentage', value)
-      })
-    }
-
+  _setInputTransforms() {
     this.input.addEventListener('change', () => {
-      const value = this.input.value
-      const isDecimal = this.hasAttribute('decimal')
-      const isCurrency = this.hasAttribute('currency')
-      const isPercentage = this.hasAttribute('percentage')
-
-      let precision
-
-      switch (true) {
-        case isDecimal:
-        case isCurrency:
-          precision = this.getAttribute('decimal') || this.getAttribute('currency')
-          this.input.value = parseFloat(value).toFixed(precision || 2)
-          break
-
-        case isPercentage:
-          if (isNaN(value)) {
-            precision = this.getAttribute('percentage')
-            precision
-              ? this.input.value = parseFloat(value).toFixed(precision)
-              : this.input.value = parseFloat(value)
-          }
-          break
-
-        default:
-          this.input.value = parseInt(value)
-          break
+      try {
+        const value = eval(this.input.value.replace(',', '.'))
+        value !== undefined
+          ? this.input.value = String(value).replace('.', ',')
+          : null
+      } catch (e) {
+        this.value = undefined
       }
     })
   }
@@ -106,25 +77,34 @@ module.exports = class MnNumber extends MnInput {
 
   get value() {
     const isUndefined = this.input.value === ''
+    const numberString = this.input.value.replace(',', '.')
 
     return isUndefined
       ? undefined
       : this.hasAttribute('percentage')
-        ? this.input.value / 100
-        : parseFloat(this.input.value)
+        ? (numberString * 100) / 10000
+        : parseFloat(numberString)
   }
 
-  set value(value = '') {
-    const differentValue = this.input && this.input.value !== value
+  set value(value) {
+    if (this.input) {
+      try {
+        value = eval(value)
+        const differentValue = this.input && this.input.value !== value
 
-    if (this.input && differentValue) {
-      value = parseFloat(value)
-      value = this.hasAttribute('percentage')
-        ? value * 100
-        : value
-      this.input.value = value
-      this.input.dispatchEvent(new Event('change'))
-      this.input.dispatchEvent(new Event('input'))
+        if (value !== undefined && differentValue) {
+          value = this.hasAttribute('percentage')
+            ? value * 100
+            : value
+          this.input.value = value
+        }
+
+        this.input.dispatchEvent(new Event('change'))
+        this.input.dispatchEvent(new Event('input'))
+
+      } catch (e) {
+        this.input.value = ''
+      }
     }
   }
 

@@ -22,24 +22,10 @@
 }
 
 .mn-number[percentage] {
-  --percentage: '';
-
+  --percentage-symbol: '%';
   &:before {
-    content: var(--percentage);
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .input {
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    -ms-text-fill-color: transparent;
+    content: var(--percentage-symbol);
+    margin-right: .25em;
   }
 }
 
