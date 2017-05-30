@@ -102,17 +102,19 @@ module.exports = class MnNumber extends MnInput {
     const isUndefined = this.input.value === ''
     const numberString = this.input.value.replace(',', '.')
 
-    return isUndefined
+    const val = isUndefined
       ? undefined
       : this.hasAttribute('percentage')
         ? (numberString * 100) / 10000
         : parseFloat(numberString)
+
+    return val
   }
 
   set value(value) {
     if (this.input) {
       try {
-        value = eval(value.replace(',', '.'))
+        value = eval(String(value).replace(',', '.'))
         const differentValue = this.input && this.input.value !== value
 
         if (value !== undefined && differentValue) {

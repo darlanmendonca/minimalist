@@ -7,16 +7,16 @@
 
   <body>
     <form>
-      <mn-number id="int" placeholder="Integer" value="10"></mn-number>
-      <mn-number id="decimal" placeholder="Float" decimal value="10"></mn-number>
-      <mn-number id="currency" placeholder="Money" currency value="10"></mn-number>
-      <mn-number id="percentage" placeholder="Percent" percentage value="0.1"></mn-number>
+      <mn-number id="int" placeholder="Integer" required></mn-number>
+      <mn-number id="decimal" placeholder="Float" decimal></mn-number>
+      <mn-number id="currency" placeholder="Money" currency></mn-number>
+      <mn-number id="percentage" placeholder="Percent" percentage></mn-number>
       <mn-password id="password" placeholder="Password" required></mn-password>
       <button>submit</button>
     </form>
     <script src="/vendor.js"></script>
     <script>
-      const currency = document.querySelector('#currency')
+      const int = document.querySelector('#int')
     </script>
   </body>
 </html>

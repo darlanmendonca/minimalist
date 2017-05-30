@@ -232,7 +232,7 @@ describe('mn-number (webcomponent)', () => {
     it('should set undefined if found strings', () => {
       component.setAttribute('currency', 2)
       component.value = '123a'
-      expect(component.input).to.have.value(undefined)
+      expect(component).to.have.value(undefined)
     })
   })
 
