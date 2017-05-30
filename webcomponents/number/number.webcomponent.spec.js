@@ -244,6 +244,63 @@ describe('mn-number (webcomponent)', () => {
       expect(component.input).to.not.have.attribute('autofocus')
     })
   })
+
+  describe('attribute min', () => {
+    it('should apply attribute min to label', () => {
+      component.setAttribute('min', '0')
+      expect(component.label).to.have.attribute('min', '0')
+    })
+
+    it('should be invalid if filled with invalid value', () => {
+      component.setAttribute('min', '0')
+      component.setAttribute('required', '')
+      component.value = -10
+      component.validate()
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('min')
+    })
+
+    it('should be valid if filled with valid value', () => {
+      component.setAttribute('min', '0')
+      component.setAttribute('required', '')
+      component.value = 1
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('min')
+    })
+  })
+
+  describe('attribute max', () => {
+    it('should apply attribute max to label', () => {
+      component.setAttribute('max', '100')
+      expect(component.label).to.have.attribute('max', '100')
+    })
+
+    it('should be invalid if filled with invalid value', () => {
+      component.setAttribute('max', '100')
+      component.setAttribute('required', '')
+      component.value = 101
+      component.validate()
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('max')
+    })
+
+    it('should be valid if filled with valid value', () => {
+      component.setAttribute('max', '100')
+      component.setAttribute('required', '')
+      component.value = 100
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('max')
+    })
+  })
+
+  describe('attribute step', () => {
+    it('should contain attribute step in child input', () => {
+      component.setAttribute('step','1')
+      expect(component.input).to.have.attribute('step','1')
+    })
+  })
 })
 
 function loadComponent() {
