@@ -53,7 +53,7 @@ describe('mn-input (webcomponent)', () => {
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'inline-block')
+      expect(component).to.have.style('display', 'flex')
     })
 
     it('should have a relative position', () => {
