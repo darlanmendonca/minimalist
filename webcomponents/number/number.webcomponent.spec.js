@@ -375,9 +375,9 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute percentage', () => {
-    it('should set string when value is string ', () => {
+    it('should set string when value is string', () => {
       number.setAttribute('percentage')
-      component.value = '0'
+      number.typeValue('0')
       expect(component.mask).to.have.text('0 %')
       expect(component.input).to.have.value('0')
       expect(component).to.have.value(0)
@@ -385,7 +385,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set undefined when value is invalid', () => {
       number.setAttribute('percentage')
-      component.value = 't1'
+      number.typeValue('t1')
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
       expect(component).to.have.value(undefined)
@@ -400,7 +400,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted decimal value', () => {
       number.setAttribute('percentage')
-      component.value = 0.01
+      number.setValue(0.01)
       expect(component.mask).to.have.text('1 %')
       expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
@@ -408,7 +408,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted integer value', () => {
       number.setAttribute('percentage')
-      component.value = 1
+      number.setValue(1)
       expect(component.input).to.have.value('100')
       expect(component.mask).to.have.text('100 %')
       expect(component).to.have.value(1)
@@ -416,7 +416,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should receive numbers above hundreds', () => {
       number.setAttribute('percentage')
-      component.value = 1182
+      number.setValue(1182)
       expect(component.input).to.have.value('118200')
       expect(component.mask).to.have.text('118200 %')
       expect(component).to.have.value(1182)
@@ -424,7 +424,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should receive math expressions', () => {
       number.setAttribute('percentage')
-      component.value = '1*2'
+      number.setValue('1*2')
       expect(component.input).to.have.value('200')
       expect(component.mask).to.have.text('200 %')
       expect(component).to.have.value(2)
@@ -432,19 +432,19 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set decimal value when value is string numeric', () => {
       number.setAttribute('percentage')
-      component.value = '1'
-      expect(component.input).to.have.value('100')
-      expect(component.mask).to.have.text('100 %')
-      expect(component).to.have.value(1)
+      number.typeValue('1')
+      expect(component.input).to.have.value('1')
+      expect(component.mask).to.have.text('1 %')
+      expect(component).to.have.value(0.01)
     })
 
     it('should set new value when value is changed', () => {
       number.setAttribute('percentage')
-      component.value = '1'
-      component.value = '2'
-      expect(component.mask).to.have.text('200 %')
-      expect(component.input).to.have.value('200')
-      expect(component).to.have.value(2)
+      number.typeValue('1')
+      number.typeValue('2')
+      expect(component.mask).to.have.text('2 %')
+      expect(component.input).to.have.value('2')
+      expect(component).to.have.value(0.02)
     })
   })
 })

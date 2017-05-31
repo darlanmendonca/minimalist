@@ -5,8 +5,4 @@ module.exports = class NumberPageObject extends InputPageObject {
     super(component)
     return this
   }
-
-  aNewMethod(value) {
-    return `wow: ${value}`
-  }
 }
