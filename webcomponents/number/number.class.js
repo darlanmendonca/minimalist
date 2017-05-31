@@ -11,6 +11,7 @@ module.exports = class MnNumber extends MnInput {
     this.classList.add('mn-number')
     this._setCssClasses()
     this._setInput()
+    this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
     this._setInputKeys()
@@ -37,30 +38,42 @@ module.exports = class MnNumber extends MnInput {
     ]
   }
 
+  _setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.input.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
   _setMobileKeyboard() {
     this.input.setAttribute('pattern', '\\d*')
   }
 
-  _setInputPercentageMask() {
-    if (this.mask && this.hasAttribute('percentage')) {
-      const value = this.input.value !== ''
-        ? `${this.input.value} %`
-        : ''
+  // _setInputPercentageMask() {
+    // here
+    // if (this.mask && this.hasAttribute('percentage')) {
+    //   const value = this.input.value !== ''
+    //     ? `${this.input.value} %`
+    //     : ''
 
-      this.mask.textContent = value
-    }
-  }
+    //   this.mask.textContent = value
+    // }
+  // }
 
   _setInputTransforms() {
-    if (this.hasAttribute('percentage')) {
-      this.mask = document.createElement('div')
-      this.mask.classList.add('mask')
-      this.appendChild(this.mask)
+    // here
+    // if (this.hasAttribute('percentage')) {
+    //   this.mask = document.createElement('div')
+    //   this.mask.classList.add('mask')
+    //   this.appendChild(this.mask)
 
-      this.input.addEventListener('input', () => {
-        this._setInputPercentageMask()
-      })
-    }
+    //   this.input.addEventListener('input', () => {
+    //     this._setInputPercentageMask()
+    //   })
+    // }
 
     this.input.addEventListener('change', () => {
       try {
@@ -95,7 +108,12 @@ module.exports = class MnNumber extends MnInput {
         this.value = undefined
       }
 
-      this._setInputPercentageMask()
+      this.hasAttribute('percentage')
+        ? this.updateMask()
+        : null
+      // this.percentage = this.getAttribute('percentage')
+      // this.updateMask()
+      // this._setInputPercentageMask()
     })
   }
 
@@ -181,5 +199,23 @@ module.exports = class MnNumber extends MnInput {
     this.hasAttribute('min')
       ? this.label.setAttribute('min', value)
       : this.label.removeAttribute('min')
+  }
+
+  updateMask() {
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = this.input.value !== ''
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = this.input.value !== ''
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
   }
 }
