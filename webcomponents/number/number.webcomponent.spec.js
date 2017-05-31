@@ -213,6 +213,11 @@ describe('mn-number (webcomponent)', () => {
       component.value = '123'
       expect(component).to.have.value(123)
     })
+
+    it('should get undefined when it is setted empty string', () => {
+      component.value = ''
+      expect(component).to.have.value(undefined)
+    })
   })
 
   describe('attribute value', () => {
@@ -234,6 +239,12 @@ describe('mn-number (webcomponent)', () => {
     it('should set undefined if found strings', () => {
       component.setAttribute('value', '2')
       component.value = '123a'
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should set undefined if attribute is null', () => {
+      component.setAttribute('value', '2')
+      component.value = ''
       expect(component).to.have.value(undefined)
     })
   })
@@ -365,30 +376,64 @@ describe('mn-number (webcomponent)', () => {
     it('should return number if enter a valid number', () => {
       component.setAttribute('percentage', '')
       component.value = '0'
+      expect(component.mask).to.have.text('0')
       expect(component.input).to.have.value('0')
+      expect(component).to.have.value(undefined)
     })
 
     it('should get undefined if typed string', () => {
       component.setAttribute('percentage', '')
       component.value = 't1'
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('')
       expect(component).to.have.value(undefined)
     })
 
     it('should get undefined if typed empty string', () => {
       component.setAttribute('percentage', '')
+      expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should get value 1 percentage if setted as 0.01', () => {
       component.setAttribute('percentage', '')
       component.value = 0.01
+      expect(component.mask).to.have.text('1')
       expect(component.input).to.have.value('1')
+      expect(component).to.have.value(0.01)
     })
 
     it('should get value 100 percentage if setted as 1', () => {
       component.setAttribute('percentage', '')
       component.value = 1
       expect(component.input).to.have.value('100')
+      expect(component.mask).to.have.text('100')
+      expect(component).to.have.value(1)
+    })
+
+    it('should receive numbers above hundreds', () => {
+      component.setAttribute('percentage', '')
+      component.value = 1182
+      expect(component.input).to.have.value('118200')
+      expect(component.mask).to.have.text('118500')
+      expect(component.input).to.have.value(1182)
+    })
+
+    it('should receive math expressions', () => {
+      component.setAttribute('percentage', '')
+      component.value = '1*2'
+      expect(component.input).to.have.value('200')
+      expect(component.mask).to.have.text('200')
+      expect(component).to.have.value(2)
+    })
+
+    it('should get value as percentage', () => {
+      component.setAttribute('percentage', '')
+      component.value = '1'
+      expect(component.mask).to.have.text('1')
+      expect(component.input).to.have.value('1')
+      expect(component).to.have.value(0.01)
     })
   })
 })
