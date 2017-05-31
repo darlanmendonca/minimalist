@@ -532,13 +532,13 @@ module.exports = class MnNumber extends MnInput {
     return val
   }
 
-  set value(value) {
+  set value(value = '') {
     if (this.input) {
       try {
         value = eval(String(value).replace(/,/g, '.'))
         const differentValue = this.input.value !== value
 
-        if (value !== undefined && differentValue) {
+        if (value && differentValue) {
           value = this.hasAttribute('percentage')
             ? value * 100
             : value
