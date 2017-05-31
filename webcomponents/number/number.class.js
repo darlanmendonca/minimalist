@@ -145,7 +145,7 @@ module.exports = class MnNumber extends MnInput {
     if (this.input) {
       try {
         value = eval(String(value).replace(/,/g, '.'))
-        const differentValue = this.input && this.input.value !== value
+        const differentValue = this.input.value !== value
 
         if (value !== undefined && differentValue) {
           value = this.hasAttribute('percentage')
