@@ -362,7 +362,7 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute percentage', () => {
-    it('should get value 0 if typed nothing', () => {
+    it('should return number if enter a valid number', () => {
       component.setAttribute('percentage', '')
       component.value = '0'
       expect(component.input).to.have.value('0')
