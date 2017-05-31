@@ -5,12 +5,14 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let input // page object defined in method setPageObject
 let component
 
 describe('mn-input (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -71,17 +73,17 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with undefined', () => {
-      component.value = undefined
+      input.setValue(undefined)
       expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with null', () => {
-      component.value = null
+      input.setValue(undefined)
       expect(component).to.have.value('')
     })
 
     it('should setter and getter as string', () => {
-      component.value = 'test'
+      input.setValue('test')
       expect(component).to.have.value('test')
     })
   })
@@ -275,7 +277,7 @@ describe('mn-input (webcomponent)', () => {
 
     it('should be valid if validate with filled value', () => {
       component.setAttribute('required', '')
-      component.value = 'test'
+      input.setValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -301,7 +303,7 @@ describe('mn-input (webcomponent)', () => {
     it('should be valid if have a valid value', () => {
       component.setAttribute('required', '')
       component.setAttribute('pattern', '^t') // starts with t
-      component.value = 'test'
+      input.setValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
@@ -343,4 +345,8 @@ function createComponent() {
 
   form.appendChild(component)
   document.body.appendChild(form)
+}
+
+function setPageObject() {
+  input = require('./input.po.js')(component)
 }
