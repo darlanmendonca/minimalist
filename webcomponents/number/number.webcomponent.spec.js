@@ -373,7 +373,7 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute percentage', () => {
-    it('should return number if enter a valid number', () => {
+    it('should set string when value is string ', () => {
       component.setAttribute('percentage', '')
       component.value = '0'
       expect(component.mask).to.have.text('0')
@@ -381,7 +381,7 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.have.value(undefined)
     })
 
-    it('should get undefined if typed string', () => {
+    it('should set undefined when value is invalid', () => {
       component.setAttribute('percentage', '')
       component.value = 't1'
       expect(component.mask).to.have.text('')
@@ -389,14 +389,14 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.have.value(undefined)
     })
 
-    it('should get undefined if typed empty string', () => {
+    it('should set undefined when string is empty', () => {
       component.setAttribute('percentage', '')
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
       expect(component).to.have.value(undefined)
     })
 
-    it('should get value 1 percentage if setted as 0.01', () => {
+    it('should set value in percentage when setted decimal value', () => {
       component.setAttribute('percentage', '')
       component.value = 0.01
       expect(component.mask).to.have.text('1')
@@ -404,7 +404,7 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.have.value(0.01)
     })
 
-    it('should get value 100 percentage if setted as 1', () => {
+    it('should set value in percentage when setted integer value', () => {
       component.setAttribute('percentage', '')
       component.value = 1
       expect(component.input).to.have.value('100')
@@ -428,12 +428,21 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.have.value(2)
     })
 
-    it('should get value as percentage', () => {
+    it('should set decimal value when value is string numeric', () => {
       component.setAttribute('percentage', '')
       component.value = '1'
       expect(component.mask).to.have.text('1')
       expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
+    })
+
+    it('should set new value when value is changed', () => {
+      component.setAttribute('percentage', '')
+      component.value = '1'
+      component.value = '2'
+      expect(component.mask).to.have.text('2')
+      expect(component.input).to.have.value('2')
+      expect(component).to.have.value(0.02)
     })
   })
 })
