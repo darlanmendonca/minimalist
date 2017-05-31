@@ -7,8 +7,12 @@ class InputPageObject {
     this.component.value = value
   }
 
-  type(string) {
-    this.component.input = string
+  setAttribute(name, value = '') {
+    this.component.setAttribute(name, value)
+  }
+
+  removeAttribute(name) {
+    this.component.removeAttribute(name)
   }
 }
 
