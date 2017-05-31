@@ -83,32 +83,22 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
+      const step = +this.getAttribute('step') || 1
+      const value = this.value || 0
+
       switch (event.key) {
         case 'ArrowUp':
-          this.increment()
+          this.value = value + step
           break
         case 'ArrowDown':
-          this.decrement()
+          this.value = value - step
           break
       }
+
       event.key === 'ArrowUp' || event.key === 'ArrowDown'
         ? event.preventDefault()
         : null
     })
-  }
-
-  increment() {
-    const value = +this.getAttribute('step') || 1
-    this.value
-      ? this.value += value
-      : this.value = value
-  }
-
-  decrement() {
-    const value = +this.getAttribute('step') || 1
-    this.value
-      ? this.value -= value
-      : this.value = -value
   }
 
   _setAttributeMax() {
