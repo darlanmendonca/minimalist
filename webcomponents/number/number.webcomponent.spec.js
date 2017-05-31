@@ -322,10 +322,10 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute currency', () => {
-    it('should have 3 decimal places by default', () => {
-      component.setAttribute('currency', '3')
+    it('should have 2 decimal places by default', () => {
+      component.setAttribute('currency', '')
       component.value = '10'
-      expect(component.input).to.have.value('10,000')
+      expect(component.input).to.have.value('10,00')
     })
 
     it('should be displayed numbers as decimal places', () => {
@@ -358,6 +358,37 @@ describe('mn-number (webcomponent)', () => {
       component.setAttribute('decimal', '2')
       component.value = '10.70'
       expect(component.input).to.have.value('10,70')
+    })
+  })
+
+  describe('attribute percentage', () => {
+    it('should get value 0 if typed nothing', () => {
+      component.setAttribute('percentage', '')
+      component.value = '0'
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should get undefined if typed string', () => {
+      component.setAttribute('percentage', '')
+      component.value = 't1'
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should get undefined if typed empty string', () => {
+      component.setAttribute('percentage', '')
+      expect(component.input).to.have.value('')
+    })
+
+    it('should get value 1 percentage if setted as 0.01', () => {
+      component.setAttribute('percentage', '')
+      component.value = 0.01
+      expect(component.input).to.have.value('1')
+    })
+
+    it('should get value 100 percentage if setted as 1', () => {
+      component.setAttribute('percentage', '')
+      component.value = 1
+      expect(component.input).to.have.value('100')
     })
   })
 })
