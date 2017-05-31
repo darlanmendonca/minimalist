@@ -216,12 +216,12 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute disabled', () => {
     it('should define attribute in child input', () => {
-      component.disabled = true
+      input.setAttribute('disabled')
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child input', () => {
-      component.disabled = false
+      input.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
     })
   })
@@ -312,13 +312,13 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute autofocus', () => {
     it('should set attribute on child input', () => {
-      component.autofocus = true
+      input.setAttribute('autofocus')
       expect(component.input).to.have.attribute('autofocus')
     })
 
     it('should unset attribute from child input', () => {
-      component.autofocus = true
-      component.autofocus = false
+      input.setAttribute('autofocus')
+      input.removeAttribute('autofocus')
       expect(component.input).to.not.have.attribute('autofocus')
     })
   })

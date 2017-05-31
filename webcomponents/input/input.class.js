@@ -158,11 +158,11 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set disabled(value) {
-    this.input.disabled = value
+    this.input.disabled = value || this.hasAttribute('disabled')
   }
 
   set readonly(value) {
-    this.input.readOnly = value
+    this.input.readOnly = value || this.hasAttribute('readonly')
   }
 
   set maxlength(value) {
@@ -178,7 +178,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set autofocus(value) {
-    this.input.autofocus = value
+    this.input.autofocus = value || this.hasAttribute('autofocus')
   }
 
   validate() {
