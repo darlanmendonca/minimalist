@@ -42,7 +42,7 @@ module.exports = class MnNumber extends MnInput {
   }
 
   _setInputPercentageMask() {
-    if (this.maks && this.hasAttribute('percentage')) {
+    if (this.mask && this.hasAttribute('percentage')) {
       const value = this.input.value !== ''
         ? `${this.input.value} %`
         : ''
