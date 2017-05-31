@@ -245,6 +245,7 @@ describe('mn-input (webcomponent)', () => {
       input.setAttribute('autocapitalize', 'characters')
       expect(component.input).to.have.attribute('autocapitalize', 'characters')
     })
+
     it('should change the attribute', () => {
       input.setAttribute('autocapitalize', 'on')
       input.setAttribute('autocapitalize', 'off')
@@ -348,5 +349,6 @@ function createComponent() {
 }
 
 function setPageObject() {
-  input = require('./input.po.js')(component)
+  const InputPageObject = require('./input.po.js')
+  input = new InputPageObject(component)
 }

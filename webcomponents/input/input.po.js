@@ -1,4 +1,4 @@
-class InputPageObject {
+module.exports = class InputPageObject {
   constructor(component) {
     this.component = component
   }
@@ -15,5 +15,3 @@ class InputPageObject {
     this.component.removeAttribute(name)
   }
 }
-
-module.exports = (component) => new InputPageObject(component)

@@ -5,12 +5,14 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let number
 let component
 
 describe('mn-number (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -57,41 +59,41 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
-      component.setAttribute('name', 'test')
+      number.setAttribute('name', 'test')
       const {formID} = window
       expect(formID.test).to.be.equal(component)
     })
 
     it('should define a form getter if parent form exist and has a name', () => {
-      component.setAttribute('name', 'test')
+      number.setAttribute('name', 'test')
       const {formName} = window
       expect(formName.test).to.be.equal(component)
     })
 
     it('should undefine form getter (name) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      number.setAttribute('name', 'test')
+      number.removeAttribute('name')
       const {formName} = window
       expect(formName.test).to.be.undefined
     })
 
     it('should undefine form getter (id) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      number.setAttribute('name', 'test')
+      number.removeAttribute('name')
       const {formID} = window
       expect(formID.test).to.be.undefined
     })
 
     it('should redefine form getter (name) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      number.setAttribute('name', 'test')
+      number.setAttribute('name', 'test2')
       const {formName} = window
       expect(formName.test2).to.be.equal(component)
     })
 
     it('should redefine form getter (id) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      number.setAttribute('name', 'test')
+      number.setAttribute('name', 'test2')
       const {formID} = window
       expect(formID.test2).to.be.equal(component)
     })
@@ -117,13 +119,13 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute placeholder', () => {
     it('should define a label as placeholder', () => {
-      component.setAttribute('placeholder', 'test')
+      number.setAttribute('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should change the text', () => {
-      component.setAttribute('placeholder', 'test')
-      component.setAttribute('placeholder', 'test2')
+      number.setAttribute('placeholder', 'test')
+      number.setAttribute('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
@@ -132,20 +134,20 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set empty text to label when attribute is removed', () => {
-      component.setAttribute('placeholder', 'test')
-      component.removeAttribute('placeholder')
+      number.setAttribute('placeholder', 'test')
+      number.removeAttribute('placeholder')
       expect(component).to.contain('label').with.text('')
     })
   })
 
   describe('attribute readonly', () => {
     it('should define attribute in child number', () => {
-      component.setAttribute('readonly', 'readonly')
+      number.setAttribute('readonly', 'readonly')
       expect(component).to.contain('input').to.have.attribute('readonly')
     })
 
     it('should remove attribute from child input', () => {
-      component.removeAttribute('readonly')
+      number.removeAttribute('readonly')
       expect(component).to.contain('input').not.have.attribute('readonly')
     })
   })
@@ -179,14 +181,14 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute required', () => {
     it('should be invalid if validate without fill value', () => {
-      component.setAttribute('required', '')
+      number.setAttribute('required')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
     it('should be valid if validate with filled value', () => {
-      component.setAttribute('required', '')
+      number.setAttribute('required')
       component.value = 1
       component.validate()
       expect(component).to.not.have.class('invalid')
@@ -222,28 +224,28 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute value', () => {
     it('should set property value when attribute changed', () => {
-      component.setAttribute('value', 123)
+      number.setAttribute('value', 123)
       expect(component).to.have.value(123)
     })
 
     it('should set value as number when value is string', () => {
-      component.setAttribute('value', '123')
+      number.setAttribute('value', '123')
       expect(component).to.have.value(123)
     })
 
     it('should set property value when attribute is removed', () => {
-      component.removeAttribute('value')
+      number.removeAttribute('value')
       expect(component).to.have.value(undefined)
     })
 
     it('should set undefined if found strings', () => {
-      component.setAttribute('value', '2')
+      number.setAttribute('value', '2')
       component.value = '123a'
       expect(component).to.have.value(undefined)
     })
 
     it('should set undefined if attribute is null', () => {
-      component.setAttribute('value', '2')
+      number.setAttribute('value', '2')
       component.value = ''
       expect(component).to.have.value(undefined)
     })
@@ -264,13 +266,13 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute min', () => {
     it('should apply attribute min to label', () => {
-      component.setAttribute('min', '0')
+      number.setAttribute('min', '0')
       expect(component.label).to.have.attribute('min', '0')
     })
 
     it('should be invalid if filled with invalid value', () => {
-      component.setAttribute('min', '0')
-      component.setAttribute('required', '')
+      number.setAttribute('min', '0')
+      number.setAttribute('required')
       component.value = -10
       component.validate()
       expect(component).to.have.class('invalid')
@@ -278,8 +280,8 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should be valid if filled with valid value', () => {
-      component.setAttribute('min', '0')
-      component.setAttribute('required', '')
+      number.setAttribute('min', '0')
+      number.setAttribute('required')
       component.value = 1
       component.validate()
       expect(component).to.not.have.class('invalid')
@@ -289,13 +291,13 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute max', () => {
     it('should apply attribute max to label', () => {
-      component.setAttribute('max', '100')
+      number.setAttribute('max', '100')
       expect(component.label).to.have.attribute('max', '100')
     })
 
     it('should be invalid if filled with invalid value', () => {
-      component.setAttribute('max', '100')
-      component.setAttribute('required', '')
+      number.setAttribute('max', '100')
+      number.setAttribute('required')
       component.value = 101
       component.validate()
       expect(component).to.have.class('invalid')
@@ -303,8 +305,8 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should be valid if filled with valid value', () => {
-      component.setAttribute('max', '100')
-      component.setAttribute('required', '')
+      number.setAttribute('max', '100')
+      number.setAttribute('required')
       component.value = 100
       component.validate()
       expect(component).to.not.have.class('invalid')
@@ -325,7 +327,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should increment using step', () => {
-      component.setAttribute('step', '10')
+      number.setAttribute('step', '10')
       component.value = 10
       component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
       expect(component).to.have.value(20)
@@ -334,19 +336,19 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute currency', () => {
     it('should have 2 decimal places by default', () => {
-      component.setAttribute('currency', '')
+      number.setAttribute('currency')
       component.value = '10'
       expect(component.input).to.have.value('10,00')
     })
 
     it('should be displayed numbers as decimal places', () => {
-      component.setAttribute('currency', 3)
+      number.setAttribute('currency', 3)
       component.value = '10,000'
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
-      component.setAttribute('currency', 2)
+      number.setAttribute('currency', 2)
       component.value = '10.70'
       expect(component.input).to.have.value('10,70')
     })
@@ -354,19 +356,19 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute decimal', () => {
     it('should get value with decimal places by default', () => {
-      component.setAttribute('decimal', '')
+      number.setAttribute('decimal')
       component.value = '10.1'
       expect(component.input).to.have.value('10,10')
     })
 
     it('should be displayed numbers as decimal places', () => {
-      component.setAttribute('decimal', '3')
+      number.setAttribute('decimal', '3')
       component.value = '10'
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
-      component.setAttribute('decimal', '2')
+      number.setAttribute('decimal', '2')
       component.value = '10.70'
       expect(component.input).to.have.value('10,70')
     })
@@ -374,7 +376,7 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute percentage', () => {
     it('should set string when value is string ', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = '0'
       expect(component.mask).to.have.text('0 %')
       expect(component.input).to.have.value('0')
@@ -382,7 +384,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set undefined when value is invalid', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = 't1'
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
@@ -390,14 +392,14 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set undefined when string is empty', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
       expect(component).to.have.value(undefined)
     })
 
     it('should set value in percentage when setted decimal value', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = 0.01
       expect(component.mask).to.have.text('1 %')
       expect(component.input).to.have.value('1')
@@ -405,7 +407,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set value in percentage when setted integer value', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = 1
       expect(component.input).to.have.value('100')
       expect(component.mask).to.have.text('100 %')
@@ -413,7 +415,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should receive numbers above hundreds', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = 1182
       expect(component.input).to.have.value('118200')
       expect(component.mask).to.have.text('118200 %')
@@ -421,7 +423,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should receive math expressions', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = '1*2'
       expect(component.input).to.have.value('200')
       expect(component.mask).to.have.text('200 %')
@@ -429,7 +431,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set decimal value when value is string numeric', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = '1'
       expect(component.input).to.have.value('100')
       expect(component.mask).to.have.text('100 %')
@@ -437,7 +439,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set new value when value is changed', () => {
-      component.setAttribute('percentage', '')
+      number.setAttribute('percentage')
       component.value = '1'
       component.value = '2'
       expect(component.mask).to.have.text('200 %')
@@ -468,4 +470,9 @@ function createComponent() {
 
   form.appendChild(component)
   document.body.appendChild(form)
+}
+
+function setPageObject() {
+  const NumberPageObject = require('./number.po.js')
+  number = new NumberPageObject(component)
 }
