@@ -22,6 +22,25 @@ module.exports = class MnInput extends HTMLElement {
     this._setValidations()
   }
 
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'maxlength',
+      'autocapitalize',
+      'autofocus',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode && this.children.length) {
+      this[name] = value
+    }
+  }
+
   _setCssClasses() {
     this.classList.add('mn-input')
   }
@@ -61,8 +80,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    const value = this.getAttribute('value') || ''
-    this.value = value
+    this.value = this.getAttribute('value') || ''
   }
 
   _setAttributeDisabled() {
@@ -103,25 +121,6 @@ module.exports = class MnInput extends HTMLElement {
           ? !reg.test(this.value)
           : false
       },
-    }
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'maxlength',
-      'autocapitalize',
-      'autofocus',
-    ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.children.length) {
-      this[name] = value
     }
   }
 

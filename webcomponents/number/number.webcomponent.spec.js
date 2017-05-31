@@ -302,9 +302,22 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute step', () => {
-    it('should contain attribute step in child input', () => {
-      component.setAttribute('step','1')
-      expect(component.input).to.have.attribute('step','1')
+    it('should increment without value on ArrowUp, using default step', () => {
+      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      expect(component).to.have.value(1)
+    })
+
+    it('should increment value on ArrowUp using default step', () => {
+      component.value = 10
+      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      expect(component).to.have.value(11)
+    })
+
+    it('should increment using step', () => {
+      component.setAttribute('step', '10')
+      component.value = 10
+      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      expect(component).to.have.value(20)
     })
   })
 

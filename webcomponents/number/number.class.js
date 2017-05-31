@@ -11,7 +11,7 @@ module.exports = class MnNumber extends MnInput {
     this.classList.add('mn-number')
     this._setCssClasses()
     this._setInput()
-    this._setInputType()
+    this._setMobileKeyboard()
     this._setInputTransforms()
     this._setInputKeys()
     this._setPlaceholder()
@@ -24,8 +24,20 @@ module.exports = class MnNumber extends MnInput {
     this._overrideValidations()
   }
 
-  _setInputType() {
-    // display numeric keyboard in mobile
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setMobileKeyboard() {
     this.input.setAttribute('pattern', '\\d*')
   }
 
@@ -114,19 +126,6 @@ module.exports = class MnNumber extends MnInput {
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
     delete this.validations.pattern
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
   }
 
   get value() {
