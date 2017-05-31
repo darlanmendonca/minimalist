@@ -7,6 +7,7 @@
 
   <body>
     <form>
+      <!-- <mn-input id="text" placeholder="Name" required value="Darlan"></mn-input> -->
       <mn-number id="int" placeholder="Integer" required value="10"></mn-number>
       <mn-number id="decimal" placeholder="Float" decimal value="10"></mn-number>
       <mn-number id="currency" placeholder="Money" currency value="10" step="0.1"></mn-number>
@@ -15,8 +16,12 @@
       <button>submit</button>
     </form>
     <script src="/vendor.js"></script>
-    <script>
-      const int = document.querySelector('#int')
-    </script>
+    <!-- <script>
+      const input = document.createElement('mn-input')
+      input.setAttribute('placeholder', 'Nome')
+      console.log(input)
+      input.setAttribute('value', 'Darlan Mendonça')
+      document.body.append(input)
+    </script> -->
   </body>
 </html>

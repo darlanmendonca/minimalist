@@ -167,18 +167,14 @@ module.exports = class MnNumber extends MnInput {
   }
 
   set max(value) {
-    if (this.input) {
-      this.hasAttribute('max')
-        ? this.label.setAttribute('max', value)
-        : this.label.removeAttribute('max')
-    }
+    this.hasAttribute('max')
+      ? this.label.setAttribute('max', value)
+      : this.label.removeAttribute('max')
   }
 
   set min(value) {
-    if (this.input) {
-      this.hasAttribute('min')
-        ? this.label.setAttribute('min', value)
-        : this.label.removeAttribute('min')
-    }
+    this.hasAttribute('min')
+      ? this.label.setAttribute('min', value)
+      : this.label.removeAttribute('min')
   }
 }

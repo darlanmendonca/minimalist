@@ -235,7 +235,9 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    this[name] = value
+    if (this.parentNode && this.children.length) {
+      this[name] = value
+    }
   }
 
   get value() {
@@ -243,9 +245,9 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    const differentValue = this.input && this.input.value !== value
+    const differentValue = this.input.value !== value
 
-    if (this.input && differentValue) {
+    if (differentValue) {
       this.input.value = value
       this.input.dispatchEvent(new Event('change'))
     }
@@ -268,43 +270,31 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set placeholder(value) {
-    this.label
-      ? this.label.textContent = value
-      : null
+    this.label.textContent = value
   }
 
   set disabled(value) {
-    if (this.input) {
-      this.input.disabled = value
-    }
+    this.input.disabled = value
   }
 
   set readonly(value) {
-    if (this.input) {
-      this.input.readOnly = value
-    }
+    this.input.readOnly = value
   }
 
   set maxlength(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('maxlength', value)
-        : this.input.removeAttribute('maxlength')
-    }
+    value
+      ? this.input.setAttribute('maxlength', value)
+      : this.input.removeAttribute('maxlength')
   }
 
   set autocapitalize(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('autocapitalize', value)
-        : this.input.removeAttribute('autocapitalize')
-    }
+    value
+      ? this.input.setAttribute('autocapitalize', value)
+      : this.input.removeAttribute('autocapitalize')
   }
 
   set autofocus(value) {
-    if (this.input) {
-      this.input.autofocus = value
-    }
+    this.input.autofocus = value
   }
 
   validate() {
@@ -563,19 +553,15 @@ module.exports = class MnNumber extends MnInput {
   }
 
   set max(value) {
-    if (this.input) {
-      this.hasAttribute('max')
-        ? this.label.setAttribute('max', value)
-        : this.label.removeAttribute('max')
-    }
+    this.hasAttribute('max')
+      ? this.label.setAttribute('max', value)
+      : this.label.removeAttribute('max')
   }
 
   set min(value) {
-    if (this.input) {
-      this.hasAttribute('min')
-        ? this.label.setAttribute('min', value)
-        : this.label.removeAttribute('min')
-    }
+    this.hasAttribute('min')
+      ? this.label.setAttribute('min', value)
+      : this.label.removeAttribute('min')
   }
 }
 
