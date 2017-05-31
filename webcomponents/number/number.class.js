@@ -42,7 +42,7 @@ module.exports = class MnNumber extends MnInput {
   }
 
   _setInputPercentageMask() {
-    if (this.hasAttribute('percentage')) {
+    if (this.maks && this.hasAttribute('percentage')) {
       const value = this.input.value !== ''
         ? `${this.input.value} %`
         : ''
@@ -153,7 +153,7 @@ module.exports = class MnNumber extends MnInput {
         value = eval(String(value).replace(/,/g, '.'))
         const differentValue = this.input.value !== value
 
-        if (value && differentValue) {
+        if (value !== undefined && differentValue) {
           value = this.hasAttribute('percentage')
             ? value * 100
             : value
