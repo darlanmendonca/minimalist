@@ -42,15 +42,21 @@ module.exports = class MnNumber extends MnInput {
   }
 
   _setInputPercentageMask() {
-    const value = this.input.value !== ''
-      ? `'${this.input.value} %'`
-      : ''
+    if (this.hasAttribute('percentage')) {
+      const value = this.input.value !== ''
+        ? `${this.input.value} %`
+        : ''
 
-    this.style.setProperty('--percentage', value)
+      this.mask.textContent = value
+    }
   }
 
   _setInputTransforms() {
     if (this.hasAttribute('percentage')) {
+      this.mask = document.createElement('div')
+      this.mask.classList.add('mask')
+      this.appendChild(this.mask)
+
       this.input.addEventListener('input', () => {
         this._setInputPercentageMask()
       })
