@@ -45,6 +45,29 @@ The following attributes are supported in this component
 
 And custom attributes is
 
+#### percentage
+
+Display value as percentage, but storage value as a float number
+
+```html
+<mn-number placeholder="Tax" percentage value="0.5"></mn-number>
+<!-- display `50%` -->
+```
+
+#### decimal
+
+Display value as float number with decimal defined. The default decimal is 2
+
+```html
+<mn-number placeholder="Tax" decimal value="1"></mn-number>
+<!-- display `1,00` -->
+```
+
+```html
+<mn-number placeholder="Tax" decimal="3" value="1"></mn-number>
+<!-- display `1,000` -->
+```
+
 #### currency
 
 Display value as currency, but storage value as a float number
@@ -59,24 +82,6 @@ If you need other precisions, for example 3 decimal places, e.g. `$ 10,539`, you
 ```html
 <mn-number placeholder="Budget" currency="3" value="10.5"></mn-number>
 <!-- display `$ 10,500` -->
-```
-
-#### percentage
-
-Display value as percentage, but storage value as a float number
-
-```html
-<mn-number placeholder="Tax" percentage value="0.5"></mn-number>
-<!-- display `50%` -->
-```
-
-#### decimal
-
-Display value as float number, the precision default is 2
-
-```html
-<mn-number placeholder="Tax" decimal value="1"></mn-number>
-<!-- display `1,00` -->
 ```
 
 ### Style
