@@ -5,7 +5,7 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
-let number
+let number // page object defined in method setPageObject
 let component
 
 describe('mn-number (webcomponent)', () => {
