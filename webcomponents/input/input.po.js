@@ -3,10 +3,6 @@ module.exports = class InputPageObject {
     this.component = component
   }
 
-  setValue(value) {
-    this.component.value = value
-  }
-
   typeValue(value) {
     this.component.input.value = String(value)
     this.component.input.dispatchEvent(new Event('change'))

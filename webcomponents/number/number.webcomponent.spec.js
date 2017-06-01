@@ -136,7 +136,6 @@ describe('mn-number (webcomponent)', () => {
     it('should set empty text to label when attribute is removed', () => {
       number.setAttribute('placeholder', 'test')
       number.removeAttribute('placeholder')
-      // number.SetAndRemoveAttribute('placeholder', 'test')
       expect(component).to.contain('label').with.text('')
     })
   })
@@ -212,6 +211,22 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
     })
+
+    it('should validate if attribute was removed', () => {
+      number.setAttribute('required', '')
+      number.removeAttribute('required')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if value string is accept', () => {
+      number.setProperty('required', '')
+      number.typeValue('1')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
   })
 
   describe('property value', () => {
@@ -220,22 +235,22 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should get undefined when it is setted some string', () => {
-      component.value = 'teste'
+      number.setProperty('value', 'teste')
       expect(component).to.have.value(undefined)
     })
 
     it('should get number when it is setted numbers', () => {
-      component.value = 123
+      number.setProperty('value', 123)
       expect(component).to.have.value(123)
     })
 
     it('should get number when it is setted string', () => {
-      component.value = '123'
+      number.setProperty('value', '123')
       expect(component).to.have.value(123)
     })
 
     it('should get undefined when it is setted empty string', () => {
-      component.value = ''
+      number.setProperty('value', '')
       expect(component).to.have.value(undefined)
     })
   })
@@ -258,26 +273,26 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set undefined if found strings', () => {
       number.setAttribute('value', '2')
-      component.value = '123a'
+      number.typeValue('123a')
       expect(component).to.have.value(undefined)
     })
 
     it('should set undefined if attribute is null', () => {
       number.setAttribute('value', '2')
-      component.value = ''
+      number.typeValue('')
       expect(component).to.have.value(undefined)
     })
   })
 
   describe('attribute autofocus', () => {
     it('should set attribute on child number', () => {
-      component.autofocus = true
+      number.setAttribute('autofocus')
       expect(component.input).to.have.attribute('autofocus')
     })
 
     it('should unset attribute from child number', () => {
-      component.autofocus = true
-      component.autofocus = false
+      number.setAttribute('autofocus')
+      number.removeAttribute('autofocus')
       expect(component.input).to.not.have.attribute('autofocus')
     })
   })
@@ -291,7 +306,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be invalid if filled with invalid value', () => {
       number.setAttribute('min', '0')
       number.setAttribute('required')
-      component.value = -10
+      number.typeValue(-10)
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('min')
@@ -300,7 +315,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be valid if filled with valid value', () => {
       number.setAttribute('min', '0')
       number.setAttribute('required')
-      component.value = 1
+      number.typeValue(1)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('min')
@@ -316,7 +331,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be invalid if filled with invalid value', () => {
       number.setAttribute('max', '100')
       number.setAttribute('required')
-      component.value = 101
+      number.typeValue(101)
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('max')
@@ -325,7 +340,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be valid if filled with valid value', () => {
       number.setAttribute('max', '100')
       number.setAttribute('required')
-      component.value = 100
+      number.typeValue(100)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('max')
@@ -339,14 +354,14 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should increment value on ArrowUp using default step', () => {
-      component.value = 10
+      number.typeValue(10)
       component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
       expect(component).to.have.value(11)
     })
 
     it('should increment using step', () => {
       number.setAttribute('step', '10')
-      component.value = 10
+      number.typeValue(10)
       component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
       expect(component).to.have.value(20)
     })
@@ -355,19 +370,19 @@ describe('mn-number (webcomponent)', () => {
   describe('attribute currency', () => {
     it('should have 2 decimal places by default', () => {
       number.setAttribute('currency')
-      component.value = '10'
+      number.typeValue('10')
       expect(component.input).to.have.value('10,00')
     })
 
     it('should be displayed numbers as decimal places', () => {
       number.setAttribute('currency', 3)
-      component.value = '10,000'
+      number.typeValue('10.000')
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
       number.setAttribute('currency', 2)
-      component.value = '10.70'
+      number.typeValue('10.70')
       expect(component.input).to.have.value('10,70')
     })
   })
@@ -375,19 +390,19 @@ describe('mn-number (webcomponent)', () => {
   describe('attribute decimal', () => {
     it('should get value with decimal places by default', () => {
       number.setAttribute('decimal')
-      component.value = '10.1'
+      number.typeValue('10.1')
       expect(component.input).to.have.value('10,10')
     })
 
     it('should be displayed numbers as decimal places', () => {
       number.setAttribute('decimal', '3')
-      component.value = '10'
+      number.typeValue('10')
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
       number.setAttribute('decimal', '2')
-      component.value = '10.70'
+      number.typeValue('10.70')
       expect(component.input).to.have.value('10,70')
     })
   })
@@ -418,7 +433,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted decimal value', () => {
       number.setAttribute('percentage')
-      number.setValue(0.01)
+      number.typeValue(1)
       expect(component.mask).to.have.text('1 %')
       expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
@@ -426,33 +441,33 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted integer value', () => {
       number.setAttribute('percentage')
-      number.setValue(1)
-      expect(component.input).to.have.value('100')
+      number.typeValue(100)
       expect(component.mask).to.have.text('100 %')
+      expect(component.input).to.have.value('100')
       expect(component).to.have.value(1)
     })
 
     it('should receive numbers above hundreds', () => {
       number.setAttribute('percentage')
-      number.setValue(1182)
-      expect(component.input).to.have.value('118200')
-      expect(component.mask).to.have.text('118200 %')
-      expect(component).to.have.value(1182)
+      number.typeValue(1182)
+      expect(component.mask).to.have.text('1182 %')
+      expect(component.input).to.have.value('1182')
+      expect(component).to.have.value(11.82)
     })
 
     it('should receive math expressions', () => {
       number.setAttribute('percentage')
-      number.setValue('1*2')
-      expect(component.input).to.have.value('200')
-      expect(component.mask).to.have.text('200 %')
-      expect(component).to.have.value(2)
+      number.typeValue('1*2')
+      expect(component.mask).to.have.text('2 %')
+      expect(component.input).to.have.value('2')
+      expect(component).to.have.value(0.02)
     })
 
     it('should set decimal value when value is string numeric', () => {
       number.setAttribute('percentage')
       number.typeValue('1')
-      expect(component.input).to.have.value('1')
       expect(component.mask).to.have.text('1 %')
+      expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
     })
 

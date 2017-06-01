@@ -74,17 +74,17 @@ describe('mn-password (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with undefined', () => {
-      password.setValue(undefined)
+      password.setProperty('value', undefined)
       expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with null', () => {
-      password.setValue(null)
+      password.setProperty('value', null)
       expect(component).to.have.value('')
     })
 
     it('should setter and getter as string', () => {
-      password.setValue('test')
+      password.setProperty('value', 'test')
       expect(component).to.have.value('test')
     })
   })

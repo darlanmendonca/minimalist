@@ -73,17 +73,17 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with undefined', () => {
-      input.setValue(undefined)
+      input.setProperty('value', undefined)
       expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with null', () => {
-      input.setValue(undefined)
+      input.setProperty('value', undefined)
       expect(component).to.have.value('')
     })
 
     it('should setter and getter as string', () => {
-      input.setValue('test')
+      input.setProperty('value', 'test')
       expect(component).to.have.value('test')
     })
   })
@@ -144,13 +144,13 @@ describe('mn-input (webcomponent)', () => {
 
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
+      input.setProperty('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
-      component.placeholder = 'test2'
+      input.setProperty('placeholder', 'test')
+      input.setProperty('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
@@ -269,16 +269,32 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute required', () => {
-    it('should be invalid if validate without fill value', () => {
+    it('should be invalid if typed nothing', () => {
       input.setAttribute('required')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
-    it('should be valid if validate with filled value', () => {
+    it('should be valid if setted a valid value', () => {
       input.setAttribute('required')
-      input.setValue('test')
+      input.typeValue('test')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should be valid if typed a valid value', () => {
+      input.setAttribute('required')
+      input.typeValue('test')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if attribute was removed', () => {
+      input.setAttribute('required', '')
+      input.removeAttribute('required')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -304,7 +320,7 @@ describe('mn-input (webcomponent)', () => {
     it('should be valid if have a valid value', () => {
       input.setAttribute('required')
       input.setAttribute('pattern', '^t') // starts with t
-      input.setValue('test')
+      input.typeValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
