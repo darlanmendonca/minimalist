@@ -62,18 +62,18 @@ module.exports = class MnNumber extends MnInput {
         const valueIsDefined = value !== undefined
 
         if (valueIsDefined) {
-          const isDecimal = this.hasAttribute('decimal')
           const isCurrency = this.hasAttribute('currency')
+          const precision = this.getAttribute('precision') || 0
 
           switch (true) {
-            case isDecimal:
             case isCurrency:
-              const precision = this.getAttribute('decimal') || this.getAttribute('currency')
-              this.input.value = String(value.toFixed(precision || 2)).replace(/\./g, ',')
+              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
               break
 
             default:
-              this.input.value = String(value).replace(/\./g, ',')
+              this.input.value = precision
+                ? value.toFixed(precision).replace(/\./g, ',')
+                : String(value).replace(/\./g, ',')
               break
           }
         }

@@ -368,42 +368,40 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute currency', () => {
-    it('should have 2 decimal places by default', () => {
+    it('should display number with 2 float precision', () => {
       number.setAttribute('currency')
       number.typeValue('10')
       expect(component.input).to.have.value('10,00')
+      expect(component).to.have.value(10)
     })
 
-    it('should be displayed numbers as decimal places', () => {
-      number.setAttribute('currency', 3)
+    it('should display number with 2 float precision defined', () => {
+      number.setAttribute('currency')
+      number.setAttribute('precision', 3)
       number.typeValue('10.000')
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
-      number.setAttribute('currency', 2)
+      number.setAttribute('currency')
       number.typeValue('10.70')
       expect(component.input).to.have.value('10,70')
     })
   })
 
-  describe('attribute decimal', () => {
-    it('should get value with decimal places by default', () => {
-      number.setAttribute('decimal')
-      number.typeValue('10.1')
-      expect(component.input).to.have.value('10,10')
-    })
-
-    it('should be displayed numbers as decimal places', () => {
-      number.setAttribute('decimal', '3')
+  describe('attribute precision', () => {
+    it('should be display integer number with precision defined', () => {
+      number.setAttribute('precision', '3')
       number.typeValue('10')
       expect(component.input).to.have.value('10,000')
+      expect(component).to.have.value(10)
     })
 
-    it('should replace dot by comma', () => {
-      number.setAttribute('decimal', '2')
-      number.typeValue('10.70')
-      expect(component.input).to.have.value('10,70')
+    it('should be display float numbers with precision defined', () => {
+      number.setAttribute('precision', '3')
+      number.typeValue('10.5')
+      expect(component.input).to.have.value('10,500')
+      expect(component).to.have.value(10.5)
     })
   })
 

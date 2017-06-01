@@ -54,33 +54,28 @@ Display value as percentage, but storage value as a float number
 <!-- display `50%` -->
 ```
 
-#### decimal
+#### precision
 
-Display value as float number with decimal defined. The default decimal is 2
-
-```html
-<mn-number placeholder="Tax" decimal value="1"></mn-number>
-<!-- display `1,00` -->
-```
+Display value as float number with precision defined.
 
 ```html
-<mn-number placeholder="Tax" decimal="3" value="1"></mn-number>
+<mn-number placeholder="Tax" precision="3" value="1"></mn-number>
 <!-- display `1,000` -->
 ```
 
 #### currency
 
-Display value as currency, but storage value as a float number
+Display value as currency, but storage value as a float number. Has precision 2 by default.
 
 ```html
 <mn-number placeholder="Budget" currency value="10.5"></mn-number>
 <!-- display `$ 10,50` -->
 ```
 
-If you need other precisions, for example 3 decimal places, e.g. `$ 10,539`, you can assign a value to attribute currency
+If you need other precisions, for example 3 decimal places, e.g. `$ 10,539`, you can use it with attribute `precision`, e.g.
 
 ```html
-<mn-number placeholder="Budget" currency="3" value="10.5"></mn-number>
+<mn-number placeholder="Budget" currency precision="3" value="10.5"></mn-number>
 <!-- display `$ 10,500` -->
 ```
 
