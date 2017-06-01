@@ -438,7 +438,6 @@ module.exports = class MnNumber extends MnInput {
   }
 
   _setInputTransforms() {
-
     this.input.addEventListener('change', () => {
       try {
         const value = eval(this.input.value.replace(/,/g, '.'))
@@ -450,7 +449,6 @@ module.exports = class MnNumber extends MnInput {
         if (valueIsDefined) {
           const isDecimal = this.hasAttribute('decimal')
           const isCurrency = this.hasAttribute('currency')
-          const isPercentage = this.hasAttribute('percentage')
 
           switch (true) {
             case isDecimal:
@@ -459,12 +457,8 @@ module.exports = class MnNumber extends MnInput {
               this.input.value = String(value.toFixed(precision || 2)).replace(/\./g, ',')
               break
 
-            case isPercentage:
-              this.input.value = String(value).replace(/\./g, ',')
-              break
-
             default:
-              this.input.value = parseInt(value)
+              this.input.value = String(value).replace(/\./g, ',')
               break
           }
         }

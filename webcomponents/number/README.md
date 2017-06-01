@@ -33,10 +33,6 @@ In your html, you can use the tag `mn-number` i.e.
 <mn-number placeholder="Number" name="number"></mn-number>
 ```
 
-#### value
-
-By default `mn-number` accept only integer numbers. So if user type `2,5`, the value will be converted to `2`. If you need to work with float numbers, see below our custom attributes.
-
 The following attributes are supported in this component
 
 - [value](http://www.w3schools.com/tags/att_input_value.asp)
