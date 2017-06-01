@@ -43,6 +43,24 @@ The following attributes are supported in this component
 - [required](http://www.w3schools.com/tags/att_input_required.asp)
 - [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
 
+And custom attributes is
+
+#### currency
+
+Display value as currency, e.g.
+
+```html
+<mn-number placeholder="Budget" currency value="10"></mn-number>
+<!-- will display value in input as `$ 10,00` -->
+```
+
+If you need other precisions, for example 3 decimal places, e.g. `$ 10,539`, you can assign a value to attribute currency
+
+```html
+<mn-number placeholder="Budget" currency="3" value="10"></mn-number>
+<!-- will display value in input as `$ 10,000` -->
+```
+
 ### Style
 
 If you need to change identity of element (and you will), we offer the following css variables
@@ -53,6 +71,7 @@ If you need to change identity of element (and you will), we offer the following
 - border-color
 - placeholder-color
 - invalid-message - a message to concat when are invalid
+- currency-symbol - the currency symbol displayed as prefix, default is `$` 
 
 ### Angular
 

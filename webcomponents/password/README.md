@@ -54,8 +54,8 @@ If you need to change identity of element (and you will), we offer the following
 - placeholder-color
 - invalid-message - a message to concat when are invalid
 - buton-color - the color of button that show/hide password
-- button-show-text - text to display in button action show, default is 'show'
-- button-hide-text - text to display in button action hide, default is 'hide'
+- button-show-text - text to display in button action show, default is `show`
+- button-hide-text - text to display in button action hide, default is `hide`
 
 ### Angular
 
