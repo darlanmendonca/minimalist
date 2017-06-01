@@ -47,18 +47,27 @@ And custom attributes is
 
 #### currency
 
-Display value as currency, e.g.
+Display value as currency, but storage value as a float number
 
 ```html
-<mn-number placeholder="Budget" currency value="10"></mn-number>
-<!-- will display value in input as `$ 10,00` -->
+<mn-number placeholder="Budget" currency value="10.5"></mn-number>
+<!-- display `$ 10,50` -->
 ```
 
 If you need other precisions, for example 3 decimal places, e.g. `$ 10,539`, you can assign a value to attribute currency
 
 ```html
-<mn-number placeholder="Budget" currency="3" value="10"></mn-number>
-<!-- will display value in input as `$ 10,000` -->
+<mn-number placeholder="Budget" currency="3" value="10.5"></mn-number>
+<!-- display `$ 10,500` -->
+```
+
+#### percentage
+
+Display value as percentage, but storage value as a float number
+
+```html
+<mn-number placeholder="Tax" percentage value="0.5"></mn-number>
+<!-- display `50%` -->
 ```
 
 ### Style
