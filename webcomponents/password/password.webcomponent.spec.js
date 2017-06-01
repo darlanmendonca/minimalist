@@ -276,19 +276,23 @@ describe('mn-password (webcomponent)', () => {
       expect(component).to.contain('button')
     })
 
+    it('should have a property button', () => {
+      expect(component).to.have.property('button')
+    })
+
     it('should display password on button click', () => {
-      component.querySelector('button').click()
+      component.button.click()
       expect(component.input).to.have.attribute('type', 'text')
     })
 
     it('should hide password on consecutive button click', () => {
-      component.querySelector('button').click()
-      component.querySelector('button').click()
+      component.button.click()
+      component.button.click()
       expect(component.input).to.have.attribute('type', 'password')
     })
 
     it('should hide password on blur', () => {
-      component.querySelector('button').click()
+      component.button.click()
       component.input.dispatchEvent(new Event('blur'))
       expect(component.input).to.have.attribute('type', 'password')
     })
