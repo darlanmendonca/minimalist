@@ -145,18 +145,18 @@ describe('mn-password (webcomponent)', () => {
 
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
+      password.setProperty('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
-      component.placeholder = 'test2'
+      password.setProperty('placeholder', 'test')
+      password.setProperty('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
     it('should set emtpy text if is undefined', () => {
-      password.placeholder = undefined
+      password.setProperty('placeholder', undefined)
       expect(component).to.contain('label').with.text('')
     })
   })
