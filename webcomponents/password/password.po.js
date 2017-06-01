@@ -5,4 +5,12 @@ module.exports = class PasswordPageObject extends InputPageObject {
     super(component)
     return this
   }
+
+  clickInButtonToShowPassword() {
+    this.component.button.click()
+  }
+
+  clickInButtonToHidePassword() {
+    this.component.button.click()
+  }
 }
