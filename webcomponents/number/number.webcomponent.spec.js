@@ -256,28 +256,28 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute value', () => {
-    it('should set property value when attribute changed', () => {
+    it('should accept number as value', () => {
       number.setAttribute('value', 123)
       expect(component).to.have.value(123)
     })
 
-    it('should set value as number when value is string', () => {
-      number.setAttribute('value', '123')
-      expect(component).to.have.value(123)
+    it('should accept float number as value', () => {
+      number.setAttribute('value', '123.5')
+      expect(component).to.have.value(123.5)
     })
 
-    it('should set property value when attribute is removed', () => {
+    it('should unset value when remove attribute', () => {
       number.removeAttribute('value')
       expect(component).to.have.value(undefined)
     })
 
-    it('should set undefined if found strings', () => {
+    it('should set undefined if enter a invalid number', () => {
       number.setAttribute('value', '2')
       number.typeValue('123a')
       expect(component).to.have.value(undefined)
     })
 
-    it('should set undefined if attribute is null', () => {
+    it('should set undefined if type nothing', () => {
       number.setAttribute('value', '2')
       number.typeValue('')
       expect(component).to.have.value(undefined)
