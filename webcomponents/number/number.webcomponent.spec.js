@@ -205,7 +205,7 @@ describe('mn-number (webcomponent)', () => {
       expect(component).to.not.have.class('required')
     })
 
-    it('should validate if valid typed a number', () => {
+    it('should validate if typed a valid number', () => {
       number.setAttribute('required')
       number.typeValue(1)
       component.validate()
