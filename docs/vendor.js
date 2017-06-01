@@ -437,28 +437,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.setAttribute('pattern', '\\d*')
   }
 
-  // _setInputPercentageMask() {
-    // here
-    // if (this.mask && this.hasAttribute('percentage')) {
-    //   const value = this.input.value !== ''
-    //     ? `${this.input.value} %`
-    //     : ''
-
-    //   this.mask.textContent = value
-    // }
-  // }
-
   _setInputTransforms() {
-    // here
-    // if (this.hasAttribute('percentage')) {
-    //   this.mask = document.createElement('div')
-    //   this.mask.classList.add('mask')
-    //   this.appendChild(this.mask)
-
-    //   this.input.addEventListener('input', () => {
-    //     this._setInputPercentageMask()
-    //   })
-    // }
 
     this.input.addEventListener('change', () => {
       try {
@@ -496,9 +475,6 @@ module.exports = class MnNumber extends MnInput {
       this.hasAttribute('percentage')
         ? this.updateMask()
         : null
-      // this.percentage = this.getAttribute('percentage')
-      // this.updateMask()
-      // this._setInputPercentageMask()
     })
   }
 
