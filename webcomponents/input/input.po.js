@@ -8,7 +8,7 @@ module.exports = class InputPageObject {
   }
 
   typeValue(value) {
-    this.component.input.value = value
+    this.component.input.value = String(value)
     this.component.input.dispatchEvent(new Event('change'))
   }
 
@@ -18,5 +18,9 @@ module.exports = class InputPageObject {
 
   removeAttribute(name) {
     this.component.removeAttribute(name)
+  }
+
+  setProperty(property, value) {
+    this.component[property] = value
   }
 }

@@ -101,18 +101,18 @@ describe('mn-number (webcomponent)', () => {
 
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
+      number.setProperty('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
-      component.placeholder = 'test2'
+      number.setProperty('placeholder', 'test1')
+      number.setProperty('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
     it('should set emtpy text if is undefined', () => {
-      component.placeholder = undefined
+      number.setProperty('placeholder', undefined)
       expect(component).to.contain('label').with.text('')
     })
   })
@@ -136,6 +136,7 @@ describe('mn-number (webcomponent)', () => {
     it('should set empty text to label when attribute is removed', () => {
       number.setAttribute('placeholder', 'test')
       number.removeAttribute('placeholder')
+      // number.SetAndRemoveAttribute('placeholder', 'test')
       expect(component).to.contain('label').with.text('')
     })
   })
@@ -154,12 +155,13 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute disabled', () => {
     it('should define attribute in child input', () => {
-      component.disabled = true
+      number.setAttribute('disabled')
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child input', () => {
-      component.disabled = false
+      number.setAttribute('disabled')
+      number.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
     })
   })
@@ -180,16 +182,32 @@ describe('mn-number (webcomponent)', () => {
   })
 
   describe('attribute required', () => {
-    it('should be invalid if validate without fill value', () => {
+    it('should be invalid if typed nothing', () => {
       number.setAttribute('required')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
-    it('should be valid if validate with filled value', () => {
+    it('should be invalid if typed an invalid value', () => {
       number.setAttribute('required')
-      component.value = 1
+      number.typeValue('test')
+      component.validate()
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('required')
+    })
+
+    it('should validate if typed 0', () => {
+      number.setAttribute('required')
+      number.typeValue(0)
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if valid typed a number', () => {
+      number.setAttribute('required')
+      number.typeValue(1)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
