@@ -8,7 +8,7 @@ module.exports = class MnInput extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.trim = true
+    this.trimValue = true
     this._setCssClasses()
     this._setInput()
     this._setPlaceholder()
@@ -53,7 +53,7 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('change', () => { // set class .has-value
-      if (this.trim) {
+      if (this.trimValue) {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       }
 
@@ -137,7 +137,7 @@ module.exports = class MnInput extends HTMLElement {
     const differentValue = this.input.value !== value
 
     if (differentValue) {
-      this.input.value = this.trim && value
+      this.input.value = this.trimValue && value
         ? value.replace(/\s{2,}/g, ' ').trim()
         : value
       this.input.dispatchEvent(new Event('change'))
