@@ -349,20 +349,20 @@ describe('mn-number (webcomponent)', () => {
 
   describe('attribute step', () => {
     it('should increment without value on ArrowUp, using default step', () => {
-      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      number.pressArrowUp()
       expect(component).to.have.value(1)
     })
 
     it('should increment value on ArrowUp using default step', () => {
       number.typeValue(10)
-      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      number.pressArrowUp()
       expect(component).to.have.value(11)
     })
 
     it('should increment using step', () => {
       number.setAttribute('step', '10')
       number.typeValue(10)
-      component.input.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp'}))
+      number.pressArrowUp()
       expect(component).to.have.value(20)
     })
   })
@@ -476,6 +476,224 @@ describe('mn-number (webcomponent)', () => {
       expect(component.mask).to.have.text('2 %')
       expect(component.input).to.have.value('2')
       expect(component).to.have.value(0.02)
+    })
+  })
+
+  describe('increment values', () => {
+    it('should increment undefined value', () => {
+      number.pressArrowUp()
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('1')
+      expect(component).to.have.value(1)
+    })
+
+    it('should increment a value', () => {
+      number.typeValue('10')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('14')
+      expect(component).to.have.value(14)
+    })
+
+    it('should increment a value using step attribute', () => {
+      number.setAttribute('step', '10')
+      number.typeValue('10')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('50')
+      expect(component).to.have.value(50)
+    })
+
+    it('should increment a value using precision attribute', () => {
+      number.setAttribute('precision', '2')
+      number.typeValue('5')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('9,00')
+      expect(component).to.have.value(9)
+    })
+
+    it('should increment undefined value with percentage', () => {
+      number.setAttribute('percentage')
+      number.pressArrowUp()
+      expect(component.mask).to.have.text('1 %')
+      expect(component.input).to.have.value('1')
+      expect(component).to.have.value(0.01)
+    })
+
+    it('should increment a value with percentage', () => {
+      number.setAttribute('percentage')
+      number.typeValue('1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('5 %')
+      expect(component.input).to.have.value('5')
+      expect(component).to.have.value(0.05)
+    })
+
+    it('should increment a value with percentage and step attribute', () => {
+      number.setAttribute('percentage')
+      number.setAttribute('step', '10')
+      number.typeValue('1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('41 %')
+      expect(component.input).to.have.value('41')
+      expect(component).to.have.value(0.41)
+    })
+
+    it('should increment a value with percentage and precision attribute', () => {
+      number.setAttribute('percentage')
+      number.setAttribute('precision', '2')
+      number.typeValue('1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('5,00 %')
+      expect(component.input).to.have.value('5,00')
+      expect(component).to.have.value(0.05)
+    })
+
+    it('should increment undefined value with currency', () => {
+      number.setAttribute('currency')
+      number.pressArrowUp()
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('1,00')
+      expect(component).to.have.value(1)
+    })
+
+    it('should increment a value with currency', () => {
+      number.setAttribute('currency')
+      number.typeValue('1.1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('5,10')
+      expect(component).to.have.value(5.1)
+    })
+
+    it('should increment a value with currency and step attribute', () => {
+      number.setAttribute('currency')
+      number.setAttribute('step', '10')
+      number.typeValue('1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('41,00')
+      expect(component).to.have.value(41)
+    })
+
+    it('should increment a value with currency and precision attribute', () => {
+      number.setAttribute('currency')
+      number.setAttribute('precision', '3')
+      number.typeValue('1')
+      number.pressArrowUp(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('5,000')
+      expect(component).to.have.value(5)
+    })
+  })
+
+  describe('decrement values', () => {
+    it('should decrement undefined value', () => {
+      number.pressArrowDown()
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-1')
+      expect(component).to.have.value(-1)
+    })
+
+    it('should decrement a value', () => {
+      number.typeValue('10')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('6')
+      expect(component).to.have.value(6)
+    })
+
+    it('should decrement a value using step attribute', () => {
+      number.setAttribute('step', '10')
+      number.typeValue('10')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-30')
+      expect(component).to.have.value(-30)
+    })
+
+    it('should decrement a value using precision attribute', () => {
+      number.setAttribute('precision', '2')
+      number.typeValue('5')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('1,00')
+      expect(component).to.have.value(1)
+    })
+
+    it('should decrement undefined value with percentage', () => {
+      number.setAttribute('percentage')
+      number.pressArrowDown()
+      expect(component.mask).to.have.text('-1 %')
+      expect(component.input).to.have.value('-1')
+      expect(component).to.have.value(-0.01)
+    })
+
+    it('should decrement a value with percentage', () => {
+      number.setAttribute('percentage')
+      number.typeValue('1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('-3 %')
+      expect(component.input).to.have.value('-3')
+      expect(component).to.have.value(-0.03)
+    })
+
+    it('should decrement a value with percentage and step attribute', () => {
+      number.setAttribute('percentage')
+      number.setAttribute('step', '10')
+      number.typeValue('1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('-39 %')
+      expect(component.input).to.have.value('-39')
+      expect(component).to.have.value(-0.39)
+    })
+
+    it('should decrement a value with percentage and precision attribute', () => {
+      number.setAttribute('percentage')
+      number.setAttribute('precision', '2')
+      number.typeValue('1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('-3,00 %')
+      expect(component.input).to.have.value('-3,00')
+      expect(component).to.have.value(-0.03)
+    })
+
+    it('should decrement undefined value with currency', () => {
+      number.setAttribute('currency')
+      number.pressArrowDown()
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-1,00')
+      expect(component).to.have.value(-1)
+    })
+
+    it('should decrement a value with currency', () => {
+      number.setAttribute('currency')
+      number.typeValue('1.1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-2,90')
+      expect(component).to.have.value(-2.90)
+    })
+
+    it('should decrement a value with currency and step attribute', () => {
+      number.setAttribute('currency')
+      number.setAttribute('step', '10')
+      number.typeValue('1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-39,00')
+      expect(component).to.have.value(-39)
+    })
+
+    it('should decrement a value with currency and precision attribute', () => {
+      number.setAttribute('currency')
+      number.setAttribute('precision', '3')
+      number.typeValue('1')
+      number.pressArrowDown(4)
+      expect(component.mask).to.have.text('')
+      expect(component.input).to.have.value('-3,000')
+      expect(component).to.have.value(-3)
     })
   })
 })
