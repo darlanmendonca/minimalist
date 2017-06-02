@@ -305,6 +305,18 @@ describe('mn-password (webcomponent)', () => {
       // need to be implemented
     })
   })
+
+  describe('multiples spaces', () => {
+    it('should keep typed value', () => {
+      password.typeValue('  test')
+      expect(component).to.have.value('  test')
+    })
+
+    it('should keep value defined by property value', () => {
+      password.setProperty('value', '  test')
+      expect(component).to.have.value('  test')
+    })
+  })
 })
 
 function loadComponent() {

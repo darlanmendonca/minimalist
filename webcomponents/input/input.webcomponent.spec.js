@@ -358,7 +358,6 @@ describe('mn-input (webcomponent)', () => {
       expect(component).to.have.value('test test test')
       expect(component.input).to.have.value('test test test')
     })
-
   })
 })
 
