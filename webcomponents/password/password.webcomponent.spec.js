@@ -5,12 +5,14 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let password // page object defined in method setPageObject
 let component
 
 describe('mn-password (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -43,8 +45,10 @@ describe('mn-password (webcomponent)', () => {
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
+  })
 
-    it('should have type password in child input', () => {
+  describe('input', () => {
+    it('should have type password by default', () => {
       expect(component.input).to.have.attribute('type', 'password')
     })
   })
@@ -52,7 +56,7 @@ describe('mn-password (webcomponent)', () => {
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'inline-block')
+      expect(component).to.have.style('display', 'flex')
     })
 
     it('should have a relative position', () => {
@@ -70,70 +74,70 @@ describe('mn-password (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with undefined', () => {
-      component.value = undefined
+      password.setProperty('value', undefined)
       expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with null', () => {
-      component.value = null
+      password.setProperty('value', null)
       expect(component).to.have.value('')
     })
 
     it('should setter and getter as string', () => {
-      component.value = 'test'
+      password.setProperty('value', 'test')
       expect(component).to.have.value('test')
     })
   })
 
   describe('attribute value', () => {
     it('should set property value when attribute changed', () => {
-      component.setAttribute('value', 'test')
+      password.setAttribute('value', 'test')
       expect(component).to.have.value('test')
     })
 
     it('should set property value when attribute is removed', () => {
-      component.removeAttribute('value')
+      password.removeAttribute('value')
       expect(component).to.have.value('')
     })
   })
 
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
-      component.setAttribute('name', 'test')
+      password.setAttribute('name', 'test')
       const {formID} = window
       expect(formID.test).to.be.equal(component)
     })
 
     it('should define a form getter if parent form exist and has a name', () => {
-      component.setAttribute('name', 'test')
+      password.setAttribute('name', 'test')
       const {formName} = window
       expect(formName.test).to.be.equal(component)
     })
 
     it('should undefine form getter (name) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      password.setAttribute('name', 'test')
+      password.removeAttribute('name')
       const {formName} = window
       expect(formName.test).to.be.undefined
     })
 
     it('should undefine form getter (id) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      password.setAttribute('name', 'test')
+      password.removeAttribute('name')
       const {formID} = window
       expect(formID.test).to.be.undefined
     })
 
     it('should redefine form getter (name) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      password.setAttribute('name', 'test')
+      password.setAttribute('name', 'test2')
       const {formName} = window
       expect(formName.test2).to.be.equal(component)
     })
 
     it('should redefine form getter (id) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      password.setAttribute('name', 'test')
+      password.setAttribute('name', 'test2')
       const {formID} = window
       expect(formID.test2).to.be.equal(component)
     })
@@ -141,31 +145,31 @@ describe('mn-password (webcomponent)', () => {
 
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
+      password.setProperty('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
-      component.placeholder = 'test2'
+      password.setProperty('placeholder', 'test')
+      password.setProperty('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
     it('should set emtpy text if is undefined', () => {
-      component.placeholder = undefined
+      password.setProperty('placeholder', undefined)
       expect(component).to.contain('label').with.text('')
     })
   })
 
   describe('attribute placeholder', () => {
     it('should define a label as placeholder', () => {
-      component.setAttribute('placeholder', 'test')
+      password.setAttribute('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should change the text', () => {
-      component.setAttribute('placeholder', 'test')
-      component.setAttribute('placeholder', 'test2')
+      password.setAttribute('placeholder', 'test')
+      password.setAttribute('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
@@ -174,20 +178,20 @@ describe('mn-password (webcomponent)', () => {
     })
 
     it('should set empty text to label when attribute is removed', () => {
-      component.setAttribute('placeholder', 'test')
-      component.removeAttribute('placeholder')
+      password.setAttribute('placeholder', 'test')
+      password.removeAttribute('placeholder')
       expect(component).to.contain('label').with.text('')
     })
   })
 
   describe('attribute disabled', () => {
     it('should define attribute in child password', () => {
-      component.disabled = true
+      password.setAttribute('disabled')
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child password', () => {
-      component.disabled = false
+      password.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
     })
   })
@@ -209,15 +213,15 @@ describe('mn-password (webcomponent)', () => {
 
   describe('attribute required', () => {
     it('should be invalid if validate without fill value', () => {
-      component.setAttribute('required', '')
+      password.setAttribute('required')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
     it('should be valid if validate with filled value', () => {
-      component.setAttribute('required', '')
-      component.value = 'test'
+      password.setAttribute('required')
+      password.typeValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -226,24 +230,24 @@ describe('mn-password (webcomponent)', () => {
 
   describe('attribute pattern', () => {
     it('should ignore validation if value and required dont exist', () => {
-      component.setAttribute('pattern', '^a')
+      password.setAttribute('pattern', '^a')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
     })
 
     it('should be invalid if value is not setted', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
+      password.setAttribute('required')
+      password.setAttribute('pattern', '^t') // starts with t
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
     it('should be valid if value is setted', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
-      component.value = 'test'
+      password.setAttribute('required', '')
+      password.setAttribute('pattern', '^t') // starts with t
+      password.typeValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
@@ -252,13 +256,13 @@ describe('mn-password (webcomponent)', () => {
 
   describe('attribute autofocus', () => {
     it('should set attribute on child input', () => {
-      component.autofocus = true
+      password.setAttribute('autofocus')
       expect(component.input).to.have.attribute('autofocus')
     })
 
     it('should unset attribute from child input', () => {
-      component.autofocus = true
-      component.autofocus = false
+      password.setAttribute('autofocus')
+      password.removeAttribute('autofocus')
       expect(component.input).to.not.have.attribute('autofocus')
     })
   })
@@ -272,19 +276,23 @@ describe('mn-password (webcomponent)', () => {
       expect(component).to.contain('button')
     })
 
+    it('should have a property button', () => {
+      expect(component).to.have.property('button')
+    })
+
     it('should display password on button click', () => {
-      component.querySelector('button').click()
+      password.clickInButtonToShowPassword()
       expect(component.input).to.have.attribute('type', 'text')
     })
 
-    it('should hide password on consecutive button click', () => {
-      component.querySelector('button').click()
-      component.querySelector('button').click()
+    it('should hide password on consecutively button click', () => {
+      password.clickInButtonToShowPassword()
+      password.clickInButtonToHidePassword()
       expect(component.input).to.have.attribute('type', 'password')
     })
 
     it('should hide password on blur', () => {
-      component.querySelector('button').click()
+      password.clickInButtonToShowPassword()
       component.input.dispatchEvent(new Event('blur'))
       expect(component.input).to.have.attribute('type', 'password')
     })
@@ -295,6 +303,18 @@ describe('mn-password (webcomponent)', () => {
 
     it.skip('should display button in mobile browsers, only on focus', () => {
       // need to be implemented
+    })
+  })
+
+  describe('multiples spaces', () => {
+    it('should keep typed value', () => {
+      password.typeValue('  test')
+      expect(component).to.have.value('  test')
+    })
+
+    it('should keep value defined by property value', () => {
+      password.setProperty('value', '  test')
+      expect(component).to.have.value('  test')
     })
   })
 })
@@ -320,4 +340,9 @@ function createComponent() {
 
   form.appendChild(component)
   document.body.appendChild(form)
+}
+
+function setPageObject() {
+  const PasswordPageObject = require('./password.po.js')
+  password = new PasswordPageObject(component)
 }

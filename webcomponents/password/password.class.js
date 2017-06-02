@@ -9,7 +9,6 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.classList.add('mn-password')
-    this._setType()
     this._setCssClasses()
     this._setInput()
     this._setType()
@@ -17,7 +16,9 @@ module.exports = class MnPassword extends MnInput {
     this._setButton()
     this._setAttributeValue()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
     this._setAttributeAutofocus()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -26,13 +27,13 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
+      'readonly',
+      'autofocus',
     ]
   }
 
   _setType() {
-    this.input
-      ? this.input.setAttribute('type', 'password')
-      : null
+    this.input.setAttribute('type', 'password')
   }
 
   _setButton() {

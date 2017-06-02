@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/minimalist-components/webcomponents.git"
+    "url": "git+https://github.com/reserva-facil/minimalist.git"
   },
   "keywords": [],
   "author": "Darlan Mendonça <darlanmendonca@gmail.com> (https://darlanmendonca.github.io)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/minimalist-components/webcomponents/issues"
+    "url": "https://github.com/reserva-facil/minimalist/issues"
   },
-  "homepage": "https://github.com/minimalist-components/webcomponents#readme",
+  "homepage": "https://github.com/reserva-facil/minimalist#readme",
   "engines": {
     "node": ">=0.7.0"
   },

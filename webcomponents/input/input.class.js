@@ -3,21 +3,12 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
-    this.validations = {
-      required: () => this.value === '',
-      pattern: () => {
-        const reg = new RegExp(this.getAttribute('pattern'))
-
-        return this.value
-          ? !reg.test(this.value)
-          : false
-      },
-    }
     return self
   }
 
   connectedCallback() {
     this.innerHTML = ''
+    this.trimValue = true
     this._setCssClasses()
     this._setInput()
     this._setPlaceholder()
@@ -29,6 +20,26 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
     this._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'maxlength',
+      'autocapitalize',
+      'autofocus',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode && this.children.length) {
+      this[name] = value
+    }
   }
 
   _setCssClasses() {
@@ -42,6 +53,10 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('change', () => { // set class .has-value
+      if (this.trimValue) {
+        this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
+      }
+
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
@@ -70,8 +85,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    const value = this.getAttribute('value') || ''
-    this.setAttribute('value', value)
+    this.value = this.getAttribute('value') || ''
   }
 
   _setAttributeDisabled() {
@@ -102,21 +116,17 @@ module.exports = class MnInput extends HTMLElement {
     this.autofocus = this.hasAttribute('autofocus')
   }
 
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'maxlength',
-      'autocapitalize',
-      'autofocus',
-    ]
-  }
+  _setValidations() {
+    this.validations = {
+      required: () => this.value === '',
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
 
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
+        return this.value
+          ? !reg.test(this.value)
+          : false
+      },
+    }
   }
 
   get value() {
@@ -124,10 +134,12 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    const differentValue = this.input && this.input.value !== value
+    const differentValue = this.input.value !== value
 
-    if (this.input && differentValue) {
-      this.input.value = value
+    if (differentValue) {
+      this.input.value = this.trimValue && value
+        ? value.replace(/\s{2,}/g, ' ').trim()
+        : value
       this.input.dispatchEvent(new Event('change'))
     }
   }
@@ -149,43 +161,31 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set placeholder(value) {
-    this.label
-      ? this.label.textContent = value
-      : null
+    this.label.textContent = value
   }
 
   set disabled(value) {
-    if (this.input) {
-      this.input.disabled = value
-    }
+    this.input.disabled = value || this.hasAttribute('disabled')
   }
 
   set readonly(value) {
-    if (this.input) {
-      this.input.readOnly = value
-    }
+    this.input.readOnly = value || this.hasAttribute('readonly')
   }
 
   set maxlength(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('maxlength', value)
-        : this.input.removeAttribute('maxlength')
-    }
+    value
+      ? this.input.setAttribute('maxlength', value)
+      : this.input.removeAttribute('maxlength')
   }
 
   set autocapitalize(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('autocapitalize', value)
-        : this.input.removeAttribute('autocapitalize')
-    }
+    value
+      ? this.input.setAttribute('autocapitalize', value)
+      : this.input.removeAttribute('autocapitalize')
   }
 
   set autofocus(value) {
-    if (this.input) {
-      this.input.autofocus = value
-    }
+    this.input.autofocus = value || this.hasAttribute('autofocus')
   }
 
   validate() {

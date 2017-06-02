@@ -1,4 +1,4 @@
-const {input, password} = require('minimalist')
+const {input, password, number} = require('minimalist')
 
 const form = document.querySelector('form')
 
@@ -14,3 +14,4 @@ form.addEventListener('submit', event => {
   console.log(`form isInvalid: ${isInvalid}`)
   event.preventDefault()
 })
+

@@ -1,0 +1,64 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-number {
+  --currency-symbol: '$';
+
+  .input {
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.mn-number[currency] {
+  &:before {
+    content: var(--currency-symbol);
+    margin-right: .25em;
+    color: var(--text-color);
+  }
+}
+
+.mn-number[percentage] {
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    color: var(--text-color);
+  }
+
+  .input {
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    -ms-text-fill-color: transparent;
+  }
+}
+
+.mn-number[currency],
+.mn-number[percentage] {
+  &:before {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  &.has-value:before,
+  &.focus:before {
+    opacity: 1;
+    transition: opacity .2s ease;
+  }
+}
+
+.mn-number.invalid {
+  &.min {--invalid-message: ' must be at least ' attr(min)}
+  &.max {--invalid-message: ' must be at most ' attr(max)}
+}

@@ -1,8 +1,23 @@
 @import '../../webcomponents/input/input.style.scss';
 @import '../../webcomponents/password/password.style.scss';
+@import '../../webcomponents/number/number.style.scss';
+
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  form {flex-direction: column}
+}
 
 .mn-input {
   font-size: 1.2em;
+}
+
+.mn-number {
+  --currency-symbol: 'R$';
 }
 
 .mn-input.blue {

@@ -118,21 +118,12 @@ const {HTMLElement} = window
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
-    this.validations = {
-      required: () => this.value === '',
-      pattern: () => {
-        const reg = new RegExp(this.getAttribute('pattern'))
-
-        return this.value
-          ? !reg.test(this.value)
-          : false
-      },
-    }
     return self
   }
 
   connectedCallback() {
     this.innerHTML = ''
+    this.trimValue = true
     this._setCssClasses()
     this._setInput()
     this._setPlaceholder()
@@ -144,6 +135,26 @@ module.exports = class MnInput extends HTMLElement {
     this._setAttributeAutocomplete()
     this._setAttributeSpellcheck()
     this._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'maxlength',
+      'autocapitalize',
+      'autofocus',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode && this.children.length) {
+      this[name] = value
+    }
   }
 
   _setCssClasses() {
@@ -157,6 +168,10 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('change', () => { // set class .has-value
+      if (this.trimValue) {
+        this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
+      }
+
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
@@ -185,8 +200,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    const value = this.getAttribute('value') || ''
-    this.setAttribute('value', value)
+    this.value = this.getAttribute('value') || ''
   }
 
   _setAttributeDisabled() {
@@ -217,21 +231,17 @@ module.exports = class MnInput extends HTMLElement {
     this.autofocus = this.hasAttribute('autofocus')
   }
 
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'maxlength',
-      'autocapitalize',
-      'autofocus',
-    ]
-  }
+  _setValidations() {
+    this.validations = {
+      required: () => this.value === '',
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
 
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
+        return this.value
+          ? !reg.test(this.value)
+          : false
+      },
+    }
   }
 
   get value() {
@@ -239,10 +249,12 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    const differentValue = this.input && this.input.value !== value
+    const differentValue = this.input.value !== value
 
-    if (this.input && differentValue) {
-      this.input.value = value
+    if (differentValue) {
+      this.input.value = this.trimValue && value
+        ? value.replace(/\s{2,}/g, ' ').trim()
+        : value
       this.input.dispatchEvent(new Event('change'))
     }
   }
@@ -264,43 +276,31 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set placeholder(value) {
-    this.label
-      ? this.label.textContent = value
-      : null
+    this.label.textContent = value
   }
 
   set disabled(value) {
-    if (this.input) {
-      this.input.disabled = value
-    }
+    this.input.disabled = value || this.hasAttribute('disabled')
   }
 
   set readonly(value) {
-    if (this.input) {
-      this.input.readOnly = value
-    }
+    this.input.readOnly = value || this.hasAttribute('readonly')
   }
 
   set maxlength(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('maxlength', value)
-        : this.input.removeAttribute('maxlength')
-    }
+    value
+      ? this.input.setAttribute('maxlength', value)
+      : this.input.removeAttribute('maxlength')
   }
 
   set autocapitalize(value) {
-    if (this.input) {
-      value
-        ? this.input.setAttribute('autocapitalize', value)
-        : this.input.removeAttribute('autocapitalize')
-    }
+    value
+      ? this.input.setAttribute('autocapitalize', value)
+      : this.input.removeAttribute('autocapitalize')
   }
 
   set autofocus(value) {
-    if (this.input) {
-      this.input.autofocus = value
-    }
+    this.input.autofocus = value || this.hasAttribute('autofocus')
   }
 
   validate() {
@@ -337,7 +337,7 @@ module.exports = __webpack_require__(4);
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password} = __webpack_require__(2)
+const {input, password, number} = __webpack_require__(2)
 
 const form = document.querySelector('form')
 
@@ -355,13 +355,15 @@ form.addEventListener('submit', event => {
 })
 
 
+
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
   input: __webpack_require__(5),
-  password: __webpack_require__(7),
+  password: __webpack_require__(9),
+  number: __webpack_require__(7),
 }
 
 
@@ -390,6 +392,229 @@ function MnInputCustomElement() {
 
 const MnInput = __webpack_require__(1)
 
+module.exports = class MnNumber extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-number')
+    this._setCssClasses()
+    this._setInput()
+    this._setMask()
+    this._setMobileKeyboard()
+    this._setInputTransforms()
+    this._setInputKeys()
+    this._setPlaceholder()
+    this._setAttributeValue()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
+    this._setAttributeAutofocus()
+    this._setAttributeMax()
+    this._setAttributeMin()
+    this._setValidations()
+    this._overrideValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.input.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
+  _setMobileKeyboard() {
+    this.input.setAttribute('pattern', '\\d*')
+  }
+
+  _setInputTransforms() {
+    this.input.addEventListener('change', () => {
+      try {
+        const value = eval(this.input.value.replace(/,/g, '.'))
+        value !== undefined
+          ? this.input.value = String(value).replace(/\./g, ',')
+          : null
+        const valueIsDefined = value !== undefined
+
+        if (valueIsDefined) {
+          const isCurrency = this.hasAttribute('currency')
+          const precision = this.getAttribute('precision') || 0
+
+          switch (true) {
+            case isCurrency:
+              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+              break
+
+            default:
+              this.input.value = precision
+                ? value.toFixed(precision).replace(/\./g, ',')
+                : String(value).replace(/\./g, ',')
+              break
+          }
+        }
+      } catch (e) {
+        this.value = undefined
+      }
+
+      this.hasAttribute('percentage')
+        ? this.updateMask()
+        : null
+    })
+  }
+
+  _setInputKeys() {
+    this.input.addEventListener('keydown', (event) => {
+      if (!this.hasAttribute('readonly')) {
+        const step = this.hasAttribute('percentage')
+          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
+          : +this.getAttribute('step') || 1
+        const value = this.value || 0
+
+        switch (event.key) {
+          case 'ArrowUp':
+            this.value = value + step
+            break
+          case 'ArrowDown':
+            this.value = value - step
+            break
+        }
+
+        event.key === 'ArrowUp' || event.key === 'ArrowDown'
+          ? event.preventDefault()
+          : null
+      }
+    })
+  }
+
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
+  _overrideValidations() {
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
+  }
+
+  get value() {
+    const isUndefined = this.input.value === ''
+    const numberString = this.input.value.replace(/,/g, '.')
+
+    const val = isUndefined
+      ? undefined
+      : this.hasAttribute('percentage')
+        ? (numberString * 100) / 10000
+        : parseFloat(numberString)
+
+    return val
+  }
+
+  set value(value = '') {
+    if (this.input) {
+      try {
+        value = eval(String(value).replace(/,/g, '.'))
+        const differentValue = this.input.value !== value
+
+        if (value !== undefined && differentValue) {
+          value = this.hasAttribute('percentage')
+            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
+            : value
+          this.input.value = value
+        } else {
+          this.input.value = ''
+        }
+
+      } catch (e) {
+        this.input.value = ''
+      }
+
+      this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
+    }
+  }
+
+  set max(value) {
+    this.hasAttribute('max')
+      ? this.label.setAttribute('max', value)
+      : this.label.removeAttribute('max')
+  }
+
+  set min(value) {
+    this.hasAttribute('min')
+      ? this.label.setAttribute('min', value)
+      : this.label.removeAttribute('min')
+  }
+
+  updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+  }
+}
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnNumberCustomElement()
+
+function MnNumberCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnNumber = __webpack_require__(6)
+  window.customElements.define('mn-number', MnNumber)
+  return window.customElements.get('mn-number')
+}
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
 module.exports = class MnPassword extends MnInput {
   constructor(self) {
     self = super(self)
@@ -399,7 +624,6 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.classList.add('mn-password')
-    this._setType()
     this._setCssClasses()
     this._setInput()
     this._setType()
@@ -407,7 +631,9 @@ module.exports = class MnPassword extends MnInput {
     this._setButton()
     this._setAttributeValue()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
     this._setAttributeAutofocus()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -416,13 +642,13 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
+      'readonly',
+      'autofocus',
     ]
   }
 
   _setType() {
-    this.input
-      ? this.input.setAttribute('type', 'password')
-      : null
+    this.input.setAttribute('type', 'password')
   }
 
   _setButton() {
@@ -455,7 +681,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -467,7 +693,7 @@ function MnPasswordCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnPassword = __webpack_require__(6)
+  const MnPassword = __webpack_require__(8)
   window.customElements.define('mn-password', MnPassword)
   return window.customElements.get('mn-password')
 }

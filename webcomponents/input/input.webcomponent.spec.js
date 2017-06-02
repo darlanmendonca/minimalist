@@ -5,12 +5,14 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let input // page object defined in method setPageObject
 let component
 
 describe('mn-input (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -53,7 +55,7 @@ describe('mn-input (webcomponent)', () => {
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'inline-block')
+      expect(component).to.have.style('display', 'flex')
     })
 
     it('should have a relative position', () => {
@@ -71,70 +73,70 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with undefined', () => {
-      component.value = undefined
+      input.setProperty('value', undefined)
       expect(component).to.have.value('')
     })
 
     it('should get empty string when it is setted with null', () => {
-      component.value = null
+      input.setProperty('value', null)
       expect(component).to.have.value('')
     })
 
     it('should setter and getter as string', () => {
-      component.value = 'test'
+      input.setProperty('value', 'test')
       expect(component).to.have.value('test')
     })
   })
 
   describe('attribute value', () => {
     it('should set property value when attribute changed', () => {
-      component.setAttribute('value', 'test')
+      input.setAttribute('value', 'test')
       expect(component).to.have.value('test')
     })
 
     it('should set property value when attribute is removed', () => {
-      component.removeAttribute('value')
+      input.removeAttribute('value')
       expect(component).to.have.value('')
     })
   })
 
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
-      component.setAttribute('name', 'test')
+      input.setAttribute('name', 'test')
       const {formID} = window
       expect(formID.test).to.be.equal(component)
     })
 
     it('should define a form getter if parent form exist and has a name', () => {
-      component.setAttribute('name', 'test')
+      input.setAttribute('name', 'test')
       const {formName} = window
       expect(formName.test).to.be.equal(component)
     })
 
     it('should undefine form getter (name) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      input.setAttribute('name', 'test')
+      input.removeAttribute('name')
       const {formName} = window
       expect(formName.test).to.be.undefined
     })
 
     it('should undefine form getter (id) if component name was removed', () => {
-      component.setAttribute('name', 'test')
-      component.removeAttribute('name')
+      input.setAttribute('name', 'test')
+      input.removeAttribute('name')
       const {formID} = window
       expect(formID.test).to.be.undefined
     })
 
     it('should redefine form getter (name) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      input.setAttribute('name', 'test')
+      input.setAttribute('name', 'test2')
       const {formName} = window
       expect(formName.test2).to.be.equal(component)
     })
 
     it('should redefine form getter (id) if component name changed', () => {
-      component.setAttribute('name', 'test')
-      component.setAttribute('name', 'test2')
+      input.setAttribute('name', 'test')
+      input.setAttribute('name', 'test2')
       const {formID} = window
       expect(formID.test2).to.be.equal(component)
     })
@@ -142,13 +144,13 @@ describe('mn-input (webcomponent)', () => {
 
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
+      input.setProperty('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should set the placeholder text in label', () => {
-      component.placeholder = 'test'
-      component.placeholder = 'test2'
+      input.setProperty('placeholder', 'test')
+      input.setProperty('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
@@ -160,13 +162,13 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute placeholder', () => {
     it('should define a label as placeholder', () => {
-      component.setAttribute('placeholder', 'test')
+      input.setAttribute('placeholder', 'test')
       expect(component).to.contain('label').with.text('test')
     })
 
     it('should change the text', () => {
-      component.setAttribute('placeholder', 'test')
-      component.setAttribute('placeholder', 'test2')
+      input.setAttribute('placeholder', 'test')
+      input.setAttribute('placeholder', 'test2')
       expect(component).to.contain('label').with.text('test2')
     })
 
@@ -175,51 +177,51 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should set empty text to label when attribute is removed', () => {
-      component.setAttribute('placeholder', 'test')
-      component.removeAttribute('placeholder')
+      input.setAttribute('placeholder', 'test')
+      input.removeAttribute('placeholder')
       expect(component).to.contain('label').with.text('')
     })
   })
 
   describe('attribute readonly', () => {
     it('should define attribute in child input', () => {
-      component.setAttribute('readonly', 'readonly')
+      input.setAttribute('readonly')
       expect(component).to.contain('input').to.have.attribute('readonly')
     })
 
     it('should remove attribute from child input', () => {
-      component.removeAttribute('readonly')
+      input.removeAttribute('readonly')
       expect(component).to.contain('input').not.have.attribute('readonly')
     })
   })
 
   describe('attribute maxlength', () => {
     it('should define attribute in child input', () => {
-      component.setAttribute('maxlength', '2')
+      input.setAttribute('maxlength', '2')
       expect(component).to.contain('input').with.attribute('maxlength', '2')
     })
 
     it('should update attribute in child input', () => {
-      component.setAttribute('maxlength', '2')
-      component.setAttribute('maxlength', '3')
+      input.setAttribute('maxlength', '2')
+      input.setAttribute('maxlength', '3')
       expect(component).to.contain('input').with.attribute('maxlength', '3')
     })
 
     it('should remove attribute from child input', () => {
-      component.setAttribute('maxlength', '2')
-      component.removeAttribute('maxlength')
+      input.setAttribute('maxlength', '2')
+      input.removeAttribute('maxlength')
       expect(component).to.contain('input').to.not.have.attribute('maxlength')
     })
   })
 
   describe('attribute disabled', () => {
     it('should define attribute in child input', () => {
-      component.disabled = true
+      input.setAttribute('disabled')
       expect(component.input).to.have.attribute('disabled')
     })
 
     it('should remove attribute from child input', () => {
-      component.disabled = false
+      input.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
     })
   })
@@ -230,22 +232,23 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should turn on autocapitalize ', () => {
-      component.setAttribute('autocapitalize', 'on')
+      input.setAttribute('autocapitalize', 'on')
       expect(component.input).to.have.attribute('autocapitalize', 'on')
     })
 
     it('should turn off autocapitalize', () => {
-      component.setAttribute('autocapitalize', 'off')
+      input.setAttribute('autocapitalize', 'off')
       expect(component.input).to.have.attribute('autocapitalize', 'off')
     })
 
     it('should autocapitalize characters', () => {
-      component.setAttribute('autocapitalize', 'characters')
+      input.setAttribute('autocapitalize', 'characters')
       expect(component.input).to.have.attribute('autocapitalize', 'characters')
     })
+
     it('should change the attribute', () => {
-      component.setAttribute('autocapitalize', 'on')
-      component.setAttribute('autocapitalize', 'off')
+      input.setAttribute('autocapitalize', 'on')
+      input.setAttribute('autocapitalize', 'off')
       expect(component.input).to.have.attribute('autocapitalize', 'off')
     })
   })
@@ -266,16 +269,32 @@ describe('mn-input (webcomponent)', () => {
   })
 
   describe('attribute required', () => {
-    it('should be invalid if validate without fill value', () => {
-      component.setAttribute('required', '')
+    it('should be invalid if typed nothing', () => {
+      input.setAttribute('required')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
-    it('should be valid if validate with filled value', () => {
-      component.setAttribute('required', '')
-      component.value = 'test'
+    it('should be valid if setted a valid value', () => {
+      input.setAttribute('required')
+      input.typeValue('test')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should be valid if typed a valid value', () => {
+      input.setAttribute('required')
+      input.typeValue('test')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if attribute was removed', () => {
+      input.setAttribute('required', '')
+      input.removeAttribute('required')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -284,24 +303,24 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute pattern', () => {
     it('should ignore validation if it dont have value and required', () => {
-      component.setAttribute('pattern', '^a')
+      input.setAttribute('pattern', '^a')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
     })
 
     it('should be invalid if dont have a valid value', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
+      input.setAttribute('required')
+      input.setAttribute('pattern', '^t') // starts with t
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
     })
 
     it('should be valid if have a valid value', () => {
-      component.setAttribute('required', '')
-      component.setAttribute('pattern', '^t') // starts with t
-      component.value = 'test'
+      input.setAttribute('required')
+      input.setAttribute('pattern', '^t') // starts with t
+      input.typeValue('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
@@ -310,14 +329,34 @@ describe('mn-input (webcomponent)', () => {
 
   describe('attribute autofocus', () => {
     it('should set attribute on child input', () => {
-      component.autofocus = true
+      input.setAttribute('autofocus')
       expect(component.input).to.have.attribute('autofocus')
     })
 
     it('should unset attribute from child input', () => {
-      component.autofocus = true
-      component.autofocus = false
+      input.setAttribute('autofocus')
+      input.removeAttribute('autofocus')
       expect(component.input).to.not.have.attribute('autofocus')
+    })
+  })
+
+  describe('remove multiples spaces', () => {
+    it('should trim spaces before and after string', () => {
+      input.typeValue('  test   ')
+      expect(component).to.have.value('test')
+      expect(component.input).to.have.value('test')
+    })
+
+    it('should works when set property value', () => {
+      input.setProperty('value', '    test   test      test   ')
+      expect(component).to.have.value('test test test')
+      expect(component.input).to.have.value('test test test')
+    })
+
+    it('should works when type a value', () => {
+      input.typeValue('    test   test      test   ')
+      expect(component).to.have.value('test test test')
+      expect(component.input).to.have.value('test test test')
     })
   })
 })
@@ -343,4 +382,9 @@ function createComponent() {
 
   form.appendChild(component)
   document.body.appendChild(form)
+}
+
+function setPageObject() {
+  const InputPageObject = require('./input.po.js')
+  input = new InputPageObject(component)
 }
