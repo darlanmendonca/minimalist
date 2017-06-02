@@ -92,7 +92,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.addEventListener('keydown', (event) => {
       if (!this.hasAttribute('readonly')) {
         const step = this.hasAttribute('percentage')
-          ? +this.getAttribute('step') || 0.01
+          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
           : +this.getAttribute('step') || 1
         const value = this.value || 0
 
