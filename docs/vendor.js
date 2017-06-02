@@ -474,7 +474,9 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
-      const step = +this.getAttribute('step') || 1
+      const step = this.hasAttribute('percentage')
+        ? +this.getAttribute('step') || 0.01
+        : +this.getAttribute('step') || 1
       const value = this.value || 0
 
       switch (event.key) {
@@ -528,7 +530,7 @@ module.exports = class MnNumber extends MnInput {
 
         if (value !== undefined && differentValue) {
           value = this.hasAttribute('percentage')
-            ? value * 100
+            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
             : value
           this.input.value = value
         } else {
