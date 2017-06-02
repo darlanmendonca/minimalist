@@ -7,6 +7,7 @@
 
   <body>
     <form>
+      <mn-input placeholder="Name" name="username" required></mn-input>
       <mn-number placeholder="Number" required></mn-number>
       <mn-number placeholder="Precision" precision="3" value="10"></mn-number>
       <mn-number placeholder="Money" currency value="10" step="0.1"></mn-number>
@@ -16,7 +17,7 @@
     </form>
     <script src="/vendor.js"></script>
     <script>
-      const input = document.querySelector('mn-number')
+      const input = document.querySelector('mn-input')
     </script>
   </body>
 </html>

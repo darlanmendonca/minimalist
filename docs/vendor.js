@@ -167,6 +167,7 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('change', () => { // set class .has-value
+      this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
@@ -248,6 +249,8 @@ module.exports = class MnInput extends HTMLElement {
 
     if (differentValue) {
       this.input.value = value
+        ? value.replace(/\s{2,}/g, ' ').trim()
+        : value
       this.input.dispatchEvent(new Event('change'))
     }
   }
@@ -559,8 +562,10 @@ module.exports = class MnNumber extends MnInput {
   }
 
   updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
     if (this.mask && this.hasAttribute('percentage')) {
-      const text = this.input.value !== ''
+      const text = hasValue
         ? `${this.input.value} %`
         : ''
 
@@ -568,7 +573,7 @@ module.exports = class MnNumber extends MnInput {
     }
 
     if (this.mask && this.hasAttribute('percentage')) {
-      const text = this.input.value !== ''
+      const text = hasValue
         ? `${this.input.value} %`
         : ''
 

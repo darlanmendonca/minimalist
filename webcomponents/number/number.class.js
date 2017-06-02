@@ -174,8 +174,10 @@ module.exports = class MnNumber extends MnInput {
   }
 
   updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
     if (this.mask && this.hasAttribute('percentage')) {
-      const text = this.input.value !== ''
+      const text = hasValue
         ? `${this.input.value} %`
         : ''
 
@@ -183,7 +185,7 @@ module.exports = class MnNumber extends MnInput {
     }
 
     if (this.mask && this.hasAttribute('percentage')) {
-      const text = this.input.value !== ''
+      const text = hasValue
         ? `${this.input.value} %`
         : ''
 

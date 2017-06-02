@@ -78,7 +78,7 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should get empty string when it is setted with null', () => {
-      input.setProperty('value', undefined)
+      input.setProperty('value', null)
       expect(component).to.have.value('')
     })
 
@@ -338,6 +338,27 @@ describe('mn-input (webcomponent)', () => {
       input.removeAttribute('autofocus')
       expect(component.input).to.not.have.attribute('autofocus')
     })
+  })
+
+  describe('remove multiples spaces', () => {
+    it('should trim spaces before and after string', () => {
+      input.typeValue('  test   ')
+      expect(component).to.have.value('test')
+      expect(component.input).to.have.value('test')
+    })
+
+    it('should works when set property value', () => {
+      input.setProperty('value', '    test   test      test   ')
+      expect(component).to.have.value('test test test')
+      expect(component.input).to.have.value('test test test')
+    })
+
+    it('should works when type a value', () => {
+      input.typeValue('    test   test      test   ')
+      expect(component).to.have.value('test test test')
+      expect(component.input).to.have.value('test test test')
+    })
+
   })
 })
 
