@@ -1,4 +1,4 @@
-// const {describe, it, before, beforeEach} = require('mocha')
+/* global describe, it, before, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))

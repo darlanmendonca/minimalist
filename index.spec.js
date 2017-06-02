@@ -1,4 +1,4 @@
-// const {describe, it} = require('mocha')
+/* global describe, it */
 const {expect} = require('chai')
 
 const packageJSON = require('./package.json')
