@@ -42,6 +42,7 @@ The following attributes are supported in this component
 - [pattern](http://www.w3schools.com/tags/att_input_pattern.asp)
 - [required](http://www.w3schools.com/tags/att_input_required.asp)
 - [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
+- [readonly](http://www.w3schools.com/tags/att_input_readonly.asp)
 
 And custom attributes is
 
