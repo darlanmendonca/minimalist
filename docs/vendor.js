@@ -410,6 +410,7 @@ module.exports = class MnNumber extends MnInput {
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
     this._setAttributeAutofocus()
     this._setAttributeMax()
     this._setAttributeMin()
@@ -481,23 +482,25 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
-      const step = this.hasAttribute('percentage')
-        ? +this.getAttribute('step') || 0.01
-        : +this.getAttribute('step') || 1
-      const value = this.value || 0
+      if (!this.hasAttribute('readonly')) {
+        const step = this.hasAttribute('percentage')
+          ? +this.getAttribute('step') || 0.01
+          : +this.getAttribute('step') || 1
+        const value = this.value || 0
 
-      switch (event.key) {
-        case 'ArrowUp':
-          this.value = value + step
-          break
-        case 'ArrowDown':
-          this.value = value - step
-          break
+        switch (event.key) {
+          case 'ArrowUp':
+            this.value = value + step
+            break
+          case 'ArrowDown':
+            this.value = value - step
+            break
+        }
+
+        event.key === 'ArrowUp' || event.key === 'ArrowDown'
+          ? event.preventDefault()
+          : null
       }
-
-      event.key === 'ArrowUp' || event.key === 'ArrowDown'
-        ? event.preventDefault()
-        : null
     })
   }
 
@@ -628,6 +631,7 @@ module.exports = class MnPassword extends MnInput {
     this._setButton()
     this._setAttributeValue()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
     this._setAttributeAutofocus()
     this._setValidations()
   }
@@ -638,6 +642,7 @@ module.exports = class MnPassword extends MnInput {
       'name',
       'placeholder',
       'disabled',
+      'readonly',
       'autofocus',
     ]
   }

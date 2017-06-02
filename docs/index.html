@@ -6,18 +6,19 @@
   </head>
 
   <body>
-    <form>
-      <mn-input placeholder="Name" name="username" required></mn-input>
-      <mn-number placeholder="Number" required></mn-number>
+    <form novalidate>
+      <mn-input placeholder="Name" name="username" required value="Test"></mn-input>
+      <mn-password id="password" placeholder="Password" required></mn-password>
+      <mn-number placeholder="Number" required max="2" value="10"></mn-number>
       <mn-number placeholder="Precision" precision="3" value="10"></mn-number>
       <mn-number placeholder="Money" currency value="10" step="0.1"></mn-number>
       <mn-number placeholder="Percent" percentage value="1"></mn-number>
-      <mn-password id="password" placeholder="Password" required></mn-password>
       <button>submit</button>
     </form>
     <script src="/vendor.js"></script>
     <script>
       const input = document.querySelector('mn-input')
+      const number = document.querySelector('mn-number')
       const password = document.querySelector('mn-password')
     </script>
   </body>
