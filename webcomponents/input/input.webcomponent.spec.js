@@ -1,4 +1,4 @@
-const {describe, it, before, beforeEach} = require('mocha')
+// const {describe, it, before, beforeEach} = require('mocha')
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
@@ -362,7 +362,7 @@ describe('mn-input (webcomponent)', () => {
 })
 
 function loadComponent() {
-  require('minimalist').input
+  // require('minimalist').input
 }
 
 function cleanView() {

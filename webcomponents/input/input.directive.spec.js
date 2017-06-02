@@ -1,4 +1,4 @@
-const {describe, it, before, beforeEach} = require('mocha')
+// const {describe, it, before, beforeEach} = require('mocha')
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
@@ -60,7 +60,7 @@ describe('mn-input (directive)', () => {
 })
 
 function loadComponent() {
-  require('minimalist').input
+  // require('minimalist').input
   require('./input.directive.js')
 }
 

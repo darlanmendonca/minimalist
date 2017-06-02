@@ -36,9 +36,16 @@ function KarmaConfig(config) {
     ],
 
     preprocessors: {
-      '*.js': ['browserify'],
-      'webcomponents/**/*.js': ['browserify'],
+      '**/*.js': ['webpack', 'sourcemap'],
       'webcomponents/**/*.scss': ['scss'],
+    },
+
+    webpack: {
+      devtool: 'inline-source-map',
+    },
+
+    webpackServer: {
+      noInfo: true,
     },
 
     customLaunchers: {
@@ -83,7 +90,6 @@ function KarmaConfig(config) {
     captureTimeout : 4 * 60 * 1000,
 
     frameworks: [
-      'browserify',
       'mocha',
       'detectBrowsers',
     ],
@@ -99,10 +105,6 @@ function KarmaConfig(config) {
     reporters: [
       'mocha',
     ],
-
-    browserify: {
-      debug: true,
-    },
 
     mochaReporter: {
       output: 'autowatch',
