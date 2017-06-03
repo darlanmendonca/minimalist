@@ -62,6 +62,12 @@ module.exports = class MnInput extends HTMLElement {
         : this.classList.remove('has-value')
     })
 
+    this.input.addEventListener('blur', () => {
+      this.input.value
+        ? this.classList.add('has-value')
+        : this.classList.remove('has-value')
+    })
+
     this.input.addEventListener('keyup', () => { // validate
       const closestForm = this.closest('form')
       closestForm && closestForm.classList.contains('submitted')
