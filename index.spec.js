@@ -29,4 +29,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('number')
   })
+
+  it('should export date component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('date')
+  })
 })
