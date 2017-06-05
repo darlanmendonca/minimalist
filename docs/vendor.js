@@ -368,14 +368,112 @@ form.addEventListener('submit', event => {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(5),
-  password: __webpack_require__(9),
-  number: __webpack_require__(7),
+  input: __webpack_require__(7),
+  password: __webpack_require__(11),
+  number: __webpack_require__(9),
+  date: __webpack_require__(6),
 }
 
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnDate extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-number')
+    this._setCssClasses()
+    this._setInput()
+    this._setPlaceholder()
+    this._setAttributeValue()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
+    this._setAttributeAutofocus()
+    this._setAttributeMax()
+    this._setAttributeMin()
+    this._setValidations()
+    this._overrideValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
+  _overrideValidations() {
+    this.validations.required = () => this.value === undefined,
+    // this.validations.min = () => this.value < this.getAttribute('min')
+    // this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
+  }
+
+  get value() {
+    return 'value'
+  }
+
+  set value(value) {
+    console.log('setting value')
+  }
+
+  set max(value) {
+    this.hasAttribute('max')
+      ? this.label.setAttribute('max', value)
+      : this.label.removeAttribute('max')
+  }
+
+  set min(value) {
+    this.hasAttribute('min')
+      ? this.label.setAttribute('min', value)
+      : this.label.removeAttribute('min')
+  }
+}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDateCustomElement()
+
+function MnDateCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnDate = __webpack_require__(5)
+  window.customElements.define('mn-date', MnDate)
+  return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -394,7 +492,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -598,7 +696,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -610,14 +708,14 @@ function MnNumberCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnNumber = __webpack_require__(6)
+  const MnNumber = __webpack_require__(8)
   window.customElements.define('mn-number', MnNumber)
   return window.customElements.get('mn-number')
 }
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -688,7 +786,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -700,7 +798,7 @@ function MnPasswordCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnPassword = __webpack_require__(8)
+  const MnPassword = __webpack_require__(10)
   window.customElements.define('mn-password', MnPassword)
   return window.customElements.get('mn-password')
 }
