@@ -1,6 +1,6 @@
 .mn-date {
   // padding-right: 5em;
-  // .day, .month {width: 3ch}
+  .day, .month {width: 4ch}
   // .year {width: 4ch}
 
   .input::-webkit-inner-spin-button,
@@ -9,4 +9,15 @@
     margin: 0;
   }
 
+  .input::-webkit-input-placeholder {
+    color: inherit;
+  }
+
+  .input::-moz-placeholder {
+    color: inherit;
+  }
+
+  .input:-ms-input-placeholder {
+    color: inherit;
+  }
 }

@@ -424,11 +424,14 @@ module.exports = class MnDate extends MnInput {
     day.classList.add('day')
     day.setAttribute('min', '1')
     day.setAttribute('max', '31')
+    day.setAttribute('placeholder', 'dd')
     month.classList.add('month')
     month.setAttribute('min', '1')
     month.setAttribute('max', '12')
+    month.setAttribute('placeholder', 'mm')
     year.classList.add('year')
     year.setAttribute('min', '1')
+    year.setAttribute('placeholder', 'yyyy')
 
     this.inputs = [day, month, year]
 
@@ -438,13 +441,30 @@ module.exports = class MnDate extends MnInput {
       this.appendChild(input)
 
       input.addEventListener('change', () => {
+        function pad(num) {
+          num = num + ''
+          const size = input.classList.contains('year')
+            ? 4
+            : 2
+          while (num.length < size) {
+            num = '0' + num
+          }
+
+          return num
+        }
+        const formattedValue = pad(input.value)
+
+        if (input.value !== formattedValue && formattedValue !== '0000' && formattedValue !== '00') {
+          input.value = formattedValue
+        }
+
         input.value
           ? this.classList.add('has-value')
           : this.classList.remove('has-value')
       })
 
       input.addEventListener('blur', () => {
-        input.value
+        this.value
           ? this.classList.add('has-value')
           : this.classList.remove('has-value')
       })
@@ -491,20 +511,13 @@ module.exports = class MnDate extends MnInput {
     const date = new Date(value)
     const validDate = !isNaN(date.valueOf())
 
-    function pad(num) {
-      num = String(num)
-      while (num.length < 2) {
-        num = '0' + num
-      }
-
-      return num
-    }
-
     if (validDate) {
-      this.inputs[0].value = pad(date.getDate() + 1)
-      this.inputs[1].value = pad(date.getMonth() + 1)
+      this.inputs[0].value = date.getDate() + 1
+      this.inputs[1].value = date.getMonth() + 1
       this.inputs[2].value = date.getFullYear()
-      this.inputs[0].dispatchEvent(new Event('change'))
+      this.inputs.forEach(input => {
+        input.dispatchEvent(new Event('change'))
+      })
     }
   }
 
