@@ -389,7 +389,7 @@ module.exports = class MnDate extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-number')
+    this.classList.add('mn-date')
     this._setCssClasses()
     this._setInput()
     this._setPlaceholder()
