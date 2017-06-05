@@ -35,6 +35,48 @@ module.exports = class MnDate extends MnInput {
     ]
   }
 
+  _setInput() {
+    const day = document.createElement('input')
+    const month = document.createElement('input')
+    const year = document.createElement('input')
+    day.classList.add('day')
+    day.setAttribute('min', '1')
+    day.setAttribute('max', '31')
+    month.classList.add('month')
+    month.setAttribute('min', '1')
+    month.setAttribute('max', '12')
+    year.classList.add('year')
+    year.setAttribute('min', '1')
+
+    this.inputs = [day, month, year]
+
+    this.inputs.forEach(input => {
+      input.classList.add('input')
+      input.setAttribute('type', 'number')
+      this.appendChild(input)
+
+      input.addEventListener('change', () => {
+        input.value
+          ? this.classList.add('has-value')
+          : this.classList.remove('has-value')
+      })
+
+      input.addEventListener('blur', () => {
+        input.value
+          ? this.classList.add('has-value')
+          : this.classList.remove('has-value')
+      })
+
+      input.addEventListener('focus', () => {
+        if (!this.hasAttribute('readonly') && !this.hasAttribute('disabled')) {
+          this.classList.add('focus')
+        }
+      })
+
+      input.addEventListener('blur', () => this.classList.remove('focus'))
+    })
+  }
+
   _setAttributeMax() {
     this.max = this.getAttribute('max')
   }
@@ -51,11 +93,53 @@ module.exports = class MnDate extends MnInput {
   }
 
   get value() {
-    return 'value'
+    const day = +this.inputs[0].value
+    const month = +this.inputs[1].value
+    const year = +this.inputs[2].value
+    const date = new Date(`${year}-${month}-${day}`)
+
+    const validDate = year && month && day && !isNaN(date.valueOf())
+
+    return validDate
+      ? date.toISOString()
+      : undefined
   }
 
   set value(value) {
-    console.log('setting value')
+    const date = new Date(value)
+    const validDate = !isNaN(date.valueOf())
+
+    function pad(num) {
+      num = String(num)
+      while (num.length < 2) {
+        num = '0' + num
+      }
+
+      return num
+    }
+
+    if (validDate) {
+      this.inputs[0].value = pad(date.getDate() + 1)
+      this.inputs[1].value = pad(date.getMonth() + 1)
+      this.inputs[2].value = date.getFullYear()
+      this.inputs[0].dispatchEvent(new Event('change'))
+    }
+  }
+
+  set disabled(value) {
+    this.inputs.forEach(input => {
+      input.disabled = value || this.hasAttribute('disabled')
+    })
+  }
+
+  set readonly(value) {
+    this.inputs.forEach(input => {
+      input.readOnly = value || this.hasAttribute('readonly')
+    })
+  }
+
+  set autofocus(value) {
+    this.inputs[0].autofocus = value || this.hasAttribute('autofocus')
   }
 
   set max(value) {

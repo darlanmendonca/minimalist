@@ -80,6 +80,7 @@ module.exports = class MnInput extends HTMLElement {
         this.classList.add('focus')
       }
     })
+
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
   }
 
