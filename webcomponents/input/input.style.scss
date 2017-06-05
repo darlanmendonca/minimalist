@@ -86,6 +86,7 @@
   &.has-value .input,
   &.focus .input {
     opacity: 1;
+    transition-delay: .15s;
   }
 
 }
