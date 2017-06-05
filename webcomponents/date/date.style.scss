@@ -1,3 +1,10 @@
-.mn-date {
+@import '../../node_modules/open-color/open-color.scss';
 
+.mn-date {
+  .input::-webkit-inner-spin-button,
+  .input::-webkit-calendar-picker-indicator,
+  .input::-webkit-clear-button {
+    -webkit-appearance: none;
+    display: none;
+  }
 }

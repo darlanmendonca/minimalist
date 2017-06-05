@@ -41,10 +41,11 @@ module.exports = class MnDate extends MnInput {
   }
 
   get value() {
-
+    return new Date(this.input.value).toISOString()
   }
 
   set value(value) {
-
+    this.input.value = value
+    this.input.dispatchEvent(new Event('change'))
   }
 }
