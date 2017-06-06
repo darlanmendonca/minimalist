@@ -426,8 +426,8 @@ module.exports = class MnDate extends MnInput {
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
-    if (supportsInputDate) { // temp
-      this.input.setAttribute('type', 'text') // temp
+    if (!supportsInputDate) {
+      this.input.setAttribute('type', 'text')
       this.input.setAttribute('maxlength', 10)
       this._setMask()
     }
@@ -437,25 +437,20 @@ module.exports = class MnDate extends MnInput {
     this.input.addEventListener('input', () => {
       this.updateMask()
     })
-
-    // this.input.addEventListener('change', () => {
-      // console.log(this.input.value)
-      // this.updateMask()
-    // })
   }
 
   updateMask() {
-    // const value = this.input.value
-    // const reg = /(\d{1,2})(?:\/)?(\d{1,2})?(?:\/)?(\d{1,})?/
-    // const pattern = /^\d{1,2}\/\d{1,2}\/\d{1,}/
-    // const match = value.match(reg)
-    // const day = match && match[1]
-    // const month = match && match[2]
-    // const year = match && match[3]
+    const value = this.input.value
+    const reg = /(\d{1,2})(?:\/)?(\d{1,2})?(?:\/)?(\d{1,4})?/
+    const pattern = /^\d{1,2}\/\d{1,2}\/\d{1,}/
+    const match = value.match(reg)
+    const day = match && match[1]
+    const month = match && match[2]
+    const year = match && match[3]
 
-    // !value.match(pattern)
-    //   ? this.input.value = [day, month, year].filter(item => Boolean(item)).join('/')
-    //   : null
+    !value.match(pattern)
+      ? this.input.value = [day, month, year].filter(item => Boolean(item)).join('/')
+      : null
   }
 
   get value() {
@@ -480,14 +475,18 @@ module.exports = class MnDate extends MnInput {
 
     if (!supportsInputDate) {
       const date = new Date(`${value} 00:00:00`)
-      function leadingZero(num) {
-        const s = '00' + num
-        return s.substr(s.length-2)
-      }
+      const day = leadingZero(date.getDate())
+      const month = leadingZero(date.getMonth() + 1)
+      const year = date.getFullYear()
 
       value = date.getTime()
-        ? `${leadingZero(date.getDate())}/${leadingZero(date.getMonth() + 1)}/${date.getFullYear()}`
+        ? `${day}/${month}/${year}`
         : ''
+
+      function leadingZero(num) {
+        const str = `00${num}`
+        return str.substr(str.length-2)
+      }
     }
 
     this.input.value = value
