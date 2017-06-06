@@ -297,55 +297,49 @@ describe('mn-date (webcomponent)', () => {
   //   })
   // })
 
-  // describe('attribute min', () => {
-  //   it('should apply attribute min to label', () => {
-  //     date.setAttribute('min', '0')
-  //     expect(component.label).to.have.attribute('min', '0')
-  //   })
+  describe('attribute min', () => {
+    it('should be valid if filled a valid date', () => {
+      date.setAttribute('min', '2010-10-05')
+      date.setAttribute('value', '2015-09-13')
+      component.validate()
+      expect(component).to.have.attribute('min', '2010-10-05')
+      expect(component).to.have.value('2015-09-13T00:00:00.000Z')
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('min')
+    })
 
-  //   it('should be invalid if filled with invalid value', () => {
-  //     date.setAttribute('min', '0')
-  //     date.setAttribute('required')
-  //     date.typeValue(-10)
-  //     component.validate()
-  //     expect(component).to.have.class('invalid')
-  //     expect(component).to.have.class('min')
-  //   })
+    it('should be invalid if filled with invalid value', () => {
+      date.setAttribute('min', '2010-10-05')
+      date.setAttribute('value', '2010-10-04')
+      component.validate()
+      expect(component).to.have.attribute('min', '2010-10-05')
+      expect(component).to.have.value('2010-10-04T00:00:00.000Z')
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('min')
+    })
+  })
 
-  //   it('should be valid if filled with valid value', () => {
-  //     date.setAttribute('min', '0')
-  //     date.setAttribute('required')
-  //     date.typeValue(1)
-  //     component.validate()
-  //     expect(component).to.not.have.class('invalid')
-  //     expect(component).to.not.have.class('min')
-  //   })
-  // })
+  describe('attribute max', () => {
+    it('should be valid if filled a valid date', () => {
+      date.setAttribute('max', '2017-05-06')
+      date.setAttribute('value', '2015-06-10')
+      component.validate()
+      expect(component).to.have.attribute('max', '2017-05-06')
+      expect(component).to.have.value('2015-06-10T00:00:00.000Z')
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('min')
+    })
 
-  // describe('attribute max', () => {
-  //   it('should apply attribute max to label', () => {
-  //     date.setAttribute('max', '100')
-  //     expect(component.label).to.have.attribute('max', '100')
-  //   })
-
-  //   it('should be invalid if filled with invalid value', () => {
-  //     date.setAttribute('max', '100')
-  //     date.setAttribute('required')
-  //     date.typeValue(101)
-  //     component.validate()
-  //     expect(component).to.have.class('invalid')
-  //     expect(component).to.have.class('max')
-  //   })
-
-  //   it('should be valid if filled with valid value', () => {
-  //     date.setAttribute('max', '100')
-  //     date.setAttribute('required')
-  //     date.typeValue(100)
-  //     component.validate()
-  //     expect(component).to.not.have.class('invalid')
-  //     expect(component).to.not.have.class('max')
-  //   })
-  // })
+    it('should be invalid if filled with invalid value', () => {
+      date.setAttribute('max', '2017-05-06')
+      date.setAttribute('value', '2017-05-07')
+      component.validate()
+      expect(component).to.have.attribute('max', '2017-05-06')
+      expect(component).to.have.value('2017-05-07T00:00:00.000Z')
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('min')
+    })
+  })
 
   // describe('increment values', () => {
   //   it('should increment undefined value', () => {
