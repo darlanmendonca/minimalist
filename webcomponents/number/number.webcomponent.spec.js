@@ -190,7 +190,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should be invalid if typed an invalid value', () => {
       number.setAttribute('required')
-      number.typeValue('test')
+      number.writeText('test')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('required')
@@ -198,7 +198,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should validate if typed 0', () => {
       number.setAttribute('required')
-      number.typeValue(0)
+      number.writeText(0)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -206,7 +206,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should validate if typed a valid number', () => {
       number.setAttribute('required')
-      number.typeValue(1)
+      number.writeText(1)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -222,7 +222,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should validate if value string is accept', () => {
       number.setProperty('required', '')
-      number.typeValue('1')
+      number.writeText('1')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -273,13 +273,13 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set undefined if enter a invalid number', () => {
       number.setAttribute('value', '2')
-      number.typeValue('123a')
+      number.writeText('123a')
       expect(component).to.have.value(undefined)
     })
 
     it('should set undefined if type nothing', () => {
       number.setAttribute('value', '2')
-      number.typeValue('')
+      number.writeText('')
       expect(component).to.have.value(undefined)
     })
   })
@@ -306,7 +306,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be invalid if filled with invalid value', () => {
       number.setAttribute('min', '0')
       number.setAttribute('required')
-      number.typeValue(-10)
+      number.writeText(-10)
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('min')
@@ -315,7 +315,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be valid if filled with valid value', () => {
       number.setAttribute('min', '0')
       number.setAttribute('required')
-      number.typeValue(1)
+      number.writeText(1)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('min')
@@ -331,7 +331,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be invalid if filled with invalid value', () => {
       number.setAttribute('max', '100')
       number.setAttribute('required')
-      number.typeValue(101)
+      number.writeText(101)
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('max')
@@ -340,7 +340,7 @@ describe('mn-number (webcomponent)', () => {
     it('should be valid if filled with valid value', () => {
       number.setAttribute('max', '100')
       number.setAttribute('required')
-      number.typeValue(100)
+      number.writeText(100)
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('max')
@@ -354,14 +354,14 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should increment value on ArrowUp using default step', () => {
-      number.typeValue(10)
+      number.writeText(10)
       number.pressArrowUp()
       expect(component).to.have.value(11)
     })
 
     it('should increment using step', () => {
       number.setAttribute('step', '10')
-      number.typeValue(10)
+      number.writeText(10)
       number.pressArrowUp()
       expect(component).to.have.value(20)
     })
@@ -370,7 +370,7 @@ describe('mn-number (webcomponent)', () => {
   describe('attribute currency', () => {
     it('should display number with 2 float precision', () => {
       number.setAttribute('currency')
-      number.typeValue('10')
+      number.writeText('10')
       expect(component.input).to.have.value('10,00')
       expect(component).to.have.value(10)
     })
@@ -378,13 +378,13 @@ describe('mn-number (webcomponent)', () => {
     it('should display number with 2 float precision defined', () => {
       number.setAttribute('currency')
       number.setAttribute('precision', 3)
-      number.typeValue('10.000')
+      number.writeText('10.000')
       expect(component.input).to.have.value('10,000')
     })
 
     it('should replace dot by comma', () => {
       number.setAttribute('currency')
-      number.typeValue('10.70')
+      number.writeText('10.70')
       expect(component.input).to.have.value('10,70')
     })
   })
@@ -392,14 +392,14 @@ describe('mn-number (webcomponent)', () => {
   describe('attribute precision', () => {
     it('should be display integer number with precision defined', () => {
       number.setAttribute('precision', '3')
-      number.typeValue('10')
+      number.writeText('10')
       expect(component.input).to.have.value('10,000')
       expect(component).to.have.value(10)
     })
 
     it('should be display float numbers with precision defined', () => {
       number.setAttribute('precision', '3')
-      number.typeValue('10.5')
+      number.writeText('10.5')
       expect(component.input).to.have.value('10,500')
       expect(component).to.have.value(10.5)
     })
@@ -408,7 +408,7 @@ describe('mn-number (webcomponent)', () => {
   describe('attribute percentage', () => {
     it('should set string when value is string', () => {
       number.setAttribute('percentage')
-      number.typeValue('0')
+      number.writeText('0')
       expect(component.mask).to.have.text('0 %')
       expect(component.input).to.have.value('0')
       expect(component).to.have.value(0)
@@ -416,7 +416,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set undefined when value is invalid', () => {
       number.setAttribute('percentage')
-      number.typeValue('t1')
+      number.writeText('t1')
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('')
       expect(component).to.have.value(undefined)
@@ -431,7 +431,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted decimal value', () => {
       number.setAttribute('percentage')
-      number.typeValue(1)
+      number.writeText(1)
       expect(component.mask).to.have.text('1 %')
       expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
@@ -439,7 +439,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set value in percentage when setted integer value', () => {
       number.setAttribute('percentage')
-      number.typeValue(100)
+      number.writeText(100)
       expect(component.mask).to.have.text('100 %')
       expect(component.input).to.have.value('100')
       expect(component).to.have.value(1)
@@ -447,7 +447,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should receive numbers above hundreds', () => {
       number.setAttribute('percentage')
-      number.typeValue(1182)
+      number.writeText(1182)
       expect(component.mask).to.have.text('1182 %')
       expect(component.input).to.have.value('1182')
       expect(component).to.have.value(11.82)
@@ -455,7 +455,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should receive math expressions', () => {
       number.setAttribute('percentage')
-      number.typeValue('1*2')
+      number.writeText('1*2')
       expect(component.mask).to.have.text('2 %')
       expect(component.input).to.have.value('2')
       expect(component).to.have.value(0.02)
@@ -463,7 +463,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set decimal value when value is string numeric', () => {
       number.setAttribute('percentage')
-      number.typeValue('1')
+      number.writeText('1')
       expect(component.mask).to.have.text('1 %')
       expect(component.input).to.have.value('1')
       expect(component).to.have.value(0.01)
@@ -471,8 +471,8 @@ describe('mn-number (webcomponent)', () => {
 
     it('should set new value when value is changed', () => {
       number.setAttribute('percentage')
-      number.typeValue('1')
-      number.typeValue('2')
+      number.writeText('1')
+      number.writeText('2')
       expect(component.mask).to.have.text('2 %')
       expect(component.input).to.have.value('2')
       expect(component).to.have.value(0.02)
@@ -488,7 +488,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should increment a value', () => {
-      number.typeValue('10')
+      number.writeText('10')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('14')
@@ -497,7 +497,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should increment a value using step attribute', () => {
       number.setAttribute('step', '10')
-      number.typeValue('10')
+      number.writeText('10')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('50')
@@ -506,7 +506,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should increment a value using precision attribute', () => {
       number.setAttribute('precision', '2')
-      number.typeValue('5')
+      number.writeText('5')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('9,00')
@@ -523,7 +523,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should increment a value with percentage', () => {
       number.setAttribute('percentage')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('5 %')
       expect(component.input).to.have.value('5')
@@ -533,7 +533,7 @@ describe('mn-number (webcomponent)', () => {
     it('should increment a value with percentage and step attribute', () => {
       number.setAttribute('percentage')
       number.setAttribute('step', '10')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('41 %')
       expect(component.input).to.have.value('41')
@@ -543,7 +543,7 @@ describe('mn-number (webcomponent)', () => {
     it('should increment a value with percentage and precision attribute', () => {
       number.setAttribute('percentage')
       number.setAttribute('precision', '2')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('5,00 %')
       expect(component.input).to.have.value('5,00')
@@ -560,7 +560,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should increment a value with currency', () => {
       number.setAttribute('currency')
-      number.typeValue('1.1')
+      number.writeText('1.1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('5,10')
@@ -570,7 +570,7 @@ describe('mn-number (webcomponent)', () => {
     it('should increment a value with currency and step attribute', () => {
       number.setAttribute('currency')
       number.setAttribute('step', '10')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('41,00')
@@ -580,7 +580,7 @@ describe('mn-number (webcomponent)', () => {
     it('should increment a value with currency and precision attribute', () => {
       number.setAttribute('currency')
       number.setAttribute('precision', '3')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowUp(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('5,000')
@@ -597,7 +597,7 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should decrement a value', () => {
-      number.typeValue('10')
+      number.writeText('10')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('6')
@@ -606,7 +606,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should decrement a value using step attribute', () => {
       number.setAttribute('step', '10')
-      number.typeValue('10')
+      number.writeText('10')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('-30')
@@ -615,7 +615,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should decrement a value using precision attribute', () => {
       number.setAttribute('precision', '2')
-      number.typeValue('5')
+      number.writeText('5')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('1,00')
@@ -632,7 +632,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should decrement a value with percentage', () => {
       number.setAttribute('percentage')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('-3 %')
       expect(component.input).to.have.value('-3')
@@ -642,7 +642,7 @@ describe('mn-number (webcomponent)', () => {
     it('should decrement a value with percentage and step attribute', () => {
       number.setAttribute('percentage')
       number.setAttribute('step', '10')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('-39 %')
       expect(component.input).to.have.value('-39')
@@ -652,7 +652,7 @@ describe('mn-number (webcomponent)', () => {
     it('should decrement a value with percentage and precision attribute', () => {
       number.setAttribute('percentage')
       number.setAttribute('precision', '2')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('-3,00 %')
       expect(component.input).to.have.value('-3,00')
@@ -669,7 +669,7 @@ describe('mn-number (webcomponent)', () => {
 
     it('should decrement a value with currency', () => {
       number.setAttribute('currency')
-      number.typeValue('1.1')
+      number.writeText('1.1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('-2,90')
@@ -679,7 +679,7 @@ describe('mn-number (webcomponent)', () => {
     it('should decrement a value with currency and step attribute', () => {
       number.setAttribute('currency')
       number.setAttribute('step', '10')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('-39,00')
@@ -689,7 +689,7 @@ describe('mn-number (webcomponent)', () => {
     it('should decrement a value with currency and precision attribute', () => {
       number.setAttribute('currency')
       number.setAttribute('precision', '3')
-      number.typeValue('1')
+      number.writeText('1')
       number.pressArrowDown(4)
       expect(component.mask).to.have.text('')
       expect(component.input).to.have.value('-3,000')

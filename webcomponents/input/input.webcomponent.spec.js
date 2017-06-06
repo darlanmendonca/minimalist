@@ -278,7 +278,7 @@ describe('mn-input (webcomponent)', () => {
 
     it('should be valid if setted a valid value', () => {
       input.setAttribute('required')
-      input.typeValue('test')
+      input.writeText('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -286,7 +286,7 @@ describe('mn-input (webcomponent)', () => {
 
     it('should be valid if typed a valid value', () => {
       input.setAttribute('required')
-      input.typeValue('test')
+      input.writeText('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -320,7 +320,7 @@ describe('mn-input (webcomponent)', () => {
     it('should be valid if have a valid value', () => {
       input.setAttribute('required')
       input.setAttribute('pattern', '^t') // starts with t
-      input.typeValue('test')
+      input.writeText('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
@@ -342,7 +342,7 @@ describe('mn-input (webcomponent)', () => {
 
   describe('remove multiples spaces', () => {
     it('should trim spaces before and after string', () => {
-      input.typeValue('  test   ')
+      input.writeText('  test   ')
       expect(component).to.have.value('test')
       expect(component.input).to.have.value('test')
     })
@@ -354,7 +354,7 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should works when type a value', () => {
-      input.typeValue('    test   test      test   ')
+      input.writeText('    test   test      test   ')
       expect(component).to.have.value('test test test')
       expect(component.input).to.have.value('test test test')
     })
