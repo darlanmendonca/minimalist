@@ -8,22 +8,20 @@ module.exports = class MnNumber extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-number')
-    this._setCssClasses()
-    this._setInput()
+    this._setStyle()
+    super._setInput()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
     this._setInputKeys()
-    this._setPlaceholder()
-    this._setAttributeValue()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeAutofocus()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
     this._setAttributeMax()
     this._setAttributeMin()
     this._setValidations()
-    this._overrideValidations()
   }
 
   static get observedAttributes() {
@@ -37,6 +35,11 @@ module.exports = class MnNumber extends MnInput {
       'max',
       'min',
     ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-number')
   }
 
   _setMask() {
@@ -120,7 +123,8 @@ module.exports = class MnNumber extends MnInput {
     this.min = this.getAttribute('min')
   }
 
-  _overrideValidations() {
+  _setValidations() {
+    super._setValidations()
     this.validations.required = () => this.value === undefined,
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')

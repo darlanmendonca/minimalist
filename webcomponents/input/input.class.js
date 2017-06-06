@@ -9,7 +9,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this._setCssClasses()
+    this._setStyle()
     this._setInput()
     this._setPlaceholder()
     this._setAttributeValue()
@@ -42,7 +42,7 @@ module.exports = class MnInput extends HTMLElement {
     }
   }
 
-  _setCssClasses() {
+  _setStyle() {
     this.classList.add('mn-input')
   }
 

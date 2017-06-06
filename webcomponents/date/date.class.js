@@ -8,17 +8,16 @@ module.exports = class MnDate extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-date')
-    this._setCssClasses()
+    this._setStyle()
     this._setInput()
-    this._setPlaceholder()
-    this._setAttributeValue()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeAutofocus()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
     // this._setAttributeMax()
     // this._setAttributeMin()
-    this._setValidations()
+    super._setValidations()
     // this._overrideValidations()
   }
 
@@ -33,6 +32,11 @@ module.exports = class MnDate extends MnInput {
       'max',
       'min',
     ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-date')
   }
 
   _setInput() {
