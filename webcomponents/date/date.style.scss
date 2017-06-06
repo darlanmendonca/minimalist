@@ -8,3 +8,8 @@
     display: none;
   }
 }
+
+.mn-date.invalid {
+  &.min {--invalid-message: ' very low'}
+  &.max {--invalid-message: ' very high'}
+}

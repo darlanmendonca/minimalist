@@ -399,8 +399,7 @@ module.exports = class MnDate extends MnInput {
     super._setAttributeAutofocus()
     // this._setAttributeMax()
     // this._setAttributeMin()
-    super._setValidations()
-    // this._overrideValidations()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -453,6 +452,14 @@ module.exports = class MnDate extends MnInput {
       : null
   }
 
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => new Date(this.value) < new Date(`${this.getAttribute('min')} 00:00:00`)
+    this.validations.max = () => new Date(this.value) > new Date(`${this.getAttribute('max')} 00:00:00`)
+    delete this.validations.pattern
+  }
+
   get value() {
     let date
     try {
@@ -462,12 +469,12 @@ module.exports = class MnDate extends MnInput {
         : /^\d{2}\/\d{2}\/\d{4}$/
 
       date = value.match(format)
-        ? new Date(`${value} 00:00:00`)
+        ? new Date(`${value} 00:00:00`).toISOString()
         : undefined
     } catch (e) {}
 
     return date
-      ? date.toISOString()
+      ? date
       : undefined
   }
 
