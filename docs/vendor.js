@@ -423,7 +423,9 @@ module.exports = class MnDate extends MnInput {
   }
 
   get value() {
-    return new Date(this.input.value).toISOString()
+    return this.input.value
+      ? new Date(this.input.value).toISOString()
+      : undefined
   }
 
   set value(value) {
