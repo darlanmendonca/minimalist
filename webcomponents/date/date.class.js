@@ -93,7 +93,9 @@ module.exports = class MnDate extends MnInput {
     value = value instanceof Date
       ? value.toISOString().substring(0, 10)
       : typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}$/)
-        ? new Date(value).toISOString().substring(0, 10)
+        ? new Date(value)
+          .toISOString()
+          .substring(0, 10)
         : ''
 
     const supportsInputDate = this.input.type === 'date'
@@ -110,7 +112,7 @@ module.exports = class MnDate extends MnInput {
 
       function leadingZero(num) {
         const str = `00${num}`
-        return str.substr(str.length-2)
+        return str.substr(str.length - 2)
       }
     }
 
