@@ -440,7 +440,7 @@ module.exports = class MnDate extends MnInput {
 
   updateMask() {
     const value = this.input.value
-    const reg = /(\d{1,2})(?:\/)?(\d{1,2})?(?:\/)?(\d{1,4})?/
+    const reg = /(\d{1,2})(?:\/)?(\d{1,2})?(?:\/)?(\d{1,})?/
     const pattern = /^\d{1,2}\/\d{1,2}\/\d{1,}/
     const match = value.match(reg)
     const day = match && match[1]
@@ -465,8 +465,8 @@ module.exports = class MnDate extends MnInput {
     try {
       const value = this.input.value
       const format = this.input.type === 'date'
-        ? /^\d{4}-\d{2}-\d{2}$/
-        : /^\d{2}\/\d{2}\/\d{4}$/
+        ? /^\d{4,}-\d{2}-\d{2}$/
+        : /^\d{2}\/\d{2}\/\d{4,}$/
 
       date = value.match(format)
         ? new Date(`${value} 00:00:00`).toISOString()
@@ -481,7 +481,7 @@ module.exports = class MnDate extends MnInput {
   set value(value = '') {
     value = value instanceof Date
       ? value.toISOString().substring(0, 10)
-      : typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}$/)
+      : typeof value === 'string' && value.match(/^\d{4,}-\d{2}-\d{2}$/)
         ? new Date(value)
           .toISOString()
           .substring(0, 10)
