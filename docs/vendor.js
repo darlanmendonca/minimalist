@@ -456,10 +456,17 @@ module.exports = class MnDate extends MnInput {
   get value() {
     let date
     try {
-      date = new Date(`${this.input.value} 00:00:00`)
+      const value = this.input.value
+      const format = this.input.type === 'date'
+        ? /^\d{4}-\d{2}-\d{2}$/
+        : /^\d{2}\/\d{2}\/\d{4}$/
+
+      date = value.match(format)
+        ? new Date(`${value} 00:00:00`)
+        : undefined
     } catch (e) {}
 
-    return date && date.getTime()
+    return date
       ? date.toISOString()
       : undefined
   }
