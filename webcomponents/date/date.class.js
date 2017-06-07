@@ -85,7 +85,9 @@ module.exports = class MnDate extends MnInput {
   updateMask() {
     this.input.value = this.input.value
       .replace(/[^\d\/]/, '') // disallow invalid chars
-      .replace(/(^00|\/00)/g, '01') // disallow repeated 0
+      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
+      .replace(/000(\d)$/g, '190$1') // disallow year 0
+      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
       .replace(/\/{2}/g, '/') // disallow repeated /
       .replace(/(^\/)/, '') // disallow / as first char
       .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
@@ -152,10 +154,13 @@ module.exports = class MnDate extends MnInput {
   }
 }
 
-function isValidDate(s) {
-  const year = +s.split('-')[0]
-  const month = +s.split('-')[1]
-  const day = +s.split('-')[2]
-  var d = new Date(year, month - 1, day)
-  return d.getFullYear() === year && d.getMonth() + 1 === month
+function isValidDate(dateString) {
+  const year = +dateString.split('-')[0]
+  const month = +dateString.split('-')[1]
+  const day = +dateString.split('-')[2]
+  const date = new Date(year, month - 1, day)
+
+  return date.getFullYear() >= 1900
+    && date.getFullYear() === year
+    && date.getMonth() + 1 === month
 }
