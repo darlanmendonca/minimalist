@@ -233,7 +233,7 @@ describe('mn-date (webcomponent)', () => {
       expect(component).to.not.have.class('min')
     })
 
-    it('should be invalid if filled with invalid value', () => {
+    it('should be invalid if filled an invalid value', () => {
       date.setAttribute('min', '2010-10-05')
       date.setAttribute('required')
       date.writeText('2010-10-04')
