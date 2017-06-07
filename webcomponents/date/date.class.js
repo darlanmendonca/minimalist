@@ -15,8 +15,6 @@ module.exports = class MnDate extends MnInput {
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
-    // this._setAttributeMax()
-    // this._setAttributeMin()
     this._setValidations()
   }
 
@@ -43,7 +41,7 @@ module.exports = class MnDate extends MnInput {
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
-    if (supportsInputDate) {
+    if (supportsInputDate) { // temp
       this.input.setAttribute('type', 'text')
       this.input.setAttribute('maxlength', 10)
       this._setMask()
@@ -77,9 +75,8 @@ module.exports = class MnDate extends MnInput {
     this.input.addEventListener('blur', () => {
       this.updateMask()
       const dateString = this.input.value.split('/').reverse().join('-')
-      const validDate = Date.parse(dateString)
 
-      validDate
+      isValidDate(dateString)
         ? this.updateMask()
         : this.value = ''
     })
@@ -101,20 +98,19 @@ module.exports = class MnDate extends MnInput {
   get value() {
     let date
     try {
-      const value = this.input.value
-      const isDateFormat = this.input.type === 'date'
-      const format = isDateFormat
-        ? /^\d{4,}-\d{2}-\d{2}$/
-        : /^\d{2}\/\d{2}\/\d{4,}$/
+      const isDateString = this.input.type === 'date'
+      const value = isDateString
+        ? this.input.value
+        : this.input.value.split('/').reverse().join('-')
 
-      const year = +value.split(/-|\//)[isDateFormat ? 0 : 2]
+      const year = +value.split(/-|\//)[0]
       const month = value.split(/-|\//)[1] - 1
-      const day = +value.split(/-|\//)[isDateFormat ? 2 : 0]
+      const day = +value.split(/-|\//)[2]
 
-      date = value.match(format)
+      date = isValidDate(value)
         ? new Date(year, month, day).toISOString()
         : undefined
-    } catch (e) {console.log(e)}
+    } catch (e) {}
 
     return date
       ? date
@@ -122,9 +118,12 @@ module.exports = class MnDate extends MnInput {
   }
 
   set value(value = '') {
+    const validDate = typeof value === 'string'
+      && isValidDate(value)
+
     value = value instanceof Date
       ? value.toISOString().substring(0, 10)
-      : typeof value === 'string' && value.match(/^\d{4,}-\d{2}-\d{2}$/)
+      : validDate
         ? new Date(value)
           .toISOString()
           .substring(0, 10)
@@ -151,4 +150,12 @@ module.exports = class MnDate extends MnInput {
     this.input.value = value
     this.input.dispatchEvent(new Event('change'))
   }
+}
+
+function isValidDate(s) {
+  const year = +s.split('-')[0]
+  const month = +s.split('-')[1]
+  const day = +s.split('-')[2]
+  var d = new Date(year, month - 1, day)
+  return d.getFullYear() === year && d.getMonth() + 1 === month
 }
