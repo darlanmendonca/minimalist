@@ -88,6 +88,7 @@ module.exports = class MnDate extends MnInput {
   updateMask() {
     this.input.value = this.input.value
       .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/[a-z]/ig, '') // disallow letters
       .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
       .replace(/000(\d)$/g, '190$1') // disallow year 0
       .replace(/00(\d{2})$/g, '19$1') // disallow year 0
