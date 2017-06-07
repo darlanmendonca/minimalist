@@ -425,7 +425,7 @@ module.exports = class MnDate extends MnInput {
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
-    if (supportsInputDate) {//if (!supportsInputDate) {
+    if (!supportsInputDate) {
       this.input.setAttribute('type', 'text')
       this.input.setAttribute('maxlength', 10)
       this._setMask()
