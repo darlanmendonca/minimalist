@@ -207,19 +207,17 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be a ISOString setting a date', () => {
       date.setProperty('value', '2012-12-05')
-      expect(component).to.have.value(new Date('2012-12-05 00:00:00').toISOString())
+      expect(component).to.have.value('2012-12-05T02:00:00.000Z')
     })
 
     it('should be a ISOString without hours using date constructor', () => {
-      date.setProperty('value', new Date('2012-12-05 18:00:00'))
-      expect(component).to.have.value(new Date('2012-12-05 00:00:00').toISOString())
-      // expect(component).to.have.value.today.ISOString
+      date.setProperty('value', new Date(2012, 11, 5, 18, 0))
+      expect(component).to.have.value('2012-12-05T02:00:00.000Z')
     })
 
     it('should be a ISOString no setting hours using date constructor', () => {
-      date.setProperty('value', new Date('2012-12-05'))
-      expect(component).to.have.value(new Date('2012-12-05 00:00:00').toISOString())
-      // expect(component).to.have.value.today.ISOString
+      date.setProperty('value', new Date(2012, 11, 5))
+      expect(component).to.have.value('2012-12-05T02:00:00.000Z')
     })
   })
 

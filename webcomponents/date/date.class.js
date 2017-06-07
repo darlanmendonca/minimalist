@@ -51,8 +51,8 @@ module.exports = class MnDate extends MnInput {
   _setValidations() {
     super._setValidations()
     this.validations.required = () => this.value === undefined,
-    this.validations.min = () => new Date(this.value) < new Date(`${this.getAttribute('min')} 00:00:00`)
-    this.validations.max = () => new Date(this.value) > new Date(`${this.getAttribute('max')} 00:00:00`)
+    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
+    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
     delete this.validations.pattern
   }
 
@@ -133,7 +133,7 @@ module.exports = class MnDate extends MnInput {
     value = value instanceof Date
       ? value.toISOString().substring(0, 10)
       : validDate
-        ? new Date(value)
+        ? newDate(value)
           .toISOString()
           .substring(0, 10)
         : ''
@@ -141,7 +141,7 @@ module.exports = class MnDate extends MnInput {
     const supportsInputDate = this.input.type === 'date'
 
     if (!supportsInputDate) {
-      const date = new Date(`${value} 00:00:00`)
+      const date = newDate(value)
       const day = leadingZero(date.getDate())
       const month = leadingZero(date.getMonth() + 1)
       const year = date.getFullYear()
@@ -170,4 +170,22 @@ function isValidDate(dateString) {
   return date.getFullYear() >= 1900
     && date.getFullYear() === year
     && date.getMonth() + 1 === month
+}
+
+function newDate(value = '') {
+  const isString = typeof value === 'string'
+  value = isString && value.includes('/')
+    ? value
+      .split('/')
+      .reverse()
+      .join('-')
+    : value
+
+  const dateString = value.split('-')
+  const year = +dateString[0]
+  const month = dateString[1] - 1
+  const day = +dateString[2]
+
+  const date = new Date(year, month, day)
+  return date
 }
