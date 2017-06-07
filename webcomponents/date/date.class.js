@@ -54,6 +54,10 @@ module.exports = class MnDate extends MnInput {
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
     delete this.validations.pattern
+
+    this.hasAttribute('max')
+      ? console.log(newDate(this.value), newDate(this.getAttribute('max')))
+      : false
   }
 
   _setMask() {
@@ -172,20 +176,22 @@ function isValidDate(dateString) {
     && date.getMonth() + 1 === month
 }
 
-function newDate(value = '') {
-  const isString = typeof value === 'string'
-  value = isString && value.includes('/')
-    ? value
+function newDate(dateString) {
+  dateString = dateString || ''
+  const isString = typeof dateString === 'string'
+  dateString = dateString.replace(/T.+/, '')
+  dateString = isString && dateString.includes('/')
+    ? dateString
       .split('/')
       .reverse()
       .join('-')
-    : value
+    : dateString
 
-  const dateString = value.split('-')
+  dateString = dateString.split('-')
   const year = +dateString[0]
   const month = dateString[1] - 1
   const day = +dateString[2]
 
-  const date = new Date(year, month, day)
+  const date = new Date(year, month, day, 0, 0)
   return date
 }
