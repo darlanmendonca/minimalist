@@ -61,8 +61,9 @@
     "yargs": "^8.0.1"
   },
   "dependencies": {
-    "open-color": "^1.5.1",
     "@webcomponents/custom-elements": "^1.0.0",
-    "angular": "^1.6.4"
+    "angular": "^1.6.4",
+    "open-color": "^1.5.1",
+    "vanilla-masker": "^1.2.0"
   }
 }
