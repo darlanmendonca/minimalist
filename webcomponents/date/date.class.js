@@ -74,13 +74,13 @@ module.exports = class MnDate extends MnInput {
       this.inputEditing = undefined
     })
 
-    this.input.addEventListener('blur', (event) => this.updateMask())
+    this.input.addEventListener('blur', () => this.updateMask())
   }
 
   updateMask() {
     this.input.value = this.input.value
       .replace(/[^\d\/]/, '') // disallow invalid chars
-      .replace(/00/g, '01') // disallow repeated 0
+      .replace(/(^00|\/00)/g, '01') // disallow repeated 0
       .replace(/\/{2}/g, '/') // disallow repeated /
       .replace(/(^\/)/, '') // disallow / as first char
       .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
