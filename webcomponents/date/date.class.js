@@ -43,7 +43,7 @@ module.exports = class MnDate extends MnInput {
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
-    if (supportsInputDate) { // temp if (!supportsInputDate) {
+    if (!supportsInputDate) {
       this.input.setAttribute('type', 'text')
       this.input.setAttribute('maxlength', 10)
       this._setMask()
@@ -60,9 +60,10 @@ module.exports = class MnDate extends MnInput {
 
   _setMask() {
     this.input.addEventListener('keydown', (event) => {
-      if (event.key === 'Backspace') {
-        this.inputEditing = true
-      }
+      const isInputEditing = event.key === 'Backspace'
+        || this.input.selectionStart !== this.input.value.length
+
+      this.inputEditing = isInputEditing
     })
 
     this.input.addEventListener('input', (event) => {
