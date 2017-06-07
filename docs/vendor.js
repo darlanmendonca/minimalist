@@ -436,10 +436,6 @@ module.exports = class MnDate extends MnInput {
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
     delete this.validations.pattern
-
-    this.hasAttribute('max')
-      ? console.log(newDate(this.value), newDate(this.getAttribute('max')))
-      : false
   }
 
   _setMask() {
