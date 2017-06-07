@@ -64,7 +64,7 @@ module.exports = class MnDate extends MnInput {
       this.inputEditing = isInputEditing
     })
 
-    this.input.addEventListener('input', (event) => {
+    this.input.addEventListener('input', () => {
       if (!this.inputEditing) {
         this.updateMask()
       }
@@ -74,7 +74,10 @@ module.exports = class MnDate extends MnInput {
 
     this.input.addEventListener('blur', () => {
       this.updateMask()
-      const dateString = this.input.value.split('/').reverse().join('-')
+      const dateString = this.input.value
+        .split('/')
+        .reverse()
+        .join('-')
 
       isValidDate(dateString)
         ? this.updateMask()
@@ -103,7 +106,10 @@ module.exports = class MnDate extends MnInput {
       const isDateString = this.input.type === 'date'
       const value = isDateString
         ? this.input.value
-        : this.input.value.split('/').reverse().join('-')
+        : this.input.value
+          .split('/')
+          .reverse()
+          .join('-')
 
       const year = +value.split(/-|\//)[0]
       const month = value.split(/-|\//)[1] - 1
