@@ -89,14 +89,19 @@ module.exports = class MnDate extends MnInput {
     let date
     try {
       const value = this.input.value
-      const format = this.input.type === 'date'
+      const isDateFormat = this.input.type === 'date'
+      const format = isDateFormat
         ? /^\d{4,}-\d{2}-\d{2}$/
         : /^\d{2}\/\d{2}\/\d{4,}$/
 
+      const year = +value.split(/-|\//)[isDateFormat ? 0 : 2]
+      const month = value.split(/-|\//)[1] - 1
+      const day = +value.split(/-|\//)[isDateFormat ? 2 : 0]
+
       date = value.match(format)
-        ? new Date(`${value} 00:00:00`).toISOString()
+        ? new Date(year, month, day).toISOString()
         : undefined
-    } catch (e) {}
+    } catch (e) {console.log(e)}
 
     return date
       ? date
