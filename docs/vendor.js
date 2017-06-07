@@ -433,23 +433,21 @@ module.exports = class MnDate extends MnInput {
   }
 
   _setMask() {
-    this.input.addEventListener('input', () => {
-      this.updateMask()
+    this.input.addEventListener('keydown', (event) => {
+      if (event.key === 'Backspace') {
+        this.inputEditing = true
+      }
     })
-  }
 
-  updateMask() {
-    const value = this.input.value
-    const reg = /(\d{1,2})(?:\/)?(\d{1,2})?(?:\/)?(\d{1,})?/
-    const pattern = /^\d{1,2}\/\d{1,2}\/\d{1,}/
-    const match = value.match(reg)
-    const day = match && match[1]
-    const month = match && match[2]
-    const year = match && match[3]
+    this.input.addEventListener('input', (event) => {
+      if (!this.inputEditing) {
+        this.updateMask()
+      }
 
-    !value.match(pattern)
-      ? this.input.value = [day, month, year].filter(item => Boolean(item)).join('/')
-      : null
+      this.inputEditing = undefined
+    })
+
+    this.input.addEventListener('blur', (event) => this.updateMask())
   }
 
   _setValidations() {
@@ -458,6 +456,15 @@ module.exports = class MnDate extends MnInput {
     this.validations.min = () => new Date(this.value) < new Date(`${this.getAttribute('min')} 00:00:00`)
     this.validations.max = () => new Date(this.value) > new Date(`${this.getAttribute('max')} 00:00:00`)
     delete this.validations.pattern
+  }
+
+  updateMask() {
+    this.input.value = this.input.value
+      .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/^(\d)\//, '0$1/') // leading 0 day
+      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
+      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
+      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
   }
 
   get value() {
