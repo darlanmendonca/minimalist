@@ -43,11 +43,19 @@ module.exports = class MnDate extends MnInput {
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
-    if (!supportsInputDate) {
+    if (supportsInputDate) { // temp if (!supportsInputDate) {
       this.input.setAttribute('type', 'text')
       this.input.setAttribute('maxlength', 10)
       this._setMask()
     }
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => new Date(this.value) < new Date(`${this.getAttribute('min')} 00:00:00`)
+    this.validations.max = () => new Date(this.value) > new Date(`${this.getAttribute('max')} 00:00:00`)
+    delete this.validations.pattern
   }
 
   _setMask() {
@@ -68,17 +76,13 @@ module.exports = class MnDate extends MnInput {
     this.input.addEventListener('blur', (event) => this.updateMask())
   }
 
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    this.validations.min = () => new Date(this.value) < new Date(`${this.getAttribute('min')} 00:00:00`)
-    this.validations.max = () => new Date(this.value) > new Date(`${this.getAttribute('max')} 00:00:00`)
-    delete this.validations.pattern
-  }
-
   updateMask() {
     this.input.value = this.input.value
       .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/00/g, '01') // disallow repeated 0
+      .replace(/\/{2}/g, '/') // disallow repeated /
+      .replace(/(^\/)/, '') // disallow / as first char
+      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
       .replace(/^(\d)\//, '0$1/') // leading 0 day
       .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
       .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
