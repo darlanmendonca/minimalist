@@ -112,12 +112,8 @@ module.exports = class MnDate extends MnInput {
           .reverse()
           .join('-')
 
-      const year = +value.split(/-|\//)[0]
-      const month = value.split(/-|\//)[1] - 1
-      const day = +value.split(/-|\//)[2]
-
       date = isValidDate(value)
-        ? new Date(year, month, day).toISOString()
+        ? newDate(value).toISOString()
         : undefined
     } catch (e) {}
 
@@ -164,8 +160,7 @@ module.exports = class MnDate extends MnInput {
 function isValidDate(dateString) {
   const year = +dateString.split('-')[0]
   const month = +dateString.split('-')[1]
-  const day = +dateString.split('-')[2]
-  const date = new Date(year, month - 1, day)
+  const date = newDate(dateString)
 
   return date.getFullYear() >= 1900
     && date.getFullYear() === year
@@ -188,6 +183,6 @@ function newDate(dateString) {
   const month = dateString[1] - 1
   const day = +dateString[2]
 
-  const date = new Date(year, month, day, 0, 0)
+  const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
   return date
 }
