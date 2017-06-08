@@ -5,6 +5,7 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+const timezone = new Date().getTimezoneOffset() / 60
 let date // page object defined in method setPageObject
 let component
 
@@ -181,43 +182,43 @@ describe('mn-date (webcomponent)', () => {
   })
 
   describe('property value', () => {
-    it('should return undefined by default', () => {
+    it('should be undefined by default', () => {
       expect(component).to.have.value(undefined)
     })
 
-    it('should be undefined when it is setted string', () => {
+    it('should be undefined when set a string', () => {
       date.setProperty('value', 'teste')
       expect(component).to.have.value(undefined)
     })
 
-    it('should be undefined when it is setted numbers', () => {
+    it('should be undefined when set numbers', () => {
       date.setProperty('value', 123)
       expect(component).to.have.value(undefined)
     })
 
-    it('should be undefined when it is setted number as string', () => {
+    it('should be undefined when set a string number', () => {
       date.setProperty('value', '123')
       expect(component).to.have.value(undefined)
     })
 
-    it('should be undefined when it is setted empty string', () => {
+    it('should be undefined when set a empty string', () => {
       date.setProperty('value', '')
       expect(component).to.have.value(undefined)
     })
 
-    it('should be a ISOString setting a date', () => {
+    it('should be a DateISOString when set a string in yyyy-mm-dd format', () => {
       date.setProperty('value', '2017-04-30')
-      expect(component).to.have.value('2017-04-30T03:00:00.000Z')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
 
-    it('should be a ISOString without hours using date constructor', () => {
+    it('should be a DateISOString at midnight when set a date object with hours', () => {
       date.setProperty('value', new Date(2017, 3, 30, 18, 0))
-      expect(component).to.have.value('2017-04-30T03:00:00.000Z')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
 
-    it('should be a ISOString no setting hours using date constructor', () => {
+    it('should be a DateISOString at midnight when set a date object without hours', () => {
       date.setProperty('value', new Date(2017, 3, 30))
-      expect(component).to.have.value('2017-04-30T03:00:00.000Z')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
   })
 
