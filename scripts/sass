@@ -2,10 +2,8 @@
 
 set -e
 
-[[ $1 = 'dev' ]] && watch='--watch' || watch=''
-
 ./node_modules/.bin/node-sass docs/sources/app.scss docs/vendor.css -q \
 --output-style compressed \
 --source-map true \
 --error-bell \
-$watch
+--watch

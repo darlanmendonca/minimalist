@@ -124,7 +124,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this._setCssClasses()
+    this._setStyle()
     this._setInput()
     this._setPlaceholder()
     this._setAttributeValue()
@@ -157,7 +157,7 @@ module.exports = class MnInput extends HTMLElement {
     }
   }
 
-  _setCssClasses() {
+  _setStyle() {
     this.classList.add('mn-input')
   }
 
@@ -195,6 +195,7 @@ module.exports = class MnInput extends HTMLElement {
         this.classList.add('focus')
       }
     })
+
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
   }
 
@@ -368,14 +369,216 @@ form.addEventListener('submit', event => {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(5),
-  password: __webpack_require__(9),
-  number: __webpack_require__(7),
+  input: __webpack_require__(7),
+  password: __webpack_require__(11),
+  number: __webpack_require__(9),
+  date: __webpack_require__(6),
 }
 
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnDate extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-date')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'date')
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate) {
+      this.input.setAttribute('type', 'text')
+      this.input.setAttribute('maxlength', 10)
+      this._setMask()
+    }
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
+    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
+    delete this.validations.pattern
+  }
+
+  _setMask() {
+    this.input.addEventListener('keydown', (event) => {
+      const isInputEditing = event.key === 'Backspace'
+        || this.input.selectionStart !== this.input.value.length
+
+      this.inputEditing = isInputEditing
+    })
+
+    this.input.addEventListener('input', () => {
+      if (!this.inputEditing) {
+        this.updateMask()
+      }
+
+      this.inputEditing = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      this.updateMask()
+      const dateString = this.input.value
+        .split('/')
+        .reverse()
+        .join('-')
+
+      isValidDate(dateString)
+        ? this.updateMask()
+        : this.value = ''
+    })
+  }
+
+  updateMask() {
+    this.input.value = this.input.value
+      .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/[a-z]/ig, '') // disallow letters
+      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
+      .replace(/000(\d)$/g, '190$1') // disallow year 0
+      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
+      .replace(/\/{2}/g, '/') // disallow repeated /
+      .replace(/(^\/)/, '') // disallow / as first char
+      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
+      .replace(/^(\d)\//, '0$1/') // leading 0 day
+      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
+      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
+      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
+  }
+
+  get value() {
+    let date
+    try {
+      const isDateString = this.input.type === 'date'
+      const value = isDateString
+        ? this.input.value
+        : this.input.value
+          .split('/')
+          .reverse()
+          .join('-')
+
+      date = isValidDate(value)
+        ? newDate(value).toISOString()
+        : undefined
+    } catch (e) {}
+
+    return date
+      ? date
+      : undefined
+  }
+
+  set value(value = '') {
+    const validDate = typeof value === 'string'
+      && isValidDate(value)
+
+    value = value instanceof Date
+      ? value.toISOString().substring(0, 10)
+      : validDate
+        ? newDate(value)
+          .toISOString()
+          .substring(0, 10)
+        : ''
+
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate && validDate) {
+      const dateString = value.split('-')
+      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
+        .toLocaleString('pt-BR')
+        .substring(0, 10)
+    }
+
+    this.input.value = value
+    this.input.dispatchEvent(new Event('change'))
+  }
+}
+
+function isValidDate(dateString) {
+  const year = +dateString.split('-')[0]
+  const month = +dateString.split('-')[1]
+  const date = newDate(dateString)
+
+  return date.getFullYear() >= 1900
+    && date.getFullYear() === year
+    && date.getMonth() + 1 === month
+}
+
+function newDate(dateString) {
+  dateString = dateString || ''
+  const isString = typeof dateString === 'string'
+  dateString = dateString.replace(/T.+/, '')
+  dateString = isString && dateString.includes('/')
+    ? dateString
+      .split('/')
+      .reverse()
+      .join('-')
+    : dateString
+
+  dateString = dateString.split('-')
+
+  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
+  return date
+}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDateCustomElement()
+
+function MnDateCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnDate = __webpack_require__(5)
+  window.customElements.define('mn-date', MnDate)
+  return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -394,7 +597,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -407,22 +610,20 @@ module.exports = class MnNumber extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-number')
-    this._setCssClasses()
-    this._setInput()
+    this._setStyle()
+    super._setInput()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
     this._setInputKeys()
-    this._setPlaceholder()
-    this._setAttributeValue()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeAutofocus()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
     this._setAttributeMax()
     this._setAttributeMin()
     this._setValidations()
-    this._overrideValidations()
   }
 
   static get observedAttributes() {
@@ -436,6 +637,11 @@ module.exports = class MnNumber extends MnInput {
       'max',
       'min',
     ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-number')
   }
 
   _setMask() {
@@ -519,7 +725,8 @@ module.exports = class MnNumber extends MnInput {
     this.min = this.getAttribute('min')
   }
 
-  _overrideValidations() {
+  _setValidations() {
+    super._setValidations()
     this.validations.required = () => this.value === undefined,
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
@@ -598,7 +805,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -610,14 +817,14 @@ function MnNumberCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnNumber = __webpack_require__(6)
+  const MnNumber = __webpack_require__(8)
   window.customElements.define('mn-number', MnNumber)
   return window.customElements.get('mn-number')
 }
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -630,17 +837,15 @@ module.exports = class MnPassword extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-password')
-    this._setCssClasses()
+    this._setStyle()
     this._setInput()
-    this._setType()
-    this._setPlaceholder()
-    this._setButton()
-    this._setAttributeValue()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeAutofocus()
-    this._setValidations()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
   }
 
   static get observedAttributes() {
@@ -654,11 +859,17 @@ module.exports = class MnPassword extends MnInput {
     ]
   }
 
-  _setType() {
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
     this.input.setAttribute('type', 'password')
   }
 
-  _setButton() {
+  _setVisibilityButton() {
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
     button.setAttribute('tabindex', '-1')
@@ -688,7 +899,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -700,7 +911,7 @@ function MnPasswordCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnPassword = __webpack_require__(8)
+  const MnPassword = __webpack_require__(10)
   window.customElements.define('mn-password', MnPassword)
   return window.customElements.get('mn-password')
 }

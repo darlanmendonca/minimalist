@@ -40,6 +40,8 @@
     color: var(--text-color);
     font: inherit;
     position: relative;
+    transition: opacity .2s ease;
+    opacity: 0;
 
     &::selection {
       background: var(--selection-color);
@@ -80,6 +82,13 @@
   &.focus .placeholder {
     transform: translate(0, -1.3em) scale(.8) translateZ(0);
   }
+
+  &.has-value .input,
+  &.focus .input {
+    opacity: 1;
+    transition-delay: .15s;
+  }
+
 }
 
 .mn-input.focus {

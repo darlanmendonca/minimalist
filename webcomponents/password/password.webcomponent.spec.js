@@ -221,7 +221,7 @@ describe('mn-password (webcomponent)', () => {
 
     it('should be valid if validate with filled value', () => {
       password.setAttribute('required')
-      password.typeValue('test')
+      password.writeText('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -247,7 +247,7 @@ describe('mn-password (webcomponent)', () => {
     it('should be valid if value is setted', () => {
       password.setAttribute('required', '')
       password.setAttribute('pattern', '^t') // starts with t
-      password.typeValue('test')
+      password.writeText('test')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('pattern')
@@ -308,7 +308,7 @@ describe('mn-password (webcomponent)', () => {
 
   describe('multiples spaces', () => {
     it('should keep typed value', () => {
-      password.typeValue('  test')
+      password.writeText('  test')
       expect(component).to.have.value('  test')
     })
 

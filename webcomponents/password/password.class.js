@@ -8,17 +8,15 @@ module.exports = class MnPassword extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this.classList.add('mn-password')
-    this._setCssClasses()
+    this._setStyle()
     this._setInput()
-    this._setType()
-    this._setPlaceholder()
-    this._setButton()
-    this._setAttributeValue()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeAutofocus()
-    this._setValidations()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
   }
 
   static get observedAttributes() {
@@ -32,11 +30,17 @@ module.exports = class MnPassword extends MnInput {
     ]
   }
 
-  _setType() {
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
     this.input.setAttribute('type', 'password')
   }
 
-  _setButton() {
+  _setVisibilityButton() {
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
     button.setAttribute('tabindex', '-1')
