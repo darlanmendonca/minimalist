@@ -183,6 +183,7 @@ function newDate(dateString) {
   const month = dateString[1] - 1
   const day = +dateString[2]
 
-  const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
+  // const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
+  const date = new Date(year, month, day)
   return date
 }
