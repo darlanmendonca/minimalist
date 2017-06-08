@@ -136,20 +136,11 @@ module.exports = class MnDate extends MnInput {
 
     const supportsInputDate = this.input.type === 'date'
 
-    if (!supportsInputDate) {
-      const date = newDate(value)
-      const day = leadingZero(date.getDate())
-      const month = leadingZero(date.getMonth() + 1)
-      const year = date.getFullYear()
-
-      value = date.getTime()
-        ? `${day}/${month}/${year}`
-        : ''
-
-      function leadingZero(num) {
-        const str = `00${num}`
-        return str.substr(str.length - 2)
-      }
+    if (!supportsInputDate && validDate) {
+      const dateString = value.split('-')
+      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
+        .toLocaleString('pt-BR')
+        .substring(0, 10)
     }
 
     this.input.value = value
@@ -179,11 +170,7 @@ function newDate(dateString) {
     : dateString
 
   dateString = dateString.split('-')
-  const year = +dateString[0]
-  const month = dateString[1] - 1
-  const day = +dateString[2]
 
-  // const date = new Date(Date.UTC(year, month, day, 0, 0, 0))
-  const date = new Date(year, month, day)
+  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
   return date
 }
