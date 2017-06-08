@@ -166,18 +166,15 @@ describe('mn-date (webcomponent)', () => {
     })
   })
 
-  describe('method validate()', () => {
-    it('should be called on event keyup, if have a parent form.submitted', () => {
-      component.closest('form').classList.add('submitted')
-      const validate = spy.on(component, 'validate')
-      component.input.dispatchEvent(new Event('keyup'))
-      expect(validate).to.have.been.called()
+  describe('attribute value', () => {
+    it('should set property value when attribute changed', () => {
+      date.setAttribute('value', '2017-04-30')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
 
-    it('should not called on event keyup, if not have a parent form.submitted', () => {
-      const validate = spy.on(component, 'validate')
-      component.input.dispatchEvent(new Event('keyup'))
-      expect(validate).to.not.have.been.called
+    it('should set property value when attribute is removed', () => {
+      date.removeAttribute('value')
+      expect(component).to.have.value(undefined)
     })
   })
 
@@ -222,10 +219,57 @@ describe('mn-date (webcomponent)', () => {
     })
   })
 
+  describe('method validate()', () => {
+    it('should be called on event keyup, if have a parent form.submitted', () => {
+      component.closest('form').classList.add('submitted')
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('keyup'))
+      expect(validate).to.have.been.called()
+    })
+
+    it('should not called on event keyup, if not have a parent form.submitted', () => {
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('keyup'))
+      expect(validate).to.not.have.been.called
+    })
+  })
+
+  describe('attribute required', () => {
+    it('should be invalid if typed nothing', () => {
+      date.setAttribute('required')
+      component.validate()
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('required')
+    })
+
+    it('should be valid if setted a valid value', () => {
+      date.setAttribute('required')
+      date.writeText('2010-01-01')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should be valid if typed a valid value', () => {
+      date.setAttribute('required')
+      date.writeText('2010-01-01')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if attribute was removed', () => {
+      date.setAttribute('required')
+      date.removeAttribute('required')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+  })
+
   describe('attribute min', () => {
     it('should be valid if filled a valid date', () => {
       date.setAttribute('min', '2010-10-05')
-      date.setAttribute('required')
       date.writeText('2010-10-06')
       component.validate()
       expect(component).to.not.have.class('invalid')
@@ -234,7 +278,6 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be invalid if filled an invalid value', () => {
       date.setAttribute('min', '2010-10-05')
-      date.setAttribute('required')
       date.writeText('2010-10-04')
       component.validate()
       expect(component).to.have.class('invalid')
@@ -245,7 +288,6 @@ describe('mn-date (webcomponent)', () => {
   describe('attribute max', () => {
     it('should be valid if filled a valid date', () => {
       date.setAttribute('max', '2017-05-06')
-      date.setAttribute('required')
       date.writeText('2017-05-05')
       component.validate()
       expect(component).to.not.have.class('invalid')
@@ -254,7 +296,6 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be invalid if filled with invalid value', () => {
       date.setAttribute('max', '2017-05-06')
-      date.setAttribute('required')
       date.writeText('2017-05-07')
       component.validate()
       expect(component).to.have.class('invalid')

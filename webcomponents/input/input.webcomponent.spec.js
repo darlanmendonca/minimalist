@@ -293,7 +293,7 @@ describe('mn-input (webcomponent)', () => {
     })
 
     it('should validate if attribute was removed', () => {
-      input.setAttribute('required', '')
+      input.setAttribute('required')
       input.removeAttribute('required')
       component.validate()
       expect(component).to.not.have.class('invalid')
