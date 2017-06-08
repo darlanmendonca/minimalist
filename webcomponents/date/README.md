@@ -34,7 +34,7 @@ In your html, you can use the tag `mn-date` i.e.
 => '2010-01-30T03:00:00.000Z' -->
 ```
 
-All dates need to follow `yyyy-mm-dd` format.
+All dates need to follow `yyyy-mm-dd` pattern.
 
 The following attributes are supported in this component
 

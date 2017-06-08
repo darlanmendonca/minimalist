@@ -206,7 +206,7 @@ describe('mn-date (webcomponent)', () => {
       expect(component).to.have.value(undefined)
     })
 
-    it('should be a DateISOString when set a string in yyyy-mm-dd format', () => {
+    it('should be a DateISOString when set a string in yyyy-mm-dd pattern', () => {
       date.setProperty('value', '2017-04-30')
       expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
