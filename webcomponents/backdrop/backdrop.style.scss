@@ -1,0 +1,23 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-backdrop:before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 10;
+  background-color: $oc-gray-9;
+}
+
+.mn-backdrop-visible {
+  overflow: hidden;
+
+  &:before {
+    opacity: .6;
+    pointer-events: all;
+  }
+}

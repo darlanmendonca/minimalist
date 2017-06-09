@@ -3,4 +3,5 @@ module.exports = {
   password: require('./webcomponents/password/password.webcomponent.js'),
   number: require('./webcomponents/number/number.webcomponent.js'),
   date: require('./webcomponents/date/date.webcomponent.js'),
+  backdrop: require('./webcomponents/backdrop/backdrop.class.js'),
 }
