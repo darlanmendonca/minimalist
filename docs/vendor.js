@@ -437,7 +437,7 @@ function MnPasswordCustomElement() {
 /***/ 131:
 /***/ (function(module, exports) {
 
-module.exports = class MnBackdrop {
+class MnBackdrop {
   static show(options = {}) {
     if (options.hasOwnProperty('target')) {
       const {target} = options
@@ -458,6 +458,9 @@ module.exports = class MnBackdrop {
     return document.body.classList.contains('mn-backdrop-visible')
   }
 }
+
+window.MnBackdrop = MnBackdrop
+module.exports = MnBackdrop
 
 document.body.classList.add('mn-backdrop')
 document.addEventListener('keyup', escape)
