@@ -11,7 +11,54 @@
     z-index: -1;
     position: absolute;
     top: calc(50% + 0.1em);
-    right: .5em;
+    right: .25em;
     transform: translate(0, -50%);
+  }
+
+  menu {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 0; left: 0;
+    width: 100%;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      visibility: hidden;
+      opacity: 0;
+      max-height: 16.5em;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      overflow: hidden;
+      transition: opacity .2s ease;
+    }
+  }
+
+  .option {
+    padding: 0 1em;
+    line-height: 3rem;
+    transition: background-color .2s ease;
+    cursor: pointer;
+    -webkit-user-select: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: 0 !important;
+    box-sizing: border-box;
+  }
+}
+
+.mn-select.visible {
+  menu {
+    @media (min-width: 768px) {
+      opacity: 1;
+      visibility: visible;
+      overflow: auto;
+    }
   }
 }

@@ -16,10 +16,10 @@ form.addEventListener('submit', event => {
 })
 
 
-const layer = document.querySelector('mn-backdrop')
+// const layer = document.querySelector('mn-backdrop')
 
-const button = document.querySelector('button')
-button.addEventListener('click', () => {
-  layer.show()
-})
+// const button = document.querySelector('button')
+// button.addEventListener('click', () => {
+//   layer.show()
+// })
 

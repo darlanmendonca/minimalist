@@ -7,10 +7,10 @@ module.exports = class MnSelect extends MnInput {
   }
 
   connectedCallback() {
-    this.innerHTML = ''
     this._setStyle()
-    super._setInput()
+    this._setInput()
     super._setPlaceholder()
+    this._setMenu()
     // super._setAttributeValue()
     // super._setAttributeDisabled()
     // super._setAttributeReadonly()
@@ -32,5 +32,62 @@ module.exports = class MnSelect extends MnInput {
   _setStyle() {
     super._setStyle()
     this.classList.add('mn-select')
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('focus', () => {
+      this.show()
+    })
+
+    this.input.addEventListener('blur', () => {
+      this.hide()
+    })
+
+    document.addEventListener('click', event => {
+      const clickOutside = !event.target.closest('mn-select') && event.target !== this
+
+      if (this.visible && clickOutside) {
+        this.hide()
+      }
+    })
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.textContent = child.textContent
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        child.parentNode.removeChild(child)
+        menu.appendChild(option)
+      })
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  show() {
+    this.classList.add('visible')
+    document.body.classList.add('mn-select-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-select-visible')
+  }
+
+  get visible() {
+    return this.classList.contains('visible')
   }
 }

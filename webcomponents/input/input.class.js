@@ -37,7 +37,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.children.length) {
+    if (this.parentNode && this.label && this.input) {
       this[name] = value
     }
   }
