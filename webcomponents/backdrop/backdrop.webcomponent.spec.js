@@ -1,27 +1,25 @@
-/* global describe, it, beforeEach */
+/* global describe, it, before, beforeEach */
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
 let component
 
 describe('MnBackdrop (class)', () => {
-  beforeEach(() => {
-    const MnBackdrop = window.MnBackdrop
-    component = new MnBackdrop()
-  })
+  before(loadComponent)
+  beforeEach(createComponent)
 
-  describe('.show()', () => {
+  describe('method show', () => {
     it('should be a function', () => {
       expect(component.show).to.be.a('function')
     })
 
     it('should add class .mn-backdrop-visible to body', () => {
       component.show()
-      expect(document.body).to.have.class('mn-backdrop-visible')
+      expect(component).to.have.class('visible')
     })
   })
 
-  describe('.hide()', () => {
+  describe('method hide', () => {
     it('should be a function', () => {
       expect(component.hide).to.be.a('function')
     })
@@ -29,18 +27,18 @@ describe('MnBackdrop (class)', () => {
     it('should remove class .mn-backdrop-visible to body', () => {
       component.show()
       component.hide()
-      expect(document.body).to.not.have.class('mn-backdrop-visible')
+      expect(component).to.not.have.class('visible')
     })
   })
 
-  describe('.isVisible', () => {
+  describe('property isVisible', () => {
     it('should be false', () => {
-      expect(component.isVisible).to.be.false
+      expect(component).to.have.property('isVisible', true)
     })
 
     it('should be true', () => {
       component.show()
-      expect(component.isVisible).to.be.true
+      expect(component).to.have.property('isVisible', false)
     })
   })
 
@@ -52,3 +50,12 @@ describe('MnBackdrop (class)', () => {
     })
   })
 })
+
+function loadComponent() {
+  // require('minimalist').backdrop
+}
+
+function createComponent() {
+  component = document.createElement('mn-backdrop')
+  document.body.appendChild(component)
+}

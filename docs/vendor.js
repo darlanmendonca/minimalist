@@ -437,9 +437,17 @@ function MnPasswordCustomElement() {
 /***/ 131:
 /***/ (function(module, exports) {
 
-class MnBackdrop {
+const {HTMLElement} = window
+
+class MnBackdrop extends HTMLElement {
   constructor() {
-    document.body.classList.add('mn-backdrop')
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-backdrop')
 
     document.addEventListener('keyup', () => {
       const esc = event.key === 'Escape'
@@ -451,20 +459,39 @@ class MnBackdrop {
   }
 
   show() {
-    document.body.classList.add('mn-backdrop-visible')
+    this.classList.add('visible')
   }
 
   hide() {
-    document.body.classList.remove('mn-backdrop-visible')
+    this.classList.remove('visible')
   }
 
   get isVisible() {
-    return document.body.classList.contains('mn-backdrop-visible')
+    return this.classList.contains('visible')
   }
 }
 
-window.MnBackdrop = MnBackdrop
 module.exports = MnBackdrop
+
+
+/***/ }),
+
+/***/ 132:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnBackdropCustomElement()
+
+function MnBackdropCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnBackdrop = __webpack_require__(131)
+  window.customElements.define('mn-backdrop', MnBackdrop)
+  return window.customElements.get('mn-backdrop')
+}
 
 
 /***/ }),
@@ -497,8 +524,7 @@ form.addEventListener('submit', event => {
 })
 
 
-window.MnBackdrop = backdrop
-const layer = new MnBackdrop()
+const layer = document.querySelector('mn-backdrop')
 
 const button = document.querySelector('button')
 button.addEventListener('click', () => {
@@ -517,7 +543,7 @@ module.exports = {
   password: __webpack_require__(11),
   number: __webpack_require__(9),
   date: __webpack_require__(6),
-  backdrop: __webpack_require__(131),
+  backdrop: __webpack_require__(132),
 }
 
 

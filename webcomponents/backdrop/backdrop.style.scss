@@ -5,7 +5,7 @@
   --opacity: .6;
 }
 
-.mn-backdrop:before {
+.mn-backdrop {
   content: '';
   position: fixed;
   top: 0; left: 0;
@@ -18,11 +18,8 @@
   background-color: var(--background-color);
 }
 
-.mn-backdrop-visible {
+.mn-backdrop.visible {
   overflow: hidden;
-
-  &:before {
-    opacity: var(--opacity);
-    pointer-events: all;
-  }
+  pointer-events: all;
+  opacity: var(--opacity);
 }

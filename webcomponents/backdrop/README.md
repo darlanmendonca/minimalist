@@ -14,7 +14,7 @@ npm install @reservafacil/minimalist
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const MnBackdrop = require('@reservafacil/minimalist').backdrop
+const {backdrop} = require('@reservafacil/minimalist')
 ```
 
 
@@ -26,21 +26,21 @@ const MnBackdrop = require('@reservafacil/minimalist').backdrop
 
 ### Usage
 
-In your js, you can use the class `MnBackdrop` i.e.
+In your html, you can use the tag `mn-backdrop` i.e.
+
+```html
+<mn-backdrop></mn-input>
+```
+
+And in js, you show/hide using respective methods
 
 ```js
-// create a layer
-const backdrop = new MnBackdrop()
+const backdrop = document.querySelector('mn-backdrop')
+backdrop.show() // display backdrop layer
 ```
 
 ```js
-// display backdrop layer
-backdrop.show()
-```
-
-```js
-// hide backdrop layer
-backdrop.hide()
+backdrop.hide() // hide backdrop layer
 ```
 
 When visible, backdrop listen keypress events in key `ESC` to hide layer.

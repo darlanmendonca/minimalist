@@ -1,6 +1,14 @@
-class MnBackdrop {
+const {HTMLElement} = window
+
+class MnBackdrop extends HTMLElement {
   constructor() {
-    document.body.classList.add('mn-backdrop')
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this.classList.add('mn-backdrop')
 
     document.addEventListener('keyup', () => {
       const esc = event.key === 'Escape'
@@ -12,17 +20,16 @@ class MnBackdrop {
   }
 
   show() {
-    document.body.classList.add('mn-backdrop-visible')
+    this.classList.add('visible')
   }
 
   hide() {
-    document.body.classList.remove('mn-backdrop-visible')
+    this.classList.remove('visible')
   }
 
   get isVisible() {
-    return document.body.classList.contains('mn-backdrop-visible')
+    return this.classList.contains('visible')
   }
 }
 
-window.MnBackdrop = MnBackdrop
 module.exports = MnBackdrop

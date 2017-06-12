@@ -29,7 +29,7 @@ const {input} = require('@reservafacil/minimalist')
 In your html, you can use the tag `mn-input` i.e.
 
 ```html
-<mn-input placeholder="Username" name='username'></mn-input>
+<mn-input placeholder="Username" name="username"></mn-input>
 ```
 
 The following attributes are supported in this component

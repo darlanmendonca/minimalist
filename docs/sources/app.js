@@ -16,8 +16,7 @@ form.addEventListener('submit', event => {
 })
 
 
-window.MnBackdrop = backdrop
-const layer = new MnBackdrop()
+const layer = document.querySelector('mn-backdrop')
 
 const button = document.querySelector('button')
 button.addEventListener('click', () => {
