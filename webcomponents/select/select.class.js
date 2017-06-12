@@ -100,8 +100,10 @@ module.exports = class MnSelect extends MnInput {
     }))
 
     options.forEach(option => option.addEventListener('mousemove', () => {
-      this.removeOptionFocus()
-      option.classList.add('focus')
+      if (!this.keyboardNavigation) {
+        this.removeOptionFocus()
+        option.classList.add('focus')
+      }
     }))
 
     this.input.addEventListener('keydown', (event) => { // arrow navigate
@@ -130,6 +132,7 @@ module.exports = class MnSelect extends MnInput {
         const scrollToTop = top < this.menu.scrollTop
         const scrollToBottom = bottom > this.menu.scrollTop + this.menu.clientHeight
 
+        this.keyboardNavigation = true
         if (scrollToTop) {
           this.menu.scrollTop = top
         } else if (scrollToBottom) {
@@ -137,6 +140,9 @@ module.exports = class MnSelect extends MnInput {
         }
 
         nextOption.classList.add('focus')
+        setTimeout(() => {
+          delete this.keyboardNavigation
+        }, 100)
       }
     })
 
