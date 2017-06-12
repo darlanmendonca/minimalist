@@ -1,51 +1,52 @@
-/* global describe, it, before */
+/* global describe, it, beforeEach */
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
-let MnBackdrop
+let component
 
 describe('MnBackdrop (class)', () => {
-  before(() => {
-    MnBackdrop = window.MnBackdrop
+  beforeEach(() => {
+    const MnBackdrop = window.MnBackdrop
+    component = new MnBackdrop()
   })
 
   describe('.show()', () => {
     it('should be a function', () => {
-      expect(MnBackdrop.show).to.be.a('function')
+      expect(component.show).to.be.a('function')
     })
 
     it('should add class .mn-backdrop-visible to body', () => {
-      MnBackdrop.show()
+      component.show()
       expect(document.body).to.have.class('mn-backdrop-visible')
     })
   })
 
   describe('.hide()', () => {
     it('should be a function', () => {
-      expect(MnBackdrop.hide).to.be.a('function')
+      expect(component.hide).to.be.a('function')
     })
 
     it('should remove class .mn-backdrop-visible to body', () => {
-      MnBackdrop.show()
-      MnBackdrop.hide()
+      component.show()
+      component.hide()
       expect(document.body).to.not.have.class('mn-backdrop-visible')
     })
   })
 
   describe('.isVisible', () => {
     it('should be false', () => {
-      expect(MnBackdrop.isVisible).to.be.false
+      expect(component.isVisible).to.be.false
     })
 
     it('should be true', () => {
-      MnBackdrop.show()
-      expect(MnBackdrop.isVisible).to.be.true
+      component.show()
+      expect(component.isVisible).to.be.true
     })
   })
 
   describe('press ESC', () => {
     it.skip('should hide backdrop if it is visible', () => {
-      MnBackdrop.show()
+      component.show()
       document.dispatchEvent(new Event('keyup', {key: 'Escape'}))
       expect(document.body).to.not.have.class('mn-backdrop-visible')
     })

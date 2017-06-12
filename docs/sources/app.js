@@ -17,5 +17,10 @@ form.addEventListener('submit', event => {
 
 
 window.MnBackdrop = backdrop
-MnBackdrop.assign(document.body)
+const layer = new MnBackdrop()
+
+const button = document.querySelector('button')
+button.addEventListener('click', () => {
+  layer.show()
+})
 

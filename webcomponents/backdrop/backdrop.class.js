@@ -1,35 +1,25 @@
 class MnBackdrop {
-  static assign(element) {
-    element.classList.add('mn-backdrop')
-    element.addEventListener('keyup', escape)
+  constructor() {
+    document.body.classList.add('mn-backdrop')
 
-    function escape(event) {
+    document.addEventListener('keyup', () => {
       const esc = event.key === 'Escape'
 
-      if (esc && MnBackdrop.isVisible) {
-        MnBackdrop.target = undefined
-        MnBackdrop.hide()
+      if (esc && this.isVisible) {
+        this.hide()
       }
-    }
+    })
   }
 
-  static show(options = {}) {
-    if (options.hasOwnProperty('target')) {
-      const {target} = options
-      this.target = target
-    }
+  show() {
     document.body.classList.add('mn-backdrop-visible')
   }
 
-  static hide(options = {}) {
-    const {target} = options
-    if (target === this.target) {
-      this.target = undefined
-      document.body.classList.remove('mn-backdrop-visible')
-    }
+  hide() {
+    document.body.classList.remove('mn-backdrop-visible')
   }
 
-  static get isVisible() {
+  get isVisible() {
     return document.body.classList.contains('mn-backdrop-visible')
   }
 }
