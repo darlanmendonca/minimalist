@@ -39,4 +39,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('backdrop')
   })
+
+  it('should export select component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('select')
+  })
 })

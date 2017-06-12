@@ -381,6 +381,7 @@ module.exports = {
   number: __webpack_require__(11),
   date: __webpack_require__(8),
   backdrop: __webpack_require__(6),
+  select: __webpack_require__(15),
 }
 
 
@@ -982,6 +983,67 @@ function MnPasswordCustomElement() {
   const MnPassword = __webpack_require__(12)
   window.customElements.define('mn-password', MnPassword)
   return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnSelect extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setInput()
+    super._setPlaceholder()
+    // super._setAttributeValue()
+    // super._setAttributeDisabled()
+    // super._setAttributeReadonly()
+    // super._setAttributeAutofocus()
+    // this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-select')
+  }
+}
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnSelect = __webpack_require__(14)
+  window.customElements.define('mn-select', MnSelect)
+  return window.customElements.get('mn-select')
 }
 
 

@@ -4,4 +4,5 @@ module.exports = {
   number: require('./webcomponents/number/number.webcomponent.js'),
   date: require('./webcomponents/date/date.webcomponent.js'),
   backdrop: require('./webcomponents/backdrop/backdrop.webcomponent.js'),
+  select: require('./webcomponents/select/select.webcomponent.js'),
 }

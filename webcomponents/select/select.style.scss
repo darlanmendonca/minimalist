@@ -1,0 +1,17 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-select {
+  &:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: .35em solid transparent;
+    border-right: .35em solid transparent;
+    border-top: .35em solid $oc-gray-6;
+    z-index: -1;
+    position: absolute;
+    top: calc(50% + 0.1em);
+    right: .5em;
+    transform: translate(0, -50%);
+  }
+}
