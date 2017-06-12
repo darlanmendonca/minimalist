@@ -124,7 +124,6 @@ module.exports = class MnSelect extends MnInput {
 
       if (nextOption) {
         this.removeOptionFocus()
-        nextOption.classList.add('focus')
 
         const top = nextOption.offsetTop
         const bottom = top + nextOption.clientHeight
@@ -136,6 +135,8 @@ module.exports = class MnSelect extends MnInput {
         } else if (scrollToBottom) {
           this.menu.scrollTop = bottom - this.menu.clientHeight
         }
+
+        nextOption.classList.add('focus')
       }
     })
 
