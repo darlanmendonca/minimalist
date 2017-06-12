@@ -1,4 +1,18 @@
 class MnBackdrop {
+  static assign(element) {
+    element.classList.add('mn-backdrop')
+    element.addEventListener('keyup', escape)
+
+    function escape(event) {
+      const esc = event.key === 'Escape'
+
+      if (esc && MnBackdrop.isVisible) {
+        MnBackdrop.target = undefined
+        MnBackdrop.hide()
+      }
+    }
+  }
+
   static show(options = {}) {
     if (options.hasOwnProperty('target')) {
       const {target} = options
@@ -22,15 +36,3 @@ class MnBackdrop {
 
 window.MnBackdrop = MnBackdrop
 module.exports = MnBackdrop
-
-document.body.classList.add('mn-backdrop')
-document.addEventListener('keyup', escape)
-
-function escape(event) {
-  const esc = event.key === 'Escape'
-
-  if (esc && MnBackdrop.isVisible) {
-    MnBackdrop.target = undefined
-    MnBackdrop.hide()
-  }
-}

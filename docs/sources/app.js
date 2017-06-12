@@ -17,5 +17,5 @@ form.addEventListener('submit', event => {
 
 
 window.MnBackdrop = backdrop
-
+MnBackdrop.assign(document.body)
 
