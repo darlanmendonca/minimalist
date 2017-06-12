@@ -12,14 +12,17 @@
   width: 100vw;
   height: 100vh;
   opacity: 0;
-  transition: opacity .4s ease;
+  visibility: hidden;
   pointer-events: none;
   z-index: 10;
   background-color: var(--background-color);
+  transition: opacity .4s ease, visibility 0 .4s ease;
 }
 
 .mn-backdrop.visible {
+  transition: opacity .4s ease;
   overflow: hidden;
   pointer-events: all;
+  visibility: visible;
   opacity: var(--opacity);
 }
