@@ -44,3 +44,10 @@ backdrop.hide()
 ```
 
 When visible, backdrop listen keypress events in key `ESC` to hide layer.
+
+### Style
+
+If you need to change identity of element (and you will), we offer the following css variables
+
+- background-color - background color of layer, default is #212529
+- opacity - opacity of layer, default is 0.6
