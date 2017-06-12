@@ -12,7 +12,7 @@ module.exports = class MnSelect extends MnInput {
     super._setPlaceholder()
     this._setMenu()
     this._setOptions()
-    // super._setAttributeValue()
+    this._setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -55,6 +55,16 @@ module.exports = class MnSelect extends MnInput {
         this.hide()
       }
     })
+  }
+
+  _setAttributeValue() {
+    const selectedOption = this.querySelector('.option[selected]')
+    const selectedValue = selectedOption
+      ? selectedOption.getAttribute('value') || selectedOption.textContent
+      : ''
+
+    const value = this.getAttribute('value') || selectedValue
+    this.value = value
   }
 
   _setMenu() {
@@ -164,6 +174,12 @@ module.exports = class MnSelect extends MnInput {
     const latest = this.menu.querySelector('.focus')
     latest
       ? latest.classList.remove('focus')
+      : undefined
+  }
+
+  get value() {
+    return this.hasAttribute('value')
+      ? this.getAttribute('value')
       : undefined
   }
 
