@@ -1093,10 +1093,12 @@ module.exports = class MnSelect extends MnInput {
       let nextOption
 
       if (arrowDown) {
+        event.preventDefault()
         nextOption = latestOption
           ? latestOption.nextElementSibling
           : this.menu.querySelector('.option:first-child')
       } else if (arrowUp) {
+        event.preventDefault()
         nextOption = latestOption
           ? latestOption.previousElementSibling
           : this.menu.querySelector('.option:last-child')
@@ -1123,6 +1125,7 @@ module.exports = class MnSelect extends MnInput {
       const enter = event.key === 'Enter'
 
       if (enter) {
+        event.preventDefault()
         const option = this.menu.querySelector('.option.focus')
         const value = option.getAttribute('value') || option.textContent
         this.value = value
