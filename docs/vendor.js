@@ -66,9 +66,8 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
 (function(){
@@ -111,8 +110,7 @@ var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define|
 
 
 /***/ }),
-
-/***/ 1:
+/* 1 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -337,104 +335,57 @@ module.exports = class MnInput extends HTMLElement {
 
 
 /***/ }),
-
-/***/ 10:
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(1)
+module.exports = __webpack_require__(4);
 
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    this._setVisibilityButton()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
-  }
+const {input, password, number, backdrop} = __webpack_require__(2)
 
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
+const form = document.querySelector('form')
 
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-password')
-  }
+form.addEventListener('submit', event => {
+  form.classList.add('submitted')
+  const inputs = form.querySelectorAll('.mn-input:not([disabled]):not([readonly]')
 
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'password')
-  }
+  Array
+    .from(inputs)
+    .forEach(element => element.validate())
 
-  _setVisibilityButton() {
-    const button = document.createElement('button')
-    button.setAttribute('type', 'button')
-    button.setAttribute('tabindex', '-1')
+  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
+  console.log(`form isInvalid: ${isInvalid}`)
+  event.preventDefault()
+})
 
-    this.appendChild(button)
-    this.button = button
-    this.input.addEventListener('blur', () => {
-      this.input.setAttribute('type', 'password')
-      this.classList.remove('show-password')
-      this.input.dispatchEvent(new Event('change'))
-    })
 
-    button.addEventListener('mousedown', event => {
-      event.preventDefault()
-    })
+const layer = document.querySelector('mn-backdrop')
 
-    button.addEventListener('click', () => {
-      const toggledType = this.input.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password'
-      this.input.setAttribute('type', toggledType)
-      this.classList.toggle('show-password')
-      this.input.focus()
-    })
-  }
+const button = document.querySelector('button')
+button.addEventListener('click', () => {
+  layer.show()
+})
+
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  input: __webpack_require__(9),
+  password: __webpack_require__(13),
+  number: __webpack_require__(11),
+  date: __webpack_require__(8),
+  backdrop: __webpack_require__(6),
 }
 
 
 /***/ }),
-
-/***/ 11:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnPasswordCustomElement()
-
-function MnPasswordCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  const MnPassword = __webpack_require__(10)
-  window.customElements.define('mn-password', MnPassword)
-  return window.customElements.get('mn-password')
-}
-
-
-/***/ }),
-
-/***/ 131:
+/* 5 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -475,8 +426,7 @@ module.exports = MnBackdrop
 
 
 /***/ }),
-
-/***/ 132:
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnBackdropCustomElement()
@@ -488,68 +438,14 @@ function MnBackdropCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnBackdrop = __webpack_require__(131)
+  const MnBackdrop = __webpack_require__(5)
   window.customElements.define('mn-backdrop', MnBackdrop)
   return window.customElements.get('mn-backdrop')
 }
 
 
 /***/ }),
-
-/***/ 2:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(4);
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports, __webpack_require__) {
-
-const {input, password, number, backdrop} = __webpack_require__(2)
-
-const form = document.querySelector('form')
-
-form.addEventListener('submit', event => {
-  form.classList.add('submitted')
-  const inputs = form.querySelectorAll('.mn-input:not([disabled]):not([readonly]')
-
-  Array
-    .from(inputs)
-    .forEach(element => element.validate())
-
-  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-  console.log(`form isInvalid: ${isInvalid}`)
-  event.preventDefault()
-})
-
-
-const layer = document.querySelector('mn-backdrop')
-
-const button = document.querySelector('button')
-button.addEventListener('click', () => {
-  layer.show()
-})
-
-
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(7),
-  password: __webpack_require__(11),
-  number: __webpack_require__(9),
-  date: __webpack_require__(6),
-  backdrop: __webpack_require__(132),
-}
-
-
-/***/ }),
-
-/***/ 5:
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -731,8 +627,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-
-/***/ 6:
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -744,15 +639,14 @@ function MnDateCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnDate = __webpack_require__(5)
+  const MnDate = __webpack_require__(7)
   window.customElements.define('mn-date', MnDate)
   return window.customElements.get('mn-date')
 }
 
 
 /***/ }),
-
-/***/ 7:
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -771,8 +665,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-
-/***/ 8:
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -980,8 +873,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-
-/***/ 9:
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -993,13 +885,106 @@ function MnNumberCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnNumber = __webpack_require__(8)
+  const MnNumber = __webpack_require__(10)
   window.customElements.define('mn-number', MnNumber)
   return window.customElements.get('mn-number')
 }
 
 
-/***/ })
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/******/ });
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'password')
+  }
+
+  _setVisibilityButton() {
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
+    button.setAttribute('tabindex', '-1')
+
+    this.appendChild(button)
+    this.button = button
+    this.input.addEventListener('blur', () => {
+      this.input.setAttribute('type', 'password')
+      this.classList.remove('show-password')
+      this.input.dispatchEvent(new Event('change'))
+    })
+
+    button.addEventListener('mousedown', event => {
+      event.preventDefault()
+    })
+
+    button.addEventListener('click', () => {
+      const toggledType = this.input.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password'
+      this.input.setAttribute('type', toggledType)
+      this.classList.toggle('show-password')
+      this.input.focus()
+    })
+  }
+}
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnPassword = __webpack_require__(12)
+  window.customElements.define('mn-password', MnPassword)
+  return window.customElements.get('mn-password')
+}
+
+
+/***/ })
+/******/ ]);
 //# sourceMappingURL=vendor.js.map
