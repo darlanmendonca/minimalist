@@ -466,7 +466,7 @@ class MnBackdrop extends HTMLElement {
     this.classList.remove('visible')
   }
 
-  get isVisible() {
+  get visible() {
     return this.classList.contains('visible')
   }
 }

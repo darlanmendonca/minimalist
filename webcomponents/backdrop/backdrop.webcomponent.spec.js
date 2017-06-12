@@ -31,14 +31,14 @@ describe('MnBackdrop (class)', () => {
     })
   })
 
-  describe('property isVisible', () => {
+  describe('property visible', () => {
     it('should be false', () => {
-      expect(component).to.have.property('isVisible', true)
+      expect(component).to.have.property('visible', false)
     })
 
     it('should be true', () => {
       component.show()
-      expect(component).to.have.property('isVisible', false)
+      expect(component).to.have.property('visible', true)
     })
   })
 
