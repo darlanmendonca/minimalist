@@ -1004,9 +1004,9 @@ module.exports = class MnSelect extends MnInput {
     super._setPlaceholder()
     this._setMenu()
     // super._setAttributeValue()
-    // super._setAttributeDisabled()
-    // super._setAttributeReadonly()
-    // super._setAttributeAutofocus()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
     // this._setValidations()
   }
 
@@ -1030,7 +1030,9 @@ module.exports = class MnSelect extends MnInput {
     super._setInput()
 
     this.input.addEventListener('focus', () => {
-      this.show()
+      !this.input.hasAttribute('readonly')
+        ? this.show()
+        : undefined
     })
 
     this.input.addEventListener('blur', () => {

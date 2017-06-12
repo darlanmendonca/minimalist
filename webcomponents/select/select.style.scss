@@ -1,13 +1,15 @@
 @import '../../node_modules/open-color/open-color.scss';
 
 .mn-select {
+  --icon-color: $oc-gray-6;
+
   &:before {
     content: '';
     width: 0;
     height: 0;
     border-left: .35em solid transparent;
     border-right: .35em solid transparent;
-    border-top: .35em solid $oc-gray-6;
+    border-top: .35em solid var(--icon-color);
     z-index: -1;
     position: absolute;
     top: calc(50% + 0.1em);
@@ -61,4 +63,8 @@
       overflow: auto;
     }
   }
+}
+
+.mn-select[disabled] {
+  --icon-color: $oc-gray-5;
 }
