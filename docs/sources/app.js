@@ -1,4 +1,4 @@
-const {input, password, number} = require('minimalist')
+const {input, password, number, backdrop} = require('minimalist')
 
 const form = document.querySelector('form')
 
@@ -15,4 +15,11 @@ form.addEventListener('submit', event => {
   event.preventDefault()
 })
 
+
+const layer = document.querySelector('mn-backdrop')
+
+const button = document.querySelector('button')
+button.addEventListener('click', () => {
+  layer.show()
+})
 

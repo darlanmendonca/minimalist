@@ -1,0 +1,25 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-backdrop {
+  --background-color: $oc-gray-9;
+  --opacity: .6;
+}
+
+.mn-backdrop {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 10;
+  background-color: var(--background-color);
+}
+
+.mn-backdrop.visible {
+  overflow: hidden;
+  pointer-events: all;
+  opacity: var(--opacity);
+}
