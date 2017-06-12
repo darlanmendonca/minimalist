@@ -452,7 +452,7 @@ class MnBackdrop extends HTMLElement {
     document.addEventListener('keyup', () => {
       const esc = event.key === 'Escape'
 
-      if (esc && this.isVisible) {
+      if (esc && this.visible) {
         this.hide()
       }
     })
