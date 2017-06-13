@@ -113,6 +113,20 @@ describe('mn-select (webcomponent)', () => {
       expect(component).to.have.value('Baratheon')
       expect(component.input).to.have.value('Baratheon')
     })
+
+    it('should keep value if enter and delete part of filter', () => {
+      select.setProperty('value', 'Stark')
+      select.writeText('St')
+      expect(component).to.have.value('stark')
+      expect(component.input).to.have.value('Stark')
+    })
+
+    it('should be undefined if enter and delete filter completely', () => {
+      select.setProperty('value', 'Stark')
+      select.writeText('')
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
   })
 
   describe('attribute value', () => {
