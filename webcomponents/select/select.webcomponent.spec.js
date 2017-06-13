@@ -127,6 +127,27 @@ describe('mn-select (webcomponent)', () => {
       expect(component).to.have.value(undefined)
       expect(component.input).to.have.value('')
     })
+
+    it('should evaluate to number when set option with numeric string value', () => {
+      select.addOption('Test', '5')
+      select.setProperty('value', 'Test')
+      expect(component).to.have.value(5)
+      expect(component.input).to.have.value('Test')
+    })
+
+    it('should evaluate to number when set option with numeric string text', () => {
+      select.addOption('5')
+      select.setProperty('value', '5')
+      expect(component).to.have.value(5)
+      expect(component.input).to.have.value('5')
+    })
+
+    it('should evaluate to number when set number instead string', () => {
+      select.addOption('5')
+      select.setProperty('value', 5)
+      expect(component).to.have.value(5)
+      expect(component.input).to.have.value('5')
+    })
   })
 
   describe('attribute value', () => {

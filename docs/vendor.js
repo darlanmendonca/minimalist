@@ -1098,7 +1098,7 @@ module.exports = class MnSelect extends MnInput {
 
     options.forEach(option => option.addEventListener('mousemove', () => {
       if (!this.keyboardNavigation) {
-        this.removeOptionFocus()
+        this.removeFocusFromOption()
         option.classList.add('focus')
       }
     }))
@@ -1122,7 +1122,7 @@ module.exports = class MnSelect extends MnInput {
       }
 
       if (nextOption) {
-        this.removeOptionFocus()
+        this.removeFocusFromOption()
 
         const top = nextOption.offsetTop
         const bottom = top + nextOption.clientHeight
@@ -1167,14 +1167,14 @@ module.exports = class MnSelect extends MnInput {
   hide() {
     this.classList.remove('visible')
     document.body.classList.remove('mn-select-visible')
-    this.removeOptionFocus()
+    this.removeFocusFromOption()
   }
 
   get visible() {
     return this.classList.contains('visible')
   }
 
-  removeOptionFocus() {
+  removeFocusFromOption() {
     const latest = this.menu.querySelector('.focus')
     latest
       ? latest.classList.remove('focus')
@@ -1182,7 +1182,7 @@ module.exports = class MnSelect extends MnInput {
   }
 
   get value() {
-    return this.getAttribute('value') || undefined
+    return evaluate(this.getAttribute('value')) || undefined
   }
 
   set value(value) {
@@ -1190,7 +1190,7 @@ module.exports = class MnSelect extends MnInput {
     const options = Array.from(this.menu.querySelectorAll('.option'))
 
     const option = options.filter(option => {
-      return option.getAttribute('value') === value || option.textContent === value
+      return option.getAttribute('value') == value || option.textContent == value // eslint-disable-line eqeqeq
     })[0]
 
     if (value && option) {
@@ -1205,6 +1205,26 @@ module.exports = class MnSelect extends MnInput {
       this.removeAttribute('value')
       this.input.dispatchEvent(new Event('change'))
     }
+  }
+}
+
+function evaluate(value) {
+  try {
+    value = value.trim()
+    const isVariable = !value.startsWith('[')
+      && !value.startsWith('{')
+      && !value.startsWith('\'')
+      && !value.startsWith('"')
+      && !value.startsWith('`')
+      && value !== 'true'
+      && value !== 'false'
+      && isNaN(value)
+
+    return isVariable
+        ? eval(`'${value}'`) // convert to string
+        : eval(`(${value})`) // evaluate
+  } catch (e) {
+    return value
   }
 }
 
