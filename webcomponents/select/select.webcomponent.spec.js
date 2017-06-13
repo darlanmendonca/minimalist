@@ -143,6 +143,113 @@ describe('mn-select (webcomponent)', () => {
       expect(component.input).to.have.value('')
     })
   })
+
+  describe('attribute name', () => {
+    it('should define a form getter if parent form exist and has an id', () => {
+      select.setAttribute('name', 'test')
+      const {formID} = window
+      expect(formID.test).to.be.equal(component)
+    })
+
+    it('should define a form getter if parent form exist and has a name', () => {
+      select.setAttribute('name', 'test')
+      const {formName} = window
+      expect(formName.test).to.be.equal(component)
+    })
+
+    it('should undefine form getter (name) if component name was removed', () => {
+      select.setAttribute('name', 'test')
+      select.removeAttribute('name')
+      const {formName} = window
+      expect(formName.test).to.be.undefined
+    })
+
+    it('should undefine form getter (id) if component name was removed', () => {
+      select.setAttribute('name', 'test')
+      select.removeAttribute('name')
+      const {formID} = window
+      expect(formID.test).to.be.undefined
+    })
+
+    it('should redefine form getter (name) if component name changed', () => {
+      select.setAttribute('name', 'test')
+      select.setAttribute('name', 'test2')
+      const {formName} = window
+      expect(formName.test2).to.be.equal(component)
+    })
+
+    it('should redefine form getter (id) if component name changed', () => {
+      select.setAttribute('name', 'test')
+      select.setAttribute('name', 'test2')
+      const {formID} = window
+      expect(formID.test2).to.be.equal(component)
+    })
+  })
+
+  describe('property placeholder', () => {
+    it('should set the placeholder text in label', () => {
+      select.setProperty('placeholder', 'test')
+      expect(component).to.contain('label').with.text('test')
+    })
+
+    it('should set the placeholder text in label', () => {
+      select.setProperty('placeholder', 'test')
+      select.setProperty('placeholder', 'test2')
+      expect(component).to.contain('label').with.text('test2')
+    })
+
+    it('should set emtpy text if is undefined', () => {
+      component.placeholder = undefined
+      expect(component).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute placeholder', () => {
+    it('should define a label as placeholder', () => {
+      select.setAttribute('placeholder', 'test')
+      expect(component).to.contain('label').with.text('test')
+    })
+
+    it('should change the text', () => {
+      select.setAttribute('placeholder', 'test')
+      select.setAttribute('placeholder', 'test2')
+      expect(component).to.contain('label').with.text('test2')
+    })
+
+    it('should set empty text if is undefined', () => {
+      expect(component).to.contain('label').with.text('')
+    })
+
+    it('should set empty text to label when attribute is removed', () => {
+      select.setAttribute('placeholder', 'test')
+      select.removeAttribute('placeholder')
+      expect(component).to.contain('label').with.text('')
+    })
+  })
+
+  describe('attribute readonly', () => {
+    it('should define attribute in child input', () => {
+      select.setAttribute('readonly')
+      expect(component).to.contain('input').to.have.attribute('readonly')
+    })
+
+    it('should remove attribute from child input', () => {
+      select.removeAttribute('readonly')
+      expect(component).to.contain('input').not.have.attribute('readonly')
+    })
+  })
+
+  describe('attribute disabled', () => {
+    it('should define attribute in child input', () => {
+      select.setAttribute('disabled')
+      expect(component.input).to.have.attribute('disabled')
+    })
+
+    it('should remove attribute from child input', () => {
+      select.removeAttribute('disabled')
+      expect(component.input).to.not.have.attribute('disabled')
+    })
+  })
 })
 
 function loadComponent() {
