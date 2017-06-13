@@ -99,6 +99,12 @@ describe('mn-select (webcomponent)', () => {
       select.setProperty('value', 'Stark')
       expect(component).to.have.value('stark')
     })
+
+    it('should be a string when set by option text without value', () => {
+      select.addOption('Baratheon')
+      select.setProperty('value', 'Baratheon')
+      expect(component).to.have.value('Baratheon')
+    })
   })
 
   describe('attribute value', () => {
