@@ -1008,6 +1008,8 @@ module.exports = class MnSelect extends MnInput {
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
+    super._setAttributeAutocomplete()
+    super._setAttributeSpellcheck()
     // this._setValidations()
   }
 
@@ -1177,14 +1179,29 @@ module.exports = class MnSelect extends MnInput {
   }
 
   get value() {
-    return this.hasAttribute('value')
-      ? this.getAttribute('value')
-      : undefined
+    return this.getAttribute('value') || undefined
   }
 
   set value(value) {
-    this.input.value = value
-    this.input.dispatchEvent(new Event('change'))
+    const attributeValue = this.getAttribute('value')
+    const options = Array.from(this.menu.querySelectorAll('.option'))
+
+    const option = options.filter(option => {
+      return option.getAttribute('value') === value || option.textContent === value
+    })[0]
+
+    if (value && option) {
+      this.input.value = option.textContent
+      this.input.dispatchEvent(new Event('change'))
+
+      if (attributeValue !== value) {
+        this.setAttribute('value', option.getAttribute('value') || value)
+      }
+    } else {
+      this.input.value = ''
+      this.removeAttribute('value')
+      this.input.dispatchEvent(new Event('change'))
+    }
   }
 }
 

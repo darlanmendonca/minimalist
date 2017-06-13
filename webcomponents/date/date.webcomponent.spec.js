@@ -58,6 +58,59 @@ describe('mn-date (webcomponent)', () => {
     })
   })
 
+  describe('property value', () => {
+    it('should be undefined by default', () => {
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should be undefined when set a string', () => {
+      date.setProperty('value', 'teste')
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should be undefined when set numbers', () => {
+      date.setProperty('value', 123)
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should be undefined when set a string number', () => {
+      date.setProperty('value', '123')
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should be undefined when set a empty string', () => {
+      date.setProperty('value', '')
+      expect(component).to.have.value(undefined)
+    })
+
+    it('should be a DateISOString when set a string in yyyy-mm-dd pattern', () => {
+      date.setProperty('value', '2017-04-30')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+    })
+
+    it('should be a DateISOString at midnight when set a date object with hours', () => {
+      date.setProperty('value', new Date(2017, 3, 30, 18, 0))
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+    })
+
+    it('should be a DateISOString at midnight when set a date object without hours', () => {
+      date.setProperty('value', new Date(2017, 3, 30))
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+    })
+  })
+
+  describe('attribute value', () => {
+    it('should set property value when attribute changed', () => {
+      date.setAttribute('value', '2017-04-30')
+      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+    })
+
+    it('should set property value when attribute is removed', () => {
+      date.removeAttribute('value')
+      expect(component).to.have.value(undefined)
+    })
+  })
+
   describe('attribute name', () => {
     it('should define a form getter if parent form exist and has an id', () => {
       date.setAttribute('name', 'test')
@@ -163,59 +216,6 @@ describe('mn-date (webcomponent)', () => {
       date.setAttribute('disabled')
       date.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
-    })
-  })
-
-  describe('attribute value', () => {
-    it('should set property value when attribute changed', () => {
-      date.setAttribute('value', '2017-04-30')
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
-    })
-
-    it('should set property value when attribute is removed', () => {
-      date.removeAttribute('value')
-      expect(component).to.have.value(undefined)
-    })
-  })
-
-  describe('property value', () => {
-    it('should be undefined by default', () => {
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should be undefined when set a string', () => {
-      date.setProperty('value', 'teste')
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should be undefined when set numbers', () => {
-      date.setProperty('value', 123)
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should be undefined when set a string number', () => {
-      date.setProperty('value', '123')
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should be undefined when set a empty string', () => {
-      date.setProperty('value', '')
-      expect(component).to.have.value(undefined)
-    })
-
-    it('should be a DateISOString when set a string in yyyy-mm-dd pattern', () => {
-      date.setProperty('value', '2017-04-30')
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
-    })
-
-    it('should be a DateISOString at midnight when set a date object with hours', () => {
-      date.setProperty('value', new Date(2017, 3, 30, 18, 0))
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
-    })
-
-    it('should be a DateISOString at midnight when set a date object without hours', () => {
-      date.setProperty('value', new Date(2017, 3, 30))
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
   })
 
