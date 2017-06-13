@@ -38,6 +38,18 @@ describe('mn-select (webcomponent)', () => {
     it('should contain a input child', () => {
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
+
+    it('should contain a menu property', () => {
+      expect(component).to.have.property('menu')
+    })
+
+    it('should contain a menu child', () => {
+      expect(component.querySelectorAll('menu')).to.have.length(1)
+    })
+
+    it('should contain div.option inside menu', () => {
+      expect(component.menu.querySelectorAll('div.option')).to.have.length(3)
+    })
   })
 
   describe('input', () => {
