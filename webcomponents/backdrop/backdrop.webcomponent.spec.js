@@ -4,7 +4,7 @@ const {expect} = require('chai')
 
 let component
 
-describe('MnBackdrop (class)', () => {
+describe('mn-backdrop (webcomponent)', () => {
   before(loadComponent)
   beforeEach(createComponent)
 
