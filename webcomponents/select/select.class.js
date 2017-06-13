@@ -47,6 +47,9 @@ module.exports = class MnSelect extends MnInput {
     })
 
     this.input.addEventListener('blur', () => {
+      this.input.value
+        ? this.value = this.value
+        : this.value = undefined
       this.hide()
     })
 

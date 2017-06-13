@@ -68,42 +68,50 @@ describe('mn-select (webcomponent)', () => {
   describe('property value', () => {
     it('should be undefined by default', () => {
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
     it('should be undefined when set a invalid value', () => {
       select.setProperty('value', 'teste')
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
     it('should be undefined when set a empty string', () => {
       select.setProperty('value', '')
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
     it('should be undefined when set undefined', () => {
       select.setProperty('value', undefined)
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
     it('should be undefined when set null', () => {
       select.setProperty('value', null)
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
     it('should be a string when set by option value', () => {
       select.setProperty('value', 'stark')
       expect(component).to.have.value('stark')
+      expect(component.input).to.have.value('Stark')
     })
 
     it('should be a string when set by option text', () => {
       select.setProperty('value', 'Stark')
       expect(component).to.have.value('stark')
+      expect(component.input).to.have.value('Stark')
     })
 
     it('should be a string when set by option text without value', () => {
       select.addOption('Baratheon')
       select.setProperty('value', 'Baratheon')
       expect(component).to.have.value('Baratheon')
+      expect(component.input).to.have.value('Baratheon')
     })
   })
 
@@ -111,12 +119,14 @@ describe('mn-select (webcomponent)', () => {
     it('should set property value when attribute changed', () => {
       select.setAttribute('value', 'lannister')
       expect(component).to.have.value('lannister')
+      expect(component.input).to.have.value('Lannister')
     })
 
     it('should set property value when attribute is removed', () => {
       select.setAttribute('value', 'Lannister')
       select.removeAttribute('value')
       expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
     })
   })
 })
