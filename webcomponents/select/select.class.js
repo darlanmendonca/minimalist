@@ -90,7 +90,7 @@ module.exports = class MnSelect extends MnInput {
         option.innerHTML = child
           .textContent
           .split('')
-          .map(char => `<span class="char">${char}</span>`)
+          .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
           .join('')
 
         Array
@@ -155,6 +155,15 @@ module.exports = class MnSelect extends MnInput {
         setTimeout(() => {
           delete this.keyboardNavigation
         }, 100)
+      }
+    })
+
+    this.input.addEventListener('keydown', event => {
+      const esc = event.key === 'Escape'
+
+      if (esc) {
+        this.value = this.value
+        this.filter = undefined
       }
     })
 
@@ -237,9 +246,23 @@ module.exports = class MnSelect extends MnInput {
         .from(this.menu.querySelectorAll('.option'))
         .forEach(option => {
           const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+          const lastMatches = Array.from(option.querySelectorAll('.match'))
+
+          lastMatches.forEach(char => char.classList.remove('match'))
 
           if (matchOption) {
             option.classList.remove('hidden')
+
+            value
+              .split('')
+              .forEach(char => {
+                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
+                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
+                letter
+                  ? letter.classList.add('match')
+                  : null
+              })
+
           } else {
             option.classList.add('hidden')
           }

@@ -77,3 +77,13 @@
 .mn-select[disabled] {
   --icon-color: $oc-gray-5;
 }
+
+.mn-select.filtered {
+  .char {
+    transition: opacity .2s ease;
+  }
+
+  .char:not(.match) {
+    opacity: .25;
+  }
+}
