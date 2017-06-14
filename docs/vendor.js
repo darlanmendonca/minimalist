@@ -1033,6 +1033,7 @@ module.exports = class MnSelect extends MnInput {
     super._setInput()
 
     this.input.addEventListener('focus', () => {
+      this.input.select()
       !this.input.hasAttribute('readonly')
         ? this.show()
         : undefined
@@ -1155,6 +1156,7 @@ module.exports = class MnSelect extends MnInput {
 
       if (esc) {
         this.value = this.value
+        this.input.select()
         this.filter = undefined
       }
     })
