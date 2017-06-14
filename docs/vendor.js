@@ -1220,10 +1220,12 @@ module.exports = class MnSelect extends MnInput {
     const options = Array.from(this.menu.querySelectorAll('.option'))
 
     const option = options.filter(option => {
-      return option.getAttribute('value') == value || option.textContent == value // eslint-disable-line eqeqeq
+      return option.getAttribute('value') == String(value) || option.textContent == value // eslint-disable-line eqeqeq
     })[0]
 
-    if (value && option) {
+    const hasValue = value !== undefined && value !== null
+
+    if (hasValue && option) {
       this.input.value = option.textContent
       this.input.dispatchEvent(new Event('change'))
 
