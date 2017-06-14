@@ -54,9 +54,9 @@ module.exports = class MnSelect extends MnInput {
       this.hide()
     })
 
-    this.input.addEventListener('input', event => {
+    this.input.addEventListener('input', () => {
       this.filter = this.input.value
-      this.focusOption(this.menu.querySelector('.option:first-child:not(.hidden)'))
+      this.focusOption(this.menu.querySelector('.option:not(.hidden)'))
     })
 
     document.addEventListener('click', event => {
@@ -171,10 +171,13 @@ module.exports = class MnSelect extends MnInput {
       const enter = event.key === 'Enter'
 
       if (enter) {
-        event.preventDefault()
         const option = this.menu.querySelector('.option.focus')
-        const value = option.getAttribute('value') || option.textContent
-        this.value = value
+        event.preventDefault()
+
+        option
+          ? this.value = option.getAttribute('value') || option.textContent
+          : this.value = this.value
+
         this.hide()
         this.input.blur()
       }
@@ -246,9 +249,9 @@ module.exports = class MnSelect extends MnInput {
         .from(this.menu.querySelectorAll('.option'))
         .forEach(option => {
           const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
-          const lastMatches = Array.from(option.querySelectorAll('.match'))
-
-          lastMatches.forEach(char => char.classList.remove('match'))
+          const lastMatches = Array
+            .from(option.querySelectorAll('.match'))
+            .forEach(char => char.classList.remove('match'))
 
           if (matchOption) {
             option.classList.remove('hidden')
