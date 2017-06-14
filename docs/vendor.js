@@ -1210,7 +1210,9 @@ module.exports = class MnSelect extends MnInput {
   }
 
   get value() {
-    return evaluate(this.getAttribute('value')) || undefined
+    return this.getAttribute('value')
+      ? evaluate(this.getAttribute('value'))
+      : undefined
   }
 
   set value(value) {
@@ -1243,7 +1245,8 @@ module.exports = class MnSelect extends MnInput {
         .from(this.menu.querySelectorAll('.option'))
         .forEach(option => {
           const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
-          const lastMatches = Array
+
+          Array
             .from(option.querySelectorAll('.match'))
             .forEach(char => char.classList.remove('match'))
 

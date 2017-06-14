@@ -160,6 +160,20 @@ describe('mn-select (webcomponent)', () => {
       expect(component).to.have.value(5)
       expect(component.input).to.have.value('5')
     })
+
+    it('should evaluate to boolean true', () => {
+      select.addOption('Test', 'true')
+      select.setProperty('value', 'Test')
+      expect(component).to.have.value(true)
+      expect(component.input).to.have.value('Test')
+    })
+
+    it('should evaluate to boolean false', () => {
+      select.addOption('Test', 'false')
+      select.setProperty('value', 'Test')
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Test')
+    })
   })
 
   describe('attribute value', () => {
