@@ -44,6 +44,7 @@ module.exports = class MnSelect extends MnInput {
       !this.input.hasAttribute('readonly')
         ? this.show()
         : undefined
+      this.filter = undefined
     })
 
     this.input.addEventListener('blur', () => {
@@ -51,6 +52,11 @@ module.exports = class MnSelect extends MnInput {
         ? this.value = this.value
         : this.value = undefined
       this.hide()
+    })
+
+    this.input.addEventListener('input', event => {
+      this.filter = this.input.value
+      this.focusOption(this.menu.querySelector('.option:first-child:not(.hidden)'))
     })
 
     document.addEventListener('click', event => {
@@ -81,7 +87,11 @@ module.exports = class MnSelect extends MnInput {
       .forEach(child => {
         const option = document.createElement('div')
         option.classList.add('option')
-        option.textContent = child.textContent
+        option.innerHTML = child
+          .textContent
+          .split('')
+          .map(char => `<span class="char">${char}</span>`)
+          .join('')
 
         Array
           .from(child.attributes)
@@ -106,32 +116,29 @@ module.exports = class MnSelect extends MnInput {
 
     options.forEach(option => option.addEventListener('mousemove', () => {
       if (!this.keyboardNavigation) {
-        this.removeFocusFromOption()
-        option.classList.add('focus')
+        this.focusOption(option)
       }
     }))
 
     this.input.addEventListener('keydown', (event) => { // arrow navigate
       const arrowDown = event.key === 'ArrowDown'
       const arrowUp = event.key === 'ArrowUp'
-      const latestOption = this.menu.querySelector('.option.focus')
       let nextOption
+
+      const options = Array.from(this.menu.querySelectorAll('.option:not(.hidden)'))
+      const currentOption = this.menu.querySelector('.option.focus')
+
+      const currentIndex = Array.prototype.indexOf.call(options, currentOption)
 
       if (arrowDown) {
         event.preventDefault()
-        nextOption = latestOption
-          ? latestOption.nextElementSibling
-          : this.menu.querySelector('.option:first-child')
+        nextOption = options[currentIndex + 1]
       } else if (arrowUp) {
         event.preventDefault()
-        nextOption = latestOption
-          ? latestOption.previousElementSibling
-          : this.menu.querySelector('.option:last-child')
+        nextOption = options[currentIndex - 1]
       }
 
       if (nextOption) {
-        this.removeFocusFromOption()
-
         const top = nextOption.offsetTop
         const bottom = top + nextOption.clientHeight
         const scrollToTop = top < this.menu.scrollTop
@@ -144,7 +151,7 @@ module.exports = class MnSelect extends MnInput {
           this.menu.scrollTop = bottom - this.menu.clientHeight
         }
 
-        nextOption.classList.add('focus')
+        this.focusOption(nextOption)
         setTimeout(() => {
           delete this.keyboardNavigation
         }, 100)
@@ -169,24 +176,31 @@ module.exports = class MnSelect extends MnInput {
     this.classList.add('visible')
     this.menu.scrollTop = 0
     document.body.classList.add('mn-select-visible')
-    this.querySelector('.option:first-child').classList.add('focus')
+    this.focusOption(this.querySelector('.option:first-child'))
   }
 
   hide() {
     this.classList.remove('visible')
     document.body.classList.remove('mn-select-visible')
-    this.removeFocusFromOption()
+    this.removeOptionFocus()
   }
 
   get visible() {
     return this.classList.contains('visible')
   }
 
-  removeFocusFromOption() {
+  removeOptionFocus() {
     const latest = this.menu.querySelector('.focus')
     latest
       ? latest.classList.remove('focus')
       : undefined
+  }
+
+  focusOption(option) {
+    this.removeOptionFocus()
+    option
+      ? option.classList.add('focus')
+      : null
   }
 
   get value() {
@@ -212,6 +226,29 @@ module.exports = class MnSelect extends MnInput {
       this.input.value = ''
       this.removeAttribute('value')
       this.input.dispatchEvent(new Event('change'))
+    }
+  }
+
+  set filter(value) {
+    if (value) {
+      this.classList.add('filtered')
+
+      Array
+        .from(this.menu.querySelectorAll('.option'))
+        .forEach(option => {
+          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+
+          if (matchOption) {
+            option.classList.remove('hidden')
+          } else {
+            option.classList.add('hidden')
+          }
+        })
+    } else {
+      this.classList.remove('filtered')
+      Array
+        .from(this.querySelectorAll('.option.hidden'))
+        .forEach(option => option.classList.remove('hidden'))
     }
   }
 }
