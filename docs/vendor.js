@@ -1223,14 +1223,15 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .filter(option => option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+        || option.textContent == value // eslint-disable-line eqeqeq
+      )[0]
 
-    if (differentValue) {
-      const option = Array
-        .from(this.menu.querySelectorAll('.option'))
-        .filter(option => option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-          || option.textContent == value // eslint-disable-line eqeqeq
-        )[0]
+    const textNotApplied = option && this.input.value !== option.textContent
 
+    if (differentValue || textNotApplied) {
       this.input.value = option
         ? option.textContent
         : ''
@@ -1241,6 +1242,11 @@ module.exports = class MnSelect extends MnInput {
       hasValue && option
         ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
         :  this.removeAttribute('value')
+    }
+
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
     }
   }
 
