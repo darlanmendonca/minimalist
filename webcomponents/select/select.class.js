@@ -53,8 +53,10 @@ module.exports = class MnSelect extends MnInput {
         .from(this.menu.querySelectorAll('.option'))
         .filter(option => option.getAttribute('value') === this.getAttribute('value'))[0]
 
-      if (this.hasAttribute('value') && option) {
+      if (this.input.value && option) {
         this.input.value = option.textContent
+      } else {
+        this.value = undefined
       }
       this.hide()
     })
