@@ -49,9 +49,13 @@ module.exports = class MnSelect extends MnInput {
     })
 
     this.input.addEventListener('blur', () => {
-      this.input.value
-        ? this.value = this.value
-        : this.value = undefined
+      const option = Array
+        .from(this.menu.querySelectorAll('.option'))
+        .filter(option => option.getAttribute('value') === this.getAttribute('value'))[0]
+
+      if (this.hasAttribute('value') && option) {
+        this.input.value = option.textContent
+      }
       this.hide()
     })
 
@@ -224,26 +228,25 @@ module.exports = class MnSelect extends MnInput {
   }
 
   set value(value) {
-    const attributeValue = this.getAttribute('value')
-    const options = Array.from(this.menu.querySelectorAll('.option'))
+    const differentValue = this.getAttribute('value') !== value
 
-    const option = options.filter(option => {
-      return option.getAttribute('value') == String(value) || option.textContent == value // eslint-disable-line eqeqeq
-    })[0]
+    if (differentValue) {
+      const option = Array
+        .from(this.menu.querySelectorAll('.option'))
+        .filter(option => option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.textContent == value // eslint-disable-line eqeqeq
+        )[0]
 
-    const hasValue = value !== undefined && value !== null
+      this.input.value = option
+        ? option.textContent
+        : ''
 
-    if (hasValue && option) {
-      this.input.value = option.textContent
       this.input.dispatchEvent(new Event('change'))
 
-      if (attributeValue !== value) {
-        this.setAttribute('value', option.getAttribute('value') || value)
-      }
-    } else {
-      this.input.value = ''
-      this.removeAttribute('value')
-      this.input.dispatchEvent(new Event('change'))
+      const hasValue = value !== undefined && value !== null
+      hasValue && option
+        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+        :  this.removeAttribute('value')
     }
   }
 
