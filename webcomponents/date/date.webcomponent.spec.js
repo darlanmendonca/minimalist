@@ -244,7 +244,7 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be valid if setted a valid value', () => {
       date.setAttribute('required')
-      date.writeText('2010-01-01')
+      date.setProperty('value', '2010-01-01')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -252,7 +252,7 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be valid if typed a valid value', () => {
       date.setAttribute('required')
-      date.writeText('2010-01-01')
+      date.setProperty('value', '2010-01-01')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
@@ -278,7 +278,7 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be invalid if filled an invalid value', () => {
       date.setAttribute('min', '2010-10-05')
-      date.writeText('2010-10-04')
+      date.setProperty('value', '2010-10-04')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('min')
@@ -296,7 +296,7 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be invalid if filled with invalid value', () => {
       date.setAttribute('max', '2017-05-06')
-      date.writeText('2017-05-07')
+      date.setProperty('value', '2017-05-07')
       component.validate()
       expect(component).to.have.class('invalid')
       expect(component).to.have.class('max')
@@ -323,8 +323,8 @@ function createComponent() {
 
   component = document.createElement('mn-date')
 
-  form.appendChild(component)
   document.body.appendChild(form)
+  form.appendChild(component)
 }
 
 function setPageObject() {

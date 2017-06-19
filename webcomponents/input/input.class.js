@@ -198,7 +198,7 @@ module.exports = class MnInput extends HTMLElement {
   validate() {
     const validations = {}
 
-    for (const attribute of Object.keys(this.validations)) {
+    for (const attribute of Object.keys(this.validations || {})) {
       const hasAttribute = this.hasAttribute(attribute)
       const attributeIsInvalid = this.validations[attribute]()
 
