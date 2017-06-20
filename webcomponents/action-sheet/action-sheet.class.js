@@ -38,7 +38,7 @@ module.exports = class MnActionSheet extends HTMLElement {
         option.classList.add('option')
         option.innerHTML = child.textContent
 
-        option.addEventListener('click', (event) => {
+        option.addEventListener('click', () => {
           const changeEvent = new Event('change')
           changeEvent.data = {index}
           this.dispatchEvent(changeEvent)

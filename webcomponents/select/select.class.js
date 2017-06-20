@@ -223,7 +223,6 @@ module.exports = class MnSelect extends MnInput {
     this.menu.scrollTop = 0
     this.focusOption(this.querySelector('.option:first-child'))
 
-
     if (this.actionSheet) {
       this.input.blur()
       this.actionSheet.show()
