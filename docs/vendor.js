@@ -449,7 +449,6 @@ module.exports = class MnActionSheet extends HTMLElement {
 
   _setCancel() {
     const button = document.createElement('button')
-    button.textContent = 'cancel'
 
     button.addEventListener('click', () => {
       this.hide()

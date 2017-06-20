@@ -2,6 +2,7 @@
 
 .mn-action-sheet {
   --border-color: $oc-gray-1;
+  --cancel-text: 'cancel';
 
   position: fixed;
   top: 0;
@@ -63,6 +64,9 @@
     margin-top: .5em;
     border-radius: .2em;
     background: white;
+    &:before {
+      content: var(--cancel-text);
+    }
   }
 }
 

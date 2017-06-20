@@ -20,6 +20,7 @@ const {select} = require('@reservafacil/minimalist')
 
 ```sass
 // Dont forget the .scss file, to style component
+@import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/action-sheet/action-sheet.scss';
 @import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/select/select.scss';
 ```
 
