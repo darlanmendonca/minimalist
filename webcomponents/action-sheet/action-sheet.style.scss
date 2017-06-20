@@ -54,6 +54,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-family: sans-serif;
+    outline: 0;
   }
 
   button {
@@ -64,13 +66,13 @@
 }
 
 body.mn-action-sheet-visible:before {
-  @media (min-width: 768px) {
+  @media (min-device-width: 768px) {
     opacity: 0;
   }
 }
 
 .mn-action-sheet.visible {
-  @media (max-width: 767px) {
+  @media (max-device-width: 767px) {
     visibility: visible;
     z-index: 110;
     transform: translateY(0);

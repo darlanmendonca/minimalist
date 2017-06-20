@@ -9,6 +9,7 @@ module.exports = class MnActionSheet extends HTMLElement {
   connectedCallback() {
     this._setStyle()
     this._setMenu()
+    this._setCancel()
   }
 
   static get observedAttributes() {
@@ -23,6 +24,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-action-sheet')
+    document.body.classList.add('mn-backdrop')
   }
 
   _setMenu() {
@@ -31,10 +33,16 @@ module.exports = class MnActionSheet extends HTMLElement {
 
     Array
       .from(this.querySelectorAll('option'))
-      .forEach(child => {
+      .forEach((child, index) => {
         const option = document.createElement('div')
         option.classList.add('option')
         option.innerHTML = child.textContent
+
+        option.addEventListener('click', (event) => {
+          const changeEvent = new Event('change')
+          changeEvent.data = {index}
+          this.dispatchEvent(changeEvent)
+        })
 
         Array
           .from(child.attributes)
@@ -48,16 +56,34 @@ module.exports = class MnActionSheet extends HTMLElement {
     this.menu = menu
   }
 
+  _setCancel() {
+    const button = document.createElement('button')
+    button.textContent = 'cancel'
+
+    button.addEventListener('click', () => {
+      this.hide()
+    })
+
+    document.addEventListener('click', (event) => {
+      const clickOutside = event.target === this
+      if (clickOutside) {
+        this.hide()
+      }
+    })
+
+    this.button = button
+    this.appendChild(this.button)
+  }
+
   show() {
+    this.menu.scrollTop = 0
     this.classList.add('visible')
-    document.body.classList.add('mn-backdrop')
     document.body.classList.add('mn-backdrop-visible')
     document.body.classList.add('mn-action-sheet-visible')
   }
 
   hide() {
     this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop')
     document.body.classList.remove('mn-backdrop-visible')
     document.body.classList.remove('mn-action-sheet-visible')
   }

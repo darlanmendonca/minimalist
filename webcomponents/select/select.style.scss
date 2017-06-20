@@ -26,11 +26,11 @@
     top: 0; left: 0;
     width: 100%;
 
-    @media (max-width: 767px) {
+    @media (max-device-width: 767px) {
       display: none;
     }
 
-    @media (min-width: 768px) {
+    @media (min-device-width: 768px) {
       visibility: hidden;
       opacity: 0;
       max-height: 9em;
@@ -65,8 +65,9 @@
 }
 
 .mn-select.visible {
+  z-index: 10;
   menu {
-    @media (min-width: 768px) {
+    @media (min-device-width: 768px) {
       opacity: 1;
       visibility: visible;
       overflow: auto;

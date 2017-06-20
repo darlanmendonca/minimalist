@@ -400,6 +400,7 @@ module.exports = class MnActionSheet extends HTMLElement {
   connectedCallback() {
     this._setStyle()
     this._setMenu()
+    this._setCancel()
   }
 
   static get observedAttributes() {
@@ -414,6 +415,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-action-sheet')
+    document.body.classList.add('mn-backdrop')
   }
 
   _setMenu() {
@@ -422,10 +424,16 @@ module.exports = class MnActionSheet extends HTMLElement {
 
     Array
       .from(this.querySelectorAll('option'))
-      .forEach(child => {
+      .forEach((child, index) => {
         const option = document.createElement('div')
         option.classList.add('option')
         option.innerHTML = child.textContent
+
+        option.addEventListener('click', (event) => {
+          const changeEvent = new Event('change')
+          changeEvent.data = {index}
+          this.dispatchEvent(changeEvent)
+        })
 
         Array
           .from(child.attributes)
@@ -439,16 +447,34 @@ module.exports = class MnActionSheet extends HTMLElement {
     this.menu = menu
   }
 
+  _setCancel() {
+    const button = document.createElement('button')
+    button.textContent = 'cancel'
+
+    button.addEventListener('click', () => {
+      this.hide()
+    })
+
+    document.addEventListener('click', (event) => {
+      const clickOutside = event.target === this
+      if (clickOutside) {
+        this.hide()
+      }
+    })
+
+    this.button = button
+    this.appendChild(this.button)
+  }
+
   show() {
+    this.menu.scrollTop = 0
     this.classList.add('visible')
-    document.body.classList.add('mn-backdrop')
     document.body.classList.add('mn-backdrop-visible')
     document.body.classList.add('mn-action-sheet-visible')
   }
 
   hide() {
     this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop')
     document.body.classList.remove('mn-backdrop-visible')
     document.body.classList.remove('mn-action-sheet-visible')
   }
@@ -1034,6 +1060,7 @@ module.exports = class MnSelect extends MnInput {
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
+    this._setActionSheet()
     this._setOptions()
     this._setAttributeValue()
     super._setAttributeDisabled()
@@ -1074,7 +1101,10 @@ module.exports = class MnSelect extends MnInput {
     this.input.addEventListener('blur', () => {
       const option = Array
         .from(this.menu.querySelectorAll('.option'))
-        .filter(option => option.getAttribute('value') === this.getAttribute('value'))[0]
+        .filter(option => {
+          const optionValue = option.getAttribute('value') || option.textContent
+          return optionValue === this.getAttribute('value')
+        })[0]
 
       if (this.input.value && option) {
         this.input.value = option.textContent
@@ -1133,6 +1163,28 @@ module.exports = class MnSelect extends MnInput {
 
     this.appendChild(menu)
     this.menu = menu
+  }
+
+  _setActionSheet() {
+    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+    if (viewportWidth < 768) {
+      const actionSheet = document.createElement('mn-action-sheet')
+      Array
+        .from(this.querySelectorAll('.option'))
+        .forEach(option => {
+          const actionSheetOption = document.createElement('option')
+          actionSheetOption.textContent = option.textContent
+          actionSheet.appendChild(actionSheetOption)
+        })
+      this.actionSheet = actionSheet
+      this.actionSheet.addEventListener('change', (event) => {
+        const {index} = event.data
+        const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
+        this.value = option.textContent
+        this.actionSheet.hide()
+      })
+      document.body.appendChild(this.actionSheet)
+    }
   }
 
   _setOptions() {
@@ -1218,13 +1270,17 @@ module.exports = class MnSelect extends MnInput {
   show() {
     this.classList.add('visible')
     this.menu.scrollTop = 0
-    document.body.classList.add('mn-select-visible')
     this.focusOption(this.querySelector('.option:first-child'))
+
+
+    if (this.actionSheet) {
+      this.input.blur()
+      this.actionSheet.show()
+    }
   }
 
   hide() {
     this.classList.remove('visible')
-    document.body.classList.remove('mn-select-visible')
     this.removeOptionFocus()
   }
 
@@ -1256,9 +1312,10 @@ module.exports = class MnSelect extends MnInput {
     const differentValue = this.getAttribute('value') !== value
     const option = Array
       .from(this.menu.querySelectorAll('.option'))
-      .filter(option => option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-        || option.textContent == value // eslint-disable-line eqeqeq
-      )[0]
+      .filter(option => {
+        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.textContent == String(value) // eslint-disable-line eqeqeq
+      })[0]
 
     const textNotApplied = option && this.input.value !== option.textContent
 
