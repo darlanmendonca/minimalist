@@ -1,4 +1,4 @@
-const {input, password, number, backdrop} = require('minimalist')
+const {input, password, number, backdrop, actionSheet} = require('minimalist')
 
 const form = document.querySelector('form')
 

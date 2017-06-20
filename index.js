@@ -5,4 +5,5 @@ module.exports = {
   date: require('./webcomponents/date/date.webcomponent.js'),
   backdrop: require('./webcomponents/backdrop/backdrop.webcomponent.js'),
   select: require('./webcomponents/select/select.webcomponent.js'),
+  actionSheet: require('./webcomponents/action-sheet/action-sheet.webcomponent.js'),
 }

@@ -1,0 +1,73 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-action-sheet {
+  --border-color: $oc-gray-1;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .5em;
+  transform: translateY(100vh);
+  transition: transform .3s ease, visibility .31s;
+
+  menu {
+    position: relative;
+    z-index: 105;
+    -webkit-user-select: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 50vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: .2em;
+    background-color: white;
+  }
+
+  .option {outline: 0 !important}
+
+  .option:not(:first-child) {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .option, button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    -webkit-appearance: none;
+    border: 0;
+    line-height: 3.2em;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    box-sizing: border-box;
+    padding: 0 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  button {
+    margin-top: .5em;
+    border-radius: .2em;
+    background: white;
+  }
+}
+
+.mn-action-sheet.visible {
+  @media (max-width: 767px) {
+    visibility: visible;
+    z-index: 110;
+    transform: translateY(0);
+    transition: transform .3s ease;
+  }
+}
