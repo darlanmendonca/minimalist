@@ -1,4 +1,5 @@
 const MnInput = require('../input/input.class.js')
+const MnActionSheet = require('../action-sheet/action-sheet.webcomponent.js')
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -119,7 +120,7 @@ module.exports = class MnSelect extends MnInput {
   _setActionSheet() {
     const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
     if (viewportWidth < 768) {
-      const actionSheet = document.createElement('mn-action-sheet')
+      const actionSheet = new MnActionSheet()
       Array
         .from(this.querySelectorAll('.option'))
         .forEach(option => {
