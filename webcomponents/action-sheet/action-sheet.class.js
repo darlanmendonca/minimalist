@@ -7,7 +7,6 @@ module.exports = class MnActionSheet extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = ''
     this._setStyle()
     this._setMenu()
   }
@@ -24,7 +23,6 @@ module.exports = class MnActionSheet extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-action-sheet')
-    this.classList.add('visible')
   }
 
   _setMenu() {
@@ -48,5 +46,19 @@ module.exports = class MnActionSheet extends HTMLElement {
 
     this.appendChild(menu)
     this.menu = menu
+  }
+
+  show() {
+    this.classList.add('visible')
+    document.body.classList.add('mn-backdrop')
+    document.body.classList.add('mn-backdrop-visible')
+    document.body.classList.add('mn-action-sheet-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop')
+    document.body.classList.remove('mn-backdrop-visible')
+    document.body.classList.remove('mn-action-sheet-visible')
   }
 }

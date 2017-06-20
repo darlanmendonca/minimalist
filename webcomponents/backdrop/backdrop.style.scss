@@ -1,11 +1,11 @@
 @import '../../node_modules/open-color/open-color.scss';
 
-.mn-backdrop {
+.mn-backdrop:before {
   --background-color: $oc-gray-9;
   --opacity: .6;
 }
 
-.mn-backdrop {
+.mn-backdrop:before {
   content: '';
   position: fixed;
   top: 0; left: 0;
@@ -19,10 +19,9 @@
   transition: opacity .4s ease, visibility 0 .4s ease;
 }
 
-.mn-backdrop.visible {
+.mn-backdrop-visible:before {
   transition: opacity .4s ease;
   overflow: hidden;
-  pointer-events: all;
   visibility: visible;
   opacity: var(--opacity);
 }

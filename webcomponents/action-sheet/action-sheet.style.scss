@@ -63,6 +63,12 @@
   }
 }
 
+body.mn-action-sheet-visible:before {
+  @media (min-width: 768px) {
+    opacity: 0;
+  }
+}
+
 .mn-action-sheet.visible {
   @media (max-width: 767px) {
     visibility: visible;

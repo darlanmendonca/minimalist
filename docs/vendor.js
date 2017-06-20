@@ -380,7 +380,6 @@ module.exports = {
   password: __webpack_require__(15),
   number: __webpack_require__(13),
   date: __webpack_require__(10),
-  backdrop: __webpack_require__(8),
   select: __webpack_require__(17),
   actionSheet: __webpack_require__(6),
 }
@@ -399,7 +398,6 @@ module.exports = class MnActionSheet extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = ''
     this._setStyle()
     this._setMenu()
   }
@@ -416,7 +414,6 @@ module.exports = class MnActionSheet extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-action-sheet')
-    this.classList.add('visible')
   }
 
   _setMenu() {
@@ -441,6 +438,20 @@ module.exports = class MnActionSheet extends HTMLElement {
     this.appendChild(menu)
     this.menu = menu
   }
+
+  show() {
+    this.classList.add('visible')
+    document.body.classList.add('mn-backdrop')
+    document.body.classList.add('mn-backdrop-visible')
+    document.body.classList.add('mn-action-sheet-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop')
+    document.body.classList.remove('mn-backdrop-visible')
+    document.body.classList.remove('mn-action-sheet-visible')
+  }
 }
 
 
@@ -464,66 +475,8 @@ function MnActionSheetCustomElement() {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-class MnBackdrop extends HTMLElement {
-  constructor() {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this.classList.add('mn-backdrop')
-
-    document.addEventListener('keyup', () => {
-      const esc = event.key === 'Escape'
-
-      if (esc && this.visible) {
-        this.hide()
-      }
-    })
-  }
-
-  show() {
-    this.classList.add('visible')
-  }
-
-  hide() {
-    this.classList.remove('visible')
-  }
-
-  get visible() {
-    return this.classList.contains('visible')
-  }
-}
-
-module.exports = MnBackdrop
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnBackdropCustomElement()
-
-function MnBackdropCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  const MnBackdrop = __webpack_require__(7)
-  window.customElements.define('mn-backdrop', MnBackdrop)
-  return window.customElements.get('mn-backdrop')
-}
-
-
-/***/ }),
+/* 7 */,
+/* 8 */,
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
