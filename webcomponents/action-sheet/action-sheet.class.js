@@ -64,7 +64,7 @@ module.exports = class MnActionSheet extends HTMLElement {
       this.hide()
     })
 
-    document.addEventListener('click', (event) => {
+    document.addEventListener('touchend', (event) => {
       const clickOutside = event.target === this
       if (clickOutside) {
         this.hide()
