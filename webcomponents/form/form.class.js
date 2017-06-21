@@ -9,11 +9,13 @@ module.exports = class MnForm extends HTMLElement {
   connectedCallback() {
     this._setStyle()
     this._setSubmit()
+    this._setAttributeDisabled()
   }
 
   static get observedAttributes() {
     return [
       'name',
+      'disabled',
     ]
   }
 
@@ -39,6 +41,10 @@ module.exports = class MnForm extends HTMLElement {
       .forEach(button => {
         button.addEventListener('click', () => this.submit())
       })
+  }
+
+  _setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
   }
 
   validate() {
@@ -73,6 +79,15 @@ module.exports = class MnForm extends HTMLElement {
     if (name && typeof name === 'string') {
       window[name] = this
     }
+  }
+
+  set disabled(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('disabled')
+          ? input.setAttribute('disabled', '')
+          : input.removeAttribute('disabled', '')
+      })
   }
 
   submit() {
