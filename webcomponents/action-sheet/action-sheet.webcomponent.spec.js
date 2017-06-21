@@ -3,7 +3,6 @@ const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
   .use(require('chai-spies'))
-  .use(require('chai-events'))
 
 let actionSheet
 let component
