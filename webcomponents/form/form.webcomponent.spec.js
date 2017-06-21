@@ -31,6 +31,13 @@ describe('mn-form (webcomponent)', () => {
       expect(component).to.have.class('mn-form')
     })
   })
+
+  describe('method validate', () => {
+    it('should have the method', () => {
+      expect(component).to.have.property('validate')
+      expect(component.validate).to.be.a('function')
+    })
+  })
 })
 
 function loadComponent() {

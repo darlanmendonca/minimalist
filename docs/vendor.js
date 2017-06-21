@@ -347,23 +347,22 @@ module.exports = __webpack_require__(4);
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password, number, backdrop, actionSheet} = __webpack_require__(2)
+const {input, password, number, actionSheet, form} = __webpack_require__(2)
 
-const form = document.querySelector('form')
+// const form = document.querySelector('form')
 
-form.addEventListener('submit', event => {
-  event.preventDefault()
-  form.classList.add('submitted')
-  Array
-    .from(form.querySelectorAll('.mn-input'))
-    // :not([disabled]):not([readonly]'
-    .filter(input => !input.disabled && !input.readOnly)
-    .forEach(input => input.validate())
+// form.addEventListener('submit', event => {
+//   event.preventDefault()
+//   form.classList.add('submitted')
+//   Array
+//     .from(form.querySelectorAll('.mn-input'))
+//     // :not([disabled]):not([readonly]'
+//     .filter(input => !input.disabled && !input.readOnly)
+//     .forEach(input => input.validate())
 
-  const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-  console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
-})
-
+//   const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
+//   console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
+// })
 
 
 /***/ }),
@@ -1475,6 +1474,16 @@ module.exports = class MnForm extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-form')
+  }
+
+  validate() {
+    Array
+      .from(this.querySelectorAll('.mn-input'))
+      .filter(input => !input.disabled && !input.readOnly)
+      .forEach(input => input.validate())
+
+    const isInvalid = this.querySelectorAll('.mn-input.invalid').length
+    console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
   }
 }
 

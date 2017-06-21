@@ -7,7 +7,7 @@
 
   <body>
     <!-- <mn-backdrop></mn-backdrop> -->
-    <form novalidate>
+    <mn-form novalidate>
       <mn-input placeholder="Name" name="username" required></mn-input>
 
       <mn-date placeholder="Date" name="birthdate" required></mn-date>
@@ -30,7 +30,7 @@
       </mn-select>
 
       <button>submit</button>
-    </form>
+    </mn-form>
     <!-- <button>show backdrop</button> -->
     <!-- <div class="mn-card padding-title" style="max-width: 320px">
       <h2>A title</h2>
@@ -39,8 +39,7 @@
 
     <script src="/vendor.js"></script>
     <script>
-      const select = document.querySelector('mn-select')
-      const action = document.querySelector('mn-action-sheet')
+      const form = document.querySelector('mn-form')
     </script>
   </body>
 </html>

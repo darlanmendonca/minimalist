@@ -12,13 +12,13 @@ body {
   background-color: $oc-gray-1;
 }
 
-form {
+form, .mn-form {
   display: flex;
   flex-wrap: wrap;
 }
 
 @media (max-width: 767px) {
-  form {flex-direction: column}
+  form, .mn-form {flex-direction: column}
 }
 
 .mn-input {
