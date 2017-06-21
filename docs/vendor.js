@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -349,13 +349,32 @@ module.exports = class MnInput extends HTMLElement {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = MnActionSheetCustomElement()
+
+function MnActionSheetCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnActionSheet = __webpack_require__(6)
+  window.customElements.define('mn-action-sheet', MnActionSheet)
+  return window.customElements.get('mn-action-sheet')
+}
+
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password, number, actionSheet, form} = __webpack_require__(2)
+module.exports = __webpack_require__(5);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const {input, password, number, actionSheet, form} = __webpack_require__(3)
 
 // const form = document.querySelector('form')
 
@@ -374,22 +393,22 @@ const {input, password, number, actionSheet, form} = __webpack_require__(2)
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
   input: __webpack_require__(11),
   password: __webpack_require__(15),
   number: __webpack_require__(13),
-  date: __webpack_require__(10),
+  date: __webpack_require__(8),
   select: __webpack_require__(17),
-  actionSheet: __webpack_require__(6),
-  form: __webpack_require__(18),
+  actionSheet: __webpack_require__(2),
+  form: __webpack_require__(10),
 }
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -493,28 +512,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnActionSheetCustomElement()
-
-function MnActionSheetCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  const MnActionSheet = __webpack_require__(5)
-  window.customElements.define('mn-action-sheet', MnActionSheet)
-  return window.customElements.get('mn-action-sheet')
-}
-
-
-/***/ }),
-/* 7 */,
-/* 8 */,
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -696,7 +694,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -708,9 +706,122 @@ function MnDateCustomElement() {
     __webpack_require__(0)
   }
 
-  const MnDate = __webpack_require__(9)
+  const MnDate = __webpack_require__(7)
   window.customElements.define('mn-date', MnDate)
   return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnForm extends HTMLElement {
+  constructor() {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setSubmit()
+  }
+
+  static get observedAttributes() {
+    return [
+      'name',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    this[name] = value
+  }
+
+  _setStyle() {
+    this.classList.add('mn-form')
+  }
+
+  _setSubmit() {
+    document.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+      const srcElementInsideForm = event.srcElement.closest('mn-form')
+      if (enter && srcElementInsideForm) {
+        this.submit()
+      }
+    })
+
+    Array
+      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
+      .forEach(button => {
+        button.addEventListener('click', () => this.submit())
+      })
+  }
+
+  validate() {
+    this.inputs
+      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
+      .forEach(input => input.validate())
+
+    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    return isInvalid
+  }
+
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input'))
+  }
+
+  get data() {
+    const data = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          data[name] = input.value
+        }
+      })
+
+    return data
+  }
+
+  set name(name) {
+    if (name && typeof name === 'string') {
+      window[name] = this
+    }
+  }
+
+  submit() {
+    this.classList.add('submitted')
+    const isValid = this.validate()
+    const event = new Event('submit')
+    event.data = this.data
+
+    if (isValid) {
+      this.dispatchEvent(event)
+    }
+  }
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnFormCustomElement()
+
+function MnFormCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnForm = __webpack_require__(9)
+  window.customElements.define('mn-form', MnForm)
+  return window.customElements.get('mn-form')
 }
 
 
@@ -1063,7 +1174,7 @@ function MnPasswordCustomElement() {
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
-const MnActionSheet = __webpack_require__(6)
+const MnActionSheet = __webpack_require__(2)
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -1436,119 +1547,6 @@ function MnSelectCustomElement() {
   const MnSelect = __webpack_require__(16)
   window.customElements.define('mn-select', MnSelect)
   return window.customElements.get('mn-select')
-}
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnFormCustomElement()
-
-function MnFormCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  const MnForm = __webpack_require__(19)
-  window.customElements.define('mn-form', MnForm)
-  return window.customElements.get('mn-form')
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnForm extends HTMLElement {
-  constructor() {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setSubmit()
-  }
-
-  static get observedAttributes() {
-    return [
-      'name',
-    ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
-  }
-
-  _setStyle() {
-    this.classList.add('mn-form')
-  }
-
-  _setSubmit() {
-    document.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-      const srcElementInsideForm = event.srcElement.closest('mn-form')
-      if (enter && srcElementInsideForm) {
-        this.submit()
-      }
-    })
-
-    Array
-      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
-      .forEach(button => {
-        button.addEventListener('click', () => this.submit())
-      })
-  }
-
-  validate() {
-    this.inputs
-      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
-      .forEach(input => input.validate())
-
-    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
-    return isInvalid
-  }
-
-  get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input'))
-  }
-
-  get data() {
-    const data = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          data[name] = input.value
-        }
-      })
-
-    return data
-  }
-
-  set name(name) {
-    if (name && typeof name === 'string') {
-      window[name] = this
-    }
-  }
-
-  submit() {
-    this.classList.add('submitted')
-    const isValid = this.validate()
-    const event = new Event('submit')
-    event.data = this.data
-
-    if (isValid) {
-      this.dispatchEvent(event)
-    }
-  }
 }
 
 
