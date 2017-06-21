@@ -12,7 +12,7 @@ form.addEventListener('submit', event => {
     .forEach(input => input.validate())
 
   const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-  console.log(`form isInvalid: ${isInvalid}`)
+  console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
 })
 
 

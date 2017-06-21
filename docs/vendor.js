@@ -183,12 +183,15 @@ module.exports = class MnInput extends HTMLElement {
         : this.classList.remove('has-value')
     })
 
-    this.input.addEventListener('keyup', () => { // validate
+    const validate = () => { // validate
       const closestForm = this.closest('form')
       closestForm && closestForm.classList.contains('submitted')
         ? this.validate()
         : null
-    })
+    }
+
+    this.input.addEventListener('keyup', validate)
+    this.input.addEventListener('change', validate)
 
     this.input.addEventListener('focus', () => {
       if (!this.hasAttribute('readonly') && !this.hasAttribute('disabled')) {
@@ -358,7 +361,7 @@ form.addEventListener('submit', event => {
     .forEach(input => input.validate())
 
   const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-  console.log(`form isInvalid: ${isInvalid}`)
+  console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
 })
 
 
@@ -1077,7 +1080,7 @@ module.exports = class MnSelect extends MnInput {
     super._setAttributeAutofocus()
     super._setAttributeAutocomplete()
     super._setAttributeSpellcheck()
-    // this._setValidations()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -1276,6 +1279,12 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    delete this.validations.pattern
+  }
+
   show() {
     this.classList.add('visible')
     this.menu.scrollTop = 0
@@ -1332,12 +1341,13 @@ module.exports = class MnSelect extends MnInput {
         ? option.textContent
         : ''
 
-      this.input.dispatchEvent(new Event('change'))
-
       const hasValue = value !== undefined && value !== null
+
       hasValue && option
         ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
         :  this.removeAttribute('value')
+
+      this.input.dispatchEvent(new Event('change'))
     }
 
     if (!this.hasAttribute('value')) {

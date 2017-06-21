@@ -20,7 +20,7 @@ module.exports = class MnSelect extends MnInput {
     super._setAttributeAutofocus()
     super._setAttributeAutocomplete()
     super._setAttributeSpellcheck()
-    // this._setValidations()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -219,6 +219,12 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    delete this.validations.pattern
+  }
+
   show() {
     this.classList.add('visible')
     this.menu.scrollTop = 0
@@ -275,12 +281,13 @@ module.exports = class MnSelect extends MnInput {
         ? option.textContent
         : ''
 
-      this.input.dispatchEvent(new Event('change'))
-
       const hasValue = value !== undefined && value !== null
+
       hasValue && option
         ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
         :  this.removeAttribute('value')
+
+      this.input.dispatchEvent(new Event('change'))
     }
 
     if (!this.hasAttribute('value')) {
