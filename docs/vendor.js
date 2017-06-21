@@ -463,7 +463,6 @@ module.exports = class MnActionSheet extends HTMLElement {
     })
 
     document.addEventListener('touchend', (event) => {
-      console.log('touchend dispatched', event.target)
       const clickOutside = event.target === this && !this.touchmove
       if (clickOutside) {
         this.hide()
