@@ -15,11 +15,3 @@ form.addEventListener('submit', event => {
   console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
 })
 
-
-// const layer = document.querySelector('mn-backdrop')
-
-// const button = document.querySelector('button')
-// button.addEventListener('click', () => {
-//   layer.show()
-// })
-

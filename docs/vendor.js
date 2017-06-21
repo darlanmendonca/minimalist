@@ -365,14 +365,6 @@ form.addEventListener('submit', event => {
 })
 
 
-// const layer = document.querySelector('mn-backdrop')
-
-// const button = document.querySelector('button')
-// button.addEventListener('click', () => {
-//   layer.show()
-// })
-
-
 
 /***/ }),
 /* 4 */
@@ -385,6 +377,7 @@ module.exports = {
   date: __webpack_require__(10),
   select: __webpack_require__(17),
   actionSheet: __webpack_require__(6),
+  form: __webpack_require__(18),
 }
 
 
@@ -1432,6 +1425,57 @@ function MnSelectCustomElement() {
   const MnSelect = __webpack_require__(16)
   window.customElements.define('mn-select', MnSelect)
   return window.customElements.get('mn-select')
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnFormCustomElement()
+
+function MnFormCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnForm = __webpack_require__(19)
+  window.customElements.define('mn-form', MnForm)
+  return window.customElements.get('mn-form')
+}
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnForm extends HTMLElement {
+  constructor() {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+  }
+
+  static get observedAttributes() {
+    return []
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode) {
+      this[name] = value
+    }
+  }
+
+  _setStyle() {
+    this.classList.add('mn-form')
+  }
 }
 
 

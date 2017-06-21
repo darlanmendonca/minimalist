@@ -44,4 +44,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('actionSheet')
   })
+
+  it('should export form component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('form')
+  })
 })
