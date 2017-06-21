@@ -8,6 +8,7 @@ module.exports = class MnForm extends HTMLElement {
 
   connectedCallback() {
     this._setStyle()
+    this._setSubmit()
   }
 
   static get observedAttributes() {
@@ -24,15 +25,29 @@ module.exports = class MnForm extends HTMLElement {
     this.classList.add('mn-form')
   }
 
-  validate() {
-    this.classList.add('submitted')
+  _setSubmit() {
+    document.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+      const srcElementInsideForm = event.srcElement.closest('mn-form')
+      if (enter && srcElementInsideForm) {
+        this.submit()
+      }
+    })
 
+    Array
+      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
+      .forEach(button => {
+        button.addEventListener('click', () => this.submit())
+      })
+  }
+
+  validate() {
     this.inputs
       .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
 
-    const isInvalid = this.querySelectorAll('.mn-input.invalid').length
-    console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
+    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    return isInvalid
   }
 
   get inputs() {
@@ -57,6 +72,17 @@ module.exports = class MnForm extends HTMLElement {
   set name(name) {
     if (name && typeof name === 'string') {
       window[name] = this
+    }
+  }
+
+  submit() {
+    this.classList.add('submitted')
+    const isValid = this.validate()
+    const event = new Event('submit')
+    event.data = this.data
+
+    if (isValid) {
+      this.dispatchEvent(event)
     }
   }
 }

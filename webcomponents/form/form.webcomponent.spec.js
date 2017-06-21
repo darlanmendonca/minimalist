@@ -1,7 +1,8 @@
 /* global describe, it, before, beforeEach */
-const {expect} = require('chai')
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
+  .use(require('chai-spies'))
 
 // let form
 let component
@@ -36,6 +37,24 @@ describe('mn-form (webcomponent)', () => {
     it('should have the method', () => {
       expect(component).to.have.property('validate')
       expect(component.validate).to.be.a('function')
+    })
+  })
+
+  describe('method submit', () => {
+    it('should have the method', () => {
+      expect(component).to.have.property('submit')
+      expect(component.submit).to.be.a('function')
+    })
+
+    it('should validate when called', () => {
+      const validate = spy.on(component, 'validate')
+      component.submit()
+      expect(validate).to.have.been.called()
+    })
+
+    it('should add class submitted', () => {
+      component.submit()
+      expect(component).to.have.class('submitted')
     })
   })
 

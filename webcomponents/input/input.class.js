@@ -70,7 +70,7 @@ module.exports = class MnInput extends HTMLElement {
     })
 
     const validate = () => { // validate
-      const closestForm = this.closest('form')
+      const closestForm = this.closest('form') || this.closest('mn-form')
       closestForm && closestForm.classList.contains('submitted')
         ? this.validate()
         : null
@@ -145,13 +145,15 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set value(value = '') {
-    const differentValue = this.input.value !== value
+    if (this.input) {
+      const differentValue = this.input.value !== value
 
-    if (differentValue) {
-      this.input.value = this.trimValue && value
-        ? value.replace(/\s{2,}/g, ' ').trim()
-        : value
-      this.input.dispatchEvent(new Event('change'))
+      if (differentValue) {
+        this.input.value = this.trimValue && value
+          ? value.replace(/\s{2,}/g, ' ').trim()
+          : value
+        this.input.dispatchEvent(new Event('change'))
+      }
     }
   }
 

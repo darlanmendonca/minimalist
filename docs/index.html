@@ -6,14 +6,14 @@
   </head>
 
   <body>
-    <mn-form novalidate name="form">
+    <mn-form name="form">
       <mn-input placeholder="Name" name="username" required></mn-input>
 
-      <mn-date placeholder="Date" name="birthdate" required></mn-date>
+      <!-- <mn-date placeholder="Date" name="birthdate" required></mn-date> -->
 
       <mn-password placeholder="Password" name="password" required></mn-password>
 
-      <mn-number placeholder="Number" name="number" max="2" required></mn-number>
+      <!-- <mn-number placeholder="Number" name="number" required></mn-number>
       <mn-number placeholder="Precision" name="precision" precision="3" required></mn-number>
       <mn-number placeholder="Currency" name="currency" currency step="0.1" required></mn-number>
       <mn-number placeholder="Percentage" name="percentage" percentage required></mn-number>
@@ -26,9 +26,9 @@
         <option>Bolton</option>
         <option>Karstark</option>
         <option>Frey</option>
-      </mn-select>
+      </mn-select> -->
 
-      <button>submit</button>
+      <button type="submit">submit</button>
     </mn-form>
     <!-- <button>show backdrop</button> -->
     <!-- <div class="mn-card padding-title" style="max-width: 320px">
@@ -38,7 +38,11 @@
 
     <script src="/vendor.js"></script>
     <script>
-      // const form = document.querySelector('mn-form')
+      const form = document.querySelector('mn-form')
+
+      form.addEventListener('submit', event => {
+        console.log('submiting', event.data)
+      })
     </script>
   </body>
 </html>
