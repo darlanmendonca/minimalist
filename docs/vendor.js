@@ -734,6 +734,7 @@ module.exports = class MnForm extends HTMLElement {
     return [
       'name',
       'disabled',
+      'readonly',
     ]
   }
 
@@ -763,6 +764,10 @@ module.exports = class MnForm extends HTMLElement {
 
   _setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
+  }
+
+  _setAttributeDisabled() {
+    this.readonly = this.hasAttribute('readonly')
   }
 
   validate() {
@@ -803,8 +808,17 @@ module.exports = class MnForm extends HTMLElement {
     this.inputs
       .forEach(input => {
         this.hasAttribute('disabled')
-          ? input.setAttribute('disabled', '')
+          ? input.setAttribute('disabled')
           : input.removeAttribute('disabled', '')
+      })
+  }
+
+  set readonly(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('readonly')
+          ? input.setAttribute('readonly', '')
+          : input.removeAttribute('readonly')
       })
   }
 
