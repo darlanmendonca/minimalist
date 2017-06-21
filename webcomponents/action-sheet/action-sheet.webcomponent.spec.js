@@ -116,7 +116,7 @@ describe('mn-action-sheet (webcomponent)', () => {
   describe('option', () => {
     it('should dispatch event change on click with data', () => {
       component.addEventListener('change', (event) => {
-        expect(event).to.have.property('datar')
+        expect(event).to.have.property('data')
       })
       actionSheet.clickOn('Stark')
     })
