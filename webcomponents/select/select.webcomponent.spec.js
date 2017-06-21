@@ -174,6 +174,27 @@ describe('mn-select (webcomponent)', () => {
       expect(component).to.have.value(false)
       expect(component.input).to.have.value('Test')
     })
+
+    it('should evaluate string object', () => {
+      select.addOption('Test', '{name: \'targaryen\'}')
+      select.setProperty('value', 'Test')
+      expect(component.value).to.deep.equal({name: 'targaryen'})
+      expect(component.input).to.have.value('Test')
+    })
+
+    it('should evaluate json object', () => {
+      select.addOption('Test', '{"name": "targaryen"}')
+      select.setProperty('value', 'Test')
+      expect(component.value).to.deep.equal({name: 'targaryen'})
+      expect(component.input).to.have.value('Test')
+    })
+
+    it('should evaluate array', () => {
+      select.addOption('Test', '[1, "2"]')
+      select.setProperty('value', 'Test')
+      expect(component.value).to.deep.equal([1, '2'])
+      expect(component.input).to.have.value('Test')
+    })
   })
 
   describe('attribute value', () => {
