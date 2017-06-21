@@ -1,7 +1,8 @@
 /* global describe, it, before, beforeEach */
-const {expect} = require('chai')
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
+  .use(require('chai-spies'))
 
 let select // page object defined in method setPageObject
 let component
@@ -316,6 +317,54 @@ describe('mn-select (webcomponent)', () => {
     it('should remove attribute from child input', () => {
       select.removeAttribute('disabled')
       expect(component.input).to.not.have.attribute('disabled')
+    })
+  })
+
+  describe('method validate()', () => {
+    it('should be called on event change, if have a parent form.submitted', () => {
+      component.closest('form').classList.add('submitted')
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('change'))
+      expect(validate).to.have.been.called()
+    })
+
+    it('should not called on event change, if not have a parent form.submitted', () => {
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('change'))
+      expect(validate).to.not.have.been.called
+    })
+  })
+
+  describe('attribute required', () => {
+    it('should be invalid if typed nothing', () => {
+      select.setAttribute('required')
+      component.validate()
+      expect(component).to.have.class('invalid')
+      expect(component).to.have.class('required')
+    })
+
+    it('should be valid if setted a valid value', () => {
+      select.setAttribute('required')
+      select.setProperty('value', 'Stark')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should be valid if typed a valid value', () => {
+      select.setAttribute('required')
+      select.setProperty('value', 'Lannister')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
+
+    it('should validate if attribute was removed', () => {
+      select.setAttribute('required')
+      select.removeAttribute('required')
+      component.validate()
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
     })
   })
 })
