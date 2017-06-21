@@ -8,14 +8,17 @@
   <body>
     <!-- <mn-backdrop></mn-backdrop> -->
     <form novalidate>
-      <mn-date placeholder="Birthdate" name="birthdate" required value="1990-09-04"></mn-date>
-      <mn-date placeholder="A date" name="date" required max="2017-05-06" value="2017-05-07"></mn-date>
-      <mn-input placeholder="Name" name="username" required value="Test"></mn-input>
-      <mn-password id="password" placeholder="Password" required value="A password"></mn-password>
-      <mn-number placeholder="Number" required max="2" value="10"></mn-number>
-      <mn-number placeholder="Precision" precision="3" value="10"></mn-number>
-      <mn-number placeholder="Money" currency value="10" step="0.1"></mn-number>
-      <mn-number placeholder="Percent" percentage value="1"></mn-number>
+      <mn-input placeholder="Name" name="username" required></mn-input>
+
+      <mn-date placeholder="Date" name="birthdate" required></mn-date>
+
+      <mn-password placeholder="Password" required></mn-password>
+
+      <mn-number placeholder="Number" max="2" required></mn-number>
+      <mn-number placeholder="Precision" precision="3" required></mn-number>
+      <mn-number placeholder="Currency" currency step="0.1" required></mn-number>
+      <mn-number placeholder="Percentage" percentage required></mn-number>
+
       <mn-select placeholder="House" required>
         <option value="false">Stark</option>
         <option value="true">Tyrell</option>
@@ -26,10 +29,6 @@
         <option>Frey</option>
       </mn-select>
 
-      <mn-select placeholder="Gender">
-        <option>Male</option>
-        <option>Female</option>
-      </mn-select>
       <button>submit</button>
     </form>
     <!-- <button>show backdrop</button> -->

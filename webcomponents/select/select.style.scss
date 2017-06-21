@@ -64,6 +64,10 @@
   }
 }
 
+mn-select option {
+  display: none;
+}
+
 .mn-select.visible {
   z-index: 10;
   menu {
