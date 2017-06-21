@@ -1,16 +1,18 @@
 /* global describe, it, before, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
-  .use(require('chai-colors'))
   .use(require('chai-style'))
   .use(require('chai-spies'))
+  .use(require('chai-events'))
 
+let actionSheet
 let component
 
 describe('mn-action-sheet (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -111,6 +113,36 @@ describe('mn-action-sheet (webcomponent)', () => {
       expect(hide).to.have.been.called()
     })
   })
+
+  describe('option', () => {
+    it('should dispatch event change on click with data', () => {
+      component.addEventListener('change', (event) => {
+        expect(event).to.have.property('datar')
+      })
+      actionSheet.clickOn('Stark')
+    })
+
+    it('should has index 0 on click in Stark', () => {
+      component.addEventListener('change', (event) => {
+        expect(event.data.index).to.be.equal(0)
+      })
+      actionSheet.clickOn('Stark')
+    })
+
+    it('should has index 0 on click in Lannister', () => {
+      component.addEventListener('change', (event) => {
+        expect(event.data.index).to.be.equal(1)
+      })
+      actionSheet.clickOn('Lannister')
+    })
+
+    it('should has index 0 on click in Targaryen', () => {
+      component.addEventListener('change', (event) => {
+        expect(event.data.index).to.be.equal(1)
+      })
+      actionSheet.clickOn('Targaryen')
+    })
+  })
 })
 
 function loadComponent() {
@@ -141,4 +173,9 @@ function createComponent() {
   })
 
   document.body.appendChild(component)
+}
+
+function setPageObject() {
+  const ActionSheetPageObject = require('./action-sheet.po.js')
+  actionSheet = new ActionSheetPageObject(component)
 }
