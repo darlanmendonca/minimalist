@@ -38,6 +38,24 @@ describe('mn-form (webcomponent)', () => {
       expect(component.validate).to.be.a('function')
     })
   })
+
+  describe('property data', () => {
+    it('should be an object', () => {
+      expect(component).to.have.property('data')
+      expect(component.data).to.be.an('object')
+    })
+
+    it('should have keys from input names', () => {
+      expect(component.data).to.have.all.keys('username', 'password')
+    })
+
+    it('should apply values to keys', () => {
+      component.username.value = 'john'
+      component.password.value = 'snow'
+      expect(component.data).to.have.property('username', 'john')
+      expect(component.data).to.have.property('password', 'snow')
+    })
+  })
 })
 
 function loadComponent() {
@@ -54,8 +72,15 @@ function cleanView() {
 
 function createComponent() {
   component = document.createElement('mn-form')
-
   document.body.appendChild(component)
+
+  const username = document.createElement('mn-input')
+  component.appendChild(username)
+  username.setAttribute('name', 'username')
+
+  const password = document.createElement('mn-password')
+  component.appendChild(password)
+  password.setAttribute('name', 'password')
 }
 
 // function setPageObject() {

@@ -37,9 +37,10 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.label && this.input) {
-      this[name] = value
-    }
+    this[name] = value
+    // if (this.parentNode && this.label && this.input) {
+    //   this[name] = value
+    // }
   }
 
   _setStyle() {
@@ -155,7 +156,8 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set name(value) {
-    const form = this.closest('form')
+    // console.log('set name')
+    const form = this.closest('form') || this.closest('mn-form')
     const name = this.getAttribute('name')
     const element = this
 
@@ -171,11 +173,15 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set placeholder(value) {
-    this.label.textContent = value
+    if (this.label) {
+      this.label.textContent = value
+    }
   }
 
   set disabled(value) {
-    this.input.disabled = value || this.hasAttribute('disabled')
+    if (this.input) {
+      this.input.disabled = value || this.hasAttribute('disabled')
+    }
   }
 
   set readonly(value) {

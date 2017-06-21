@@ -11,13 +11,13 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return []
+    return [
+      'name',
+    ]
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode) {
-      this[name] = value
-    }
+    this[name] = value
   }
 
   _setStyle() {
@@ -25,12 +25,38 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   validate() {
-    Array
-      .from(this.querySelectorAll('.mn-input'))
-      .filter(input => !input.disabled && !input.readOnly)
+    this.classList.add('submitted')
+
+    this.inputs
+      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
 
     const isInvalid = this.querySelectorAll('.mn-input.invalid').length
     console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
+  }
+
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input'))
+  }
+
+  get data() {
+    const data = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          data[name] = input.value
+        }
+      })
+
+    return data
+  }
+
+  set name(name) {
+    if (name && typeof name === 'string') {
+      window[name] = this
+    }
   }
 }

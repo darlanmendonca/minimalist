@@ -6,20 +6,19 @@
   </head>
 
   <body>
-    <!-- <mn-backdrop></mn-backdrop> -->
-    <mn-form novalidate>
+    <mn-form novalidate name="form">
       <mn-input placeholder="Name" name="username" required></mn-input>
 
       <mn-date placeholder="Date" name="birthdate" required></mn-date>
 
-      <mn-password placeholder="Password" required></mn-password>
+      <mn-password placeholder="Password" name="password" required></mn-password>
 
-      <mn-number placeholder="Number" max="2" required></mn-number>
-      <mn-number placeholder="Precision" precision="3" required></mn-number>
-      <mn-number placeholder="Currency" currency step="0.1" required></mn-number>
-      <mn-number placeholder="Percentage" percentage required></mn-number>
+      <mn-number placeholder="Number" name="number" max="2" required></mn-number>
+      <mn-number placeholder="Precision" name="precision" precision="3" required></mn-number>
+      <mn-number placeholder="Currency" name="currency" currency step="0.1" required></mn-number>
+      <mn-number placeholder="Percentage" name="percentage" percentage required></mn-number>
 
-      <mn-select placeholder="House" required>
+      <mn-select placeholder="House" name="house" required disabled>
         <option value="false">Stark</option>
         <option value="true">Tyrell</option>
         <option value="{id: 1, name: 'lannister'}">Lannister</option>
@@ -39,7 +38,7 @@
 
     <script src="/vendor.js"></script>
     <script>
-      const form = document.querySelector('mn-form')
+      // const form = document.querySelector('mn-form')
     </script>
   </body>
 </html>

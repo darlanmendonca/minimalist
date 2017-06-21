@@ -169,15 +169,19 @@ module.exports = class MnNumber extends MnInput {
   }
 
   set max(value) {
-    this.hasAttribute('max')
-      ? this.label.setAttribute('max', value)
-      : this.label.removeAttribute('max')
+    if (this.label) {
+      this.hasAttribute('max')
+        ? this.label.setAttribute('max', value)
+        : this.label.removeAttribute('max')
+    }
   }
 
   set min(value) {
-    this.hasAttribute('min')
-      ? this.label.setAttribute('min', value)
-      : this.label.removeAttribute('min')
+    if (this.label) {
+      this.hasAttribute('min')
+        ? this.label.setAttribute('min', value)
+        : this.label.removeAttribute('min')
+    }
   }
 
   updateMask() {
