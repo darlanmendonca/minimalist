@@ -15,4 +15,12 @@ function HomeController() {
   this.precision = 10
   this.currency = 10
   this.percentage = 1
+
+  this.options = [
+    'Stark',
+    'Lannister',
+    'Targaryen',
+    'Tyrell',
+    'Martell',
+  ]
 }

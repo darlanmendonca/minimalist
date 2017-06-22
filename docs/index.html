@@ -47,13 +47,14 @@
         <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number>
 
         <mn-select placeholder="House: {{ controller.house }}" ng-model="controller.house" required>
-          <option value="false">Stark</option>
+          <!-- <option value="false">Stark</option>
           <option value="true">Tyrell</option>
           <option value="{id: 1, name: 'lannister'}">Lannister</option>
           <option>Targaryen</option>
           <option>Bolton</option>
           <option>Karstark</option>
-          <option>Frey</option>
+          <option>Frey</option> -->
+          <option ng-repeat="option in controller.options">{{ option }}</option>
         </mn-select>
       </mn-form>
     </div>

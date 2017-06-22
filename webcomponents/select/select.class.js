@@ -14,6 +14,7 @@ module.exports = class MnSelect extends MnInput {
     this._setMenu()
     this._setActionSheet()
     this._setOptions()
+    this._setKeyboardNavigation()
     this._setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
@@ -99,11 +100,10 @@ module.exports = class MnSelect extends MnInput {
       .forEach(child => {
         const option = document.createElement('div')
         option.classList.add('option')
-        option.innerHTML = child
-          .textContent
-          .split('')
-          .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-          .join('')
+        option.innerHTML = child.textContent
+          // .split('')
+          // .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+          // .join('')
 
         Array
           .from(child.attributes)
@@ -152,7 +152,9 @@ module.exports = class MnSelect extends MnInput {
         this.focusOption(option)
       }
     }))
+  }
 
+  _setKeyboardNavigation() {
     this.input.addEventListener('keydown', (event) => { // arrow navigate
       const arrowDown = event.key === 'ArrowDown'
       const arrowUp = event.key === 'ArrowUp'
