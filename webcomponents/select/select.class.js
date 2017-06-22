@@ -12,7 +12,9 @@ module.exports = class MnSelect extends MnInput {
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    this._setActionSheet()
+    if (!this.closest('[ng-app]')) {
+      this._setActionSheet()
+    }
     this._setOptions()
     this._setKeyboardNavigation()
     this._setAttributeValue()

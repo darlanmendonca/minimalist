@@ -11,6 +11,7 @@ function MnSelectDirective() {
       element.ready(() => {
         const component = element[0]
         component._setOptions()
+        component._setActionSheet()
 
         Array
           .from(component.menu.querySelectorAll('.option'))
