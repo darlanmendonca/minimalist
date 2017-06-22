@@ -56,6 +56,20 @@ describe('mn-input (directive)', () => {
       expect(scope.username).to.be.equal('test2')
       expect(component).to.have.value('test2')
     })
+
+    it('should be update if input dispatch event change', () => {
+      component.input.value = 'test'
+      component.input.dispatchEvent(new Event('change'))
+      expect(scope.username).to.be.equal('test')
+      expect(component).to.have.value('test')
+    })
+
+    it('should be update if input dispatch event input', () => {
+      component.input.value = 'test2'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.username).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
   })
 })
 

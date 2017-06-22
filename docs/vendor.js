@@ -34994,15 +34994,19 @@ function MnInputDirective() {
     restrict: 'C',
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
-      const input = element[0].querySelector('input')
+      const component = element[0]
+      const input = component.input
 
-      input.addEventListener('change', () => {
-        ngModel.$setViewValue(input.value)
-      })
+      input.addEventListener('change', setViewValue)
+      input.addEventListener('input', setViewValue)
 
       scope.$watch(attributes.ngModel, value => {
-        element[0].value = value
+        component.value = value
       })
+
+      function setViewValue() {
+        ngModel.$setViewValue(input.value)
+      }
     }
   }
 }
