@@ -79,6 +79,55 @@ describe('mn-input (directive)', () => {
     })
   })
 
+  describe('mn-password ngModel', () => {
+    beforeEach(createMnPassword)
+    it('should be undefined if it doesn\'t exist', () => {
+      expect(scope.password).to.be.undefined
+      expect(component).to.have.value('')
+    })
+
+    it('should be undefined if applied undefined', () => {
+      scope.password = undefined
+      scope.$digest()
+      expect(scope.password).to.be.undefined
+      expect(component).to.have.value('')
+    })
+
+    it('should be a string if applied a string to ngModel', () => {
+      scope.password = 'test'
+      scope.$digest()
+      expect(scope.password).to.be.equal('test')
+      expect(component).to.have.value('test')
+    })
+
+    it('should be a string if applied a string to property value', () => {
+      component.value = 'test2'
+      expect(scope.password).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+
+    it('should be update if input dispatch event change', () => {
+      component.input.value = 'test'
+      component.input.dispatchEvent(new Event('change'))
+      expect(scope.password).to.be.equal('test')
+      expect(component).to.have.value('test')
+    })
+
+    it('should be update if input dispatch event input', () => {
+      component.input.value = 'test2'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.password).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+
+    it('should be update if input dispatch event blur', () => {
+      component.input.value = 'test2'
+      component.input.dispatchEvent(new Event('blur'))
+      expect(scope.password).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+  })
+
   describe('mn-date ngModel', () => {
     beforeEach(createMnDate)
     afterEach(fixAngularErrorWithFocus)
@@ -159,6 +208,17 @@ function createMnInput() {
     scope = $rootScope.$new()
     component = document.createElement('mn-input')
     component.setAttribute('ng-model', 'username')
+    document.body.appendChild(component)
+    $compile(component)(scope)
+    scope.$digest()
+  })
+}
+
+function createMnPassword() {
+  return angular.mock.inject(($rootScope, $compile) => {
+    scope = $rootScope.$new()
+    component = document.createElement('mn-password')
+    component.setAttribute('ng-model', 'password')
     document.body.appendChild(component)
     $compile(component)(scope)
     scope.$digest()
