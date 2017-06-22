@@ -6,7 +6,7 @@
   </head>
 
   <body>
-    <!-- <h2>vanilla js</h2>
+    <h2>vanilla js</h2>
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
 
@@ -30,7 +30,7 @@
       </mn-select>
 
       <button type="submit">submit</button>
-    </mn-form> -->
+    </mn-form>
 
     <h2>angular</h2>
     <div ng-app="app" ng-controller="HomeController as controller">
@@ -46,7 +46,7 @@
         <mn-number placeholder="Currency: {{ controller.currency }}" ng-model="controller.currency" currency step="0.1" required></mn-number>
         <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number>
 
-        <!-- <mn-select placeholder="House" name="house" required>
+        <mn-select placeholder="House: {{ controller.house }}" ng-model="controller.house" required>
           <option value="false">Stark</option>
           <option value="true">Tyrell</option>
           <option value="{id: 1, name: 'lannister'}">Lannister</option>
@@ -54,7 +54,7 @@
           <option>Bolton</option>
           <option>Karstark</option>
           <option>Frey</option>
-        </mn-select> -->
+        </mn-select>
       </mn-form>
     </div>
 

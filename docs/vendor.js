@@ -1414,6 +1414,7 @@ module.exports = class MnSelect extends MnInput {
       if (enter) {
         const option = this.menu.querySelector('.option.focus')
         event.preventDefault()
+        event.stopPropagation()
 
         option
           ? this.value = option.getAttribute('value') || option.textContent
