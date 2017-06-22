@@ -213,6 +213,200 @@ describe('mn-input (directive)', () => {
       expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
   })
+
+  describe('mn-number ngModel', () => {
+    beforeEach(createMnNumber)
+    afterEach(fixAngularErrorWithFocus)
+
+    it('should be undefined if it doesn\'t exist', () => {
+      expect(scope.number).to.be.undefined
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be undefined if applied undefined', () => {
+      scope.number = undefined
+      scope.$digest()
+      expect(scope.number).to.be.undefined
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be a number if applied a number to ngModel', () => {
+      scope.number = 0
+      scope.$digest()
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should be a number if applied a float number to ngModel', () => {
+      scope.number = 0.5
+      scope.$digest()
+      expect(scope.number).to.be.equal(0.5)
+      expect(component).to.have.value(0.5)
+      expect(component.input).to.have.value('0,5')
+    })
+
+    it('should be a number if applied a number to property value', () => {
+      component.value = 0
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should be update if input dispatch event change', () => {
+      component.input.value = '0'
+      component.input.dispatchEvent(new Event('change'))
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should not update if input dispatch event change while focused', () => {
+      component.input.focus()
+      component.input.value = '0'
+      component.input.dispatchEvent(new Event('change'))
+
+      expect(scope.date).to.be.undefined
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should be update if input dispatch event input', () => {
+      component.input.value = '0'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should not update if input dispatch event input while focused', () => {
+      component.input.focus()
+      component.input.value = '0'
+      component.input.dispatchEvent(new Event('input'))
+
+      expect(scope.date).to.be.undefined
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should be update if input dispatch event blur', () => {
+      component.input.value = '0'
+      component.input.dispatchEvent(new Event('blur'))
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0')
+    })
+
+    it('should work with attribute precision if applied a number to ngModel', () => {
+      component.setAttribute('precision', 2)
+      scope.number = 0
+      scope.$digest()
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,00')
+    })
+
+    it('should work with attribute precision if applied a number to property value', () => {
+      component.setAttribute('precision', 2)
+      component.value = 0
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,00')
+    })
+
+    it('should work with attribute currency if applied a number to ngModel', () => {
+      component.setAttribute('currency', '')
+      scope.number = 0
+      scope.$digest()
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,00')
+    })
+
+    it('should work with attribute currency if applied a number to property value', () => {
+      component.setAttribute('currency', '')
+      component.value = 0
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,00')
+    })
+
+    it('should work with attributes currency and precision if applied a number to ngModel', () => {
+      component.setAttribute('currency', '')
+      component.setAttribute('precision', '3')
+      scope.number = 0
+      scope.$digest()
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,000')
+    })
+
+    it('should work with attributes currency and precision if applied a number to property value', () => {
+      component.setAttribute('currency', '')
+      component.setAttribute('precision', '3')
+      component.value = 0
+      expect(scope.number).to.be.equal(0)
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('0,000')
+    })
+
+    it('should work with attribute percentage if applied a number to ngModel', () => {
+      component.setAttribute('percentage', '')
+      scope.number = 1
+      scope.$digest()
+      expect(scope.number).to.be.equal(1)
+      expect(component).to.have.value(1)
+      expect(component.input).to.have.value('100')
+    })
+
+    it('should work with attribute percentage if applied a number to property value', () => {
+      component.setAttribute('percentage', '')
+      component.value = 1
+      expect(scope.number).to.be.equal(1)
+      expect(component).to.have.value(1)
+      expect(component.input).to.have.value('100')
+    })
+
+    it('should work with attribute percentage if write a number', () => {
+      component.setAttribute('percentage', '')
+      component.input.value = '1'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.number).to.be.equal(0.01)
+      expect(component).to.have.value(0.01)
+      expect(component.input).to.have.value('1')
+    })
+
+    it('should work with attributes percentage and precision if applied a number to ngModel', () => {
+      component.setAttribute('percentage', '')
+      component.setAttribute('precision', '3')
+      scope.number = 1
+      scope.$digest()
+      expect(scope.number).to.be.equal(1)
+      expect(component).to.have.value(1)
+      expect(component.input).to.have.value('100,000')
+    })
+
+    it('should work with attributes percentage and precision if applied a number to property value', () => {
+      component.setAttribute('percentage', '')
+      component.setAttribute('precision', '3')
+      component.value = 1
+      expect(scope.number).to.be.equal(1)
+      expect(component).to.have.value(1)
+      expect(component.input).to.have.value('100,000')
+    })
+
+    it('should work with attributes percentage and precision if write a number', () => {
+      component.setAttribute('percentage', '')
+      component.setAttribute('precision', '3')
+      component.input.value = '1'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.number).to.be.equal(0.01)
+      expect(component).to.have.value(0.01)
+      expect(component.input).to.have.value('1,000')
+    })
+  })
 })
 
 function loadComponent() {
@@ -247,6 +441,17 @@ function createMnDate() {
     scope = $rootScope.$new()
     component = document.createElement('mn-date')
     component.setAttribute('ng-model', 'date')
+    document.body.appendChild(component)
+    $compile(component)(scope)
+    scope.$digest()
+  })
+}
+
+function createMnNumber() {
+  return angular.mock.inject(($rootScope, $compile) => {
+    scope = $rootScope.$new()
+    component = document.createElement('mn-number')
+    component.setAttribute('ng-model', 'number')
     document.body.appendChild(component)
     $compile(component)(scope)
     scope.$digest()

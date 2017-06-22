@@ -390,7 +390,7 @@ function HomeController() {
   this.number = 10
   this.precision = 10
   this.currency = 10
-  // this.percentage = 1
+  this.percentage = 1
 }
 
 
