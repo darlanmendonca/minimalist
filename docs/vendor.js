@@ -808,8 +808,8 @@ module.exports = class MnForm extends HTMLElement {
     this.inputs
       .forEach(input => {
         this.hasAttribute('disabled')
-          ? input.setAttribute('disabled')
-          : input.removeAttribute('disabled', '')
+          ? input.setAttribute('disabled', 'true')
+          : input.removeAttribute('disabled')
       })
   }
 
@@ -817,7 +817,7 @@ module.exports = class MnForm extends HTMLElement {
     this.inputs
       .forEach(input => {
         this.hasAttribute('readonly')
-          ? input.setAttribute('readonly', '')
+          ? input.setAttribute('readonly', 'true')
           : input.removeAttribute('readonly')
       })
   }

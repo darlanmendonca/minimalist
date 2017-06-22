@@ -1,17 +1,17 @@
 /* global describe, it, before, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
-  .use(require('chai-style'))
   .use(require('chai-spies'))
+  .use(require('chai-things'))
 
-// let form
+let form
 let component
 
 describe('mn-form (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
-  // beforeEach(setPageObject)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -65,7 +65,7 @@ describe('mn-form (webcomponent)', () => {
     })
 
     it('should have keys from input names', () => {
-      expect(component.data).to.have.all.keys('username', 'password')
+      expect(component.data).to.have.keys('username', 'password')
     })
 
     it('should apply values to keys', () => {
@@ -73,6 +73,32 @@ describe('mn-form (webcomponent)', () => {
       component.password.value = 'snow'
       expect(component.data).to.have.property('username', 'john')
       expect(component.data).to.have.property('password', 'snow')
+    })
+  })
+
+  describe('attribute disabled', () => {
+    it('should disabled childrens', () => {
+      form.setAttribute('disabled')
+      expect(component.inputs).all.have.attribute('disabled')
+    })
+
+    it('should listen changes', () => {
+      form.setAttribute('disabled')
+      form.removeAttribute('disabled')
+      expect(component.inputs).all.not.have.attribute('disabled')
+    })
+  })
+
+  describe('attribute readonly', () => {
+    it('should readonly childrens', () => {
+      form.setAttribute('readonly')
+      expect(component.inputs).all.have.attribute('readonly')
+    })
+
+    it('should listen changes', () => {
+      form.setAttribute('readonly')
+      form.removeAttribute('readonly')
+      expect(component.inputs).all.not.have.attribute('readonly')
     })
   })
 })
@@ -102,7 +128,7 @@ function createComponent() {
   password.setAttribute('name', 'password')
 }
 
-// function setPageObject() {
-//   const FormPageObject = require('./action-sheet.po.js')
-//   form = new FormPageObject(component)
-// }
+function setPageObject() {
+  const FormPageObject = require('./form.po.js')
+  form = new FormPageObject(component)
+}
