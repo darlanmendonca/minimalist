@@ -1,16 +1,18 @@
 const {input, password, number, actionSheet, form} = require('minimalist')
+const angular = require('angular')
 
-// const form = document.querySelector('form')
+require('../../angular.js')
+angular
+  .module('app', ['minimalist'])
+  .controller('HomeController', HomeController)
 
-// form.addEventListener('submit', event => {
-//   event.preventDefault()
-//   form.classList.add('submitted')
-//   Array
-//     .from(form.querySelectorAll('.mn-input'))
-//     // :not([disabled]):not([readonly]'
-//     .filter(input => !input.disabled && !input.readOnly)
-//     .forEach(input => input.validate())
 
-//   const isInvalid = form.querySelectorAll('.mn-input.invalid').length > 0
-//   console.log(`form ${isInvalid ? 'invalid' : 'valid'}`)
-// })
+function HomeController() {
+  this.username = 'darlanmendonca'
+  this.password = '123123123'
+  this.date = new Date()//'2017-06-22T13:43:44.940Z'
+  this.number = 10
+  this.precision = 10
+  this.currency = 10
+  // this.percentage = 1
+}

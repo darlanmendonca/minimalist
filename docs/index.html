@@ -6,12 +6,13 @@
   </head>
 
   <body>
+    <h2>vanilla js</h2>
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
 
-      <!-- <mn-date placeholder="Date" name="birthdate" required></mn-date> -->
-
       <mn-password placeholder="Password" name="password" required></mn-password>
+
+      <mn-date placeholder="Date" name="birthdate" required></mn-date>
 
       <mn-number placeholder="Number" name="number" required></mn-number>
       <mn-number placeholder="Precision" name="precision" precision="3" required></mn-number>
@@ -30,11 +31,33 @@
 
       <button type="submit">submit</button>
     </mn-form>
-    <!-- <button>show backdrop</button> -->
-    <!-- <div class="mn-card padding-title" style="max-width: 320px">
-      <h2>A title</h2>
-      <img src="http://cdn1.sciencefiction.com/wp-content/uploads/2015/03/Game-of-Thrones-season-5-thumb.jpg" />
-    </div> -->
+
+    <h2>angular</h2>
+    <div ng-app="app" ng-controller="HomeController as controller">
+      <mn-form name="form">
+
+        <mn-input placeholder="Name: {{ controller.username }}" required ng-model="controller.username"></mn-input>
+
+        <mn-password placeholder="Password: {{ controller.password }}" ng-model="controller.password" required></mn-password>
+
+        <mn-date placeholder="Date: {{ controller.date }}" ng-model="controller.date" required></mn-date>
+
+        <mn-number placeholder="Number: {{ controller.number }}" ng-model="controller.number" required></mn-number>
+        <mn-number placeholder="Precision: {{ controller.precision }}" ng-model="controller.precision" precision="3" required></mn-number>
+        <mn-number placeholder="Currency: {{ controller.currency }}" ng-model="controller.currency" currency step="0.1" required></mn-number>
+        <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number>
+
+        <!-- <mn-select placeholder="House" name="house" required>
+          <option value="false">Stark</option>
+          <option value="true">Tyrell</option>
+          <option value="{id: 1, name: 'lannister'}">Lannister</option>
+          <option>Targaryen</option>
+          <option>Bolton</option>
+          <option>Karstark</option>
+          <option>Frey</option>
+        </mn-select> -->
+      </mn-form>
+    </div>
 
     <script src="/vendor.js"></script>
     <script>
