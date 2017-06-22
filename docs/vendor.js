@@ -1324,8 +1324,7 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setActionSheet() {
-    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-    if (viewportWidth < 768) {
+    if (screen.width < 768) {
       const actionSheet = new MnActionSheet()
       Array
         .from(this.querySelectorAll('.option'))
