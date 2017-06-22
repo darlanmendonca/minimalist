@@ -101,9 +101,13 @@ module.exports = class MnSelect extends MnInput {
         const option = document.createElement('div')
         option.classList.add('option')
         option.innerHTML = child.textContent
-          // .split('')
-          // .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-          // .join('')
+
+        if (!this.closest('[ng-app]')) {
+          option.innerHTML = child.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+        }
 
         Array
           .from(child.attributes)

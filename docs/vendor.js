@@ -34757,9 +34757,13 @@ module.exports = class MnSelect extends MnInput {
         const option = document.createElement('div')
         option.classList.add('option')
         option.innerHTML = child.textContent
-          // .split('')
-          // .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-          // .join('')
+
+        if (!this.closest('[ng-app]')) {
+          option.innerHTML = child.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+        }
 
         Array
           .from(child.attributes)
@@ -35050,6 +35054,15 @@ function MnSelectDirective() {
       element.ready(() => {
         const component = element[0]
         component._setOptions()
+
+        Array
+          .from(component.menu.querySelectorAll('.option'))
+          .forEach(option => {
+            option.innerHTML = option.textContent
+              .split('')
+              .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+              .join('')
+          })
       })
     }
   }
