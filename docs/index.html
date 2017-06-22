@@ -6,7 +6,7 @@
   </head>
 
   <body>
-    <h2>vanilla js</h2>
+    <!-- <h2>vanilla js</h2>
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
 
@@ -30,22 +30,21 @@
       </mn-select>
 
       <button type="submit">submit</button>
-    </mn-form>
+    </mn-form> -->
 
     <h2>angular</h2>
     <div ng-app="app" ng-controller="HomeController as controller">
       <mn-form name="form">
-
         <mn-input placeholder="Name: {{ controller.username }}" required ng-model="controller.username"></mn-input>
 
         <mn-password placeholder="Password: {{ controller.password }}" ng-model="controller.password" required></mn-password>
 
         <mn-date placeholder="Date: {{ controller.date }}" ng-model="controller.date" required></mn-date>
 
-        <mn-number placeholder="Number: {{ controller.number }}" ng-model="controller.number" required></mn-number>
+        <!-- <mn-number placeholder="Number: {{ controller.number }}" ng-model="controller.number" required></mn-number>
         <mn-number placeholder="Precision: {{ controller.precision }}" ng-model="controller.precision" precision="3" required></mn-number>
         <mn-number placeholder="Currency: {{ controller.currency }}" ng-model="controller.currency" currency step="0.1" required></mn-number>
-        <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number>
+        <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number> -->
 
         <!-- <mn-select placeholder="House" name="house" required>
           <option value="false">Stark</option>
@@ -61,11 +60,7 @@
 
     <script src="/vendor.js"></script>
     <script>
-      const form = document.querySelector('mn-form')
-
-      form.addEventListener('submit', event => {
-        console.log('submiting', event.data)
-      })
+      const date = document.querySelector('mn-date')
     </script>
   </body>
 </html>

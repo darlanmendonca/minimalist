@@ -13,14 +13,20 @@ function MnInputDirective() {
       const input = component.input
 
       input.addEventListener('change', setViewValue)
+      input.addEventListener('blur', setViewValue)
       input.addEventListener('input', setViewValue)
 
       scope.$watch(attributes.ngModel, value => {
         component.value = value
       })
 
-      function setViewValue() {
-        ngModel.$setViewValue(input.value)
+      function setViewValue(event) {
+        const activeElement = event.currentTarget === document.activeElement
+        const isDate = component.classList.contains('mn-date')
+
+        if (!activeElement || !isDate || event.type === 'blur') {
+          ngModel.$setViewValue(component.value)
+        }
       }
     }
   }
