@@ -169,12 +169,20 @@ describe('mn-input (directive)', () => {
       component.input.focus()
       component.input.value = '2017-04-30'
       component.input.dispatchEvent(new Event('change'))
-      expect(scope.date).to.be.undefined
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+
+      if (component.input.type === 'date') {
+        expect(scope.date).to.be.undefined
+        expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      } else {
+        expect(scope.date).to.be.equal(`2017-04-30T0${timezone}:00:00.000Z`)
+        expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      }
     })
 
     it('should update if input dispatch event input', () => {
-      component.input.value = '2017-04-30'
+      component.input.value = component.input.type === 'date'
+        ? '2017-04-30'
+        : '30/04/2017'
       component.input.dispatchEvent(new Event('input'))
       expect(scope.date).to.be.equal(`2017-04-30T0${timezone}:00:00.000Z`)
       expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
@@ -182,16 +190,25 @@ describe('mn-input (directive)', () => {
 
     it('should not update if input dispatch event input while focused', () => {
       component.input.focus()
-      component.input.value = '2017-04-30'
+      component.input.value = component.input.type === 'date'
+        ? '2017-04-30'
+        : '30/04/2017'
       component.input.dispatchEvent(new Event('input'))
-      expect(scope.date).to.be.undefined
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      if (component.input.type === 'date') {
+        expect(scope.date).to.be.undefined
+        expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      } else {
+        expect(scope.date).to.be.equal(`2017-04-30T0${timezone}:00:00.000Z`)
+        expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      }
     })
 
     it('should update if input dispatch event blur', () => {
       component.input.focus()
-      component.input.value = '2017-04-30'
-      component.input.blur()
+      component.input.value = component.input.type === 'date'
+        ? '2017-04-30'
+        : '30/04/2017'
+      component.input.dispatchEvent(new Event('blur'))
       expect(scope.date).to.be.equal(`2017-04-30T0${timezone}:00:00.000Z`)
       expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })

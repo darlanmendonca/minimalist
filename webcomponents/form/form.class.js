@@ -31,7 +31,7 @@ module.exports = class MnForm extends HTMLElement {
   _setSubmit() {
     document.addEventListener('keydown', (event) => {
       const enter = event.key === 'Enter'
-      const srcElementInsideForm = event.srcElement.closest('mn-form')
+      const srcElementInsideForm = event.target.closest('mn-form')
       if (enter && srcElementInsideForm) {
         this.submit()
       }
