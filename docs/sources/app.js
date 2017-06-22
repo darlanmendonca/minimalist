@@ -10,7 +10,7 @@ angular
 function HomeController() {
   this.username = 'darlanmendonca'
   this.password = '123123123'
-  this.date = new Date()//'2017-06-22T13:43:44.940Z'
+  this.date = new Date() //'1990-09-04T03:00:00.000Z'
   this.number = 10
   this.precision = 10
   this.currency = 10

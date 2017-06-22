@@ -23,8 +23,9 @@ function MnInputDirective() {
       function setViewValue(event) {
         const activeElement = event.currentTarget === document.activeElement
         const isDate = component.classList.contains('mn-date')
+        const isNumber = component.classList.contains('mn-number')
 
-        if (!activeElement || !isDate || event.type === 'blur') {
+        if (!activeElement || !isDate && !isNumber || event.type === 'blur') {
           ngModel.$setViewValue(component.value)
         }
       }

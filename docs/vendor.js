@@ -386,7 +386,7 @@ angular
 function HomeController() {
   this.username = 'darlanmendonca'
   this.password = '123123123'
-  this.date = new Date()//'2017-06-22T13:43:44.940Z'
+  this.date = new Date() //'1990-09-04T03:00:00.000Z'
   this.number = 10
   this.precision = 10
   this.currency = 10
@@ -35008,8 +35008,9 @@ function MnInputDirective() {
       function setViewValue(event) {
         const activeElement = event.currentTarget === document.activeElement
         const isDate = component.classList.contains('mn-date')
+        const isNumber = component.classList.contains('mn-number')
 
-        if (!activeElement || !isDate || event.type === 'blur') {
+        if (!activeElement || !isDate && !isNumber || event.type === 'blur') {
           ngModel.$setViewValue(component.value)
         }
       }
