@@ -35107,20 +35107,24 @@ function MnSelectOptionDirective() {
             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
             .join('')
 
-          let actionSheetOption = Array
-            .from(actionSheet.menu.querySelectorAll('.option'))
-            .filter(children => children.textContent === option.textContent)[0]
+          if (actionSheet) {
+            let actionSheetOption = Array
+              .from(actionSheet.menu.querySelectorAll('.option'))
+              .filter(children => children.textContent === option.textContent)[0]
 
-          if (actionSheet && !actionSheetOption) {
-            actionSheetOption = document.createElement('div')
-            actionSheetOption.classList.add('option')
-            actionSheetOption.textContent = option.textContent
-            actionSheet.menu.appendChild(actionSheetOption)
+            if (!actionSheetOption) {
+              actionSheetOption = document.createElement('div')
+              actionSheetOption.classList.add('option')
+              actionSheetOption.textContent = option.textContent
+              actionSheet.menu.appendChild(actionSheetOption)
+            }
+
+            element.bind('$destroy', () => {
+              actionSheet.menu.removeChild(actionSheetOption)
+            })
           }
 
-          element.bind('$destroy', () => {
-            actionSheet.menu.removeChild(actionSheetOption)
-          })
+
         }
       })
     }
