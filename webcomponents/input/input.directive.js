@@ -16,8 +16,12 @@ function MnInputDirective() {
       input.addEventListener('blur', setViewValue)
       input.addEventListener('input', setViewValue)
 
-      scope.$watch(attributes.ngModel, value => {
-        component.value = value
+      scope.$watch(attributes.ngModel, (value) => {
+        const isSelect = component.classList.contains('mn-select')
+
+        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+          component.value = value
+        }
       })
 
       function setViewValue(event) {

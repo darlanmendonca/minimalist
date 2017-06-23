@@ -286,32 +286,36 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
-    const option = Array
-      .from(this.menu.querySelectorAll('.option'))
-      .filter(option => {
-        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-          || option.textContent == String(value) // eslint-disable-line eqeqeq
-      })[0]
 
-    const textNotApplied = option && this.input.value !== option.textContent
+    if (differentValue) {
+      console.log('setting', value)
+      const option = Array
+        .from(this.menu.querySelectorAll('.option'))
+        .filter(option => {
+          return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+            || option.textContent == String(value) // eslint-disable-line eqeqeq
+        })[0]
 
-    if (differentValue || textNotApplied) {
-      this.input.value = option
-        ? option.textContent
-        : ''
+      const textNotApplied = option && this.input.value !== option.textContent
 
-      const hasValue = value !== undefined && value !== null
+      if (differentValue || textNotApplied) {
+        this.input.value = option
+          ? option.textContent
+          : ''
 
-      hasValue && option
-        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-        :  this.removeAttribute('value')
+        const hasValue = value !== undefined && value !== null
 
-      this.input.dispatchEvent(new Event('change'))
-    }
+        hasValue && option
+          ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+          :  this.removeAttribute('value')
 
-    if (!this.hasAttribute('value')) {
-      this.input.value = ''
-      this.input.dispatchEvent(new Event('change'))
+        this.input.dispatchEvent(new Event('change'))
+      }
+
+      if (!this.hasAttribute('value')) {
+        this.input.value = ''
+        this.input.dispatchEvent(new Event('change'))
+      }
     }
   }
 

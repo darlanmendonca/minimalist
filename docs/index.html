@@ -47,6 +47,7 @@
         <mn-number placeholder="Percentage: {{ controller.percentage }}" ng-model="controller.percentage" percentage required></mn-number>
 
         <mn-select placeholder="House: {{ controller.house }}" ng-model="controller.house" required>
+        <option value="{name: 'Snow'}">Snow</option>
           <option ng-repeat="option in controller.options">{{ option }}</option>
         </mn-select>
 

@@ -102,12 +102,6 @@ describe('mn-select (webcomponent)', () => {
       expect(component.input).to.have.text('')
     })
 
-    it('should be undefined when set null', () => {
-      select.setProperty('value', null)
-      expect(component).to.have.value(undefined)
-      expect(component.input).to.have.text('')
-    })
-
     it('should be a string when set by option value', () => {
       select.setProperty('value', 'stark')
       expect(component).to.have.value('stark')
