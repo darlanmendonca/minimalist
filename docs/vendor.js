@@ -421,6 +421,15 @@ function HomeController() {
     'Tyrell',
     'Martell',
   ]
+
+  this.remove = () => {
+    this.options.pop()
+  }
+
+  this.add = () => {
+    const random = parseInt(Math.random() * 10000)
+    this.options.push(`option ${random}`)
+  }
 }
 
 
@@ -33860,12 +33869,6 @@ module.exports = class MnActionSheet extends HTMLElement {
         option.classList.add('option')
         option.innerHTML = child.textContent
 
-        option.addEventListener('click', () => {
-          const changeEvent = new Event('change')
-          changeEvent.data = {index}
-          this.dispatchEvent(changeEvent)
-        })
-
         Array
           .from(child.attributes)
           .forEach(attr => option.setAttribute(attr.name, attr.value))
@@ -33873,6 +33876,17 @@ module.exports = class MnActionSheet extends HTMLElement {
         child.parentNode.removeChild(child)
         menu.appendChild(option)
       })
+
+    document.addEventListener('click', event => {
+      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
+      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
+
+      if (isOption && index >= 0) {
+        const changeEvent = new Event('change')
+        changeEvent.data = {index}
+        this.dispatchEvent(changeEvent)
+      }
+    })
 
     this.appendChild(menu)
     this.menu = menu
@@ -34803,17 +34817,30 @@ module.exports = class MnSelect extends MnInput {
   _setOptions() {
     const options = Array.from(this.querySelectorAll('.option'))
 
-    options.forEach(option => option.addEventListener('mousedown', () => {
-      const value = event.target.getAttribute('value') || event.target.textContent
-      this.value = value
-      this.hide()
-    }))
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
 
-    options.forEach(option => option.addEventListener('mousemove', () => {
-      if (!this.keyboardNavigation) {
-        this.focusOption(option)
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
       }
-    }))
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
   }
 
   _setKeyboardNavigation() {
@@ -35057,15 +35084,46 @@ function MnSelectDirective() {
         const component = element[0]
         component._setOptions()
         component._setActionSheet()
+      })
+    }
+  }
+}
 
-        Array
-          .from(component.menu.querySelectorAll('.option'))
-          .forEach(option => {
-            option.innerHTML = option.textContent
-              .split('')
-              .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-              .join('')
+angular
+  .module('minimalist')
+  .directive('option', MnSelectOptionDirective)
+
+function MnSelectOptionDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element) {
+      const option = element[0]
+      const isMnOption = option.closest('.mn-select')
+
+      element.ready(() => {
+        const actionSheet = isMnOption.actionSheet
+
+        if (isMnOption && actionSheet) {
+          option.innerHTML = option.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+
+          let actionSheetOption = Array
+            .from(actionSheet.menu.querySelectorAll('.option'))
+            .filter(children => children.textContent === option.textContent)[0]
+
+          if (actionSheet && !actionSheetOption) {
+            actionSheetOption = document.createElement('div')
+            actionSheetOption.classList.add('option')
+            actionSheetOption.textContent = option.textContent
+            actionSheet.menu.appendChild(actionSheetOption)
+          }
+
+          element.bind('$destroy', () => {
+            actionSheet.menu.removeChild(actionSheetOption)
           })
+        }
       })
     }
   }

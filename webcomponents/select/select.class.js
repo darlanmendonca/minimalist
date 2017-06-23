@@ -147,17 +147,30 @@ module.exports = class MnSelect extends MnInput {
   _setOptions() {
     const options = Array.from(this.querySelectorAll('.option'))
 
-    options.forEach(option => option.addEventListener('mousedown', () => {
-      const value = event.target.getAttribute('value') || event.target.textContent
-      this.value = value
-      this.hide()
-    }))
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
 
-    options.forEach(option => option.addEventListener('mousemove', () => {
-      if (!this.keyboardNavigation) {
-        this.focusOption(option)
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
       }
-    }))
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
   }
 
   _setKeyboardNavigation() {

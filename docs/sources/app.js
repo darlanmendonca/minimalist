@@ -23,4 +23,13 @@ function HomeController() {
     'Tyrell',
     'Martell',
   ]
+
+  this.remove = () => {
+    this.options.pop()
+  }
+
+  this.add = () => {
+    const random = parseInt(Math.random() * 10000)
+    this.options.push(`option ${random}`)
+  }
 }

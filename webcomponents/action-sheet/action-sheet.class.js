@@ -38,12 +38,6 @@ module.exports = class MnActionSheet extends HTMLElement {
         option.classList.add('option')
         option.innerHTML = child.textContent
 
-        option.addEventListener('click', () => {
-          const changeEvent = new Event('change')
-          changeEvent.data = {index}
-          this.dispatchEvent(changeEvent)
-        })
-
         Array
           .from(child.attributes)
           .forEach(attr => option.setAttribute(attr.name, attr.value))
@@ -51,6 +45,17 @@ module.exports = class MnActionSheet extends HTMLElement {
         child.parentNode.removeChild(child)
         menu.appendChild(option)
       })
+
+    document.addEventListener('click', event => {
+      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
+      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
+
+      if (isOption && index >= 0) {
+        const changeEvent = new Event('change')
+        changeEvent.data = {index}
+        this.dispatchEvent(changeEvent)
+      }
+    })
 
     this.appendChild(menu)
     this.menu = menu

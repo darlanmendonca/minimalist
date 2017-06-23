@@ -56,6 +56,9 @@
           <option>Frey</option> -->
           <option ng-repeat="option in controller.options">{{ option }}</option>
         </mn-select>
+
+        <button ng-click="controller.remove()">remove</button>
+        <button ng-click="controller.add()">add</button>
       </mn-form>
     </div>
 
