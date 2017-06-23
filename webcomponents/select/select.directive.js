@@ -29,9 +29,9 @@ function MnSelectOptionDirective() {
       const isMnOption = option.closest('.mn-select')
 
       element.ready(() => {
-        const actionSheet = isMnOption.actionSheet
 
-        if (isMnOption && actionSheet) {
+        if (isMnOption) {
+          const actionSheet = isMnOption.actionSheet
           option.innerHTML = option.textContent
             .split('')
             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
