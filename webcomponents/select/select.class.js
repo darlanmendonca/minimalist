@@ -288,7 +288,6 @@ module.exports = class MnSelect extends MnInput {
     const differentValue = this.getAttribute('value') !== value
 
     if (differentValue) {
-      console.log('setting', value)
       const option = Array
         .from(this.menu.querySelectorAll('.option'))
         .filter(option => {
