@@ -145,8 +145,6 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setOptions() {
-    const options = Array.from(this.querySelectorAll('.option'))
-
     document.addEventListener('mousedown', (event) => {
       const isOption = event.target.classList.contains('option')
         && event.target.closest('.mn-select') === this

@@ -33864,7 +33864,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
     Array
       .from(this.querySelectorAll('option'))
-      .forEach((child, index) => {
+      .forEach(child => {
         const option = document.createElement('div')
         option.classList.add('option')
         option.innerHTML = child.textContent
@@ -34815,8 +34815,6 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setOptions() {
-    const options = Array.from(this.querySelectorAll('.option'))
-
     document.addEventListener('mousedown', (event) => {
       const isOption = event.target.classList.contains('option')
         && event.target.closest('.mn-select') === this
