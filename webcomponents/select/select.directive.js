@@ -53,8 +53,6 @@ function MnSelectOptionDirective() {
               actionSheet.menu.removeChild(actionSheetOption)
             })
           }
-
-
         }
       })
     }
