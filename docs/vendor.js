@@ -34298,13 +34298,13 @@ function MnInputDirective() {
       const component = element[0]
       const input = component.input
 
+      input.addEventListener('change', setViewValue)
+      input.addEventListener('blur', setViewValue)
+      input.addEventListener('input', setViewValue)
+
       element.ready(() => {
         component.value = ngModel.$modelValue
-        ngModel.$modelValue = undefined
         ngModel.$setViewValue(component.value)
-        input.addEventListener('change', setViewValue)
-        input.addEventListener('blur', setViewValue)
-        input.addEventListener('input', setViewValue)
         scope.$watch(attributes.ngModel, setComponentValue)
       })
 
