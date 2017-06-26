@@ -434,9 +434,23 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('')
     })
 
+    it('should be undefined if applied an invalid option to property value', () => {
+      component.value = 'test'
+      expect(scope.house).to.be.equal(undefined)
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
     it('should be a string if applied a valid string to ngModel', () => {
       scope.house = 'lannister'
       scope.$digest()
+      expect(scope.house).to.be.equal('lannister')
+      expect(component).to.have.value('lannister')
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a string if applied a valid string to property value', () => {
+      component.value = 'lannister'
       expect(scope.house).to.be.equal('lannister')
       expect(component).to.have.value('lannister')
       expect(component.input).to.have.value('Lannister')
@@ -447,7 +461,14 @@ describe('mn-input (directive)', () => {
       scope.$digest()
       expect(scope.house).to.be.true
       expect(component).to.have.value(true)
-      expect(component.input).to.have.value('true')
+      expect(component.input).to.have.value('Positive')
+    })
+
+    it('should be a boolean true if applied a valid boolean to property value', () => {
+      component.value = true
+      expect(scope.house).to.be.true
+      expect(component).to.have.value(true)
+      expect(component.input).to.have.value('Positive')
     })
 
     it('should be a boolean false if applied a valid boolean to ngModel', () => {
@@ -455,176 +476,45 @@ describe('mn-input (directive)', () => {
       scope.$digest()
       expect(scope.house).to.be.false
       expect(component).to.have.value(false)
-      expect(component.input).to.have.value('false')
+      expect(component.input).to.have.value('Negative')
     })
 
-    // it('should be a object if applied a valid object to ngModel', () => {
-    //   scope.house = {name: 'john snow'}
-    //   scope.$digest()
-    //   console.log(scope.house, component.value)
-    //   expect(scope.house).to.deep.equal({name: 'john snow'})
-    //   expect(component.value).to.deep.equal({name: 'john snow'})
-    //   expect(component.input).to.have.value('{"name": "john snow"}')
-    // })
+    it('should be a boolean false if applied a valid boolean to property value', () => {
+      component.value = false
+      expect(scope.house).to.be.false
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Negative')
+    })
 
-    // it('should be a number if applied a number to property value', () => {
-    //   component.value = 0
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
+    it('should be a object if applied a valid object to ngModel', () => {
+      scope.house = 'Object'
+      scope.$digest()
+      expect(scope.house).to.deep.equal({name: 'john snow'})
+      expect(component.value).to.deep.equal({name: 'john snow'})
+      expect(component.input).to.have.value('Object')
+    })
 
-    // it('should be update if input dispatch event change', () => {
-    //   component.input.value = '0'
-    //   component.input.dispatchEvent(new Event('change'))
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
+    it('should be a object if applied a valid object to property value', () => {
+      component.value = 'Object'
+      expect(scope.house).to.deep.equal({name: 'john snow'})
+      expect(component.value).to.deep.equal({name: 'john snow'})
+      expect(component.input).to.have.value('Object')
+    })
 
-    // it('should not update if input dispatch event change while focused', () => {
-    //   component.input.focus()
-    //   component.input.value = '0'
-    //   component.input.dispatchEvent(new Event('change'))
+    it('should be a array if applied a valid array to ngModel', () => {
+      scope.house = 'Array'
+      scope.$digest()
+      expect(scope.house).to.deep.equal(['john', 'ygrid'])
+      expect(component.value).to.deep.equal(['john', 'ygrid'])
+      expect(component.input).to.have.value('Array')
+    })
 
-    //   expect(scope.date).to.be.undefined
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
-
-    // it('should be update if input dispatch event input', () => {
-    //   component.input.value = '0'
-    //   component.input.dispatchEvent(new Event('input'))
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
-
-    // it('should not update if input dispatch event input while focused', () => {
-    //   component.input.focus()
-    //   component.input.value = '0'
-    //   component.input.dispatchEvent(new Event('input'))
-
-    //   expect(scope.date).to.be.undefined
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
-
-    // it('should be update if input dispatch event blur', () => {
-    //   component.input.value = '0'
-    //   component.input.dispatchEvent(new Event('blur'))
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0')
-    // })
-
-    // it('should work with attribute precision if applied a number to ngModel', () => {
-    //   component.setAttribute('precision', 2)
-    //   scope.number = 0
-    //   scope.$digest()
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,00')
-    // })
-
-    // it('should work with attribute precision if applied a number to property value', () => {
-    //   component.setAttribute('precision', 2)
-    //   component.value = 0
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,00')
-    // })
-
-    // it('should work with attribute currency if applied a number to ngModel', () => {
-    //   component.setAttribute('currency', '')
-    //   scope.number = 0
-    //   scope.$digest()
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,00')
-    // })
-
-    // it('should work with attribute currency if applied a number to property value', () => {
-    //   component.setAttribute('currency', '')
-    //   component.value = 0
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,00')
-    // })
-
-    // it('should work with attributes currency and precision if applied a number to ngModel', () => {
-    //   component.setAttribute('currency', '')
-    //   component.setAttribute('precision', '3')
-    //   scope.number = 0
-    //   scope.$digest()
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,000')
-    // })
-
-    // it('should work with attributes currency and precision if applied a number to property value', () => {
-    //   component.setAttribute('currency', '')
-    //   component.setAttribute('precision', '3')
-    //   component.value = 0
-    //   expect(scope.number).to.be.equal(0)
-    //   expect(component).to.have.value(0)
-    //   expect(component.input).to.have.value('0,000')
-    // })
-
-    // it('should work with attribute percentage if applied a number to ngModel', () => {
-    //   component.setAttribute('percentage', '')
-    //   scope.number = 1
-    //   scope.$digest()
-    //   expect(scope.number).to.be.equal(1)
-    //   expect(component).to.have.value(1)
-    //   expect(component.input).to.have.value('100')
-    // })
-
-    // it('should work with attribute percentage if applied a number to property value', () => {
-    //   component.setAttribute('percentage', '')
-    //   component.value = 1
-    //   expect(scope.number).to.be.equal(1)
-    //   expect(component).to.have.value(1)
-    //   expect(component.input).to.have.value('100')
-    // })
-
-    // it('should work with attribute percentage if write a number', () => {
-    //   component.setAttribute('percentage', '')
-    //   component.input.value = '1'
-    //   component.input.dispatchEvent(new Event('input'))
-    //   expect(scope.number).to.be.equal(0.01)
-    //   expect(component).to.have.value(0.01)
-    //   expect(component.input).to.have.value('1')
-    // })
-
-    // it('should work with attributes percentage and precision if applied a number to ngModel', () => {
-    //   component.setAttribute('percentage', '')
-    //   component.setAttribute('precision', '3')
-    //   scope.number = 1
-    //   scope.$digest()
-    //   expect(scope.number).to.be.equal(1)
-    //   expect(component).to.have.value(1)
-    //   expect(component.input).to.have.value('100,000')
-    // })
-
-    // it('should work with attributes percentage and precision if applied a number to property value', () => {
-    //   component.setAttribute('percentage', '')
-    //   component.setAttribute('precision', '3')
-    //   component.value = 1
-    //   expect(scope.number).to.be.equal(1)
-    //   expect(component).to.have.value(1)
-    //   expect(component.input).to.have.value('100,000')
-    // })
-
-    // it('should work with attributes percentage and precision if write a number', () => {
-    //   component.setAttribute('percentage', '')
-    //   component.setAttribute('precision', '3')
-    //   component.input.value = '1'
-    //   component.input.dispatchEvent(new Event('input'))
-    //   expect(scope.number).to.be.equal(0.01)
-    //   expect(component).to.have.value(0.01)
-    //   expect(component.input).to.have.value('1,000')
-    // })
+    it('should be a array if applied a valid array to property value', () => {
+      component.value = 'Array'
+      expect(scope.house).to.deep.equal(['john', 'ygrid'])
+      expect(component.value).to.deep.equal(['john', 'ygrid'])
+      expect(component.input).to.have.value('Array')
+    })
   })
 })
 
@@ -700,18 +590,20 @@ function createMnSelect(done) {
     component = document.createElement('mn-select')
 
     const options = [
-      'Stark',
-      'Lannister',
-      'Targaryen',
-      'false',
-      'true',
-      '{name: "john snow"}',
-      '["john", "ygrid"]',
+      {name: 'Stark', value: 'stark'},
+      {name: 'Lannister', value: 'lannister'},
+      {name: 'Targaryen', value: 'targaryen'},
+      {name: 'Negative', value: 'false'},
+      {name: 'Positive', value: 'true'},
+      {name: 'Object', value: '{name: "john snow"}'},
+      {name: 'Array', value: '["john", "ygrid"]'},
     ]
-    options.forEach(house => {
+
+    options.forEach(item => {
+      const {name, value} = item
       const option = document.createElement('option')
-      option.setAttribute('value', house.toLowerCase())
-      option.textContent = house
+      option.setAttribute('value', value)
+      option.textContent = name
       component.appendChild(option)
     })
 
