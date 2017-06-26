@@ -382,7 +382,7 @@ angular.module('minimalist', [])
 
 module.exports = {
   input: __webpack_require__(14),
-  select: __webpack_require__(22),
+  select: __webpack_require__(21),
 }
 
 
@@ -422,6 +422,9 @@ function HomeController() {
     'Martell',
   ]
 
+  this.house = 'Stark'
+  // console.log(this.house)
+
   this.remove = () => {
     this.options.pop()
   }
@@ -442,7 +445,7 @@ module.exports = {
   password: __webpack_require__(19),
   number: __webpack_require__(17),
   date: __webpack_require__(11),
-  select: __webpack_require__(21),
+  select: __webpack_require__(22),
   actionSheet: __webpack_require__(3),
   form: __webpack_require__(13),
 }
@@ -34295,33 +34298,38 @@ function MnInputDirective() {
       const component = element[0]
       const input = component.input
 
-      input.addEventListener('change', setViewValue)
-      input.addEventListener('blur', setViewValue)
-      input.addEventListener('input', setViewValue)
+      element.ready(() => {
+        component.value = ngModel.$modelValue
+        ngModel.$modelValue = undefined
+        ngModel.$setViewValue(component.value)
+        input.addEventListener('change', setViewValue)
+        input.addEventListener('blur', setViewValue)
+        input.addEventListener('input', setViewValue)
+        scope.$watch(attributes.ngModel, setComponentValue)
+      })
 
-      scope.$watch(attributes.ngModel, (value) => {
+      function setComponentValue(value) {
         const isSelect = component.classList.contains('mn-select')
 
         if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
           component.value = value
         }
-      })
+      }
 
       function setViewValue(event) {
         const activeElement = event.currentTarget === document.activeElement
         const isDate = component.input.type === 'date'//component.classList.contains('mn-date')
         const isNumber = component.classList.contains('mn-number')
         const isBlur = event.type === 'blur'
+        const isSelect = component.classList.contains('mn-select')
 
-        if (isBlur || !activeElement || !isDate && !isNumber) {
+        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
           ngModel.$setViewValue(component.value)
         }
       }
     }
   }
 }
-
-module.exports = 'wow'
 
 
 /***/ }),
@@ -34960,35 +34968,35 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .filter(option => {
+        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.textContent == String(value) // eslint-disable-line eqeqeq
+      })[0]
+
+    const textNotApplied = option && this.input.value !== option.textContent
+
+    if (textNotApplied) {
+      this.input.value = option
+        ? option.textContent
+        : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
 
     if (differentValue) {
-      const option = Array
-        .from(this.menu.querySelectorAll('.option'))
-        .filter(option => {
-          return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-            || option.textContent == String(value) // eslint-disable-line eqeqeq
-        })[0]
+      const hasValue = value !== undefined && value !== null
 
-      const textNotApplied = option && this.input.value !== option.textContent
+      hasValue && option
+        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+        :  this.removeAttribute('value')
 
-      if (differentValue || textNotApplied) {
-        this.input.value = option
-          ? option.textContent
-          : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
 
-        const hasValue = value !== undefined && value !== null
-
-        hasValue && option
-          ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-          :  this.removeAttribute('value')
-
-        this.input.dispatchEvent(new Event('change'))
-      }
-
-      if (!this.hasAttribute('value')) {
-        this.input.value = ''
-        this.input.dispatchEvent(new Event('change'))
-      }
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
     }
   }
 
@@ -35056,25 +35064,6 @@ function evaluate(value) {
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  const MnSelect = __webpack_require__(20)
-  window.customElements.define('mn-select', MnSelect)
-  return window.customElements.get('mn-select')
-}
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
 const angular = __webpack_require__(2)
 
 angular
@@ -35084,9 +35073,11 @@ angular
 function MnSelectDirective() {
   return {
     restrict: 'C',
+    require: 'ngModel',
     link(scope, element) {
+      const component = element[0]
+
       element.ready(() => {
-        const component = element[0]
         component._setOptions()
         component._setActionSheet()
       })
@@ -35134,6 +35125,25 @@ function MnSelectOptionDirective() {
       })
     }
   }
+}
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  const MnSelect = __webpack_require__(20)
+  window.customElements.define('mn-select', MnSelect)
+  return window.customElements.get('mn-select')
 }
 
 

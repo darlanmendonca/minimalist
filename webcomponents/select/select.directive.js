@@ -7,9 +7,11 @@ angular
 function MnSelectDirective() {
   return {
     restrict: 'C',
+    require: 'ngModel',
     link(scope, element) {
+      const component = element[0]
+
       element.ready(() => {
-        const component = element[0]
         component._setOptions()
         component._setActionSheet()
       })

@@ -24,6 +24,9 @@ function HomeController() {
     'Martell',
   ]
 
+  this.house = 'Stark'
+  // console.log(this.house)
+
   this.remove = () => {
     this.options.pop()
   }
