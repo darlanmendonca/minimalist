@@ -206,7 +206,9 @@ describe('mn-input (directive)', () => {
       component.input.value = component.input.type === 'date'
         ? '2017-04-30'
         : '30/04/2017'
+
       component.input.dispatchEvent(new Event('input'))
+
       if (component.input.type === 'date') {
         expect(scope.date).to.be.undefined
         expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)

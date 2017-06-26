@@ -114,11 +114,12 @@ describe('mn-action-sheet (webcomponent)', () => {
   })
 
   describe('option', () => {
-    it.skip('should dispatch event change on click with data', () => {
+    it('should dispatch event change on click with data', () => {
       // we need to found ways to test events
       component.addEventListener('change', (event) => {
         expect(event).to.have.property('data')
       })
+
       actionSheet.clickOn('Stark')
     })
 
@@ -129,16 +130,16 @@ describe('mn-action-sheet (webcomponent)', () => {
       actionSheet.clickOn('Stark')
     })
 
-    it('should has index 0 on click in Lannister', () => {
+    it('should has index 1 on click in Lannister', () => {
       component.addEventListener('change', (event) => {
         expect(event.data.index).to.be.equal(1)
       })
       actionSheet.clickOn('Lannister')
     })
 
-    it('should has index 0 on click in Targaryen', () => {
+    it('should has index 2 on click in Targaryen', () => {
       component.addEventListener('change', (event) => {
-        expect(event.data.index).to.be.equal(1)
+        expect(event.data.index).to.be.equal(2)
       })
       actionSheet.clickOn('Targaryen')
     })
