@@ -4,7 +4,8 @@ set -e
 
 ./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
 --devtool source-map \
---hide-modules true
+--hide-modules true \
+# --optimize-minimize \
 --watch \
 
 # https://www.npmjs.com/package/uglify-es
