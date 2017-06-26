@@ -8,4 +8,4 @@ set -e
 --watch \
 
 # https://www.npmjs.com/package/uglify-es
-# ./node_modules/.bin/uglifyjs docs/vendor.js -c -o docs/vendor.min.js
+# ./node_modules/.bin/uglifyjs docs/vendor.js -c -m -o docs/vendor.min.js
