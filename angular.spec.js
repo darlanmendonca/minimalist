@@ -9,4 +9,12 @@ describe('minimalist/angular', () => {
   it('should export input directive', () => {
     expect(angular).to.have.property('input')
   })
+
+  it('should export select directive', () => {
+    expect(angular).to.have.property('select')
+  })
+
+  it('should export form directive', () => {
+    expect(angular).to.have.property('form')
+  })
 })

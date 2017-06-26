@@ -25,7 +25,10 @@ function HomeController() {
   ]
 
   this.house = 'Stark'
-  // console.log(this.house)
+
+  this.submit = () => {
+    console.log('angular submit now')
+  }
 
   this.remove = () => {
     this.options.pop()

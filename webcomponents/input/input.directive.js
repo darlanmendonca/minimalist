@@ -32,7 +32,7 @@ function MnInputDirective() {
 
       function setViewValue(event) {
         const activeElement = event.currentTarget === document.activeElement
-        const isDate = component.input.type === 'date'//component.classList.contains('mn-date')
+        const isDate = component.input.type === 'date'
         const isNumber = component.classList.contains('mn-number')
         const isBlur = event.type === 'blur'
         const isSelect = component.classList.contains('mn-select')

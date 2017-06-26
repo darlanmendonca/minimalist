@@ -383,6 +383,7 @@ angular.module('minimalist', [])
 module.exports = {
   input: __webpack_require__(14),
   select: __webpack_require__(21),
+  form: __webpack_require__(23),
 }
 
 
@@ -423,7 +424,10 @@ function HomeController() {
   ]
 
   this.house = 'Stark'
-  // console.log(this.house)
+
+  this.submit = () => {
+    console.log('angular submit now')
+  }
 
   this.remove = () => {
     this.options.pop()
@@ -34318,7 +34322,7 @@ function MnInputDirective() {
 
       function setViewValue(event) {
         const activeElement = event.currentTarget === document.activeElement
-        const isDate = component.input.type === 'date'//component.classList.contains('mn-date')
+        const isDate = component.input.type === 'date'
         const isNumber = component.classList.contains('mn-number')
         const isBlur = event.type === 'blur'
         const isSelect = component.classList.contains('mn-select')
@@ -35144,6 +35148,30 @@ function MnSelectCustomElement() {
   const MnSelect = __webpack_require__(20)
   window.customElements.define('mn-select', MnSelect)
   return window.customElements.get('mn-select')
+}
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const angular = __webpack_require__(2)
+
+angular
+  .module('minimalist')
+  .directive('mnForm', MnFormDirective)
+
+function MnFormDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      const form = element[0]
+
+      form.addEventListener('submit', () => {
+        scope.$eval(attributes.submit)
+      })
+    }
+  }
 }
 
 

@@ -34,7 +34,7 @@
 
     <h2>angular</h2>
     <div ng-app="app" ng-controller="HomeController as controller">
-      <mn-form name="form">
+      <mn-form submit="controller.submit()">
         <mn-input placeholder="Name: {{ controller.username }}" required ng-model="controller.username"></mn-input>
 
         <mn-password placeholder="Password: {{ controller.password }}" ng-model="controller.password" required></mn-password>
