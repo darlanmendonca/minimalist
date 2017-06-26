@@ -63,9 +63,7 @@ In your template is all similar, but you use `submit` directive
 ```html
 <!-- controller.login is our submit method, defined in angular controller -->
 <mn-form submit="controller.login()">
-  <mn-input placeholder="username" name="username" required></mn-input>
-  <mn-password placeholder="password" name="password" required></mn-password>
-  <button type="submit">submit</button>
+  <!-- content of form here -->
 </mn-form>
 ```
 

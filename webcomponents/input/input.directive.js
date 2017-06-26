@@ -12,6 +12,11 @@ function MnInputDirective() {
       const component = element[0]
       const input = component.input
 
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
       input.addEventListener('change', setViewValue)
       input.addEventListener('blur', setViewValue)
       input.addEventListener('input', setViewValue)

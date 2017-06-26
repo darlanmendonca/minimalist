@@ -425,8 +425,9 @@ function HomeController() {
 
   this.house = 'Stark'
 
-  this.submit = () => {
-    console.log('angular submit now')
+  this.submit = (data) => {
+    const form = document.querySelector('mn-form')
+    console.log('angular submit now', form.data)
   }
 
   this.remove = () => {
@@ -34301,6 +34302,11 @@ function MnInputDirective() {
     link(scope, element, attributes, ngModel) {
       const component = element[0]
       const input = component.input
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
 
       input.addEventListener('change', setViewValue)
       input.addEventListener('blur', setViewValue)

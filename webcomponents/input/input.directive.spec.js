@@ -32,6 +32,10 @@ describe('mn-input (directive)', () => {
   })
 
   describe('ngModel', () => {
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'username')
+    })
+
     it('should be empty string if it doesn\'t exist', () => {
       expect(scope.username).to.be.equal('')
       expect(component).to.have.value('')
@@ -81,6 +85,11 @@ describe('mn-input (directive)', () => {
 
   describe('mn-password ngModel', () => {
     beforeEach(createMnPassword)
+
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'password')
+    })
+
     it('should be empty string if it doesn\'t exist', () => {
       expect(scope.password).to.be.equal('')
       expect(component).to.have.value('')
@@ -132,6 +141,10 @@ describe('mn-input (directive)', () => {
     beforeEach(createMnDate)
     afterEach(fixAngularErrorWithFocus)
     const timezone = new Date().getTimezoneOffset() / 60
+
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'date')
+    })
 
     it('should be undefined if it doesn\'t exist', () => {
       expect(scope.date).to.be.undefined
@@ -217,6 +230,10 @@ describe('mn-input (directive)', () => {
   describe('mn-number ngModel', () => {
     beforeEach(createMnNumber)
     afterEach(fixAngularErrorWithFocus)
+
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'number')
+    })
 
     it('should be undefined if it doesn\'t exist', () => {
       expect(scope.number).to.be.undefined
@@ -411,6 +428,10 @@ describe('mn-input (directive)', () => {
   describe('mn-select ngModel', () => {
     beforeEach(createMnSelect)
     afterEach(fixAngularErrorWithFocus)
+
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'house')
+    })
 
     it('should be undefined if it doesn\'t exist', () => {
       expect(scope.houses).to.be.undefined

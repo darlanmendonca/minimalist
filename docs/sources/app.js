@@ -26,8 +26,9 @@ function HomeController() {
 
   this.house = 'Stark'
 
-  this.submit = () => {
-    console.log('angular submit now')
+  this.submit = (data) => {
+    const form = document.querySelector('mn-form')
+    console.log('angular submit now', form.data)
   }
 
   this.remove = () => {
