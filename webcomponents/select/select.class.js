@@ -286,35 +286,35 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .filter(option => {
+        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.textContent == String(value) // eslint-disable-line eqeqeq
+      })[0]
+
+    const textNotApplied = option && this.input.value !== option.textContent
+
+    if (textNotApplied) {
+      this.input.value = option
+        ? option.textContent
+        : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
 
     if (differentValue) {
-      const option = Array
-        .from(this.menu.querySelectorAll('.option'))
-        .filter(option => {
-          return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-            || option.textContent == String(value) // eslint-disable-line eqeqeq
-        })[0]
+      const hasValue = value !== undefined && value !== null
 
-      const textNotApplied = option && this.input.value !== option.textContent
+      hasValue && option
+        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+        :  this.removeAttribute('value')
 
-      if (differentValue || textNotApplied) {
-        this.input.value = option
-          ? option.textContent
-          : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
 
-        const hasValue = value !== undefined && value !== null
-
-        hasValue && option
-          ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-          :  this.removeAttribute('value')
-
-        this.input.dispatchEvent(new Event('change'))
-      }
-
-      if (!this.hasAttribute('value')) {
-        this.input.value = ''
-        this.input.dispatchEvent(new Event('change'))
-      }
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
     }
   }
 
