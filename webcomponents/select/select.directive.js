@@ -1,4 +1,4 @@
-const angular = require('angular')
+/* global angular */
 
 angular
   .module('minimalist')

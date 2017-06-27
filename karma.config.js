@@ -28,6 +28,7 @@ function KarmaConfig(config) {
     browsers,
 
     files: [
+      'node_modules/angular/index.js',
       'webcomponents/**/*.scss',
       'index.spec.js',
       'angular.spec.js',

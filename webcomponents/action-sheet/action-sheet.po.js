@@ -8,7 +8,6 @@ module.exports = class ActionSheetPageObject {
       .from(this.component.querySelectorAll('.option'))
       .filter(option => option.textContent === value)[0]
 
-    console.log('click on option', option)
     if (option) {
       option.click()
     }
