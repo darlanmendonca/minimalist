@@ -1,6 +1,6 @@
 @import '../../node_modules/open-color/open-color.scss';
 
-.mn-backdrop:before {
+.mn-backdrop {
   --background-color: $oc-gray-9;
   --opacity: .6;
 }
