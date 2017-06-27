@@ -37,7 +37,9 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    this[name] = value
+    if (this.parentNode) {
+      this[name] = value
+    }
     // if (this.parentNode && this.label && this.input) {
     //   this[name] = value
     // }
@@ -158,7 +160,6 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set name(value) {
-    // console.log('set name')
     const form = this.closest('form') || this.closest('mn-form')
     const name = this.getAttribute('name')
     const element = this
