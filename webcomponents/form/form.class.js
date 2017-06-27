@@ -10,6 +10,7 @@ module.exports = class MnForm extends HTMLElement {
     this._setStyle()
     this._setSubmit()
     this._setAttributeDisabled()
+    this._setAttributeReadonly()
   }
 
   static get observedAttributes() {
@@ -48,7 +49,7 @@ module.exports = class MnForm extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
   }
 
-  _setAttributeDisabled() {
+  _setAttributeReadonly() {
     this.readonly = this.hasAttribute('readonly')
   }
 
