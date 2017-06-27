@@ -7,7 +7,9 @@ function MnSelectCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnSelect = require('./select.class.js')
-  window.customElements.define('mn-select', MnSelect)
+  if (!window.customElements.get('mn-select')) {
+    window.customElements.define('mn-select', require('./select.class.js'))
+  }
+
   return window.customElements.get('mn-select')
 }

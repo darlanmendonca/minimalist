@@ -7,7 +7,9 @@ function MnNumberCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnNumber = require('./number.class.js')
-  window.customElements.define('mn-number', MnNumber)
+  if (!window.customElements.get('mn-number')) {
+    window.customElements.define('mn-number', require('./number.class.js'))
+  }
+
   return window.customElements.get('mn-number')
 }

@@ -7,7 +7,9 @@ function MnFormCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnForm = require('./form.class.js')
-  window.customElements.define('mn-form', MnForm)
+  if (!window.customElements.get('mn-form')) {
+    window.customElements.define('mn-form', require('./form.class.js'))
+  }
+
   return window.customElements.get('mn-form')
 }

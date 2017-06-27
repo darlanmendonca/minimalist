@@ -7,7 +7,9 @@ function MnDateCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnDate = require('./date.class.js')
-  window.customElements.define('mn-date', MnDate)
+  if (!window.customElements.get('mn-date')) {
+    window.customElements.define('mn-date', require('./date.class.js'))
+  }
+
   return window.customElements.get('mn-date')
 }

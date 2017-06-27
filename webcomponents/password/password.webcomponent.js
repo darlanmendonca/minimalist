@@ -7,7 +7,9 @@ function MnPasswordCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnPassword = require('./password.class.js')
-  window.customElements.define('mn-password', MnPassword)
+  if (!window.customElements.get('mn-password')) {
+    window.customElements.define('mn-password', require('./password.class.js'))
+  }
+
   return window.customElements.get('mn-password')
 }
