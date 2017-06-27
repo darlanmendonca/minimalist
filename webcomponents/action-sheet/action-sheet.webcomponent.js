@@ -7,7 +7,9 @@ function MnActionSheetCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  const MnActionSheet = require('./action-sheet.class.js')
-  window.customElements.define('mn-action-sheet', MnActionSheet)
+  if (!window.customElements.get('mn-action-sheet')) {
+    window.customElements.define('mn-action-sheet', require('./action-sheet.class.js'))
+  }
+
   return window.customElements.get('mn-action-sheet')
 }
