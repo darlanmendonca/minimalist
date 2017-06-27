@@ -1,11 +1,11 @@
-module.exports = {
-  // watch: true,
-  devtool: 'source-map',
+// module.exports = {
+//   // watch: true,
+//   devtool: 'source-map',
 
-  entry: `${__dirname}/docs/sources/app.js`,
+//   entry: './docs/sources/app.js',
 
-  output: {
-    filename: 'vendor.js',
-    path: `${__dirname}/docs/`,
-  },
-}
+//   output: {
+//     filename: 'vendor.js',
+//     path: `${__dirname}/docs/`,
+//   },
+// }
