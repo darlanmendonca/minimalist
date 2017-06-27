@@ -27,6 +27,10 @@ function MnInputDirective() {
         scope.$watch(attributes.ngModel, setComponentValue)
       })
 
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
       function setComponentValue(value) {
         const isSelect = component.classList.contains('mn-select')
 

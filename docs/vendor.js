@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -357,7 +357,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(6))
+    window.customElements.define('mn-action-sheet', __webpack_require__(9))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -368,17 +368,40 @@ function MnActionSheetCustomElement() {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
+/* global angular */
+
+angular.module('minimalist', [])
+
+module.exports = {
+  input: __webpack_require__(15),
+  select: __webpack_require__(22),
+  form: __webpack_require__(13),
+}
+
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password, number, actionSheet, form} = __webpack_require__(3)
+__webpack_require__(8);
+module.exports = angular;
 
-const angular = __webpack_require__(19)
 
-__webpack_require__(18)
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(7);
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const {input, password, number, actionSheet, form} = __webpack_require__(5)
+
+const angular = __webpack_require__(4)
+
+__webpack_require__(3)
 angular
   .module('app', ['minimalist'])
   .controller('HomeController', HomeController)
@@ -420,1257 +443,22 @@ function HomeController() {
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(11),
-  password: __webpack_require__(15),
-  number: __webpack_require__(13),
-  date: __webpack_require__(8),
-  select: __webpack_require__(17),
-  actionSheet: __webpack_require__(2),
-  form: __webpack_require__(10),
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnActionSheet extends HTMLElement {
-  constructor() {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setMenu()
-    this._setCancel()
-  }
-
-  static get observedAttributes() {
-    return []
-  }
-
-  attributeChangedCallback(name, old, value) {
-    if (this.parentNode) {
-      this[name] = value
-    }
-  }
-
-  _setStyle() {
-    this.classList.add('mn-action-sheet')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  _setMenu() {
-    const menu = document.createElement('menu')
-    menu.classList.add('mn-card')
-
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
-    document.addEventListener('click', event => {
-      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
-      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
-
-      if (isOption && index >= 0) {
-        const changeEvent = new Event('change')
-        changeEvent.data = {index}
-        this.dispatchEvent(changeEvent)
-      }
-    })
-
-    this.appendChild(menu)
-    this.menu = menu
-  }
-
-  _setCancel() {
-    const button = document.createElement('button')
-
-    button.addEventListener('click', () => {
-      this.hide()
-    })
-
-    document.addEventListener('touchmove', () => {
-      const clickOutside = event.target === this
-      this.touchmove = true
-      if (clickOutside) {
-        event.preventDefault()
-      }
-    })
-
-    document.addEventListener('touchend', (event) => {
-      const clickOutside = event.target === this && !this.touchmove
-      if (clickOutside) {
-        this.hide()
-      }
-      delete this.touchmove
-    })
-
-    this.button = button
-    this.appendChild(this.button)
-  }
-
-  show() {
-    this.menu.scrollTop = 0
-    this.classList.add('visible')
-    document.body.classList.add('mn-backdrop-visible')
-    document.body.classList.add('mn-action-sheet-visible')
-  }
-
-  hide() {
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-    document.body.classList.remove('mn-action-sheet-visible')
-  }
-}
-
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnDate extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-date')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'date')
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate) {
-      this.input.setAttribute('type', 'text')
-      this.input.setAttribute('maxlength', 10)
-      this._setMask()
-    }
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
-    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
-    delete this.validations.pattern
-  }
-
-  _setMask() {
-    this.input.addEventListener('keydown', (event) => {
-      const isInputEditing = event.key === 'Backspace'
-        || this.input.selectionStart !== this.input.value.length
-
-      this.inputEditing = isInputEditing
-    })
-
-    this.input.addEventListener('input', () => {
-      if (!this.inputEditing) {
-        this.updateMask()
-      }
-
-      this.inputEditing = undefined
-    })
-
-    this.input.addEventListener('blur', () => {
-      this.updateMask()
-      const dateString = this.input.value
-        .split('/')
-        .reverse()
-        .join('-')
-
-      isValidDate(dateString)
-        ? this.updateMask()
-        : this.value = ''
-    })
-  }
-
-  updateMask() {
-    this.input.value = this.input.value
-      .replace(/[^\d\/]/, '') // disallow invalid chars
-      .replace(/[a-z]/ig, '') // disallow letters
-      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
-      .replace(/000(\d)$/g, '190$1') // disallow year 0
-      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
-      .replace(/\/{2}/g, '/') // disallow repeated /
-      .replace(/(^\/)/, '') // disallow / as first char
-      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
-      .replace(/^(\d)\//, '0$1/') // leading 0 day
-      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
-      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
-      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
-  }
-
-  get value() {
-    let date
-    try {
-      const isDateString = this.input.type === 'date'
-      const value = isDateString
-        ? this.input.value
-        : this.input.value
-          .split('/')
-          .reverse()
-          .join('-')
-
-      date = isValidDate(value)
-        ? newDate(value).toISOString()
-        : undefined
-    } catch (e) {}
-
-    return date
-      ? date
-      : undefined
-  }
-
-  set value(value = '') {
-    const validDate = typeof value === 'string'
-      && isValidDate(value)
-
-    value = value instanceof Date
-      ? value.toISOString().substring(0, 10)
-      : validDate
-        ? newDate(value)
-          .toISOString()
-          .substring(0, 10)
-        : ''
-
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate && validDate) {
-      const dateString = value.split('-')
-      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
-        .toLocaleString('pt-BR')
-        .substring(0, 10)
-    }
-
-    this.input.value = value
-    this.input.dispatchEvent(new Event('change'))
-  }
-}
-
-function isValidDate(dateString) {
-  const year = +dateString.split('-')[0]
-  const month = +dateString.split('-')[1]
-  const date = newDate(dateString)
-
-  return date.getFullYear() >= 1900
-    && date.getFullYear() === year
-    && date.getMonth() + 1 === month
-}
-
-function newDate(dateString) {
-  dateString = dateString || ''
-  const isString = typeof dateString === 'string'
-  dateString = dateString.replace(/T.+/, '')
-  dateString = isString && dateString.includes('/')
-    ? dateString
-      .split('/')
-      .reverse()
-      .join('-')
-    : dateString
-
-  dateString = dateString.split('-')
-
-  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
-  return date
+module.exports = {
+  input: __webpack_require__(16),
+  password: __webpack_require__(20),
+  number: __webpack_require__(18),
+  date: __webpack_require__(11),
+  select: __webpack_require__(23),
+  actionSheet: __webpack_require__(2),
+  form: __webpack_require__(14),
 }
 
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDateCustomElement()
-
-function MnDateCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(7))
-  }
-
-  return window.customElements.get('mn-date')
-}
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnForm extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setSubmit()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
-  }
-
-  static get observedAttributes() {
-    return [
-      'name',
-      'disabled',
-      'readonly',
-    ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
-  }
-
-  _setStyle() {
-    this.classList.add('mn-form')
-  }
-
-  _setSubmit() {
-    document.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-      const srcElementInsideForm = event.target.closest('mn-form')
-      if (enter && srcElementInsideForm) {
-        this.submit()
-      }
-    })
-
-    Array
-      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
-      .forEach(button => {
-        button.addEventListener('click', () => this.submit())
-      })
-  }
-
-  _setAttributeDisabled() {
-    this.disabled = this.hasAttribute('disabled')
-  }
-
-  _setAttributeReadonly() {
-    this.readonly = this.hasAttribute('readonly')
-  }
-
-  validate() {
-    this.inputs
-      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
-      .forEach(input => input.validate())
-
-    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
-    return isInvalid
-  }
-
-  get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input'))
-  }
-
-  get data() {
-    const data = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          data[name] = input.value
-        }
-      })
-
-    return data
-  }
-
-  set name(name) {
-    if (name && typeof name === 'string') {
-      window[name] = this
-    }
-  }
-
-  set disabled(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('disabled')
-          ? input.setAttribute('disabled', 'true')
-          : input.removeAttribute('disabled')
-      })
-  }
-
-  set readonly(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('readonly')
-          ? input.setAttribute('readonly', 'true')
-          : input.removeAttribute('readonly')
-      })
-  }
-
-  submit() {
-    this.classList.add('submitted')
-    const isValid = this.validate()
-    const event = new Event('submit')
-    event.data = this.data
-
-    if (isValid) {
-      this.dispatchEvent(event)
-    }
-  }
-}
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnFormCustomElement()
-
-function MnFormCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(9))
-  }
-
-  return window.customElements.get('mn-form')
-}
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnInputCustomElement()
-
-function MnInputCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-input')) {
-    window.customElements.define('mn-input', __webpack_require__(1))
-  }
-
-  return window.customElements.get('mn-input')
-}
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnNumber extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    super._setInput()
-    this._setMask()
-    this._setMobileKeyboard()
-    this._setInputTransforms()
-    this._setInputKeys()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setAttributeMax()
-    this._setAttributeMin()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-number')
-  }
-
-  _setMask() {
-    this.mask = document.createElement('div')
-    this.mask.classList.add('mask')
-    this.appendChild(this.mask)
-
-    this.input.addEventListener('input', () => {
-      this.updateMask()
-    })
-  }
-
-  _setMobileKeyboard() {
-    this.input.setAttribute('pattern', '\\d*')
-  }
-
-  _setInputTransforms() {
-    this.input.addEventListener('change', () => {
-      try {
-        const value = eval(this.input.value.replace(/,/g, '.'))
-        value !== undefined
-          ? this.input.value = String(value).replace(/\./g, ',')
-          : null
-        const valueIsDefined = value !== undefined
-
-        if (valueIsDefined) {
-          const isCurrency = this.hasAttribute('currency')
-          const precision = this.getAttribute('precision') || 0
-
-          switch (true) {
-            case isCurrency:
-              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
-              break
-
-            default:
-              this.input.value = precision
-                ? value.toFixed(precision).replace(/\./g, ',')
-                : String(value).replace(/\./g, ',')
-              break
-          }
-        }
-      } catch (e) {
-        this.value = undefined
-      }
-
-      this.hasAttribute('percentage')
-        ? this.updateMask()
-        : null
-    })
-  }
-
-  _setInputKeys() {
-    this.input.addEventListener('keydown', (event) => {
-      if (!this.hasAttribute('readonly')) {
-        const step = this.hasAttribute('percentage')
-          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
-          : +this.getAttribute('step') || 1
-        const value = this.value || 0
-
-        switch (event.key) {
-          case 'ArrowUp':
-            this.value = value + step
-            break
-          case 'ArrowDown':
-            this.value = value - step
-            break
-        }
-
-        event.key === 'ArrowUp' || event.key === 'ArrowDown'
-          ? event.preventDefault()
-          : null
-      }
-    })
-  }
-
-  _setAttributeMax() {
-    this.max = this.getAttribute('max')
-  }
-
-  _setAttributeMin() {
-    this.min = this.getAttribute('min')
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    this.validations.min = () => this.value < this.getAttribute('min')
-    this.validations.max = () => this.value > this.getAttribute('max')
-    delete this.validations.pattern
-  }
-
-  get value() {
-    const isUndefined = this.input.value === ''
-    const numberString = this.input.value.replace(/,/g, '.')
-
-    const val = isUndefined
-      ? undefined
-      : this.hasAttribute('percentage')
-        ? (numberString * 100) / 10000
-        : parseFloat(numberString)
-
-    return val
-  }
-
-  set value(value = '') {
-    if (this.input) {
-      try {
-        value = eval(String(value).replace(/,/g, '.'))
-        const differentValue = this.input.value !== value
-
-        if (value !== undefined && differentValue) {
-          value = this.hasAttribute('percentage')
-            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
-            : value
-          this.input.value = value
-        } else {
-          this.input.value = ''
-        }
-
-      } catch (e) {
-        this.input.value = ''
-      }
-
-      this.input.dispatchEvent(new Event('change'))
-      this.input.dispatchEvent(new Event('input'))
-    }
-  }
-
-  set max(value) {
-    if (this.label) {
-      this.hasAttribute('max')
-        ? this.label.setAttribute('max', value)
-        : this.label.removeAttribute('max')
-    }
-  }
-
-  set min(value) {
-    if (this.label) {
-      this.hasAttribute('min')
-        ? this.label.setAttribute('min', value)
-        : this.label.removeAttribute('min')
-    }
-  }
-
-  updateMask() {
-    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
-  }
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnNumberCustomElement()
-
-function MnNumberCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(12))
-  }
-
-  return window.customElements.get('mn-number')
-}
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    this._setVisibilityButton()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-password')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'password')
-  }
-
-  _setVisibilityButton() {
-    const button = document.createElement('button')
-    button.setAttribute('type', 'button')
-    button.setAttribute('tabindex', '-1')
-
-    this.appendChild(button)
-    this.button = button
-    this.input.addEventListener('blur', () => {
-      this.input.setAttribute('type', 'password')
-      this.classList.remove('show-password')
-      this.input.dispatchEvent(new Event('change'))
-    })
-
-    button.addEventListener('mousedown', event => {
-      event.preventDefault()
-    })
-
-    button.addEventListener('click', () => {
-      const toggledType = this.input.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password'
-      this.input.setAttribute('type', toggledType)
-      this.classList.toggle('show-password')
-      this.input.focus()
-    })
-  }
-}
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnPasswordCustomElement()
-
-function MnPasswordCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(14))
-  }
-
-  return window.customElements.get('mn-password')
-}
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-const MnActionSheet = __webpack_require__(2)
-
-module.exports = class MnSelect extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    this._setMenu()
-    if (!this.closest('[ng-app]')) {
-      this._setActionSheet()
-    }
-    this._setOptions()
-    this._setKeyboardNavigation()
-    this._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setAttributeAutocomplete()
-    super._setAttributeSpellcheck()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-select')
-  }
-
-  _setInput() {
-    super._setInput()
-
-    this.input.addEventListener('focus', () => {
-      this.input.select()
-      !this.input.hasAttribute('readonly')
-        ? this.show()
-        : undefined
-      this.filter = undefined
-    })
-
-    this.input.addEventListener('blur', () => {
-      const option = Array
-        .from(this.menu.querySelectorAll('.option'))
-        .filter(option => {
-          const optionValue = option.getAttribute('value') || option.textContent
-          return optionValue === this.getAttribute('value')
-        })[0]
-
-      if (this.input.value && option) {
-        this.input.value = option.textContent
-      } else {
-        this.value = undefined
-      }
-      this.hide()
-    })
-
-    this.input.addEventListener('input', () => {
-      this.filter = this.input.value
-      this.focusOption(this.menu.querySelector('.option:not(.hidden)'))
-    })
-
-    document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select') && event.target !== this
-
-      if (this.visible && clickOutside) {
-        this.hide()
-      }
-    })
-  }
-
-  _setAttributeValue() {
-    const selectedOption = this.querySelector('.option[selected]')
-    const selectedValue = selectedOption
-      ? selectedOption.getAttribute('value') || selectedOption.textContent
-      : ''
-
-    const value = this.getAttribute('value') || selectedValue
-    this.value = value
-  }
-
-  _setMenu() {
-    const menu = document.createElement('menu')
-    menu.classList.add('mn-card')
-
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
-    this.appendChild(menu)
-    this.menu = menu
-  }
-
-  _setActionSheet() {
-    if (screen.width < 768) {
-      const actionSheet = new MnActionSheet()
-      Array
-        .from(this.querySelectorAll('.option'))
-        .forEach(option => {
-          const actionSheetOption = document.createElement('option')
-          actionSheetOption.textContent = option.textContent
-          actionSheet.appendChild(actionSheetOption)
-        })
-      this.actionSheet = actionSheet
-      this.actionSheet.addEventListener('change', (event) => {
-        const {index} = event.data
-        const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
-        this.value = option.textContent
-        this.actionSheet.hide()
-      })
-      document.body.appendChild(this.actionSheet)
-    }
-  }
-
-  _setOptions() {
-    document.addEventListener('mousedown', (event) => {
-      const isOption = event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        event.stopPropagation()
-        event.preventDefault()
-
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.input.blur()
-      }
-    })
-
-    document.addEventListener('mousemove', (event) => {
-      const isOption = event.target.classList && event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        if (!this.keyboardNavigation) {
-          this.focusOption(event.target)
-        }
-      }
-    })
-  }
-
-  _setKeyboardNavigation() {
-    this.input.addEventListener('keydown', (event) => { // arrow navigate
-      const arrowDown = event.key === 'ArrowDown'
-      const arrowUp = event.key === 'ArrowUp'
-      let nextOption
-
-      const options = Array.from(this.menu.querySelectorAll('.option:not(.hidden)'))
-      const currentOption = this.menu.querySelector('.option.focus')
-
-      const currentIndex = Array.prototype.indexOf.call(options, currentOption)
-
-      if (arrowDown) {
-        event.preventDefault()
-        nextOption = options[currentIndex + 1]
-      } else if (arrowUp) {
-        event.preventDefault()
-        nextOption = options[currentIndex - 1]
-      }
-
-      if (nextOption) {
-        const top = nextOption.offsetTop
-        const bottom = top + nextOption.clientHeight
-        const scrollToTop = top < this.menu.scrollTop
-        const scrollToBottom = bottom > this.menu.scrollTop + this.menu.clientHeight
-
-        this.keyboardNavigation = true
-        if (scrollToTop) {
-          this.menu.scrollTop = top
-        } else if (scrollToBottom) {
-          this.menu.scrollTop = bottom - this.menu.clientHeight
-        }
-
-        this.focusOption(nextOption)
-        setTimeout(() => {
-          delete this.keyboardNavigation
-        }, 100)
-      }
-    })
-
-    this.input.addEventListener('keydown', event => {
-      const esc = event.key === 'Escape'
-
-      if (esc) {
-        this.value = this.value
-        this.input.select()
-        this.filter = undefined
-      }
-    })
-
-    this.input.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-
-      if (enter) {
-        const option = this.menu.querySelector('.option.focus')
-        event.preventDefault()
-        event.stopPropagation()
-
-        option
-          ? this.value = option.getAttribute('value') || option.textContent
-          : this.value = this.value
-
-        this.hide()
-        this.input.blur()
-      }
-    })
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    delete this.validations.pattern
-  }
-
-  show() {
-    this.classList.add('visible')
-    this.menu.scrollTop = 0
-    this.focusOption(this.querySelector('.option:first-child'))
-
-    if (this.actionSheet) {
-      this.input.blur()
-      this.actionSheet.show()
-    }
-  }
-
-  hide() {
-    this.classList.remove('visible')
-    this.removeOptionFocus()
-  }
-
-  get visible() {
-    return this.classList.contains('visible')
-  }
-
-  removeOptionFocus() {
-    const latest = this.menu.querySelector('.focus')
-    latest
-      ? latest.classList.remove('focus')
-      : undefined
-  }
-
-  focusOption(option) {
-    this.removeOptionFocus()
-    option
-      ? option.classList.add('focus')
-      : null
-  }
-
-  get value() {
-    return this.getAttribute('value')
-      ? evaluate(this.getAttribute('value'))
-      : undefined
-  }
-
-  set value(value) {
-    const differentValue = this.getAttribute('value') !== value
-    const option = Array
-      .from(this.menu.querySelectorAll('.option'))
-      .filter(option => {
-        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-          || option.textContent == String(value) // eslint-disable-line eqeqeq
-      })[0]
-
-    const textNotApplied = option && this.input.value !== option.textContent
-
-    if (textNotApplied) {
-      this.input.value = option
-        ? option.textContent
-        : ''
-      this.input.dispatchEvent(new Event('change'))
-    }
-
-    if (differentValue) {
-      const hasValue = value !== undefined && value !== null
-
-      hasValue && option
-        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-        :  this.removeAttribute('value')
-
-      this.input.dispatchEvent(new Event('change'))
-    }
-
-    if (!this.hasAttribute('value')) {
-      this.input.value = ''
-      this.input.dispatchEvent(new Event('change'))
-    }
-  }
-
-  set filter(value) {
-    if (value) {
-      this.classList.add('filtered')
-
-      Array
-        .from(this.menu.querySelectorAll('.option'))
-        .forEach(option => {
-          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
-
-          Array
-            .from(option.querySelectorAll('.match'))
-            .forEach(char => char.classList.remove('match'))
-
-          if (matchOption) {
-            option.classList.remove('hidden')
-
-            value
-              .split('')
-              .forEach(char => {
-                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
-                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
-                letter
-                  ? letter.classList.add('match')
-                  : null
-              })
-
-          } else {
-            option.classList.add('hidden')
-          }
-        })
-    } else {
-      this.classList.remove('filtered')
-      Array
-        .from(this.querySelectorAll('.option.hidden'))
-        .forEach(option => option.classList.remove('hidden'))
-    }
-  }
-}
-
-function evaluate(value) {
-  try {
-    value = value.trim()
-    const isVariable = !value.startsWith('[')
-      && !value.startsWith('{')
-      && !value.startsWith('\'')
-      && !value.startsWith('"')
-      && !value.startsWith('`')
-      && value !== 'true'
-      && value !== 'false'
-      && isNaN(value)
-
-    return isVariable
-        ? eval(`'${value}'`) // convert to string
-        : eval(`(${value})`) // evaluate
-  } catch (e) {
-    return value
-  }
-}
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(16))
-  }
-
-  return window.customElements.get('mn-select')
-}
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global angular */
-
-angular.module('minimalist', [])
-
-module.exports = {
-  input: __webpack_require__(22),
-  select: __webpack_require__(23),
-  form: __webpack_require__(21),
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(20);
-module.exports = angular;
-
-
-/***/ }),
-/* 20 */
 /***/ (function(module, exports) {
 
 /**
@@ -35047,7 +33835,443 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 21 */
+/* 9 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnActionSheet extends HTMLElement {
+  constructor() {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setMenu()
+    this._setCancel()
+  }
+
+  static get observedAttributes() {
+    return []
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode) {
+      this[name] = value
+    }
+  }
+
+  _setStyle() {
+    this.classList.add('mn-action-sheet')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        child.parentNode.removeChild(child)
+        menu.appendChild(option)
+      })
+
+    document.addEventListener('click', event => {
+      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
+      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
+
+      if (isOption && index >= 0) {
+        const changeEvent = new Event('change')
+        changeEvent.data = {index}
+        this.dispatchEvent(changeEvent)
+      }
+    })
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  _setCancel() {
+    const button = document.createElement('button')
+
+    button.addEventListener('click', () => {
+      this.hide()
+    })
+
+    document.addEventListener('touchmove', () => {
+      const clickOutside = event.target === this
+      this.touchmove = true
+      if (clickOutside) {
+        event.preventDefault()
+      }
+    })
+
+    document.addEventListener('touchend', (event) => {
+      const clickOutside = event.target === this && !this.touchmove
+      if (clickOutside) {
+        this.hide()
+      }
+      delete this.touchmove
+    })
+
+    this.button = button
+    this.appendChild(this.button)
+  }
+
+  show() {
+    this.menu.scrollTop = 0
+    this.classList.add('visible')
+    document.body.classList.add('mn-backdrop-visible')
+    document.body.classList.add('mn-action-sheet-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+    document.body.classList.remove('mn-action-sheet-visible')
+  }
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnDate extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-date')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'date')
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate) {
+      this.input.setAttribute('type', 'text')
+      this.input.setAttribute('maxlength', 10)
+      this._setMask()
+    }
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
+    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
+    delete this.validations.pattern
+  }
+
+  _setMask() {
+    this.input.addEventListener('keydown', (event) => {
+      const isInputEditing = event.key === 'Backspace'
+        || this.input.selectionStart !== this.input.value.length
+
+      this.inputEditing = isInputEditing
+    })
+
+    this.input.addEventListener('input', () => {
+      if (!this.inputEditing) {
+        this.updateMask()
+      }
+
+      this.inputEditing = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      this.updateMask()
+      const dateString = this.input.value
+        .split('/')
+        .reverse()
+        .join('-')
+
+      isValidDate(dateString)
+        ? this.updateMask()
+        : this.value = ''
+    })
+  }
+
+  updateMask() {
+    this.input.value = this.input.value
+      .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/[a-z]/ig, '') // disallow letters
+      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
+      .replace(/000(\d)$/g, '190$1') // disallow year 0
+      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
+      .replace(/\/{2}/g, '/') // disallow repeated /
+      .replace(/(^\/)/, '') // disallow / as first char
+      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
+      .replace(/^(\d)\//, '0$1/') // leading 0 day
+      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
+      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
+      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
+  }
+
+  get value() {
+    let date
+    try {
+      const isDateString = this.input.type === 'date'
+      const value = isDateString
+        ? this.input.value
+        : this.input.value
+          .split('/')
+          .reverse()
+          .join('-')
+
+      date = isValidDate(value)
+        ? newDate(value).toISOString()
+        : undefined
+    } catch (e) {}
+
+    return date
+      ? date
+      : undefined
+  }
+
+  set value(value = '') {
+    const validDate = typeof value === 'string'
+      && isValidDate(value)
+
+    value = value instanceof Date
+      ? value.toISOString().substring(0, 10)
+      : validDate
+        ? newDate(value)
+          .toISOString()
+          .substring(0, 10)
+        : ''
+
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate && validDate) {
+      const dateString = value.split('-')
+      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
+        .toLocaleString('pt-BR')
+        .substring(0, 10)
+    }
+
+    this.input.value = value
+    this.input.dispatchEvent(new Event('change'))
+  }
+}
+
+function isValidDate(dateString) {
+  const year = +dateString.split('-')[0]
+  const month = +dateString.split('-')[1]
+  const date = newDate(dateString)
+
+  return date.getFullYear() >= 1900
+    && date.getFullYear() === year
+    && date.getMonth() + 1 === month
+}
+
+function newDate(dateString) {
+  dateString = dateString || ''
+  const isString = typeof dateString === 'string'
+  dateString = dateString.replace(/T.+/, '')
+  dateString = isString && dateString.includes('/')
+    ? dateString
+      .split('/')
+      .reverse()
+      .join('-')
+    : dateString
+
+  dateString = dateString.split('-')
+
+  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
+  return date
+}
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDateCustomElement()
+
+function MnDateCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-date')) {
+    window.customElements.define('mn-date', __webpack_require__(10))
+  }
+
+  return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnForm extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setSubmit()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
+  }
+
+  static get observedAttributes() {
+    return [
+      'name',
+      'disabled',
+      'readonly',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    this[name] = value
+  }
+
+  _setStyle() {
+    this.classList.add('mn-form')
+  }
+
+  _setSubmit() {
+    document.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+      const srcElementInsideForm = event.target.closest('mn-form')
+      if (enter && srcElementInsideForm) {
+        this.submit()
+      }
+    })
+
+    Array
+      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
+      .forEach(button => {
+        button.addEventListener('click', () => this.submit())
+      })
+  }
+
+  _setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  _setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
+  validate() {
+    this.inputs
+      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
+      .forEach(input => input.validate())
+
+    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    return isInvalid
+  }
+
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input'))
+  }
+
+  get data() {
+    const data = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          data[name] = input.value
+        }
+      })
+
+    return data
+  }
+
+  set name(name) {
+    if (name && typeof name === 'string') {
+      window[name] = this
+    }
+  }
+
+  set disabled(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('disabled')
+          ? input.setAttribute('disabled', 'true')
+          : input.removeAttribute('disabled')
+      })
+  }
+
+  set readonly(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('readonly')
+          ? input.setAttribute('readonly', 'true')
+          : input.removeAttribute('readonly')
+      })
+  }
+
+  submit() {
+    this.classList.add('submitted')
+    const isValid = this.validate()
+    const event = new Event('submit')
+    event.data = this.data
+
+    if (isValid) {
+      this.dispatchEvent(event)
+    }
+  }
+}
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -35071,7 +34295,28 @@ function MnFormDirective() {
 
 
 /***/ }),
-/* 22 */
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnFormCustomElement()
+
+function MnFormCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-form')) {
+    window.customElements.define('mn-form', __webpack_require__(12))
+  }
+
+  return window.customElements.get('mn-form')
+}
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -35128,7 +34373,741 @@ function MnInputDirective() {
 
 
 /***/ }),
-/* 23 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnInputCustomElement()
+
+function MnInputCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-input')) {
+    window.customElements.define('mn-input', __webpack_require__(1))
+  }
+
+  return window.customElements.get('mn-input')
+}
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnNumber extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setInput()
+    this._setMask()
+    this._setMobileKeyboard()
+    this._setInputTransforms()
+    this._setInputKeys()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setAttributeMax()
+    this._setAttributeMin()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-number')
+  }
+
+  _setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.input.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
+  _setMobileKeyboard() {
+    this.input.setAttribute('pattern', '\\d*')
+  }
+
+  _setInputTransforms() {
+    this.input.addEventListener('change', () => {
+      try {
+        const value = eval(this.input.value.replace(/,/g, '.'))
+        value !== undefined
+          ? this.input.value = String(value).replace(/\./g, ',')
+          : null
+        const valueIsDefined = value !== undefined
+
+        if (valueIsDefined) {
+          const isCurrency = this.hasAttribute('currency')
+          const precision = this.getAttribute('precision') || 0
+
+          switch (true) {
+            case isCurrency:
+              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+              break
+
+            default:
+              this.input.value = precision
+                ? value.toFixed(precision).replace(/\./g, ',')
+                : String(value).replace(/\./g, ',')
+              break
+          }
+        }
+      } catch (e) {
+        this.value = undefined
+      }
+
+      this.hasAttribute('percentage')
+        ? this.updateMask()
+        : null
+    })
+  }
+
+  _setInputKeys() {
+    this.input.addEventListener('keydown', (event) => {
+      if (!this.hasAttribute('readonly')) {
+        const step = this.hasAttribute('percentage')
+          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
+          : +this.getAttribute('step') || 1
+        const value = this.value || 0
+
+        switch (event.key) {
+          case 'ArrowUp':
+            this.value = value + step
+            break
+          case 'ArrowDown':
+            this.value = value - step
+            break
+        }
+
+        event.key === 'ArrowUp' || event.key === 'ArrowDown'
+          ? event.preventDefault()
+          : null
+      }
+    })
+  }
+
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
+  }
+
+  get value() {
+    const isUndefined = this.input.value === ''
+    const numberString = this.input.value.replace(/,/g, '.')
+
+    const val = isUndefined
+      ? undefined
+      : this.hasAttribute('percentage')
+        ? (numberString * 100) / 10000
+        : parseFloat(numberString)
+
+    return val
+  }
+
+  set value(value = '') {
+    if (this.input) {
+      try {
+        value = eval(String(value).replace(/,/g, '.'))
+        const differentValue = this.input.value !== value
+
+        if (value !== undefined && differentValue) {
+          value = this.hasAttribute('percentage')
+            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
+            : value
+          this.input.value = value
+        } else {
+          this.input.value = ''
+        }
+
+      } catch (e) {
+        this.input.value = ''
+      }
+
+      this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
+    }
+  }
+
+  set max(value) {
+    if (this.label) {
+      this.hasAttribute('max')
+        ? this.label.setAttribute('max', value)
+        : this.label.removeAttribute('max')
+    }
+  }
+
+  set min(value) {
+    if (this.label) {
+      this.hasAttribute('min')
+        ? this.label.setAttribute('min', value)
+        : this.label.removeAttribute('min')
+    }
+  }
+
+  updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+  }
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnNumberCustomElement()
+
+function MnNumberCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-number')) {
+    window.customElements.define('mn-number', __webpack_require__(17))
+  }
+
+  return window.customElements.get('mn-number')
+}
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'password')
+  }
+
+  _setVisibilityButton() {
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
+    button.setAttribute('tabindex', '-1')
+
+    this.appendChild(button)
+    this.button = button
+    this.input.addEventListener('blur', () => {
+      this.input.setAttribute('type', 'password')
+      this.classList.remove('show-password')
+      this.input.dispatchEvent(new Event('change'))
+    })
+
+    button.addEventListener('mousedown', event => {
+      event.preventDefault()
+    })
+
+    button.addEventListener('click', () => {
+      const toggledType = this.input.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password'
+      this.input.setAttribute('type', toggledType)
+      this.classList.toggle('show-password')
+      this.input.focus()
+    })
+  }
+}
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-password')) {
+    window.customElements.define('mn-password', __webpack_require__(19))
+  }
+
+  return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+const MnActionSheet = __webpack_require__(2)
+
+module.exports = class MnSelect extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    this._setMenu()
+    if (!this.closest('[ng-app]')) {
+      this._setActionSheet()
+    }
+    this._setOptions()
+    this._setKeyboardNavigation()
+    this._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setAttributeAutocomplete()
+    super._setAttributeSpellcheck()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-select')
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('focus', () => {
+      this.input.select()
+      !this.input.hasAttribute('readonly')
+        ? this.show()
+        : undefined
+      this.filter = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      const option = Array
+        .from(this.menu.querySelectorAll('.option'))
+        .filter(option => {
+          const optionValue = option.getAttribute('value') || option.textContent
+          return optionValue === this.getAttribute('value')
+        })[0]
+
+      if (this.input.value && option) {
+        this.input.value = option.textContent
+      } else {
+        this.value = undefined
+      }
+      this.hide()
+    })
+
+    this.input.addEventListener('input', () => {
+      this.filter = this.input.value
+      this.focusOption(this.menu.querySelector('.option:not(.hidden)'))
+    })
+
+    document.addEventListener('click', event => {
+      const clickOutside = !event.target.closest('mn-select') && event.target !== this
+
+      if (this.visible && clickOutside) {
+        this.hide()
+      }
+    })
+  }
+
+  _setAttributeValue() {
+    const selectedOption = this.querySelector('.option[selected]')
+    const selectedValue = selectedOption
+      ? selectedOption.getAttribute('value') || selectedOption.textContent
+      : ''
+
+    const value = this.getAttribute('value') || selectedValue
+    this.value = value
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        if (!this.closest('[ng-app]')) {
+          option.innerHTML = child.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+        }
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        child.parentNode.removeChild(child)
+        menu.appendChild(option)
+      })
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  _setActionSheet() {
+    if (screen.width < 768) {
+      const actionSheet = new MnActionSheet()
+      Array
+        .from(this.querySelectorAll('.option'))
+        .forEach(option => {
+          const actionSheetOption = document.createElement('option')
+          actionSheetOption.textContent = option.textContent
+          actionSheet.appendChild(actionSheetOption)
+        })
+      this.actionSheet = actionSheet
+      this.actionSheet.addEventListener('change', (event) => {
+        const {index} = event.data
+        const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
+        this.value = option.textContent
+        this.actionSheet.hide()
+      })
+      document.body.appendChild(this.actionSheet)
+    }
+  }
+
+  _setOptions() {
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
+      }
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
+  }
+
+  _setKeyboardNavigation() {
+    this.input.addEventListener('keydown', (event) => { // arrow navigate
+      const arrowDown = event.key === 'ArrowDown'
+      const arrowUp = event.key === 'ArrowUp'
+      let nextOption
+
+      const options = Array.from(this.menu.querySelectorAll('.option:not(.hidden)'))
+      const currentOption = this.menu.querySelector('.option.focus')
+
+      const currentIndex = Array.prototype.indexOf.call(options, currentOption)
+
+      if (arrowDown) {
+        event.preventDefault()
+        nextOption = options[currentIndex + 1]
+      } else if (arrowUp) {
+        event.preventDefault()
+        nextOption = options[currentIndex - 1]
+      }
+
+      if (nextOption) {
+        const top = nextOption.offsetTop
+        const bottom = top + nextOption.clientHeight
+        const scrollToTop = top < this.menu.scrollTop
+        const scrollToBottom = bottom > this.menu.scrollTop + this.menu.clientHeight
+
+        this.keyboardNavigation = true
+        if (scrollToTop) {
+          this.menu.scrollTop = top
+        } else if (scrollToBottom) {
+          this.menu.scrollTop = bottom - this.menu.clientHeight
+        }
+
+        this.focusOption(nextOption)
+        setTimeout(() => {
+          delete this.keyboardNavigation
+        }, 100)
+      }
+    })
+
+    this.input.addEventListener('keydown', event => {
+      const esc = event.key === 'Escape'
+
+      if (esc) {
+        this.value = this.value
+        this.input.select()
+        this.filter = undefined
+      }
+    })
+
+    this.input.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+
+      if (enter) {
+        const option = this.menu.querySelector('.option.focus')
+        event.preventDefault()
+        event.stopPropagation()
+
+        option
+          ? this.value = option.getAttribute('value') || option.textContent
+          : this.value = this.value
+
+        this.hide()
+        this.input.blur()
+      }
+    })
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    delete this.validations.pattern
+  }
+
+  show() {
+    this.classList.add('visible')
+    this.menu.scrollTop = 0
+    this.focusOption(this.querySelector('.option:first-child'))
+
+    if (this.actionSheet) {
+      this.input.blur()
+      this.actionSheet.show()
+    }
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    this.removeOptionFocus()
+  }
+
+  get visible() {
+    return this.classList.contains('visible')
+  }
+
+  removeOptionFocus() {
+    const latest = this.menu.querySelector('.focus')
+    latest
+      ? latest.classList.remove('focus')
+      : undefined
+  }
+
+  focusOption(option) {
+    this.removeOptionFocus()
+    option
+      ? option.classList.add('focus')
+      : null
+  }
+
+  get value() {
+    return this.getAttribute('value')
+      ? evaluate(this.getAttribute('value'))
+      : undefined
+  }
+
+  set value(value) {
+    const differentValue = this.getAttribute('value') !== value
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .filter(option => {
+        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.textContent == String(value) // eslint-disable-line eqeqeq
+      })[0]
+
+    const textNotApplied = option && this.input.value !== option.textContent
+
+    if (textNotApplied) {
+      this.input.value = option
+        ? option.textContent
+        : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
+
+    if (differentValue) {
+      const hasValue = value !== undefined && value !== null
+
+      hasValue && option
+        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+        :  this.removeAttribute('value')
+
+      this.input.dispatchEvent(new Event('change'))
+    }
+
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
+    }
+  }
+
+  set filter(value) {
+    if (value) {
+      this.classList.add('filtered')
+
+      Array
+        .from(this.menu.querySelectorAll('.option'))
+        .forEach(option => {
+          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+
+          Array
+            .from(option.querySelectorAll('.match'))
+            .forEach(char => char.classList.remove('match'))
+
+          if (matchOption) {
+            option.classList.remove('hidden')
+
+            value
+              .split('')
+              .forEach(char => {
+                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
+                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
+                letter
+                  ? letter.classList.add('match')
+                  : null
+              })
+
+          } else {
+            option.classList.add('hidden')
+          }
+        })
+    } else {
+      this.classList.remove('filtered')
+      Array
+        .from(this.querySelectorAll('.option.hidden'))
+        .forEach(option => option.classList.remove('hidden'))
+    }
+  }
+}
+
+function evaluate(value) {
+  try {
+    value = value.trim()
+    const isVariable = !value.startsWith('[')
+      && !value.startsWith('{')
+      && !value.startsWith('\'')
+      && !value.startsWith('"')
+      && !value.startsWith('`')
+      && value !== 'true'
+      && value !== 'false'
+      && isNaN(value)
+
+    return isVariable
+        ? eval(`'${value}'`) // convert to string
+        : eval(`(${value})`) // evaluate
+  } catch (e) {
+    return value
+  }
+}
+
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -35192,6 +35171,27 @@ function MnSelectOptionDirective() {
       })
     }
   }
+}
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-select')) {
+    window.customElements.define('mn-select', __webpack_require__(21))
+  }
+
+  return window.customElements.get('mn-select')
 }
 
 

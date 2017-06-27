@@ -31,7 +31,6 @@ function MnSelectOptionDirective() {
       const isMnOption = option.closest('.mn-select')
 
       element.ready(() => {
-
         if (isMnOption) {
           const actionSheet = isMnOption.actionSheet
           option.innerHTML = option.textContent
