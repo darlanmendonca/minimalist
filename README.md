@@ -77,7 +77,7 @@ npm install
 npm test
 ```
 
-Actually we supports latest versions of chrome, firefox, and safari. We will add more browsers soon.
+Actually we supports latest versions of Chrome, Firefox, Safari, and Edge. We will add more browsers soon.
 
 
 ### Contributions
