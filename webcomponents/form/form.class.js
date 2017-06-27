@@ -1,7 +1,7 @@
 const {HTMLElement} = window
 
 module.exports = class MnForm extends HTMLElement {
-  constructor() {
+  constructor(self) {
     self = super(self)
     return self
   }
