@@ -40,7 +40,7 @@ module.exports = class MnForm extends HTMLElement {
 
     document.addEventListener('click', (event) => {
       const isButtonSubmit = event.target.matches('button[type="submit"]')
-        && event.target.closest('mn-form')
+        && event.target.closest('mn-form') === this
 
       if (isButtonSubmit) {
         this.submit()
