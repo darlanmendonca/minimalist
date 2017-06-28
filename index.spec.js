@@ -20,6 +20,11 @@ describe('minimalist', () => {
     expect(npmModule).to.have.property('input')
   })
 
+  it('should export email component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('email')
+  })
+
   it('should export password component', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('password')

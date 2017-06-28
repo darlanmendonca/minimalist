@@ -397,7 +397,7 @@ module.exports = __webpack_require__(7);
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password, number, actionSheet, form} = __webpack_require__(5)
+const {input, email, password, number, actionSheet, form} = __webpack_require__(5)
 
 const angular = __webpack_require__(4)
 
@@ -448,6 +448,7 @@ function HomeController() {
 
 module.exports = {
   input: __webpack_require__(16),
+  email: __webpack_require__(25),
   password: __webpack_require__(20),
   number: __webpack_require__(18),
   date: __webpack_require__(11),
@@ -34190,11 +34191,14 @@ module.exports = class MnForm extends HTMLElement {
       }
     })
 
-    Array
-      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
-      .forEach(button => {
-        button.addEventListener('click', () => this.submit())
-      })
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = event.target.matches('button[type="submit"]')
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.submit()
+      }
+    })
   }
 
   _setAttributeDisabled() {
@@ -34346,6 +34350,10 @@ function MnInputDirective() {
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
       })
 
       function setComponentValue(value) {
@@ -35143,7 +35151,6 @@ function MnSelectOptionDirective() {
       const isMnOption = option.closest('.mn-select')
 
       element.ready(() => {
-
         if (isMnOption) {
           const actionSheet = isMnOption.actionSheet
           option.innerHTML = option.textContent
@@ -35192,6 +35199,48 @@ function MnSelectCustomElement() {
   }
 
   return window.customElements.get('mn-select')
+}
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnEmail extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.classList.add('mn-email')
+    this.input.setAttribute('type', 'email')
+    this.setAttribute('pattern', this.getAttribute('pattern') || '^.+@.+$')
+  }
+}
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnEmailCustomElement()
+
+function MnEmailCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-email')) {
+    window.customElements.define('mn-email', __webpack_require__(24))
+  }
+
+  return window.customElements.get('mn-email')
 }
 
 

@@ -1,4 +1,4 @@
-const {input, password, number, actionSheet, form} = require('minimalist')
+const {input, email, password, number, actionSheet, form} = require('minimalist')
 
 const angular = require('angular')
 
