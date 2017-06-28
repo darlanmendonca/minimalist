@@ -38,11 +38,14 @@ module.exports = class MnForm extends HTMLElement {
       }
     })
 
-    Array
-      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
-      .forEach(button => {
-        button.addEventListener('click', () => this.submit())
-      })
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = event.target.matches('button[type="submit"]')
+        && event.target.closest('mn-form')
+
+      if (isButtonSubmit) {
+        this.submit()
+      }
+    })
   }
 
   _setAttributeDisabled() {
