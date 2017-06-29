@@ -10,6 +10,6 @@ module.exports = class MnEmail extends MnInput {
     super.connectedCallback()
     this.classList.add('mn-email')
     this.input.setAttribute('type', 'email')
-    this.setAttribute('pattern', this.getAttribute('pattern') || '/^.{3,}@.{3,}\..{2,}$/')
+    this.setAttribute('pattern', this.getAttribute('pattern') || '^.+@.+$')
   }
 }
