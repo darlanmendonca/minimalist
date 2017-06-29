@@ -145,7 +145,7 @@ describe('mn-email (webcomponent)', () => {
 
   describe('attribute pattern', () => {
     it('should have a pattern by default', () => {
-      expect(component).to.have.attribute('pattern', '^.+@.+$')
+      expect(component).to.have.attribute('pattern', '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*')
     })
 
     it('should accept other pattern', () => {

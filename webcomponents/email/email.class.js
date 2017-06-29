@@ -10,6 +10,7 @@ module.exports = class MnEmail extends MnInput {
     super.connectedCallback()
     this.classList.add('mn-email')
     this.input.setAttribute('type', 'email')
-    this.setAttribute('pattern', this.getAttribute('pattern') || '^.+@.+$')
+    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
+    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
   }
 }
