@@ -222,6 +222,18 @@ describe('mn-email (webcomponent)', () => {
       component.input.dispatchEvent(new Event('change'))
       expect(validate).to.not.have.been.called
     })
+
+    it('should be invalid if type a invalid email', () => {
+      component.value = 'test'
+      component.validate()
+      expect(component).to.have.class('invalid')
+    })
+
+    it('should be valid if type a valid email', () => {
+      component.value = 'test@gmail.com'
+      expect(component).to.not.have.class('invalid')
+      expect(component).to.not.have.class('required')
+    })
   })
 
   describe('attribute required', () => {
@@ -234,7 +246,7 @@ describe('mn-email (webcomponent)', () => {
 
     it('should be valid if validate with filled value', () => {
       email.setAttribute('required')
-      email.writeText('test')
+      email.writeText('test@gmail.com')
       component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
