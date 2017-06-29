@@ -10,9 +10,9 @@
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
 
-      <mn-email placeholder="Email" name="email"></mn-email>
+      <mn-email placeholder="Email" name="email" required></mn-email>
 
-      <!-- <mn-password placeholder="Password" name="password" required></mn-password>
+      <mn-password placeholder="Password" name="password" required></mn-password>
 
       <mn-date placeholder="Date" name="birthdate" required></mn-date>
 
@@ -29,7 +29,7 @@
         <option>Bolton</option>
         <option>Karstark</option>
         <option>Frey</option>
-      </mn-select> -->
+      </mn-select>
 
       <button type="submit">submit</button>
     </mn-form>
@@ -41,7 +41,7 @@
 
         <mn-email placeholder="Email: {{ controller.email }}" ng-model="controller.email" required></mn-email>
 
-        <!-- <mn-password placeholder="Password: {{ controller.password }}" ng-model="controller.password" required></mn-password>
+        <mn-password placeholder="Password: {{ controller.password }}" ng-model="controller.password" required></mn-password>
 
         <mn-date placeholder="Date: {{ controller.date }}" ng-model="controller.date" required></mn-date>
 
@@ -56,7 +56,7 @@
         </mn-select>
 
         <button ng-click="controller.remove()">remove</button>
-        <button ng-click="controller.add()">add</button> -->
+        <button ng-click="controller.add()">add</button>
 
         <button type="submit">submit</button>
       </mn-form>

@@ -228,6 +228,19 @@ describe('mn-email (webcomponent)', () => {
       expect(validate).to.have.been.called()
     })
 
+    it('should be called on event input, if have a parent form.submitted', () => {
+      component.closest('form').classList.add('submitted')
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('input'))
+      expect(validate).to.have.been.called()
+    })
+
+    it('should not called on event input, if not have a parent form.submitted', () => {
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('input'))
+      expect(validate).to.not.have.been.called
+    })
+
     it('should not called on event change, if not have a parent form.submitted', () => {
       const validate = spy.on(component, 'validate')
       component.input.dispatchEvent(new Event('change'))
@@ -242,6 +255,7 @@ describe('mn-email (webcomponent)', () => {
 
     it('should be valid if type a valid email', () => {
       component.value = 'test@gmail.com'
+      component.validate()
       expect(component).to.not.have.class('invalid')
       expect(component).to.not.have.class('required')
     })
