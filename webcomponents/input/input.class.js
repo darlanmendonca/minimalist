@@ -52,7 +52,7 @@ module.exports = class MnInput extends HTMLElement {
 
     this.appendChild(this.input)
 
-    this.input.addEventListener('change', () => { // set class .has-value
+    this.input.addEventListener('input', () => { // set class .has-value
       if (this.trimValue) {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       }
