@@ -143,6 +143,17 @@ describe('mn-email (webcomponent)', () => {
     })
   })
 
+  describe('attribute pattern', () => {
+    it('should have a pattern by default', () => {
+      expect(component).to.have.attribute('pattern', '^.+@.+$')
+    })
+
+    it('should accept other pattern', () => {
+      component.setAttribute('pattern', '.+')
+      expect(component).to.have.attribute('pattern', '.+')
+    })
+  })
+
   describe('property placeholder', () => {
     it('should set the placeholder text in label', () => {
       email.setProperty('placeholder', 'test')
