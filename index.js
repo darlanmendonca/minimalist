@@ -8,4 +8,5 @@ module.exports = {
   actionSheet: require('./webcomponents/action-sheet/action-sheet.webcomponent.js'),
   form: require('./webcomponents/form/form.webcomponent.js'),
   sidenav: require('./webcomponents/sidenav/sidenav.webcomponent.js'),
+  checkbox: require('./webcomponents/checkbox/checkbox.webcomponent.js'),
 }
