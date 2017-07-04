@@ -556,9 +556,10 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
+const evaluate = __webpack_require__(24)
 
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {
@@ -636,6 +637,10 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.label.appendChild(input)
   }
 
+  get checked() {
+    return this.input.checked
+  }
+
   set checked(value) {
     this.input.checked = value
   }
@@ -662,6 +667,27 @@ module.exports = class MnCheckbox extends HTMLElement {
         },
       })
     }
+  }
+
+  get value() {
+    const form = this.closest('form') || document
+    const name = this.getAttribute('name')
+      ? `[name="${this.getAttribute('name')}"]`
+      : ':not([name])'
+
+    const options = form.querySelectorAll(`.mn-checkbox${name}`)
+
+    const values = Array
+      .from(options)
+      .filter(option => option.checked)
+      .map(option => evaluate(option.getAttribute('value')))
+
+    const isSingleOption = options.length === 1
+    const isBoolean = typeof evaluate(options[0].getAttribute('value')) === 'boolean'
+
+    return isSingleOption && isBoolean
+      ? Boolean(values[0])
+      : values
   }
 }
 
@@ -1437,6 +1463,7 @@ function MnPasswordCustomElement() {
 
 const MnInput = __webpack_require__(1)
 const MnActionSheet = __webpack_require__(2)
+const evaluate = __webpack_require__(24)
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -1794,26 +1821,6 @@ module.exports = class MnSelect extends MnInput {
   }
 }
 
-function evaluate(value) {
-  try {
-    value = value.trim()
-    const isVariable = !value.startsWith('[')
-      && !value.startsWith('{')
-      && !value.startsWith('\'')
-      && !value.startsWith('"')
-      && !value.startsWith('`')
-      && value !== 'true'
-      && value !== 'false'
-      && isNaN(value)
-
-    return isVariable
-        ? eval(`'${value}'`) // convert to string
-        : eval(`(${value})`) // evaluate
-  } catch (e) {
-    return value
-  }
-}
-
 
 /***/ }),
 /* 21 */
@@ -1952,6 +1959,33 @@ function MNSidenavCustomElement() {
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = evaluate
+
+function evaluate(value) {
+  try {
+    value = value.trim()
+    const isVariable = !value.startsWith('[')
+      && !value.startsWith('{')
+      && !value.startsWith('\'')
+      && !value.startsWith('"')
+      && !value.startsWith('`')
+      && value !== 'true'
+      && value !== 'false'
+      && isNaN(value)
+
+    return isVariable
+        ? eval(`'${value}'`) // convert to string
+        : eval(`(${value})`) // evaluate
+  } catch (e) {
+    return value
+  }
 }
 
 

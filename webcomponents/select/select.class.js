@@ -1,5 +1,6 @@
 const MnInput = require('../input/input.class.js')
 const MnActionSheet = require('../action-sheet/action-sheet.webcomponent.js')
+const evaluate = require('../../evaluate.js')
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -354,25 +355,5 @@ module.exports = class MnSelect extends MnInput {
         .from(this.querySelectorAll('.option.hidden'))
         .forEach(option => option.classList.remove('hidden'))
     }
-  }
-}
-
-function evaluate(value) {
-  try {
-    value = value.trim()
-    const isVariable = !value.startsWith('[')
-      && !value.startsWith('{')
-      && !value.startsWith('\'')
-      && !value.startsWith('"')
-      && !value.startsWith('`')
-      && value !== 'true'
-      && value !== 'false'
-      && isNaN(value)
-
-    return isVariable
-        ? eval(`'${value}'`) // convert to string
-        : eval(`(${value})`) // evaluate
-  } catch (e) {
-    return value
   }
 }

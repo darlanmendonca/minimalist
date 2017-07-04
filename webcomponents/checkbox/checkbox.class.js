@@ -1,4 +1,5 @@
 const {HTMLElement} = window
+const evaluate = require('../../evaluate.js')
 
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {
@@ -76,6 +77,10 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.label.appendChild(input)
   }
 
+  get checked() {
+    return this.input.checked
+  }
+
   set checked(value) {
     this.input.checked = value
   }
@@ -102,5 +107,26 @@ module.exports = class MnCheckbox extends HTMLElement {
         },
       })
     }
+  }
+
+  get value() {
+    const form = this.closest('form') || document
+    const name = this.getAttribute('name')
+      ? `[name="${this.getAttribute('name')}"]`
+      : ':not([name])'
+
+    const options = form.querySelectorAll(`.mn-checkbox${name}`)
+
+    const values = Array
+      .from(options)
+      .filter(option => option.checked)
+      .map(option => evaluate(option.getAttribute('value')))
+
+    const isSingleOption = options.length === 1
+    const isBoolean = typeof evaluate(options[0].getAttribute('value')) === 'boolean'
+
+    return isSingleOption && isBoolean
+      ? Boolean(values[0])
+      : values
   }
 }
