@@ -6,8 +6,10 @@
   </head>
 
   <body>
-    <mn-checkbox name="gender" value="female" readonly></mn-checkbox>
-    <mn-checkbox name="gender" value="male" checked readonly></mn-checkbox>
+    <mn-form>
+      <mn-checkbox name="gender" value="female" readonly></mn-checkbox>
+      <mn-checkbox name="gender" value="male" checked readonly></mn-checkbox>
+    </mn-form>
     <!-- <h2>vanilla js</h2>
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
@@ -128,6 +130,7 @@
       const date = document.querySelector('mn-date')
       const number = document.querySelector('mn-number')
       const select = document.querySelector('mn-select[ng-model]')
+      const form = document.querySelector('mn-form')
     </script>
   </body>
 </html>

@@ -7,13 +7,15 @@ module.exports = class MnCheckbox extends HTMLElement {
   }
 
   connectedCallback() {
+    this.innerHTML = ''
     this._setStyle()
     this._setLabel()
     this._setInput()
     this._setCustomInput()
-    this._setAttributeChecked()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
+    this.checked = this.hasAttribute('checked')
+    this.disabled = this.hasAttribute('disabled')
+    this.readonly = this.hasAttribute('readonly')
+    this.name = this.hasAttribute('name')
   }
 
   static get observedAttributes() {
@@ -74,18 +76,6 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.label.appendChild(input)
   }
 
-  _setAttributeChecked() {
-    this.checked = this.hasAttribute('checked')
-  }
-
-  _setAttributeDisabled() {
-    this.disabled = this.hasAttribute('disabled')
-  }
-
-  _setAttributeReadonly() {
-    this.disabled = this.hasAttribute('readonly')
-  }
-
   set checked(value) {
     this.input.checked = value
   }
@@ -96,5 +86,21 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   set readonly(value) {
     this.input.readOnly = value
+  }
+
+  set name(value) {
+    const form = this.closest('form') || this.closest('mn-form')
+    const name = this.getAttribute('name')
+    const element = this
+
+    if (form && !form[name]) {
+      Object.defineProperty(form, name, {
+        get: () => {
+          return element.getAttribute('name')
+            ? element
+            : undefined
+        },
+      })
+    }
   }
 }
