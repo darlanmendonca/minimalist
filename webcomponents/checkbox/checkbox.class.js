@@ -13,6 +13,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this._setLabel()
     this._setInput()
     this._setCustomInput()
+    this._setForm()
     this.checked = this.hasAttribute('checked')
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
@@ -77,6 +78,10 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.label.appendChild(input)
   }
 
+  _setForm() {
+    this.form = this.closest('form') || this.closest('mn-form') || document
+  }
+
   get checked() {
     return this.input.checked
   }
@@ -94,12 +99,11 @@ module.exports = class MnCheckbox extends HTMLElement {
   }
 
   set name(value) {
-    const form = this.closest('form') || this.closest('mn-form')
     const name = this.getAttribute('name')
     const element = this
 
-    if (form && !form[name]) {
-      Object.defineProperty(form, name, {
+    if (this.form && !this.form[name]) {
+      Object.defineProperty(this.form, name, {
         get: () => {
           return element.getAttribute('name')
             ? element
@@ -110,23 +114,39 @@ module.exports = class MnCheckbox extends HTMLElement {
   }
 
   get value() {
-    const form = this.closest('form') || document
-    const name = this.getAttribute('name')
-      ? `[name="${this.getAttribute('name')}"]`
-      : ':not([name])'
-
-    const options = form.querySelectorAll(`.mn-checkbox${name}`)
-
-    const values = Array
-      .from(options)
+    const values = this
+      .options
       .filter(option => option.checked)
       .map(option => evaluate(option.getAttribute('value')))
 
-    const isSingleOption = options.length === 1
-    const isBoolean = typeof evaluate(options[0].getAttribute('value')) === 'boolean'
+    const isSingleOption = this.options.length === 1
+    const isBoolean = typeof evaluate(this.options[0].getAttribute('value')) === 'boolean'
 
     return isSingleOption && isBoolean
       ? Boolean(values[0])
       : values
+  }
+
+  set value(value) {
+    const values = Array.isArray(value)
+      ? value
+      : [value]
+
+    this.options
+    .forEach(option => {
+      const check = values.some(value => value === option.getAttribute('value'))
+      check
+        ? option.setAttribute('checked', '')
+        : option.removeAttribute('checked')
+      option.checked = check
+    })
+  }
+
+  get options() {
+    const name = this.getAttribute('name')
+      ? `[name="${this.getAttribute('name')}"]`
+      : ':not([name])'
+
+    return Array.from(this.form.querySelectorAll(`.mn-checkbox${name}`))
   }
 }
