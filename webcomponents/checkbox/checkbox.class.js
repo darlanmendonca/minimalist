@@ -12,6 +12,8 @@ module.exports = class MnCheckbox extends HTMLElement {
     this._setInput()
     this._setCustomInput()
     this._setAttributeChecked()
+    this._setAttributeDisabled()
+    this._setAttributeReadonly()
   }
 
   static get observedAttributes() {
@@ -76,7 +78,23 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.checked = this.hasAttribute('checked')
   }
 
+  _setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  _setAttributeReadonly() {
+    this.disabled = this.hasAttribute('readonly')
+  }
+
   set checked(value) {
     this.input.checked = value
+  }
+
+  set disabled(value) {
+    this.input.disabled = value
+  }
+
+  set readonly(value) {
+    this.input.readOnly = value
   }
 }

@@ -14,6 +14,8 @@
   margin: 2px;
   -webkit-user-select: none;
 
+  --color: $oc-gray-7;
+
   label {
     position: absolute;
     top: 0;
@@ -32,7 +34,7 @@
     display: inline-block;
     width: 100%;
     height: 100%;
-    border: 2px solid $oc-gray-7;
+    border: 2px solid var(--color);
     position: relative;
     border-radius: 3px;
     box-sizing: border-box;
@@ -56,7 +58,7 @@
 
   input:checked {
     & + .input {
-      background-color: $oc-gray-7;
+      background-color: var(--color);
     }
 
     & + .input polyline {
@@ -67,5 +69,7 @@
 }
 
 .mn-checkbox[disabled], .mn-checkbox[readonly] {
-  pointer-events: none;
+  --color: $oc-gray-5;
+
+  label {cursor: not-allowed;}
 }
