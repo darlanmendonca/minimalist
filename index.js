@@ -1,5 +1,6 @@
 module.exports = {
   input: require('./webcomponents/input/input.webcomponent.js'),
+  email: require('./webcomponents/email/email.webcomponent.js'),
   password: require('./webcomponents/password/password.webcomponent.js'),
   number: require('./webcomponents/number/number.webcomponent.js'),
   date: require('./webcomponents/date/date.webcomponent.js'),

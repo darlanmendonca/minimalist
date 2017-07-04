@@ -176,7 +176,7 @@ describe('mn-number (webcomponent)', () => {
     it('should not called on event keyup, if not have a parent form.submitted', () => {
       const validate = spy.on(component, 'validate')
       component.input.dispatchEvent(new Event('keyup'))
-      expect(validate).to.not.have.been.called
+      expect(validate).to.not.have.been.called()
     })
 
     it('should be called on event change, if have a parent form.submitted', () => {
@@ -189,7 +189,20 @@ describe('mn-number (webcomponent)', () => {
     it('should not called on event change, if not have a parent form.submitted', () => {
       const validate = spy.on(component, 'validate')
       component.input.dispatchEvent(new Event('change'))
-      expect(validate).to.not.have.been.called
+      expect(validate).to.not.have.been.called()
+    })
+
+    it('should be called on event input, if have a parent form.submitted', () => {
+      component.closest('form').classList.add('submitted')
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('input'))
+      expect(validate).to.have.been.called()
+    })
+
+    it('should not called on event input, if not have a parent form.submitted', () => {
+      const validate = spy.on(component, 'validate')
+      component.input.dispatchEvent(new Event('input'))
+      expect(validate).to.not.have.been.called()
     })
   })
 

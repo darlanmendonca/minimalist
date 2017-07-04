@@ -167,6 +167,12 @@ module.exports = class MnInput extends HTMLElement {
 
     this.appendChild(this.input)
 
+    this.input.addEventListener('input', () => {
+      this.input.value
+        ? this.classList.add('has-value')
+        : this.classList.remove('has-value')
+    })
+
     this.input.addEventListener('change', () => { // set class .has-value
       if (this.trimValue) {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
@@ -192,6 +198,7 @@ module.exports = class MnInput extends HTMLElement {
 
     this.input.addEventListener('keyup', validate)
     this.input.addEventListener('change', validate)
+    this.input.addEventListener('input', validate)
 
     this.input.addEventListener('focus', () => {
       if (!this.hasAttribute('readonly') && !this.hasAttribute('disabled')) {
@@ -373,9 +380,9 @@ function MnActionSheetCustomElement() {
 angular.module('minimalist', [])
 
 module.exports = {
-  input: __webpack_require__(15),
-  select: __webpack_require__(22),
-  form: __webpack_require__(13),
+  input: __webpack_require__(17),
+  select: __webpack_require__(24),
+  form: __webpack_require__(15),
 }
 
 
@@ -397,7 +404,7 @@ module.exports = __webpack_require__(7);
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {input, password, number, actionSheet, form} = __webpack_require__(5)
+const {input, email, password, number, actionSheet, form} = __webpack_require__(5)
 
 const angular = __webpack_require__(4)
 
@@ -409,6 +416,7 @@ angular
 
 function HomeController() {
   this.username = 'darlanmendonca'
+  this.email = 'darlanmendonca@gmail.com'
   this.password = '123123123'
   this.date = new Date() //'1990-09-04T03:00:00.000Z'
   this.number = 10
@@ -447,13 +455,14 @@ function HomeController() {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(16),
-  password: __webpack_require__(20),
-  number: __webpack_require__(18),
+  input: __webpack_require__(18),
+  email: __webpack_require__(13),
+  password: __webpack_require__(22),
+  number: __webpack_require__(20),
   date: __webpack_require__(11),
-  select: __webpack_require__(23),
+  select: __webpack_require__(25),
   actionSheet: __webpack_require__(2),
-  form: __webpack_require__(14),
+  form: __webpack_require__(16),
 }
 
 
@@ -34148,6 +34157,49 @@ function MnDateCustomElement() {
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnEmail extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.classList.add('mn-email')
+    this.input.setAttribute('type', 'email')
+    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
+    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
+  }
+}
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnEmailCustomElement()
+
+function MnEmailCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-email')) {
+    window.customElements.define('mn-email', __webpack_require__(12))
+  }
+
+  return window.customElements.get('mn-email')
+}
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -34190,11 +34242,14 @@ module.exports = class MnForm extends HTMLElement {
       }
     })
 
-    Array
-      .from(this.querySelectorAll('button[type="submit"]:not([disabled])'))
-      .forEach(button => {
-        button.addEventListener('click', () => this.submit())
-      })
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = event.target.matches('button[type="submit"]')
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.submit()
+      }
+    })
   }
 
   _setAttributeDisabled() {
@@ -34271,7 +34326,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -34295,7 +34350,7 @@ function MnFormDirective() {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -34308,7 +34363,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(12))
+    window.customElements.define('mn-form', __webpack_require__(14))
   }
 
   return window.customElements.get('mn-form')
@@ -34316,7 +34371,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -34332,12 +34387,14 @@ function MnInputDirective() {
     link(scope, element, attributes, ngModel) {
       const component = element[0]
       const input = component.input
+      const isSelect = component.classList.contains('mn-select')
 
       if (!attributes.name) {
         const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
         component.setAttribute('name', name)
       }
 
+      ngModel.$validators = {}
       input.addEventListener('change', setViewValue)
       input.addEventListener('blur', setViewValue)
       input.addEventListener('input', setViewValue)
@@ -34346,11 +34403,14 @@ function MnInputDirective() {
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
+
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
       })
 
       function setComponentValue(value) {
-        const isSelect = component.classList.contains('mn-select')
-
         if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
           component.value = value
         }
@@ -34361,7 +34421,6 @@ function MnInputDirective() {
         const isDate = component.input.type === 'date'
         const isNumber = component.classList.contains('mn-number')
         const isBlur = event.type === 'blur'
-        const isSelect = component.classList.contains('mn-select')
 
         if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
           ngModel.$setViewValue(component.value)
@@ -34373,7 +34432,7 @@ function MnInputDirective() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -34394,7 +34453,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -34606,7 +34665,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -34619,7 +34678,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(17))
+    window.customElements.define('mn-number', __webpack_require__(19))
   }
 
   return window.customElements.get('mn-number')
@@ -34627,7 +34686,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -34702,7 +34761,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -34715,7 +34774,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(19))
+    window.customElements.define('mn-password', __webpack_require__(21))
   }
 
   return window.customElements.get('mn-password')
@@ -34723,7 +34782,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -35107,7 +35166,7 @@ function evaluate(value) {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -35143,7 +35202,6 @@ function MnSelectOptionDirective() {
       const isMnOption = option.closest('.mn-select')
 
       element.ready(() => {
-
         if (isMnOption) {
           const actionSheet = isMnOption.actionSheet
           option.innerHTML = option.textContent
@@ -35175,7 +35233,7 @@ function MnSelectOptionDirective() {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -35188,7 +35246,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(21))
+    window.customElements.define('mn-select', __webpack_require__(23))
   }
 
   return window.customElements.get('mn-select')

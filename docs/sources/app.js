@@ -1,4 +1,4 @@
-const {input, password, number, actionSheet, form} = require('minimalist')
+const {input, email, password, number, actionSheet, form} = require('minimalist')
 
 const angular = require('angular')
 
@@ -10,6 +10,7 @@ angular
 
 function HomeController() {
   this.username = 'darlanmendonca'
+  this.email = 'darlanmendonca@gmail.com'
   this.password = '123123123'
   this.date = new Date() //'1990-09-04T03:00:00.000Z'
   this.number = 10
