@@ -54,4 +54,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('form')
   })
+
+  it('should export sidenav component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('sidenav')
+  })
 })

@@ -6,7 +6,7 @@
   </head>
 
   <body>
-    <h2>vanilla js</h2>
+    <!-- <h2>vanilla js</h2>
     <mn-form name="form">
       <mn-input placeholder="Name" name="username" required value="Darlan"></mn-input>
 
@@ -60,7 +60,65 @@
 
         <button type="submit">submit</button>
       </mn-form>
-    </div>
+    </div> -->
+
+    <button open-sidenav="left">open left</button>
+    <button open-sidenav="right">open right</button>
+    <button open-sidenav="right">open right</button>
+    <style>
+      .mn-sidenav div {
+        line-height: 2em;
+      }
+
+      .mn-sidenav .active {
+        background-color: gray;
+      }
+    </style>
+
+    <mn-sidenav id="left">
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div class="active">item active</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+      <div>item</div>
+    </mn-sidenav>
+
+    <mn-sidenav id="right" class="right">
+      right sidenav
+
+
+      <button close-sidenav>close right</button>
+      <button toggle-sidenav="right">toggle right</button>
+    </mn-sidenav>
 
     <script src="/vendor.js"></script>
     <script>
