@@ -68,8 +68,12 @@
   }
 }
 
-.mn-checkbox[disabled], .mn-checkbox[readonly] {
+.mn-checkbox[disabled] {
   --color: $oc-gray-5;
 
   label {cursor: not-allowed;}
+}
+
+.mn-checkbox[readonly] {
+  label {cursor: default;}
 }
