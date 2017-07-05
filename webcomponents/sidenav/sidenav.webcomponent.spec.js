@@ -1,7 +1,8 @@
 /* global describe, it, before, beforeEach */
-const {expect} = require('chai')
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
+  .use(require('chai-spies'))
 
 let component
 
@@ -72,11 +73,54 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should have a border-radius', () => {
-      expect(component).to.have.style('border-radius', '0 !important')
+      expect(component).to.have.style('border-radius', '0')
     })
 
     it('should have a overflow', () => {
       expect(component).to.have.style('overflow', 'auto')
+    })
+  })
+
+  describe('method open', () => {
+    it('should display sidenav', () => {
+      component.open()
+      expect(component).to.have.class('visible')
+      expect(document.body).to.have.class('mn-sidenav-visible')
+    })
+
+    it('should display backdrop', () => {
+      component.open()
+      expect(document.body).to.have.class('mn-backdrop-visible')
+    })
+  })
+
+  describe('method close', () => {
+    it('should hide sidenav', () => {
+      component.open()
+      component.close()
+      expect(component).to.not.have.class('visible')
+      expect(document.body).to.not.have.class('mn-sidenav-visible')
+    })
+
+    it('should hide backdrop', () => {
+      component.open()
+      component.close()
+      expect(document.body).to.not.have.class('mn-backdrop-visible')
+    })
+  })
+
+  describe('method toggle', () => {
+    it('should display sidenav if not visible', () => {
+      const open = spy.on(component, 'open')
+      component.toggle()
+      expect(open).to.have.been.called()
+    })
+
+    it('should hide sidenav if visible', () => {
+      const close = spy.on(component, 'close')
+      component.open()
+      component.toggle()
+      expect(close).to.have.been.called()
     })
   })
 })
