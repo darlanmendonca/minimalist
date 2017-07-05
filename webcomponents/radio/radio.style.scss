@@ -86,6 +86,7 @@
 .mn-radio[placeholder] {
   line-height: 2em;
   --placeholder-color: inherit;
+  transform: translateZ(0);
 
   &:before {
     color: var(--placeholder-color);
@@ -93,6 +94,8 @@
     padding: 0 1em;
     transition: color .2s ease;
     -webkit-font-smoothing: antialiased;
+    display: block;
+    text-align: center;
   }
 
   .input {
