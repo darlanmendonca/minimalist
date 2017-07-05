@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/reserva-facil/minimalist.svg?branch=master)](https://travis-ci.org/reserva-facil/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-# mn-checkbox
+# mn-radio
 
-A checkbox component with minimalist design
+A radio component with minimalist design
 
 ### Install
 
@@ -14,31 +14,31 @@ npm install @reservafacil/minimalist
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {checkbox} = require('@reservafacil/minimalist')
+const {radio} = require('@reservafacil/minimalist')
 ```
 
 
 ```sass
 // Dont forget the .scss file, to style component
-@import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/checkbox/checkbox.scss';
+@import 'path/to/node_modules/@reservafacil/minimalist/webcomponents/radio/radio.scss';
 ```
 
 
 ### Usage
 
-In your html, you can use the tag `mn-checkbox`, e.g.
+In your html, you can use the tag `mn-radio`, e.g.
 
 ```html
 <form>
-  <mn-checkbox value="stark" name="house"></mn-checkbox>
-  <mn-checkbox value="lannister" name="house" checked></mn-checkbox>
+  <mn-radio value="stark" name="house"></mn-radio>
+  <mn-radio value="lannister" name="house" checked></mn-radio>
 </form>
 ```
 
 ```js
 const form = document.querySelector('form')
 
-form.house.value // => always return a array with checked values
+form.house.value
 ```
 
 The following attributes are supported in this component
@@ -62,7 +62,7 @@ Working in a new style? Open a issue to add it here.
 ### Angular
 
 ```js
-const {checkbox} = require('@reservafacil/minimalist')
+const {radio} = require('@reservafacil/minimalist')
 require('@reservafacil/minimalist/angular') // import minimalist module
 
 // and in your module, add the module 'minimalist', like below
@@ -73,7 +73,7 @@ In your template is all similar, but you use `ng-model` and other directives fro
 
 ```html
 <!-- in angular, the attr 'name' dont be required, they will be created automatically, using the last part of ngModel name, e.g. ng-model="data.house" will generate a attribute name="house" -->
-<mn-checkbox ng-model="house" />
+<mn-radio ng-model="house"></mn-radio>
 ```
 
 Others directives like `ng-disabled`, and `ng-required`, are also supported.
