@@ -28,6 +28,14 @@ module.exports = class MnRadio extends MnCheckbox {
   _setInput() {
     super._setInput()
     this.input.setAttribute('type', 'radio')
+
+    this.input.addEventListener('change', () => {
+      this.options.forEach(option => {
+        option.form && option.form.classList.contains('submitted')
+          ? option.validate()
+          : null
+      })
+    })
   }
 
   _setCustomInput() {

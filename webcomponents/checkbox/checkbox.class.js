@@ -52,13 +52,11 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
 
-    const validate = () => {
+    this.input.addEventListener('change', () => {
       this.form && this.form.classList.contains('submitted')
         ? this.validate()
         : null
-    }
-
-    this.input.addEventListener('change', validate)
+    })
   }
 
   _setCustomInput() {
