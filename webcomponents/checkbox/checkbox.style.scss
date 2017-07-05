@@ -83,6 +83,10 @@
 
 .mn-checkbox.invalid {
   --color: $oc-red-6;
+
+  &[placeholder] {
+    --placeholder-color: var(--color);
+  }
 }
 
 .mn-checkbox[placeholder] {

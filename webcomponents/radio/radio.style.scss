@@ -77,6 +77,10 @@
 
 .mn-radio.invalid {
   --color: $oc-red-6;
+
+  &[placeholder] {
+    --placeholder-color: var(--color);
+  }
 }
 
 .mn-radio[placeholder] {

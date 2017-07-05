@@ -455,7 +455,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
 
-    this.input.addEventListener('change', event => {
+    this.input.addEventListener('change', () => {
       this.checked
         ? this.setAttribute('checked', '')
         : this.removeAttribute('checked')
@@ -1629,12 +1629,11 @@ module.exports = class MnRadio extends MnCheckbox {
 
   set value(value) {
     this.options.forEach(option => {
-      const check = value === option.getAttribute('value')
-      check
-        ? option.setAttribute('checked', '')
-        : option.removeAttribute('checked')
-      option.checked = check
+      option.removeAttribute('checked')
     })
+
+    const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
+    option.setAttribute('checked', '')
   }
 }
 
