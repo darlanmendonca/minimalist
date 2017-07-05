@@ -4,12 +4,14 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let sidenav
 let component
 
 describe('mn-sidenav (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -92,6 +94,33 @@ describe('mn-sidenav (webcomponent)', () => {
       component.open()
       expect(document.body).to.have.class('mn-backdrop-visible')
     })
+
+    it('should be called on click in button with open-sidenav attribute', () => {
+      const button = document.createElement('button')
+      button.setAttribute('open-sidenav', component.id)
+      document.body.appendChild(button)
+
+      const open = spy.on(component, 'open')
+      button.click()
+
+      expect(open).to.have.been.called()
+    })
+
+    it('should scroll to top', () => {
+      component.scroll(300)
+      console.log()
+      component.open()
+      expect(component.scrollTop).to.equal(0)
+    })
+
+    it('should scroll to element with class .active', () => {
+      const active = component.querySelector('div:nth-child(3)')
+      active.classList.add('active')
+      component.scrollTop = 300
+      component.open()
+
+      expect(component.scrollTop).to.equal(12)
+    })
   })
 
   describe('method close', () => {
@@ -107,6 +136,28 @@ describe('mn-sidenav (webcomponent)', () => {
       component.close()
       expect(document.body).to.not.have.class('mn-backdrop-visible')
     })
+
+    it('should be called on click in button with close-sidenav attribute', () => {
+      const button = document.createElement('button')
+      button.setAttribute('close-sidenav', '')
+      document.body.appendChild(button)
+
+      const close = spy.on(component, 'close')
+      component.open()
+      button.click()
+
+      expect(close).to.have.been.called()
+    })
+
+    it('should be called when press ESC', () => {
+      const close = spy.on(component, 'close')
+      component.open()
+      const esc = new Event('keyup')
+      esc.key = 'Escape'
+      document.dispatchEvent(esc)
+
+      expect(close).to.have.been.called()
+    })
   })
 
   describe('method toggle', () => {
@@ -121,6 +172,18 @@ describe('mn-sidenav (webcomponent)', () => {
       component.open()
       component.toggle()
       expect(close).to.have.been.called()
+    })
+
+    it('should be called on click in button with toggle-sidenav attribute', () => {
+      const button = document.createElement('button')
+      button.setAttribute('toggle-sidenav', component.id)
+      document.body.appendChild(button)
+
+      const toggle = spy.on(component, 'toggle')
+      button.click()
+      button.click()
+
+      expect(toggle).to.have.been.called.twice
     })
   })
 })
@@ -139,5 +202,18 @@ function cleanView() {
 
 function createComponent() {
   component = document.createElement('mn-sidenav')
+  component.id = 'menu'
   document.body.appendChild(component)
+
+  Array(100)
+    .fill(document.createElement('div'))
+    .forEach(div => {
+      div.textContent = 'teste'
+      component.appendChild(div)
+  })
+}
+
+function setPageObject() {
+  const SidenavPageObject = require('./sidenav.po.js')
+  sidenav = new SidenavPageObject(component)
 }
