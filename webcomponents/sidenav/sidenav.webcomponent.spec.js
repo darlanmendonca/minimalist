@@ -95,12 +95,8 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should be called on click in button with open-sidenav attribute', () => {
-      const button = document.createElement('button')
-      button.setAttribute('open-sidenav', component.id)
-      document.body.appendChild(button)
-
       const open = spy.on(component, 'open')
-      button.click()
+      sidenav.buttonOpen.click()
 
       expect(open).to.have.been.called()
     })
@@ -112,9 +108,11 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should scroll to element with class .active', () => {
-      const active = component.querySelector('div:nth-child(3)')
-      active.classList.add('active')
-      component.scrollTop = 300
+      sidenav
+        .getElementByIndex(3)
+        .classList.add('active')
+
+      sidenav.scroll(300)
       component.open()
 
       expect(component.scrollTop).to.equal(12)
@@ -136,13 +134,9 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should be called on click in button with close-sidenav attribute', () => {
-      const button = document.createElement('button')
-      button.setAttribute('close-sidenav', '')
-      document.body.appendChild(button)
-
       const close = spy.on(component, 'close')
       component.open()
-      button.click()
+      sidenav.buttonClose.click()
 
       expect(close).to.have.been.called()
     })
@@ -150,9 +144,7 @@ describe('mn-sidenav (webcomponent)', () => {
     it('should be called when press ESC', () => {
       const close = spy.on(component, 'close')
       component.open()
-      const esc = new Event('keyup')
-      esc.key = 'Escape'
-      document.dispatchEvent(esc)
+      sidenav.pressEsc()
 
       expect(close).to.have.been.called()
     })
@@ -173,13 +165,9 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should be called on click in button with toggle-sidenav attribute', () => {
-      const button = document.createElement('button')
-      button.setAttribute('toggle-sidenav', component.id)
-      document.body.appendChild(button)
-
       const toggle = spy.on(component, 'toggle')
-      button.click()
-      button.click()
+      sidenav.buttonToggle.click()
+      sidenav.buttonToggle.click()
 
       expect(toggle).to.have.been.called.twice
     })
