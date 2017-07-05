@@ -78,3 +78,7 @@
   pointer-events: none;
   label {cursor: default;}
 }
+
+.mn-checkbox.invalid {
+  --color: $oc-red-6;
+}

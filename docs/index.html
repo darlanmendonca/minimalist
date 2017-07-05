@@ -7,8 +7,9 @@
 
   <body>
     <mn-form>
-      <mn-checkbox name="house" value="stark"></mn-checkbox>
-      <mn-checkbox name="house" value="lannister" checked></mn-checkbox>
+      <mn-checkbox name="house" value="stark" required></mn-checkbox>
+      <mn-checkbox name="house" value="lannister" checked required></mn-checkbox>
+      <button type="submit">submit</button>
     </mn-form>
     <!-- <h2>vanilla js</h2>
     <mn-form name="form">
@@ -131,6 +132,10 @@
       const number = document.querySelector('mn-number')
       const select = document.querySelector('mn-select[ng-model]')
       const form = document.querySelector('mn-form')
+
+      form.addEventListener('submit', (event) => {
+        console.log(event.data)
+      })
     </script>
   </body>
 </html>

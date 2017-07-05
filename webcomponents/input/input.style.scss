@@ -113,7 +113,7 @@
 
 .mn-input.invalid {
   --placeholder-color: $oc-red-7 !important;
-  --border-color: $oc-red-5 !important;
+  --border-color: $oc-red-6 !important;
 
   .placeholder:after {
     content: var(--invalid-message);

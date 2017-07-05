@@ -578,6 +578,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -610,6 +611,14 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
+
+    const validate = () => {
+      this.form && this.form.classList.contains('submitted')
+        ? this.validate()
+        : null
+    }
+
+    this.input.addEventListener('change', validate)
   }
 
   _setCustomInput() {
@@ -640,6 +649,12 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   _setForm() {
     this.form = this.closest('form') || this.closest('mn-form') || document
+  }
+
+  _setValidations() {
+    this.validations = {
+      required: () => !this.value.some(value => value === evaluate(this.getAttribute('value'))),
+    }
   }
 
   get checked() {
@@ -708,6 +723,28 @@ module.exports = class MnCheckbox extends HTMLElement {
       : ':not([name])'
 
     return Array.from(this.form.querySelectorAll(`.mn-checkbox${name}`))
+  }
+
+  validate() {
+    const validations = {}
+
+    for (const attribute of Object.keys(this.validations || {})) {
+      const hasAttribute = this.hasAttribute(attribute)
+      const attributeIsInvalid = this.validations[attribute]()
+
+      if (hasAttribute && attributeIsInvalid) {
+        this.classList.add(attribute)
+        validations[attribute] = true
+      } else {
+        this.classList.remove(attribute)
+      }
+    }
+
+    const isInvalid = Object.values(validations).some(item => item === true)
+
+    isInvalid
+      ? this.classList.add('invalid')
+      : this.classList.remove('invalid')
   }
 }
 
@@ -1051,7 +1088,7 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input'))
+    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox'))
   }
 
   get data() {
