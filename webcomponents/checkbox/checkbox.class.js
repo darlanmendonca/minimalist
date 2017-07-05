@@ -116,6 +116,7 @@ module.exports = class MnCheckbox extends HTMLElement {
   set name(value) {
     const name = this.getAttribute('name')
     const element = this
+    this.input.setAttribute('name', name)
 
     if (this.form && !this.form[name]) {
       Object.defineProperty(this.form, name, {

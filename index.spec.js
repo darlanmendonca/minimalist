@@ -59,4 +59,14 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('sidenav')
   })
+
+  it('should export checkbox component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('checkbox')
+  })
+
+  it('should export radio component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('radio')
+  })
 })

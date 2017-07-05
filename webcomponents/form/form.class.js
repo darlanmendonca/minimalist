@@ -66,7 +66,7 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox'))
+    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
   }
 
   get data() {
