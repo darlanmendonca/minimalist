@@ -26,11 +26,20 @@ module.exports = class MnRadio extends MnCheckbox {
   }
 
   _setInput() {
-    super._setInput()
+    this.input = document.createElement('input')
     this.input.setAttribute('type', 'radio')
+    this.label.appendChild(this.input)
 
     this.input.addEventListener('change', () => {
+      this.checked
+        ? this.setAttribute('checked', '')
+        : this.removeAttribute('checked')
+
       this.options.forEach(option => {
+        if (option !== this) {
+          option.removeAttribute('checked')
+        }
+
         option.form && option.form.classList.contains('submitted')
           ? option.validate()
           : null
@@ -69,8 +78,7 @@ module.exports = class MnRadio extends MnCheckbox {
   }
 
   set value(value) {
-    this.options
-    .forEach(option => {
+    this.options.forEach(option => {
       const check = value === option.getAttribute('value')
       check
         ? option.setAttribute('checked', '')

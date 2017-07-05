@@ -28,7 +28,6 @@ module.exports = class MnCheckbox extends HTMLElement {
       'disabled',
       'readonly',
       'autofocus',
-      'checked',
     ]
   }
 
@@ -52,7 +51,11 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
 
-    this.input.addEventListener('change', () => {
+    this.input.addEventListener('change', event => {
+      this.checked
+        ? this.setAttribute('checked', '')
+        : this.removeAttribute('checked')
+
       this.form && this.form.classList.contains('submitted')
         ? this.validate()
         : null
