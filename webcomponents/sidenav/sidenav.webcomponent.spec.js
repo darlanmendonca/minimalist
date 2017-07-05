@@ -9,7 +9,6 @@ let component
 
 describe('mn-sidenav (webcomponent)', () => {
   before(loadComponent)
-  beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
 
@@ -107,8 +106,7 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should scroll to top', () => {
-      component.scroll(300)
-      console.log()
+      sidenav.scroll(300)
       component.open()
       expect(component.scrollTop).to.equal(0)
     })
@@ -192,25 +190,19 @@ function loadComponent() {
   // require('minimalist').sidenav
 }
 
-function cleanView() {
-  const sidenav = document.querySelector('sidenav')
-
-  if (sidenav) {
-    sidenav.parentNode.removeChild(sidenav)
-  }
-}
-
 function createComponent() {
   component = document.createElement('mn-sidenav')
   component.id = 'menu'
-  document.body.appendChild(component)
 
   Array(100)
-    .fill(document.createElement('div'))
-    .forEach(div => {
-      div.textContent = 'teste'
+    .fill(null)
+    .forEach(() => {
+      const div = document.createElement('div')
+      div.textContent = 'test'
       component.appendChild(div)
-  })
+    })
+
+  document.body.appendChild(component)
 }
 
 function setPageObject() {
