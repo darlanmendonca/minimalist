@@ -108,14 +108,14 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should scroll to element with class .active', () => {
-      sidenav
-        .getElementByIndex(3)
-        .classList.add('active')
+      let activeElement = sidenav.getElementByIndex(3)
+      activeElement.classList.add('active')
+      activeElement = sidenav.getPositionTop(activeElement)
 
       sidenav.scroll(300)
       component.open()
 
-      expect(component.scrollTop).to.equal(12)
+      expect(component.scrollTop).to.equal(activeElement)
     })
   })
 

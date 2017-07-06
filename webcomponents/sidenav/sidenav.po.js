@@ -24,6 +24,12 @@ module.exports = class SidenavPageObject {
     return this.component.querySelector(`div:nth-child(${index})`)
   }
 
+  getPositionTop(element) {
+    const fontSizeHTML = parseInt(window.getComputedStyle(document.body, null).getPropertyValue('font-size'))
+    const positionTop = element.offsetTop - fontSizeHTML * 1.5
+    return positionTop
+  }
+
   pressEsc() {
     const esc = new Event('keyup')
     esc.key = 'Escape'
