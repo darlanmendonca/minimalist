@@ -16,7 +16,7 @@ npm install @reservafacil/minimalist
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
 const {sidenav} = require('@reservafacil/minimalist')
 ```
-
+j
 
 ```sass
 // Dont forget the .scss file, to style component
@@ -33,11 +33,11 @@ In your html, you can use the tag `mn-sidenav` i.e.
 <mn-sidenav id="menu"></mn-sidenav>
 ```
 
-And to interact with sidenav, use buttons with attribute `open-dialog` or `close-dialog`, e.g.
+And to interact with sidenav, use buttons with attribute `open-sidenav` or `close-sidenav`, e.g.
 
 ```html
-<button open-dialog="menu">open menu</button>
-<button close-dialog>close the visible sidenav</button>
+<button open-sidenav="menu">open menu</button>
+<button close-sidenav>close the visible sidenav</button>
 ```
 
 ### Scroll
