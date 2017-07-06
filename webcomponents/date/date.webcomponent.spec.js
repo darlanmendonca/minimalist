@@ -243,7 +243,6 @@ describe('mn-date (webcomponent)', () => {
     it('should not called on event change, if not have a parent form.submitted', () => {
       const validate = spy.on(component, 'validate')
       component.input.dispatchEvent(new Event('change'))
-      console.log(validate)
       expect(validate).to.not.have.been.called()
     })
 

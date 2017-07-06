@@ -58,7 +58,7 @@ module.exports = class MnSidenav extends HTMLElement {
     })
 
     document.addEventListener('keyup', event => {
-      const esc = event.keyCode === 27
+      const esc = event.key === 'Escape'
       const isOpened = this.classList.contains('visible')
 
       if (esc && isOpened) {

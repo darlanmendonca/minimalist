@@ -4,12 +4,13 @@ const {expect, spy} = require('chai')
   .use(require('chai-style'))
   .use(require('chai-spies'))
 
+let sidenav
 let component
 
 describe('mn-sidenav (webcomponent)', () => {
   before(loadComponent)
-  beforeEach(cleanView)
   beforeEach(createComponent)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -77,7 +78,13 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should have a overflow', () => {
-      expect(component).to.have.style('overflow', 'auto')
+      const isWebkit = /WebKit/.test(navigator.userAgent)
+
+      if (isWebkit) {
+        expect(component).to.have.style('overflow', 'overlay')
+      } else {
+        expect(component).to.have.style('overflow', 'auto')
+      }
     })
   })
 
@@ -91,6 +98,30 @@ describe('mn-sidenav (webcomponent)', () => {
     it('should display backdrop', () => {
       component.open()
       expect(document.body).to.have.class('mn-backdrop-visible')
+    })
+
+    it('should be called on click in button with open-sidenav attribute', () => {
+      const open = spy.on(component, 'open')
+      sidenav.buttonOpen.click()
+
+      expect(open).to.have.been.called()
+    })
+
+    it('should scroll to top', () => {
+      sidenav.scroll(300)
+      component.open()
+      expect(component.scrollTop).to.equal(0)
+    })
+
+    it('should scroll to element with class .active', () => {
+      let activeElement = sidenav.getElementByIndex(3)
+      activeElement.classList.add('active')
+      activeElement = sidenav.getPositionTop(activeElement)
+
+      sidenav.scroll(300)
+      component.open()
+
+      expect(component.scrollTop).to.equal(activeElement)
     })
   })
 
@@ -107,6 +138,22 @@ describe('mn-sidenav (webcomponent)', () => {
       component.close()
       expect(document.body).to.not.have.class('mn-backdrop-visible')
     })
+
+    it('should be called on click in button with close-sidenav attribute', () => {
+      const close = spy.on(component, 'close')
+      component.open()
+      sidenav.buttonClose.click()
+
+      expect(close).to.have.been.called()
+    })
+
+    it('should be called when press ESC', () => {
+      const close = spy.on(component, 'close')
+      component.open()
+      sidenav.pressEsc()
+
+      expect(close).to.have.been.called()
+    })
   })
 
   describe('method toggle', () => {
@@ -122,6 +169,14 @@ describe('mn-sidenav (webcomponent)', () => {
       component.toggle()
       expect(close).to.have.been.called()
     })
+
+    it('should be called on click in button with toggle-sidenav attribute', () => {
+      const toggle = spy.on(component, 'toggle')
+      sidenav.buttonToggle.click()
+      sidenav.buttonToggle.click()
+
+      expect(toggle).to.have.been.called.twice
+    })
   })
 })
 
@@ -129,15 +184,22 @@ function loadComponent() {
   // require('minimalist').sidenav
 }
 
-function cleanView() {
-  const sidenav = document.querySelector('sidenav')
-
-  if (sidenav) {
-    sidenav.parentNode.removeChild(sidenav)
-  }
-}
-
 function createComponent() {
   component = document.createElement('mn-sidenav')
+  component.id = 'menu'
+
+  Array(100)
+    .fill(null)
+    .forEach(() => {
+      const div = document.createElement('div')
+      div.textContent = 'test'
+      component.appendChild(div)
+    })
+
   document.body.appendChild(component)
+}
+
+function setPageObject() {
+  const SidenavPageObject = require('./sidenav.po.js')
+  sidenav = new SidenavPageObject(component)
 }

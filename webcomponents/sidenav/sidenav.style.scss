@@ -10,6 +10,7 @@ mn-sidenav:not(.mn-sidenav) {display: none}
   will-change: transform;
   border-radius: 0 !important;
   overflow: auto;
+  overflow: overlay;
   transition: transform .32s ease;
 
   &.visible {
