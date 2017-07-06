@@ -78,7 +78,7 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should have a overflow', () => {
-      expect(component).to.have.style('overflow', 'overlay')
+      expect(component).to.have.style('overflow', 'auto')
     })
   })
 
