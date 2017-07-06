@@ -78,7 +78,13 @@ describe('mn-sidenav (webcomponent)', () => {
     })
 
     it('should have a overflow', () => {
-      expect(component).to.have.style('overflow', 'auto')
+      const isWebkit = /WebKit/.test(navigator.userAgent)
+
+      if (isWebkit) {
+        expect(component).to.have.style('overflow', 'overlay')
+      } else {
+        expect(component).to.have.style('overflow', 'auto')
+      }
     })
   })
 
