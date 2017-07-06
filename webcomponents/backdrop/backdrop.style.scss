@@ -20,6 +20,7 @@
 }
 
 .mn-backdrop-visible:before {
+  pointer-events: all;
   opacity: var(--opacity);
   transition: opacity .4s ease;
 }

@@ -1,8 +1,7 @@
-/* global describe, it, before, beforeEach, afterEach */
+/* global describe, it, before, beforeEach, afterEach, angular */
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
-const angular = require('angular')
 require('angular-mocks')
 
 let component

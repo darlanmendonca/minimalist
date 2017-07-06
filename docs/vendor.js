@@ -1717,6 +1717,7 @@ module.exports = class MnSidenav extends HTMLElement {
   connectedCallback() {
     this._setStyle()
     this._setOpenEvents()
+    this._setToggleEvents()
     this._setCloseEvents()
   }
 
@@ -1730,6 +1731,15 @@ module.exports = class MnSidenav extends HTMLElement {
     document.addEventListener('click', event => {
       if (event.target.matches(`[open-sidenav="${this.id}"]`)) {
         this.open()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  _setToggleEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[toggle-sidenav="${this.id}"]`)) {
+        this.toggle()
         event.stopPropagation()
       }
     })
@@ -1756,7 +1766,7 @@ module.exports = class MnSidenav extends HTMLElement {
     })
 
     document.addEventListener('keyup', event => {
-      const esc = event.keyCode === 27
+      const esc = event.key === 'Escape'
       const isOpened = this.classList.contains('visible')
 
       if (esc && isOpened) {
