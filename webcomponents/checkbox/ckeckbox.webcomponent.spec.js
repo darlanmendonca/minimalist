@@ -6,6 +6,8 @@ const {expect} = require('chai')
 
 // let checkbox // page object defined in method setPageObject
 let component
+let stark
+let lannister
 
 describe('mn-checkbox (webcomponent)', () => {
   before(loadComponent)
@@ -36,80 +38,10 @@ describe('mn-checkbox (webcomponent)', () => {
       expect(component).to.have.property('input')
     })
 
-
     it('should contain a input child', () => {
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
-<<<<<<< HEAD
-  })
-
-  describe('input', () => {
-    it('should have type checkbox by default', () => {
-      expect(component.input).to.have.attribute('type', 'checkbox')
-    })
-  })
-
-  // all style specs need to be refactor, to better organization and readability
-  // describe('css style', () => {
-  //   it('should have a inline-block display', () => {
-  //     expect(component).to.have.style('display', 'inline-block')
-  //   })
-
-  //   it('should have a width', () => {
-  //     expect(component).to.have.style('width', '100%')
-  //   })
-
-  //   it('should have a height', () => {
-  //     expect(component).to.have.style('height', '100%')
-  //   })
-
-  //   it('should have a height', () => {
-  //     expect(component).to.have.style('height', '100%')
-  //   })
-
-  //   it('should have a border', () => {
-  //     expect(component).to.have.style('border', '2px solid')
-  //   })
-
-  //   it('should have a relative position', () => {
-  //     expect(component).to.have.style('position', 'relative')
-  //   })
-
-  //   it('should have a border-radius', () => {
-  //     expect(component).to.have.style('border-radius', '3px')
-  //   })
-
-  //   it('should have a box-sizing', () => {
-  //     expect(component).to.have.style('box-sizing', 'border-box')
-  //   })
-
-  //   it('should have a transition', () => {
-  //     expect(component).to.have.style('transition', 'background .2s ease')
-  //   })
-  // })
-
-  describe('attribute value', () => {
-    it('should return false to single checkbox', () => {
-      expect(component).to.have.value(false)
-    })
-
-    it('should return true to single checkbox', () => {
-      component.setAttribute('value', true)
-      expect(component).to.have.value(true)
-    })
-
-    it('should change between true and false', () => {
-      component.setAttribute('value', false)
-      component.setAttribute('value', true)
-      expect(component).to.have.value(true)
-    })
-
-    it('should not change value attribute if is checked', () => {
-      component.setAttribute('value', false)
-      component.setAttribute('checked', true)
-      expect(component).to.have.value(false)
-=======
 
     it('should contain a label property', () => {
       expect(component).to.have.property('label')
@@ -124,9 +56,60 @@ describe('mn-checkbox (webcomponent)', () => {
   describe('input', () => {
     it('should have type checkbox by default', () => {
       expect(component.input).to.have.attribute('type', 'checkbox')
->>>>>>> 79079f0cbd17c19d4c9624f6d09630c9cfd67dcd
     })
   })
+
+  describe('property checked', () => {
+    it('should be false if dont have checked attribute', () => {
+      expect(component.checked).to.be.false
+    })
+
+    it('should be true if have a checked attribute', () => {
+      component.setAttribute('checked', '')
+
+      expect(component.checked).to.be.true
+    })
+
+    // it('should watch changes in checked attribute', () => {
+    //   component.setAttribute('checked', '')
+
+    //   expect(component.checked).to.be.true
+    // })
+  })
+
+  // describe('propety value', () => {
+  //   it('should return a array by default', () => {
+  //     expect(component.value).to.be.an('array')
+  //   })
+
+  //   it('should return a array with checked options', () => {
+  //     stark.checked = true
+  //     expect(component.value).to.deep.equal(['stark'])
+  //   })
+  // })
+
+  // describe('attribute value', () => {
+  //   it('should return false to single checkbox', () => {
+  //     expect(component).to.have.value(false)
+  //   })
+
+  //   it('should return true to single checkbox', () => {
+  //     component.setAttribute('value', true)
+  //     expect(component).to.have.value(true)
+  //   })
+
+  //   it('should change between true and false', () => {
+  //     component.setAttribute('value', false)
+  //     component.setAttribute('value', true)
+  //     expect(component).to.have.value(true)
+  //   })
+
+  //   it('should not change value attribute if is checked', () => {
+  //     component.setAttribute('value', false)
+  //     component.setAttribute('checked', true)
+  //     expect(component).to.have.value(false)
+  //   })
+  // })
 })
 
 function loadComponent() {
@@ -146,9 +129,19 @@ function createComponent() {
   form.setAttribute('name', 'formName')
   form.setAttribute('id', 'formID')
 
-  component = document.createElement('mn-checkbox')
+  stark = document.createElement('mn-checkbox')
+  stark.setAttribute('name', 'house')
+  stark.setAttribute('value', 'stark')
+  form.appendChild(stark)
 
-  form.appendChild(component)
+  // lannister
+  lannister = document.createElement('mn-checkbox')
+  lannister.setAttribute('name', 'house')
+  lannister.setAttribute('value', 'lannister')
+  form.appendChild(lannister)
+
+  component = stark
+
   document.body.appendChild(form)
 }
 
