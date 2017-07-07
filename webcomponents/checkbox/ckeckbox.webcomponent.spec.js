@@ -36,10 +36,12 @@ describe('mn-checkbox (webcomponent)', () => {
       expect(component).to.have.property('input')
     })
 
+
     it('should contain a input child', () => {
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
     })
+<<<<<<< HEAD
   })
 
   describe('input', () => {
@@ -107,6 +109,22 @@ describe('mn-checkbox (webcomponent)', () => {
       component.setAttribute('value', false)
       component.setAttribute('checked', true)
       expect(component).to.have.value(false)
+=======
+
+    it('should contain a label property', () => {
+      expect(component).to.have.property('label')
+    })
+
+    it('should contain a label child', () => {
+      expect(component).to.contain('label')
+      expect(component.querySelectorAll('label')).to.have.length(1)
+    })
+  })
+
+  describe('input', () => {
+    it('should have type checkbox by default', () => {
+      expect(component.input).to.have.attribute('type', 'checkbox')
+>>>>>>> 79079f0cbd17c19d4c9624f6d09630c9cfd67dcd
     })
   })
 })
