@@ -45,6 +45,10 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.label = document.createElement('label')
     this.appendChild(this.label)
 
+    this.label.addEventListener('mouseleave', () => {
+      this.input.blur()
+    })
+
     document.addEventListener('click', event => {
       const isLabel = event.target.tagName === 'LABEL'
         && event.target.getAttribute('for') === this.id
