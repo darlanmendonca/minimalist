@@ -57,45 +57,6 @@ describe('mn-checkbox (webcomponent)', () => {
       expect(component.input).to.have.attribute('type', 'checkbox')
     })
   })
-
-  // all style specs need to be refactor, to better organization and readability
-  describe('css style', () => {
-    it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'inline-block')
-    })
-
-    it('should have a width', () => {
-      expect(component).to.have.style('width', '100%')
-    })
-
-    it('should have a height', () => {
-      expect(component).to.have.style('height', '100%')
-    })
-
-    it('should have a height', () => {
-      expect(component).to.have.style('height', '100%')
-    })
-
-    it('should have a border', () => {
-      expect(component).to.have.style('border', '2px solid')
-    })
-
-    it('should have a relative position', () => {
-      expect(component).to.have.style('position', 'relative')
-    })
-
-    it('should have a border-radius', () => {
-      expect(component).to.have.style('border-radius', '3px')
-    })
-
-    it('should have a box-sizing', () => {
-      expect(component).to.have.style('box-sizing', 'border-box')
-    })
-
-    it('should have a transition', () => {
-      expect(component).to.have.style('transition', 'background .2s ease')
-    })
-  })
 })
 
 function loadComponent() {
