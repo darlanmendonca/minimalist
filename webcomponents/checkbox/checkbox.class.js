@@ -94,7 +94,11 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   _setValidations() {
     this.validations = {
-      required: () => !this.value.some(value => value === evaluate(this.getAttribute('value'))),
+      required: () => {
+        return Array.isArray(this.value)
+          ? !this.value.some(value => value === evaluate(this.getAttribute('value')))
+          : !this.value
+      },
     }
   }
 
@@ -134,10 +138,14 @@ module.exports = class MnCheckbox extends HTMLElement {
     const values = this
       .options
       .filter(option => option.checked)
-      .map(option => evaluate(option.getAttribute('value')))
+      .map(option => option.hasAttribute('value')
+        ? evaluate(option.getAttribute('value'))
+        : this.checked
+      )
 
     const isSingleOption = this.options.length === 1
     const isBoolean = typeof evaluate(this.options[0].getAttribute('value')) === 'boolean'
+      || !this.options[0].hasAttribute('value')
 
     return isSingleOption && isBoolean
       ? Boolean(values[0])
