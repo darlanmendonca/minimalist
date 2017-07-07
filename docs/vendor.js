@@ -448,6 +448,16 @@ module.exports = class MnCheckbox extends HTMLElement {
   _setLabel() {
     this.label = document.createElement('label')
     this.appendChild(this.label)
+
+    document.addEventListener('click', event => {
+      const isLabel = event.target.tagName === 'LABEL'
+        && event.target.getAttribute('for') === this.id
+
+      if (isLabel && this.id) {
+        this.input.checked = !this.input.checked
+        this.input.dispatchEvent(new Event('change'))
+      }
+    })
   }
 
   _setInput() {

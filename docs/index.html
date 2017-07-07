@@ -13,7 +13,7 @@
 
 
       <label>
-        <mn-checkbox name="house" value="stark" required></mn-checkbox> stark
+        <mn-checkbox name="house" value="stark" required id="stark"></mn-checkbox> stark
       </label>
       <label>
         <mn-checkbox name="house" value="lannister" required></mn-checkbox> lannister
@@ -22,7 +22,7 @@
       <mn-checkbox name="house" checked placeholder="Baratheon" required></mn-checkbox>
 
       <label>
-        <mn-radio name="work" value="frontend" required></mn-radio> Frontend
+        <mn-radio name="work" value="frontend" required id="front"></mn-radio> Frontend
       </label>
       <label>
         <mn-radio name="work" value="backend" required></mn-radio> Backend
@@ -31,6 +31,8 @@
       <mn-radio name="work" value="manager" placeholder="Gerente" required></mn-radio>
 
       <button type="submit">submit</button>
+      <label for="stark">select stark</label>
+      <label for="front">select frontend</label>
     </mn-form>
     <!-- <h2>vanilla js</h2>
     <mn-form name="form">
