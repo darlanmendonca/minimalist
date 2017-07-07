@@ -44,6 +44,20 @@ module.exports = class MnCheckbox extends HTMLElement {
   _setLabel() {
     this.label = document.createElement('label')
     this.appendChild(this.label)
+
+    this.label.addEventListener('mouseleave', () => {
+      this.input.blur()
+    })
+
+    document.addEventListener('click', event => {
+      const isLabel = event.target.tagName === 'LABEL'
+        && event.target.getAttribute('for') === this.id
+
+      if (isLabel && this.id) {
+        this.input.checked = !this.input.checked
+        this.input.dispatchEvent(new Event('change'))
+      }
+    })
   }
 
   _setInput() {
@@ -96,7 +110,9 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.validations = {
       required: () => {
         return Array.isArray(this.value)
-          ? !this.value.some(value => value === evaluate(this.getAttribute('value')))
+          ? !this.value.some(value =>
+            value === evaluate(this.getAttribute('value')) || value === this.getAttribute('placeholder')
+          )
           : !this.value
       },
     }
@@ -139,13 +155,13 @@ module.exports = class MnCheckbox extends HTMLElement {
       .options
       .filter(option => option.checked)
       .map(option => option.hasAttribute('value') || option.hasAttribute('placeholder')
-        ? evaluate(option.getAttribute('value')) || option.getAttribute('placeholder')
+        ? option.getAttribute('placeholder') || evaluate(option.getAttribute('value'))
         : this.checked
       )
 
     const isSingleOption = this.options.length === 1
     const isBoolean = typeof evaluate(this.options[0].getAttribute('value')) === 'boolean'
-      || !this.options[0].hasAttribute('value')
+      || !this.options[0].hasAttribute('value') && !this.options[0].hasAttribute('placeholder')
 
     return isSingleOption && isBoolean
       ? Boolean(values[0])
