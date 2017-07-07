@@ -72,7 +72,7 @@ module.exports = class MnRadio extends MnCheckbox {
     const value = this
       .options
       .filter(option => option.checked)
-      .map(option => evaluate(option.getAttribute('value')))
+      .map(option => evaluate(option.getAttribute('value')) || option.getAttribute('placeholder'))
 
     return value[0]
   }
