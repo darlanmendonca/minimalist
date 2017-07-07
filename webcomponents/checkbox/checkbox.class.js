@@ -96,7 +96,9 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.validations = {
       required: () => {
         return Array.isArray(this.value)
-          ? !this.value.some(value => value === evaluate(this.getAttribute('value')))
+          ? !this.value.some(value =>
+            value === evaluate(this.getAttribute('value')) || value === this.getAttribute('placeholder')
+          )
           : !this.value
       },
     }
