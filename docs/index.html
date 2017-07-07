@@ -7,18 +7,28 @@
 
   <body>
     <mn-form>
-      <mn-checkbox name="terms" required></mn-checkbox>
-      <mn-checkbox name="house" value="stark" required></mn-checkbox>
-      <mn-checkbox name="house" value="lannister" checked required></mn-checkbox>
+      <label>
+        <mn-checkbox name="terms" required></mn-checkbox> accept terms
+      </label>
 
-      <mn-radio name="gender" value="male" required></mn-radio>
-      <mn-radio name="gender" value="female" checked required></mn-radio>
 
-      <mn-checkbox name="checkbox" value="snow" placeholder="Snow" required></mn-checkbox>
-      <mn-checkbox name="checkbox" value="storm" checked placeholder="Storm" required></mn-checkbox>
+      <label>
+        <mn-checkbox name="house" value="stark" required></mn-checkbox> stark
+      </label>
+      <label>
+        <mn-checkbox name="house" value="lannister" required></mn-checkbox> lannister
+      </label>
+      <mn-checkbox name="house" placeholder="Targaryen" required></mn-checkbox>
+      <mn-checkbox name="house" checked placeholder="Baratheon" required></mn-checkbox>
 
-      <mn-radio name="radio" placeholder="John" required></mn-radio>
-      <mn-radio name="radio" placeholder="Arya" required></mn-radio>
+      <label>
+        <mn-radio name="work" value="frontend" required></mn-radio> Frontend
+      </label>
+      <label>
+        <mn-radio name="work" value="backend" required></mn-radio> Backend
+      </label>
+      <mn-radio name="work" value="tester" placeholder="Q.A." required></mn-radio>
+      <mn-radio name="work" value="manager" placeholder="Gerente" required></mn-radio>
 
       <button type="submit">submit</button>
     </mn-form>
