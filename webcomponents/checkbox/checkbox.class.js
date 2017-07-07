@@ -138,8 +138,8 @@ module.exports = class MnCheckbox extends HTMLElement {
     const values = this
       .options
       .filter(option => option.checked)
-      .map(option => option.hasAttribute('value')
-        ? evaluate(option.getAttribute('value'))
+      .map(option => option.hasAttribute('value') || option.hasAttribute('placeholder')
+        ? evaluate(option.getAttribute('value')) || option.getAttribute('placeholder')
         : this.checked
       )
 
