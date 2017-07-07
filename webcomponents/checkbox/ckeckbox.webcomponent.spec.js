@@ -36,9 +36,19 @@ describe('mn-checkbox (webcomponent)', () => {
       expect(component).to.have.property('input')
     })
 
+
     it('should contain a input child', () => {
       expect(component).to.contain('input')
       expect(component.querySelectorAll('input')).to.have.length(1)
+    })
+
+    it('should contain a label property', () => {
+      expect(component).to.have.property('label')
+    })
+
+    it('should contain a label child', () => {
+      expect(component).to.contain('label')
+      expect(component.querySelectorAll('label')).to.have.length(1)
     })
   })
 
