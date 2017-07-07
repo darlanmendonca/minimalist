@@ -49,41 +49,64 @@ describe('mn-checkbox (webcomponent)', () => {
   })
 
   // all style specs need to be refactor, to better organization and readability
-  describe('css style', () => {
-    it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'inline-block')
+  // describe('css style', () => {
+  //   it('should have a inline-block display', () => {
+  //     expect(component).to.have.style('display', 'inline-block')
+  //   })
+
+  //   it('should have a width', () => {
+  //     expect(component).to.have.style('width', '100%')
+  //   })
+
+  //   it('should have a height', () => {
+  //     expect(component).to.have.style('height', '100%')
+  //   })
+
+  //   it('should have a height', () => {
+  //     expect(component).to.have.style('height', '100%')
+  //   })
+
+  //   it('should have a border', () => {
+  //     expect(component).to.have.style('border', '2px solid')
+  //   })
+
+  //   it('should have a relative position', () => {
+  //     expect(component).to.have.style('position', 'relative')
+  //   })
+
+  //   it('should have a border-radius', () => {
+  //     expect(component).to.have.style('border-radius', '3px')
+  //   })
+
+  //   it('should have a box-sizing', () => {
+  //     expect(component).to.have.style('box-sizing', 'border-box')
+  //   })
+
+  //   it('should have a transition', () => {
+  //     expect(component).to.have.style('transition', 'background .2s ease')
+  //   })
+  // })
+
+  describe('attribute value', () => {
+    it('should return false to single checkbox', () => {
+      expect(component).to.have.value(false)
     })
 
-    it('should have a width', () => {
-      expect(component).to.have.style('width', '100%')
+    it('should return true to single checkbox', () => {
+      component.setAttribute('value', true)
+      expect(component).to.have.value(true)
     })
 
-    it('should have a height', () => {
-      expect(component).to.have.style('height', '100%')
+    it('should change between true and false', () => {
+      component.setAttribute('value', false)
+      component.setAttribute('value', true)
+      expect(component).to.have.value(true)
     })
 
-    it('should have a height', () => {
-      expect(component).to.have.style('height', '100%')
-    })
-
-    it('should have a border', () => {
-      expect(component).to.have.style('border', '2px solid')
-    })
-
-    it('should have a relative position', () => {
-      expect(component).to.have.style('position', 'relative')
-    })
-
-    it('should have a border-radius', () => {
-      expect(component).to.have.style('border-radius', '3px')
-    })
-
-    it('should have a box-sizing', () => {
-      expect(component).to.have.style('box-sizing', 'border-box')
-    })
-
-    it('should have a transition', () => {
-      expect(component).to.have.style('transition', 'background .2s ease')
+    it('should not change value attribute if is checked', () => {
+      component.setAttribute('value', false)
+      component.setAttribute('checked', true)
+      expect(component).to.have.value(false)
     })
   })
 })
