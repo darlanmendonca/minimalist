@@ -64,7 +64,7 @@
   "dependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
     "angular": "^1.6.4",
-    "open-color": "^1.5.1",
-    "vanilla-masker": "^1.2.0"
+    "evaluate-string": "^1.0.0",
+    "open-color": "^1.5.1"
   }
 }

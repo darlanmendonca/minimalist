@@ -1,5 +1,5 @@
 const {HTMLElement} = window
-const evaluate = require('../../evaluate.js')
+const evaluate = require('evaluate-string')
 
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {

@@ -1,5 +1,5 @@
 const MnCheckbox = require('../checkbox/checkbox.class.js')
-const evaluate = require('../../evaluate.js')
+const evaluate = require('evaluate-string')
 
 module.exports = class MnRadio extends MnCheckbox {
   constructor(self) {

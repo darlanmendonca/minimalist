@@ -1,6 +1,6 @@
 const MnInput = require('../input/input.class.js')
 const MnActionSheet = require('../action-sheet/action-sheet.webcomponent.js')
-const evaluate = require('../../evaluate.js')
+const evaluate = require('evaluate-string')
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {

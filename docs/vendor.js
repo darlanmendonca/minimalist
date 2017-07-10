@@ -351,33 +351,7 @@ module.exports = class MnInput extends HTMLElement {
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = evaluate
-
-function evaluate(value) {
-  try {
-    value = value.trim()
-    const isVariable = !value.startsWith('[')
-      && !value.startsWith('{')
-      && !value.startsWith('\'')
-      && !value.startsWith('"')
-      && !value.startsWith('`')
-      && value !== 'true'
-      && value !== 'false'
-      && isNaN(value)
-
-    return isVariable
-        ? eval(`'${value}'`) // convert to string
-        : eval(`(${value})`) // evaluate
-  } catch (e) {
-    return value
-  }
-}
-
-
-/***/ }),
+/* 2 */,
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -403,7 +377,7 @@ function MnActionSheetCustomElement() {
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
-const evaluate = __webpack_require__(2)
+const evaluate = __webpack_require__(27)
 
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {
@@ -1574,7 +1548,7 @@ function MnPasswordCustomElement() {
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(4)
-const evaluate = __webpack_require__(2)
+const evaluate = __webpack_require__(27)
 
 module.exports = class MnRadio extends MnCheckbox {
   constructor(self) {
@@ -1690,7 +1664,7 @@ function MnRadioCustomElement() {
 
 const MnInput = __webpack_require__(1)
 const MnActionSheet = __webpack_require__(3)
-const evaluate = __webpack_require__(2)
+const evaluate = __webpack_require__(27)
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -2188,6 +2162,40 @@ function MNSidenavCustomElement() {
   return window.customElements.get('mn-sidenav')
 }
 
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// const string = evaluateString('string')
+// const number = evaluateString('5')
+// const booleanFalse = evaluateString('false')
+// const booleanTrue = evaluateString('true')
+// const array = evaluateString('[1, 2]')
+// const object = evaluateString(`{id: 1, name: 'snow'}`)
+// const json = evaluateString('{"id": 1, "name": "snow"}')
+
+module.exports = evaluateString
+
+function evaluateString(value) {
+  try {
+    value = value.trim()
+    const isVariable = !value.startsWith('[')
+      && !value.startsWith('{')
+      && !value.startsWith('\'')
+      && !value.startsWith('"')
+      && !value.startsWith('`')
+      && value !== 'true'
+      && value !== 'false'
+      && isNaN(value)
+
+    return isVariable
+        ? eval(`'${value}'`) // convert to string
+        : eval(`(${value})`) // evaluate
+  } catch (e) {
+    return value
+  }
+}
 
 /***/ })
 /******/ ]);
