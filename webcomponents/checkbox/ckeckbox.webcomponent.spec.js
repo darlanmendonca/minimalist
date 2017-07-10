@@ -73,16 +73,42 @@ describe('mn-checkbox (webcomponent)', () => {
     })
   })
 
-  // describe('propety value', () => {
-  //   it('should return a array by default', () => {
-  //     expect(component.value).to.be.an('array')
-  //   })
+  describe('propety value', () => {
+    it('should get a array by default', () => {
+      expect(component.value).to.be.an('array')
+    })
 
-  //   it('should return a array with checked options', () => {
-  //     stark.checked = true
-  //     expect(component.value).to.deep.equal(['stark'])
-  //   })
-  // })
+    it('should get a array with checked options', () => {
+      stark.checked = true
+      lannister.checked = true
+      expect(component.value).to.deep.equal(['stark', 'lannister'])
+    })
+
+    it('should accept single value as setter', () => {
+      component.value = 'stark'
+
+      expect(component.value).to.deep.equal(['stark'])
+    })
+
+    it('should accept array as setter', () => {
+      component.value = ['lannister']
+
+      expect(component.value).to.deep.equal(['lannister'])
+    })
+
+    it('should accept undefined as setter', () => {
+      component.value = 'stark'
+      component.value = undefined
+
+      expect(component.value).to.deep.equal([])
+    })
+
+    it('should apply only existing values', () => {
+      component.value = ['stark', 'lannister', 'targaryen']
+
+      expect(component.value).to.deep.equal(['stark', 'lannister'])
+    })
+  })
 
   // describe('attribute value', () => {
   //   it('should return false to single checkbox', () => {
