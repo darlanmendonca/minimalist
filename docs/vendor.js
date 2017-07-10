@@ -528,6 +528,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   set checked(value) {
     this.input.checked = value
+    this.input.dispatchEvent(new Event('change'))
   }
 
   set disabled(value) {

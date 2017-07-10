@@ -62,19 +62,15 @@ describe('mn-checkbox (webcomponent)', () => {
   describe('property checked', () => {
     it('should be false if dont have checked attribute', () => {
       expect(component.checked).to.be.false
+      expect(component.input.checked).to.be.false
     })
 
     it('should be true if have a checked attribute', () => {
-      component.setAttribute('checked', '')
+      component.checked = true
 
       expect(component.checked).to.be.true
+      expect(component.input.checked).to.be.true
     })
-
-    // it('should watch changes in checked attribute', () => {
-    //   component.setAttribute('checked', '')
-
-    //   expect(component.checked).to.be.true
-    // })
   })
 
   // describe('propety value', () => {
