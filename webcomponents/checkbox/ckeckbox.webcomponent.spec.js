@@ -6,6 +6,7 @@ const {expect} = require('chai')
 
 // let checkbox // page object defined in method setPageObject
 let component
+let form
 let stark
 let lannister
 
@@ -78,6 +79,27 @@ describe('mn-checkbox (webcomponent)', () => {
       expect(component.value).to.be.an('array')
     })
 
+    it('should get a false if has a single option with boolean value unchecked', () => {
+      const terms = document.createElement('mn-checkbox')
+      terms.setAttribute('name', 'terms')
+      terms.setAttribute('value', 'true')
+      form.appendChild(terms)
+      component = terms
+
+      expect(component.value).to.be.false
+    })
+
+    it('should get true if has a single option with boolean value checked', () => {
+      const terms = document.createElement('mn-checkbox')
+      terms.setAttribute('name', 'terms')
+      terms.setAttribute('value', 'true')
+      form.appendChild(terms)
+      terms.checked = true
+      component = terms
+
+      expect(component.value).to.be.true
+    })
+
     it('should get a array with checked options', () => {
       stark.checked = true
       lannister.checked = true
@@ -147,7 +169,7 @@ function cleanView() {
 }
 
 function createComponent() {
-  const form = document.createElement('form')
+  form = document.createElement('form')
   form.setAttribute('name', 'formName')
   form.setAttribute('id', 'formID')
 
