@@ -130,6 +130,61 @@ describe('mn-checkbox (webcomponent)', () => {
 
       expect(component.value).to.deep.equal(['stark', 'lannister'])
     })
+
+    it('should evaluate value as string', () => {
+      const option = document.createElement('mn-checkbox')
+      option.setAttribute('name', 'option')
+      option.setAttribute('value', 'test')
+      form.appendChild(option)
+      option.checked = true
+      component = option
+
+      expect(component.value).to.deep.equal(['test'])
+    })
+
+    it('should evaluate value as number', () => {
+      const option = document.createElement('mn-checkbox')
+      option.setAttribute('name', 'option')
+      option.setAttribute('value', '5')
+      form.appendChild(option)
+      option.checked = true
+      component = option
+
+      expect(component.value).to.deep.equal([5])
+    })
+
+    it('should evaluate value as array', () => {
+      const option = document.createElement('mn-checkbox')
+      option.setAttribute('name', 'option')
+      option.setAttribute('value', '[1, 2]')
+      form.appendChild(option)
+      option.checked = true
+      component = option
+
+      expect(component.value).to.deep.equal([[1, 2]])
+    })
+
+    it('should evaluate value as object', () => {
+      const option = document.createElement('mn-checkbox')
+      option.setAttribute('name', 'option')
+      option.setAttribute('value', '{name: \'snow\'}')
+      form.appendChild(option)
+      option.checked = true
+      component = option
+
+      expect(component.value).to.deep.equal([{name: 'snow'}])
+    })
+
+    it('should evaluate value as JSON', () => {
+      const option = document.createElement('mn-checkbox')
+      option.setAttribute('name', 'option')
+      option.setAttribute('value', '{"name": "snow"}')
+      form.appendChild(option)
+      option.checked = true
+      component = option
+
+      expect(component.value).to.deep.equal([{"name": "snow"}]) // eslint-disable-line quotes
+    })
   })
 
   // describe('attribute value', () => {
