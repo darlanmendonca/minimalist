@@ -187,47 +187,76 @@ describe('mn-checkbox (webcomponent)', () => {
     })
   })
 
-  // describe('attribute name', () => {
-  //   it('should define a form getter if parent form exist and has an id', () => {
-  //     input.setAttribute('name', 'test')
-  //     const {formID} = window
-  //     expect(formID.test).to.be.equal(component)
-  //   })
+  describe.skip('attribute name', () => {
+    it('should define a form getter if parent form exist and has an id', () => {
+      const {formID} = window
+      expect(formID.house).to.be.equal(component)
+    })
 
-  //   it('should define a form getter if parent form exist and has a name', () => {
-  //     input.setAttribute('name', 'test')
-  //     const {formName} = window
-  //     expect(formName.test).to.be.equal(component)
-  //   })
+    it('should define a form getter if parent form exist and has a name', () => {
+      const {formName} = window
+      expect(formName.house).to.be.equal(component)
+    })
 
-  //   it('should undefine form getter (name) if component name was removed', () => {
-  //     input.setAttribute('name', 'test')
-  //     input.removeAttribute('name')
-  //     const {formName} = window
-  //     expect(formName.test).to.be.undefined
-  //   })
+    it('should undefine form getter (name) if component name was removed', () => {
+      checkbox.removeAttribute('name')
+      const {formName} = window
+      expect(formName.house).to.be.undefined
+    })
 
-  //   it('should undefine form getter (id) if component name was removed', () => {
-  //     input.setAttribute('name', 'test')
-  //     input.removeAttribute('name')
-  //     const {formID} = window
-  //     expect(formID.test).to.be.undefined
-  //   })
+    it('should undefine form getter (id) if component name was removed', () => {
+      checkbox.removeAttribute('name')
+      const {formID} = window
+      expect(formID.house).to.be.undefined
+    })
 
-  //   it('should redefine form getter (name) if component name changed', () => {
-  //     input.setAttribute('name', 'test')
-  //     input.setAttribute('name', 'test2')
-  //     const {formName} = window
-  //     expect(formName.test2).to.be.equal(component)
-  //   })
+    it('should redefine form getter (name) if component name changed', () => {
+      checkbox.setAttribute('name', 'house2')
+      const {formName} = window
+      expect(formName.house2).to.be.equal(component)
+    })
 
-  //   it('should redefine form getter (id) if component name changed', () => {
-  //     input.setAttribute('name', 'test')
-  //     input.setAttribute('name', 'test2')
-  //     const {formID} = window
-  //     expect(formID.test2).to.be.equal(component)
-  //   })
-  // })
+    it('should redefine form getter (id) if component name changed', () => {
+      checkbox.setAttribute('name', 'house2')
+      const {formID} = window
+      expect(formID.house2).to.be.equal(component)
+    })
+  })
+
+  describe.skip('attribute placeholder', () => {
+    it('should define before conent as placeholder', () => {
+      checkbox.setAttribute('placeholder', 'test')
+      // expect(component).to.contain('label').with.text('test')
+    })
+  })
+
+  describe.skip('attribute readonly', () => {
+    it('should define attribute in child input', () => {
+      checkbox.setAttribute('readonly')
+      expect(component).to.contain('input').to.have.attribute('readonly')
+    })
+
+    it('should remove attribute from child input', () => {
+      checkbox.removeAttribute('readonly')
+      expect(component).to.contain('input').not.have.attribute('readonly')
+    })
+  })
+
+  describe.skip('attribute disabled', () => {
+    it('should define attribute in child input', () => {
+      checkbox.setAttribute('disabled')
+      expect(component.input).to.have.attribute('disabled')
+    })
+
+    it('should remove attribute from child input', () => {
+      checkbox.removeAttribute('disabled')
+      expect(component.input).to.not.have.attribute('disabled')
+    })
+  })
+
+  describe.skip('method validate()', () => {
+
+  })
 })
 
 function loadComponent() {

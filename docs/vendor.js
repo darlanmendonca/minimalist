@@ -411,7 +411,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   attributeChangedCallback(name, old, value) {
     if (this.parentNode && this.input) {
-      this[name] = value
+      this[name] = value || this.hasAttribute(name)
     }
   }
 
@@ -442,6 +442,12 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
+
+    this.addEventListener('click', () => {
+      setTimeout(() => {
+        this.input.blur()
+      }, 0)
+    })
 
     this.input.addEventListener('change', () => {
       this.checked
