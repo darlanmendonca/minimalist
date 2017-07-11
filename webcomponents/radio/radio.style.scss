@@ -140,3 +140,8 @@
     }
   }
 }
+
+.mn-radio[placeholder][disabled] {
+  --placeholder-color: $oc-gray-5;
+  cursor: not-allowed;
+}

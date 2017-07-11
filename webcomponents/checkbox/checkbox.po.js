@@ -8,10 +8,10 @@ module.exports = class CheckboxPageObject {
   }
 
   setAttribute(attribute, value = '') {
-    this.setAttribute(attribute, value)
+    this.component.setAttribute(attribute, value)
   }
 
   removeAttribute(attribute) {
-    this.removeAttribute(attribute)
+    this.component.removeAttribute(attribute)
   }
 }

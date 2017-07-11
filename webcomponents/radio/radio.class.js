@@ -78,11 +78,13 @@ module.exports = class MnRadio extends MnCheckbox {
   }
 
   set value(value) {
+    console.log('receiving', value)
     this.options.forEach(option => {
       option.removeAttribute('checked')
     })
 
     const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
+    console.log('found', option)
     option.setAttribute('checked', '')
   }
 }
