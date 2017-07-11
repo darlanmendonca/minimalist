@@ -1,6 +1,6 @@
 require('minimalist')
 
-const angular = require('angular')
+// const angular = require('angular')
 require('../../angular.js')
 angular
   .module('app', ['minimalist'])
@@ -8,6 +8,11 @@ angular
 
 
 function HomeController() {
+  this.houses = [
+    'Stark',
+    'Lannister',
+    'Targaryen'
+  ]
   this.house = ['stark']
   this.gender = 'male'
 }

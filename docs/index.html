@@ -3,6 +3,7 @@
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" href="/vendor.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
   </head>
 
   <body>
@@ -11,14 +12,23 @@
       <p>house: {{ controller.house }}</p>
       <p>gender: {{ controller.gender }}</p>
       <mn-form>
-        <mn-checkbox placeholder="Stark" value="stark" ng-model="controller.house"></mn-checkbox>
+        <mn-checkbox
+          ng-repeat="house in controller.houses"
+          placeholder="{{ house }}"
+          value="{{ house | lowercase }}"
+          ng-model="controller.house">
+        </mn-checkbox>
+        <!-- <mn-checkbox placeholder="Stark" value="stark" ng-model="controller.house"></mn-checkbox>
         <mn-checkbox placeholder="Lannister" value="lannister" ng-model="controller.house"></mn-checkbox>
 
         <mn-radio placeholder="Masculino" value="male" ng-model="controller.gender"></mn-radio>
-        <mn-radio placeholder="Feminino" value="female" ng-model="controller.gender"></mn-radio>
+        <mn-radio placeholder="Feminino" value="female" ng-model="controller.gender"></mn-radio> -->
       </mn-form>
     </div>
 
     <script src="/vendor.js"></script>
+    <script>
+      const form = document.querySelector('mn-form')
+    </script>
   </body>
 </html>

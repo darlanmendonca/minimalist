@@ -4,6 +4,7 @@ const evaluate = require('evaluate-string')
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.ready = false
     return self
   }
 
@@ -32,7 +33,7 @@ module.exports = class MnCheckbox extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.input) {
+    if (this.parentNode && this.input && this.ready) {
       this[name] = value || this.hasAttribute(name)
     }
   }

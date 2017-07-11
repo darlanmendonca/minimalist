@@ -23,6 +23,8 @@ function MnCheckboxDirective() {
       input.addEventListener('change', setViewValue)
 
       element.ready(() => {
+        component.ready = true
+        // console.log(component.attributes)
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
         // scope.$watch(attributes.ngModel, setComponentValue)
