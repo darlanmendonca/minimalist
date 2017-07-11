@@ -23,6 +23,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
   _setStyle() {
     this.classList.add('mn-radio')
+    this.classList.add('mn-option')
   }
 
   _setInput() {
@@ -40,7 +41,7 @@ module.exports = class MnRadio extends MnCheckbox {
           option.removeAttribute('checked')
         }
 
-        option.form && option.form.classList.contains('submitted')
+        option.form && option.form.classList && option.form.classList.contains('submitted')
           ? option.validate()
           : null
       })

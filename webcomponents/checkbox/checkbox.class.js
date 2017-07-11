@@ -39,6 +39,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   _setStyle() {
     this.classList.add('mn-checkbox')
+    this.classList.add('mn-option')
   }
 
   _setLabel() {
@@ -76,7 +77,7 @@ module.exports = class MnCheckbox extends HTMLElement {
         ? this.setAttribute('checked', '')
         : this.removeAttribute('checked')
 
-      this.form && this.form.classList.contains('submitted')
+      this.form && this.form.classList && this.form.classList.contains('submitted')
         ? this.validate()
         : null
     })
@@ -164,9 +165,11 @@ module.exports = class MnCheckbox extends HTMLElement {
     const values = this
       .options
       .filter(option => option.checked)
-      .map(option => option.hasAttribute('value') || option.hasAttribute('placeholder')
-        ? option.getAttribute('placeholder') || evaluate(option.getAttribute('value'))
-        : this.checked
+      .map(option => !option.hasAttribute('value') && !option.hasAttribute('placeholder')
+        ? this.checked
+        : option.hasAttribute('value')
+          ? evaluate(option.getAttribute('value'))
+          : option.getAttribute('placeholder')
       )
 
     const isSingleOption = this.options.length === 1

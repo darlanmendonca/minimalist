@@ -17,4 +17,12 @@ describe('minimalist/angular', () => {
   it('should export form directive', () => {
     expect(angular).to.have.property('form')
   })
+
+  it('should export checkbox directive', () => {
+    expect(angular).to.have.property('checkbox')
+  })
+
+  it('should export radio directive', () => {
+    expect(angular).to.have.property('radio')
+  })
 })
