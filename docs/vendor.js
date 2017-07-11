@@ -521,17 +521,20 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   set name(value) {
     const name = this.getAttribute('name')
-    const element = this
-    this.input.setAttribute('name', name)
 
-    if (this.form && !this.form[name]) {
-      Object.defineProperty(this.form, name, {
-        get: () => {
-          return element.getAttribute('name')
-            ? element
-            : undefined
-        },
-      })
+    if (name) {
+      const element = this
+      this.input.setAttribute('name', name)
+
+      if (this.form && !this.form[name]) {
+        Object.defineProperty(this.form, name, {
+          get: () => {
+            return element.getAttribute('name')
+              ? element
+              : undefined
+          },
+        })
+      }
     }
   }
 
@@ -1627,20 +1630,24 @@ module.exports = class MnRadio extends MnCheckbox {
     const value = this
       .options
       .filter(option => option.checked)
-      .map(option => evaluate(option.getAttribute('value')) || option.getAttribute('placeholder'))
+      .map(option => option.hasAttribute('value')
+        ? evaluate(option.getAttribute('value'))
+        : option.getAttribute('placeholder')
+      )
 
     return value[0]
   }
 
   set value(value) {
-    console.log('receiving', value)
     this.options.forEach(option => {
-      option.removeAttribute('checked')
+      option.checked = false
     })
 
     const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
-    console.log('found', option)
-    option.setAttribute('checked', '')
+
+    if (option) {
+      option.checked = true
+    }
   }
 }
 

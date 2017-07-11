@@ -7,33 +7,8 @@
 
   <body>
     <mn-form>
-      <!-- <label> -->
-        <mn-checkbox name="terms" required placeholder="accept"></mn-checkbox>
-        <!-- accept terms -->
-      <!-- </label> -->
-
-
-      <label>
-        <mn-checkbox name="house" value="stark" required id="stark" disabled></mn-checkbox> stark
-      </label>
-      <label>
-        <mn-checkbox name="house" value="lannister" required></mn-checkbox> lannister
-      </label>
-      <mn-checkbox name="house" placeholder="Targaryen" required></mn-checkbox>
-      <mn-checkbox name="house" checked placeholder="Baratheon" required></mn-checkbox>
-
-      <label>
-        <mn-radio name="work" value="frontend" required id="front"></mn-radio> Frontend
-      </label>
-      <label>
-        <mn-radio name="work" value="backend" required></mn-radio> Backend
-      </label>
-      <mn-radio name="work" value="tester" placeholder="Q.A." required></mn-radio>
-      <mn-radio name="work" value="manager" placeholder="Gerente" required></mn-radio>
-
-      <button type="submit">submit</button>
-<!--       <label for="stark">select stark</label>
-      <label for="front">select frontend</label> -->
+      <mn-radio placeholder="Stark" value="stark" name="house"></mn-radio>
+      <mn-radio placeholder="Lannister" value="lannister" name="house"></mn-radio>
     </mn-form>
     <!-- <h2>vanilla js</h2>
     <mn-form name="form">
