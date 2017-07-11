@@ -4,7 +4,7 @@ const {expect} = require('chai')
   .use(require('chai-colors'))
   .use(require('chai-style'))
 
-// let checkbox // page object defined in method setPageObject
+let checkbox // page object defined in method setPageObject
 let component
 let form
 let stark
@@ -14,7 +14,7 @@ describe('mn-checkbox (webcomponent)', () => {
   before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
-  // beforeEach(setPageObject)
+  beforeEach(setPageObject)
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -67,7 +67,7 @@ describe('mn-checkbox (webcomponent)', () => {
     })
 
     it('should be true if have a checked attribute', () => {
-      component.checked = true
+      checkbox.setProperty('checked', true)
 
       expect(component.checked).to.be.true
       expect(component.input.checked).to.be.true
@@ -107,26 +107,26 @@ describe('mn-checkbox (webcomponent)', () => {
     })
 
     it('should accept single value as setter', () => {
-      component.value = 'stark'
+      checkbox.setProperty('value', 'stark')
 
       expect(component.value).to.deep.equal(['stark'])
     })
 
     it('should accept array as setter', () => {
-      component.value = ['lannister']
+      checkbox.setProperty('value', ['lannister'])
 
       expect(component.value).to.deep.equal(['lannister'])
     })
 
     it('should accept undefined as setter', () => {
-      component.value = 'stark'
-      component.value = undefined
+      checkbox.setProperty('value', 'stark')
+      checkbox.setProperty('value', undefined)
 
       expect(component.value).to.deep.equal([])
     })
 
     it('should apply only existing values', () => {
-      component.value = ['stark', 'lannister', 'targaryen']
+      checkbox.setProperty('value', ['stark', 'lannister', 'targaryen'])
 
       expect(component.value).to.deep.equal(['stark', 'lannister'])
     })
@@ -187,26 +187,45 @@ describe('mn-checkbox (webcomponent)', () => {
     })
   })
 
-  // describe('attribute value', () => {
-  //   it('should return false to single checkbox', () => {
-  //     expect(component).to.have.value(false)
+  // describe('attribute name', () => {
+  //   it('should define a form getter if parent form exist and has an id', () => {
+  //     input.setAttribute('name', 'test')
+  //     const {formID} = window
+  //     expect(formID.test).to.be.equal(component)
   //   })
 
-  //   it('should return true to single checkbox', () => {
-  //     component.setAttribute('value', true)
-  //     expect(component).to.have.value(true)
+  //   it('should define a form getter if parent form exist and has a name', () => {
+  //     input.setAttribute('name', 'test')
+  //     const {formName} = window
+  //     expect(formName.test).to.be.equal(component)
   //   })
 
-  //   it('should change between true and false', () => {
-  //     component.setAttribute('value', false)
-  //     component.setAttribute('value', true)
-  //     expect(component).to.have.value(true)
+  //   it('should undefine form getter (name) if component name was removed', () => {
+  //     input.setAttribute('name', 'test')
+  //     input.removeAttribute('name')
+  //     const {formName} = window
+  //     expect(formName.test).to.be.undefined
   //   })
 
-  //   it('should not change value attribute if is checked', () => {
-  //     component.setAttribute('value', false)
-  //     component.setAttribute('checked', true)
-  //     expect(component).to.have.value(false)
+  //   it('should undefine form getter (id) if component name was removed', () => {
+  //     input.setAttribute('name', 'test')
+  //     input.removeAttribute('name')
+  //     const {formID} = window
+  //     expect(formID.test).to.be.undefined
+  //   })
+
+  //   it('should redefine form getter (name) if component name changed', () => {
+  //     input.setAttribute('name', 'test')
+  //     input.setAttribute('name', 'test2')
+  //     const {formName} = window
+  //     expect(formName.test2).to.be.equal(component)
+  //   })
+
+  //   it('should redefine form getter (id) if component name changed', () => {
+  //     input.setAttribute('name', 'test')
+  //     input.setAttribute('name', 'test2')
+  //     const {formID} = window
+  //     expect(formID.test2).to.be.equal(component)
   //   })
   // })
 })
@@ -244,7 +263,7 @@ function createComponent() {
   document.body.appendChild(form)
 }
 
-// function setPageObject() {
-//   const CheckBoxPageObject = require('./checkbox.po.js')
-//   checkbox = new CheckBoxPageObject(component)
-// }
+function setPageObject() {
+  const CheckboxPageObject = require('./checkbox.po.js')
+  checkbox = new CheckboxPageObject(component)
+}
