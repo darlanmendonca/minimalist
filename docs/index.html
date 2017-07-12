@@ -3,48 +3,42 @@
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" href="/vendor.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
   </head>
 
   <body>
-    <h2>vanilla</h2>
-    <div>
-      <mn-form id="form1">
-        <p>house</p>
-        <mn-checkbox placeholder="Stark" value="stark" name="house" checked></mn-checkbox>
-        <mn-checkbox placeholder="Lannister" value="lannister" name="house"></mn-checkbox>
-        <mn-checkbox placeholder="Targaryen" value="targaryen" name="house"></mn-checkbox>
+    <button open-dialog="dialog">open dialog</button>
+    <button open-dialog="dialog2">open dialog2</button>
 
-        <p>gender</p>
-        <mn-radio placeholder="male" value="male" name="gender" checked></mn-radio>
-        <mn-radio placeholder="female" value="female" name="gender"></mn-radio>
-      </mn-form>
-    </div>
+    <mn-dialog id="dialog">
+      <h2>Title lorem ipsum</h2>
 
-    <h2>angular</h2>
-    <div ng-app="app" ng-controller="HomeController as controller">
-      <mn-form id="form2">
-        <p>house: {{ controller.house }}</p>
-        <mn-checkbox
-          ng-repeat="house in controller.houses"
-          placeholder="{{ house }}"
-          value="{{ house | lowercase }}"
-          ng-model="controller.house">
-        </mn-checkbox>
+      <button open-dialog="dialog2">open dialog2</button>
 
-        <p>gender: {{ controller.gender }}</p>
-        <mn-radio
-          ng-repeat="gender in controller.genders"
-          placeholder="{{ gender }}"
-          value="{{ gender }}"
-          ng-model="controller.gender">
-        </mn-radio>
-      </mn-form>
-    </div>
+      <p>Vestibulum id ligula porta felis euismod semper. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+
+      <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Vestibulum id ligula porta felis euismod semper.</p>
+
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+      <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+
+      <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+
+      <button open-dialog="dialog2">open dialog2</button>
+    </mn-dialog>
+
+    <mn-dialog id="dialog2">
+      <h2>little content</h2>
+      <p>lorem ipsum</p>
+
+      <button open-dialog="dialog">open dialog</button>
+    </mn-dialog>
 
     <script src="/vendor.js"></script>
     <script>
-      const form = document.querySelector('#form1')
+      const dialog = document.querySelector('mn-dialog')
     </script>
   </body>
 </html>

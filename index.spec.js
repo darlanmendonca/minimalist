@@ -69,4 +69,9 @@ describe('minimalist', () => {
     const npmModule = require('minimalist')
     expect(npmModule).to.have.property('radio')
   })
+
+  it('should export dialog component', () => {
+    const npmModule = require('minimalist')
+    expect(npmModule).to.have.property('dialog')
+  })
 })

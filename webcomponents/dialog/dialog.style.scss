@@ -1,0 +1,46 @@
+mn-dialog:not(.mn-dialog) {display: none}
+
+.mn-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  visibility: hidden;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+
+  display: flex;
+  overflow: visible;
+
+  @media (min-width: 768px) {
+    padding: 1.5em 0;
+  }
+
+  .mn-card {
+    margin: auto !important;
+    transition: transform .2s ease, visibility .21s;
+
+    @media (max-width: 767px) {
+      border-radius: 0 !important;
+      width: 100vw;
+      min-height: 100vh;
+      transform: translateY(100vh);
+    }
+
+    @media (min-width: 768px) {
+      width: 600px;
+      transform: translateY(100vh);
+      transition: transform .3s ease, visibility .31s;
+    }
+  }
+
+  &.visible {
+    visibility: visible;
+    z-index: 101;
+    overflow: auto;
+
+    .mn-card {transform: translateY(0)}
+  }
+}

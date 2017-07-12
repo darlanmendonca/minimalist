@@ -1,6 +1,6 @@
-module.exports = MNSidenavCustomElement()
+module.exports = MnSidenavCustomElement()
 
-function MNSidenavCustomElement() {
+function MnSidenavCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {

@@ -10,4 +10,5 @@ module.exports = {
   sidenav: require('./webcomponents/sidenav/sidenav.webcomponent.js'),
   checkbox: require('./webcomponents/checkbox/checkbox.webcomponent.js'),
   radio: require('./webcomponents/radio/radio.webcomponent.js'),
+  dialog: require('./webcomponents/dialog/dialog.webcomponent.js'),
 }
