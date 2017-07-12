@@ -4,8 +4,7 @@ node_js:
 env:
   - EXPORT_COVERAGE=1 CXX=g++-4.8
 before_script:
-  - echo 'America/Sao_Paulo' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure -f noninteractive tzdata
+  - export TZ='America/Sao_Paulo'
 addons:
   apt:
     sources:
