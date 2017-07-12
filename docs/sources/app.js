@@ -14,5 +14,10 @@ function HomeController() {
     'Targaryen'
   ]
   this.house = ['stark']
+
+  this.genders = [
+    'male',
+    'female',
+  ]
   this.gender = 'male'
 }

@@ -7,28 +7,44 @@
   </head>
 
   <body>
+    <h2>vanilla</h2>
+    <div>
+      <mn-form id="form1">
+        <p>house</p>
+        <mn-checkbox placeholder="Stark" value="stark" name="house" checked></mn-checkbox>
+        <mn-checkbox placeholder="Lannister" value="lannister" name="house"></mn-checkbox>
+        <mn-checkbox placeholder="Targaryen" value="targaryen" name="house"></mn-checkbox>
+
+        <p>gender</p>
+        <mn-radio placeholder="male" value="male" name="gender" checked></mn-radio>
+        <mn-radio placeholder="female" value="female" name="gender"></mn-radio>
+      </mn-form>
+    </div>
+
     <h2>angular</h2>
     <div ng-app="app" ng-controller="HomeController as controller">
-      <p>house: {{ controller.house }}</p>
-      <p>gender: {{ controller.gender }}</p>
-      <mn-form>
+      <mn-form id="form2">
+        <p>house: {{ controller.house }}</p>
         <mn-checkbox
           ng-repeat="house in controller.houses"
           placeholder="{{ house }}"
           value="{{ house | lowercase }}"
           ng-model="controller.house">
         </mn-checkbox>
-        <!-- <mn-checkbox placeholder="Stark" value="stark" ng-model="controller.house"></mn-checkbox>
-        <mn-checkbox placeholder="Lannister" value="lannister" ng-model="controller.house"></mn-checkbox>
 
-        <mn-radio placeholder="Masculino" value="male" ng-model="controller.gender"></mn-radio>
-        <mn-radio placeholder="Feminino" value="female" ng-model="controller.gender"></mn-radio> -->
+        <p>gender: {{ controller.gender }}</p>
+        <mn-radio
+          ng-repeat="gender in controller.genders"
+          placeholder="{{ gender }}"
+          value="{{ gender }}"
+          ng-model="controller.gender">
+        </mn-radio>
       </mn-form>
     </div>
 
     <script src="/vendor.js"></script>
     <script>
-      const form = document.querySelector('mn-form')
+      const form = document.querySelector('#form1')
     </script>
   </body>
 </html>

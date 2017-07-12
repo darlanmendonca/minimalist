@@ -18,12 +18,12 @@ body {
 h2 {font-weight: normal}
 
 form, .mn-form {
-  display: flex;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
 }
 
 @media (max-width: 767px) {
-  form, .mn-form {flex-direction: column}
+  // form, .mn-form {flex-direction: column}
 }
 
 .mn-input {
