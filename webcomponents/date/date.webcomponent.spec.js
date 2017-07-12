@@ -89,20 +89,20 @@ describe('mn-date (webcomponent)', () => {
     })
 
     it('should be a DateISOString at midnight when set a date object with hours', () => {
-      date.setProperty('value', new Date(2017, 3, 30, 18, 0))
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      date.setProperty('value', new Date(2017, 3, 1, 18, 0))
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should be a DateISOString at midnight when set a date object without hours', () => {
-      date.setProperty('value', new Date(2017, 3, 30))
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      date.setProperty('value', new Date(2017, 3, 1))
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
   })
 
   describe('attribute value', () => {
     it('should set property value when attribute changed', () => {
-      date.setAttribute('value', '2017-04-30')
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      date.setAttribute('value', '2017-04-01')
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should set property value when attribute is removed', () => {
