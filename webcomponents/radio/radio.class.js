@@ -31,14 +31,15 @@ module.exports = class MnRadio extends MnCheckbox {
     this.input.setAttribute('type', 'radio')
     this.label.appendChild(this.input)
 
-    this.input.addEventListener('change', () => {
+    this.input.addEventListener('change', (event) => {
       this.checked
         ? this.setAttribute('checked', '')
         : this.removeAttribute('checked')
 
       this.options.forEach(option => {
-        if (option !== this && evaluate(option.getAttribute('value')) !== this.value) {
+        if (option !== event.target.closest('mn-radio')) {
           option.removeAttribute('checked')
+          option.input.checked = false
         }
 
         option.form && option.form.classList && option.form.classList.contains('submitted')
