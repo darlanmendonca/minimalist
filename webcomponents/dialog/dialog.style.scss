@@ -1,3 +1,5 @@
+@import '../../node_modules/open-color/open-color.scss';
+
 mn-dialog:not(.mn-dialog) {display: none}
 
 .mn-dialog {
@@ -33,6 +35,32 @@ mn-dialog:not(.mn-dialog) {display: none}
       width: 600px;
       transform: translateY(100vh);
       transition: transform .3s ease, visibility .31s;
+    }
+  }
+
+  .close-button {
+    --button-color: $oc-gray-7;
+    --button-background: $oc-gray-2;
+
+    background: none;
+    border: 0;
+    position: absolute;
+    background: var(--button-background);
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    top: 1em;
+    right: 1em;
+    cursor: pointer;
+    outline: 0;
+    transition: all .2s ease;
+
+    &:before {
+      content: '×';
+      color: var(--button-color);
+      font-family: arial, sans-serif;
+      font-size: 2.5em;
+      line-height: 1em;
     }
   }
 

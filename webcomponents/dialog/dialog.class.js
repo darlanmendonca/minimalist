@@ -9,6 +9,7 @@ module.exports = class MnDialog extends HTMLElement {
   connectedCallback() {
     this.setStyle()
     this.setCard()
+    this.setButtonClose()
     this.setOpenEvents()
     this.setToggleEvents()
     this.setCloseEvents()
@@ -25,6 +26,15 @@ module.exports = class MnDialog extends HTMLElement {
     card.innerHTML = this.innerHTML
     this.innerHTML = ''
     this.appendChild(card)
+    this.card = card
+  }
+
+  setButtonClose() {
+    const button = document.createElement('button')
+    button.classList.add('close-button')
+    button.setAttribute('close-dialog', '')
+    const dialog = this.querySelector('.mn-card')
+    dialog.insertBefore(button, dialog.firstChild)
   }
 
   setOpenEvents() {
