@@ -37,7 +37,7 @@ module.exports = class MnRadio extends MnCheckbox {
         : this.removeAttribute('checked')
 
       this.options.forEach(option => {
-        if (option !== this) {
+        if (option !== this && evaluate(option.getAttribute('value')) !== this.value) {
           option.removeAttribute('checked')
         }
 
