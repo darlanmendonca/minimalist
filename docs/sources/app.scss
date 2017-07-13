@@ -12,17 +12,21 @@
 @import '../../webcomponents/dialog/dialog.style.scss';
 @import '../../webcomponents/button/button.style.scss';
 
-// .mn-button {
-//   --background: red;
-// }
+:root {
+  --main-color: #4dadf7;
+}
 
-// .mn-button.raised {
-//   --background: red;
-// }
+.mn-button {
+  --background: var(--main-color);
+}
 
-// .mn-button.action {
-//   --background: red;
-// }
+.mn-button.raised {
+  --background: var(--main-color);
+}
+
+.mn-button.action {
+  --background: var(--main-color);
+}
 
 body {
   background-color: $oc-gray-1;

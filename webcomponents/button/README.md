@@ -52,3 +52,28 @@ If you want to use a `mn-button` to submit a form (or mn-form), use the attribut
   <mn-button submit>submit</mn-button>
 </mn-form>
 ```
+
+### Style
+
+If you need to style button with another indenty, use the css variables as you wish.
+
+- background - background color, gradient, etc.
+
+```css
+/* code below change the background to all styles of .mn-button */
+:root {
+  --main-color: #329af0; 
+}
+
+.mn-button {
+  --background: var(--main-color);
+}
+
+.mn-button.raised {
+  --background: var(--main-color);
+}
+
+.mn-button.action {
+  --background: var(--main-color);
+}
+```
