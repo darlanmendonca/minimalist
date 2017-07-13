@@ -1,6 +1,8 @@
 @import '../../node_modules/open-color/open-color.scss';
 
 .mn-button {
+  --background-color: transparent;
+
   display: inline-block;
   vertical-align: bottom;
   outline: 0;
@@ -8,7 +10,7 @@
   cursor: pointer;
   padding: .4rem;
   margin: .4em;
-  background-color: transparent;
+  background-color: var(--background-color);
   box-sizing: border-box;
   font-size: 1em;
   font-family: inherit;
@@ -28,18 +30,18 @@
 
   &:hover:not(.raised),
   &:focus:not(.raised) {
-    background-color: $oc-gray-4;
+    --background-color: $oc-gray-4;
   }
 
   &:active:not(.raised) {
-    background-color: $oc-gray-3;
+    --background-color: $oc-gray-3;
   }
 }
 
-[disabled] button.mn-button,
-[readonly] button.mn-button,
+[disabled] .mn-button,
+[readonly] .mn-button,
 .mn-button:disabled, .mn-button[readonly] {
-  background-color: $oc-gray-1;
+  --background-color: $oc-gray-1;
   box-shadow: none;
   color: $oc-gray-5;
   pointer-events: none;
@@ -57,9 +59,10 @@
   }
 }
 
-[disabled] button.mn-button.raised,
-[readonly] button.mn-button.raised,
-.mn-button.raised:disabled, .mn-button.raised[readonly] {
+[disabled] .mn-button.raised,
+[readonly] .mn-button.raised,
+.mn-button.raised[disabled],
+.mn-button.raised[readonly] {
   box-shadow: none;
   opacity: .8;
   filter: grayscale(.2);
@@ -87,13 +90,13 @@
 
   * {line-height: inherit}
 
-  &:disabled:not(.raised), &[readonly]:not(.raised) {
-    background-color: transparent;
+  &[disabled]not(.raised), &[readonly]:not(.raised) {
+    --background-color: transparent;
   }
 
-  &:not(:disabled):not(.raised):after {
+  &:not([disabled]):not(.raised):after {
     content: '';
-    background-color: $oc-gray-4;
+    --background-color: $oc-gray-4;
     position: absolute;
     z-index: -1;
     top: 50%; left: 50%;
@@ -105,8 +108,6 @@
   }
 
   &:hover:not(.raised), &:focus:not(.raised) {
-    background-color: transparent;
-
     &:after {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
@@ -115,7 +116,7 @@
 
   &:active:not(.raised) {
     &:after {
-      background-color: $oc-gray-3;
+      --background-color: $oc-gray-3;
     }
   }
 }
