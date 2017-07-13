@@ -670,6 +670,7 @@ module.exports = {
   checkbox: __webpack_require__(9),
   radio: __webpack_require__(24),
   dialog: __webpack_require__(13),
+  button: __webpack_require__(30),
 }
 
 
@@ -1043,7 +1044,8 @@ module.exports = class MnDialog extends HTMLElement {
 
   setButtonClose() {
     const button = document.createElement('button')
-    button.classList.add('close-button')
+    button.classList.add('mn-button')
+    button.classList.add('action')
     button.setAttribute('close-dialog', '')
     const dialog = this.querySelector('.mn-card')
     dialog.insertBefore(button, dialog.firstChild)
@@ -2307,6 +2309,49 @@ function MnSidenavCustomElement() {
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnButton extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+  }
+
+  setStyle() {
+    this.classList.add('mn-button')
+  }
+}
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSidenavCustomElement()
+
+function MnSidenavCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-button')) {
+    window.customElements.define('mn-button', __webpack_require__(29))
+  }
+
+  return window.customElements.get('mn-button')
 }
 
 

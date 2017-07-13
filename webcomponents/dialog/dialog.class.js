@@ -31,7 +31,8 @@ module.exports = class MnDialog extends HTMLElement {
 
   setButtonClose() {
     const button = document.createElement('button')
-    button.classList.add('close-button')
+    button.classList.add('mn-button')
+    button.classList.add('action')
     button.setAttribute('close-dialog', '')
     const dialog = this.querySelector('.mn-card')
     dialog.insertBefore(button, dialog.firstChild)

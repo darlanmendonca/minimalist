@@ -21,6 +21,7 @@ mn-dialog:not(.mn-dialog) {display: none}
   }
 
   .mn-card {
+    padding: .5em;
     margin: auto !important;
     transition: transform .2s ease, visibility .21s;
 
@@ -38,29 +39,19 @@ mn-dialog:not(.mn-dialog) {display: none}
     }
   }
 
-  .close-button {
-    --button-color: $oc-gray-7;
+  button[close-dialog] {
+    --button-color: $oc-gray-8;
     --button-background: $oc-gray-2;
 
-    background: none;
-    border: 0;
     position: absolute;
-    background: var(--button-background);
-    width: 3em;
-    height: 3em;
-    border-radius: 50%;
-    top: 1em;
-    right: 1em;
-    cursor: pointer;
-    outline: 0;
-    transition: all .2s ease;
+    top: .5em;
+    right: .5em;
 
-    &:before {
+    &:after {
       content: '×';
       color: var(--button-color);
       font-family: arial, sans-serif;
-      font-size: 2.5em;
-      line-height: 1em;
+      font-size: 1.5em;
     }
   }
 
