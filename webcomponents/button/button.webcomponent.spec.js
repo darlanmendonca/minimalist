@@ -57,7 +57,7 @@ describe('mn-button (webcomponent)', () => {
 
   })
 
-  describe('attribute submit', () => {
+  describe.skip('attribute submit', () => {
     it('should submit form', () => {
 
     })
