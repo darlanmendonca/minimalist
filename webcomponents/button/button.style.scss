@@ -70,11 +70,12 @@
 }
 
 .mn-button.action {
+  --size: 2.5em;
   border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  flex: 0 0 2.5em;
-  line-height: 100%;
+  width: var(--size);
+  height: var(--size);
+  flex: 0 0 var(--size);
+  line-height: var(--size);
   position: relative;
   text-align: center;
   padding: 0;
@@ -84,9 +85,7 @@
   }
 
   &.raised {
-    width: 3.5em;
-    height: 3.5em;
-    flex: 0 0 3.5em;
+    --size: 3.5em;
   }
 
   * {line-height: inherit}
