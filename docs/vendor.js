@@ -2326,10 +2326,23 @@ module.exports = class MnButton extends HTMLElement {
 
   connectedCallback() {
     this.setStyle()
+    this.setButton()
   }
 
   setStyle() {
     this.classList.add('mn-button')
+  }
+
+  setButton() {
+    this.setAttribute('tabindex', '1')
+
+    this.addEventListener('click', () => this.blur())
+
+    document.addEventListener('keyup', (event) => {
+      if (event.target === this && event.key === 'Enter') {
+        this.click()
+      }
+    })
   }
 }
 
