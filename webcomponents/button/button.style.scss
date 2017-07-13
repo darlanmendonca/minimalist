@@ -1,7 +1,7 @@
 @import '../../node_modules/open-color/open-color.scss';
 
 .mn-button {
-  --background-color: transparent;
+  --background: $oc-gray-4;
 
   display: inline-block;
   vertical-align: bottom;
@@ -10,7 +10,7 @@
   cursor: pointer;
   padding: .4rem;
   margin: .4em;
-  background-color: var(--background-color);
+  background: transparent;
   box-sizing: border-box;
   font-size: 1em;
   font-family: inherit;
@@ -31,24 +31,27 @@
 
   &:hover:not(.raised),
   &:focus:not(.raised) {
-    --background-color: $oc-gray-4;
+    background: var(--background);
   }
 
   &:active:not(.raised) {
-    --background-color: $oc-gray-3;
+    --background: $oc-gray-3;
   }
 }
 
 [disabled] .mn-button,
 [readonly] .mn-button,
-.mn-button:disabled, .mn-button[readonly] {
-  --background-color: $oc-gray-1;
+.mn-button[disabled], .mn-button[readonly] {
+  --background: $oc-gray-1;
   box-shadow: none;
   color: $oc-gray-5;
   pointer-events: none;
 }
 
 .mn-button.raised {
+  --background: white;
+
+  background: var(--background);
   box-shadow: 0 2px 5px 0 $oc-gray-4;
 
   &:hover, &:focus {
@@ -71,6 +74,8 @@
 
 .mn-button.action {
   --size: 2.5em;
+  --background: $oc-gray-4;
+
   border-radius: 50%;
   width: var(--size);
   height: var(--size);
@@ -91,12 +96,11 @@
   * {line-height: inherit}
 
   &[disabled]not(.raised), &[readonly]:not(.raised) {
-    --background-color: transparent;
+    --background: transparent;
   }
 
   &:not([disabled]):not(.raised):after {
     content: '';
-    --background-color: $oc-gray-4;
     position: absolute;
     z-index: -1;
     top: 50%; left: 50%;
@@ -116,7 +120,7 @@
 
   &:active:not(.raised) {
     &:after {
-      --background-color: $oc-gray-3;
+      --background: $oc-gray-3;
     }
   }
 }
