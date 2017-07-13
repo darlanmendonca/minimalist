@@ -89,8 +89,8 @@ describe('mn-date (webcomponent)', () => {
     })
 
     it('should be a DateISOString at midnight when set a date object with hours', () => {
-      date.setProperty('value', new Date(2017, 3, 1, 18, 0))
-      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
+      date.setProperty('value', new Date(2017, 3, 2, 12, 0))
+      expect(component).to.have.value(`2017-04-02T0${timezone}:00:00.000Z`)
     })
 
     it('should be a DateISOString at midnight when set a date object without hours', () => {
