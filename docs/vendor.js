@@ -658,19 +658,19 @@ __webpack_require__(5)
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(18),
-  email: __webpack_require__(15),
-  password: __webpack_require__(22),
-  number: __webpack_require__(20),
-  date: __webpack_require__(11),
-  select: __webpack_require__(26),
+  input: __webpack_require__(20),
+  email: __webpack_require__(17),
+  password: __webpack_require__(24),
+  number: __webpack_require__(22),
+  date: __webpack_require__(13),
+  select: __webpack_require__(28),
   actionSheet: __webpack_require__(3),
-  form: __webpack_require__(17),
-  sidenav: __webpack_require__(28),
-  checkbox: __webpack_require__(9),
-  radio: __webpack_require__(24),
-  dialog: __webpack_require__(13),
-  button: __webpack_require__(30),
+  form: __webpack_require__(19),
+  sidenav: __webpack_require__(30),
+  checkbox: __webpack_require__(11),
+  radio: __webpack_require__(26),
+  dialog: __webpack_require__(15),
+  button: __webpack_require__(10),
 }
 
 
@@ -785,6 +785,69 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnButton extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setButton()
+  }
+
+  setStyle() {
+    this.classList.add('mn-button')
+  }
+
+  setButton() {
+    this.setAttribute('tabindex', '1')
+
+    this.addEventListener('click', (event) => {
+      const button = event.target
+      const form = button.closest('form') || button.closest('mn-form')
+      if (button.hasAttribute('submit') && form) {
+        form.submit()
+      }
+    })
+    this.addEventListener('click', () => this.blur())
+
+    document.addEventListener('keyup', (event) => {
+      if (event.target === this && event.key === 'Enter') {
+        this.click()
+      }
+    })
+  }
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSidenavCustomElement()
+
+function MnSidenavCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-button')) {
+    window.customElements.define('mn-button', __webpack_require__(9))
+  }
+
+  return window.customElements.get('mn-button')
+}
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnCheckboxCustomElement()
@@ -805,7 +868,7 @@ function MnCheckboxCustomElement() {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -987,7 +1050,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -1000,7 +1063,7 @@ function MnDateCustomElement() {
   }
 
   if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(10))
+    window.customElements.define('mn-date', __webpack_require__(12))
   }
 
   return window.customElements.get('mn-date')
@@ -1008,7 +1071,7 @@ function MnDateCustomElement() {
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1123,7 +1186,7 @@ module.exports = class MnDialog extends HTMLElement {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -1136,7 +1199,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(12))
+    window.customElements.define('mn-dialog', __webpack_require__(14))
   }
 
   return window.customElements.get('mn-dialog')
@@ -1144,7 +1207,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1166,7 +1229,7 @@ module.exports = class MnEmail extends MnInput {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnEmailCustomElement()
@@ -1179,7 +1242,7 @@ function MnEmailCustomElement() {
   }
 
   if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(14))
+    window.customElements.define('mn-email', __webpack_require__(16))
   }
 
   return window.customElements.get('mn-email')
@@ -1187,7 +1250,7 @@ function MnEmailCustomElement() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1314,7 +1377,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -1327,7 +1390,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(16))
+    window.customElements.define('mn-form', __webpack_require__(18))
   }
 
   return window.customElements.get('mn-form')
@@ -1335,7 +1398,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -1356,7 +1419,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1568,7 +1631,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -1581,7 +1644,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(19))
+    window.customElements.define('mn-number', __webpack_require__(21))
   }
 
   return window.customElements.get('mn-number')
@@ -1589,7 +1652,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1664,7 +1727,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -1677,7 +1740,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(21))
+    window.customElements.define('mn-password', __webpack_require__(23))
   }
 
   return window.customElements.get('mn-password')
@@ -1685,7 +1748,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(4)
@@ -1787,7 +1850,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -1800,7 +1863,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(23))
+    window.customElements.define('mn-radio', __webpack_require__(25))
   }
 
   return window.customElements.get('mn-radio')
@@ -1808,7 +1871,7 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2173,7 +2236,7 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2186,7 +2249,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(25))
+    window.customElements.define('mn-select', __webpack_require__(27))
   }
 
   return window.customElements.get('mn-select')
@@ -2194,7 +2257,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2292,69 +2355,6 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSidenavCustomElement()
-
-function MnSidenavCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(27))
-  }
-
-  return window.customElements.get('mn-sidenav')
-}
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnButton extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setButton()
-  }
-
-  setStyle() {
-    this.classList.add('mn-button')
-  }
-
-  setButton() {
-    this.setAttribute('tabindex', '1')
-
-    this.addEventListener('click', (event) => {
-      const button = event.target
-      const form = button.closest('form') || button.closest('mn-form')
-      if (button.hasAttribute('submit') && form) {
-        form.submit()
-      }
-    })
-    this.addEventListener('click', () => this.blur())
-
-    document.addEventListener('keyup', (event) => {
-      if (event.target === this && event.key === 'Enter') {
-        this.click()
-      }
-    })
-  }
-}
-
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2367,11 +2367,11 @@ function MnSidenavCustomElement() {
     __webpack_require__(0)
   }
 
-  if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(29))
+  if (!window.customElements.get('mn-sidenav')) {
+    window.customElements.define('mn-sidenav', __webpack_require__(29))
   }
 
-  return window.customElements.get('mn-button')
+  return window.customElements.get('mn-sidenav')
 }
 
 
