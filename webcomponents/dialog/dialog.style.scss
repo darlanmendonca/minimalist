@@ -47,7 +47,7 @@ mn-dialog:not(.mn-dialog) {display: none}
     top: .5em;
     right: .5em;
 
-    &:after {
+    &:before {
       content: '×';
       color: var(--button-color);
       font-family: arial, sans-serif;

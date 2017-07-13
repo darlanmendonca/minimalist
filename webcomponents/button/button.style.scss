@@ -1,3 +1,5 @@
+@import '../../node_modules/open-color/open-color.scss';
+
 .mn-button {
   display: inline-block;
   vertical-align: bottom;
@@ -89,7 +91,7 @@
     background-color: transparent;
   }
 
-  &:not(:disabled):not(.raised):before {
+  &:not(:disabled):not(.raised):after {
     content: '';
     background-color: $oc-gray-4;
     position: absolute;
@@ -105,14 +107,14 @@
   &:hover:not(.raised), &:focus:not(.raised) {
     background-color: transparent;
 
-    &:before {
+    &:after {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
     }
   }
 
   &:active:not(.raised) {
-    &:before {
+    &:after {
       background-color: $oc-gray-3;
     }
   }
