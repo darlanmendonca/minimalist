@@ -18,6 +18,13 @@ module.exports = class MnButton extends HTMLElement {
   setButton() {
     this.setAttribute('tabindex', '1')
 
+    this.addEventListener('click', (event) => {
+      const button = event.target
+      const form = button.closest('form') || button.closest('mn-form')
+      if (button.hasAttribute('submit') && form) {
+        form.submit()
+      }
+    })
     this.addEventListener('click', () => this.blur())
 
     document.addEventListener('keyup', (event) => {
