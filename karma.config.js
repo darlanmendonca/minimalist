@@ -32,8 +32,7 @@ function KarmaConfig(config) {
       'webcomponents/**/*.scss',
       'index.spec.js',
       'angular.spec.js',
-      'webcomponents/**/*.class.spec.js',
-      'webcomponents/**/*.webcomponent.spec.js',
+      'webcomponents/**/*.spec.js',
       'webcomponents/**/*.directive.spec.js',
     ],
 
