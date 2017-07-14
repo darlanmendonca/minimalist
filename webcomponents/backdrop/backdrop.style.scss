@@ -19,6 +19,10 @@
   overflow: hidden;
 }
 
+.mn-backdrop-visible {
+  overflow: hidden;
+}
+
 .mn-backdrop-visible:before {
   pointer-events: all;
   opacity: var(--opacity);
