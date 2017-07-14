@@ -16,7 +16,6 @@ npm install @reservafacil/minimalist
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
 const {button} = require('@reservafacil/minimalist')
 ```
-j
 
 ```sass
 // Dont forget the .scss file, to style component

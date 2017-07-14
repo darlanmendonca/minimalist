@@ -11,22 +11,23 @@
 @import '../../webcomponents/radio/radio.style.scss';
 @import '../../webcomponents/dialog/dialog.style.scss';
 @import '../../webcomponents/button/button.style.scss';
+@import '../../webcomponents/layout/layout.style.scss';
 
-:root {
-  --main-color: #4dadf7;
-}
+// :root {
+//   --main-color: #4dadf7;
+// }
 
-.mn-button {
-  --background: var(--main-color);
-}
+// .mn-button {
+//   --background: var(--main-color);
+// }
 
-.mn-button.raised {
-  --background: var(--main-color);
-}
+// .mn-button.raised {
+//   --background: var(--main-color);
+// }
 
-.mn-button.action {
-  --background: var(--main-color);
-}
+// .mn-button.action {
+//   --background: var(--main-color);
+// }
 
 body {
   background-color: $oc-gray-1;

@@ -3,50 +3,48 @@
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" href="/vendor.css" />
+
+    <style>
+      .demo {
+        padding: 0 2em 0;
+        margin-top: 1em;
+      }
+
+      .demo div {
+        min-height: 2em;
+        background-color: #64B5F6;
+      }
+
+      .demo div:first-child, .demo div:nth-child(2n+3) {
+        background-color: #2196F3
+      }
+
+      .mn-layout-fullscreen.demo {
+        background-color: #2196F3;
+
+        div {background: none}
+      }
+    </style>
   </head>
 
   <body>
-    <mn-form>
-      <mn-button open-dialog="dialog">flat button</mn-button>
-      <mn-button class="raised">raised button</mn-button>
-      <mn-button class="action">x</mn-button>
-    </mn-form>
-    <!--
-    <mn-button open-dialog="dialog">open dialog</mn-button>
-    <mn-button open-dialog="dialog2">open dialog2</mn-button> -->
-
-
-    <mn-dialog id="dialog">
-      <h2>Title lorem ipsum</h2>
-
-      <mn-button open-dialog="dialog2">open dialog2</mn-button>
-
-      <p>Vestibulum id ligula porta felis euismod semper. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-
-      <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Vestibulum id ligula porta felis euismod semper.</p>
-
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.</p>
-
-      <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-
-      <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-
-      <mn-button open-dialog="dialog2">open dialog2</mn-button>
-    </mn-dialog>
-
-    <mn-dialog id="dialog2">
-      <h2>little content</h2>
-      <p>lorem ipsum</p>
-
-      <mn-button open-dialog="dialog">open dialog</mn-button>
-    </mn-dialog>
+    <div class="demo mn-layout-row">
+      <div class="flex flex-sm-50 flex-md-90"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex"></div>
+      <div class="flex-5">5</div>
+    </div>
 
     <script src="/vendor.js"></script>
     <script>
-      const dialog = document.querySelector('mn-dialog')
-      const button = document.querySelector('mn-button')
     </script>
   </body>
 </html>
