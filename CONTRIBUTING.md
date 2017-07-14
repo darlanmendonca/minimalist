@@ -1,25 +1,25 @@
 # Contributions
 
-Found a bug, or have an idea? Please, create a issue or a pull request, always have enhancements to do!!
+Found a bug or have an idea? Please, create an issue or a pull request. Always have enhancements to do!
 
 ## About
 
 Minimalist is a framework with UI components, agnostic to frameworks, and easy to use and change identity.
 
-This means that you can use it without any framework, or with frameworks such as angular, react, vue, etc.
+This means that you can use it without framework or with frameworks such as: angular, react, vue, etc.
 
 
 ### architecture
 
-The core of each component, is a ES6 Class, and for each framework we create a respective component (directive in angular, component in react, ...). So, the core is just one, the ES6 Class, and we move their to frameworks, respecting the architecture of each one of them.
+The core of each component, is a ES6 Class, and for each framework we create a respective component (directive in angular, component in react and so on). Therefore, the core is just the ES6 Class and we move their to frameworks, respecting the architecture of each one of them.
 
 ### design
 
-We like flat design, but minimalism is more easy to use and overwite. And have less kbs, so we choose for a minimalist design. This means that our components has a design specification, but if you need (and you will), you can easily change the design to follow your identity.
+We like flat design, but minimalism is easier to use and overwrite, it have less 'kbs', that's why we choose for a minimalist design. This means that our components has a design specification, but if you need (and you will), you can easily change the design to follow component's identity.
 
 ### productive
 
-During development you maybe write more than you want, for example, the code below, just implement a input text with a text as placeholder, and validation messages to required field.
+During development you maybe write more than you want, for example, the code below, just implement an input text with a text as placeholder and validation messages to required field.
 
 ```html
 <md-input-container no-ink="no-ink" class="md-icon-float md-block md-has-icon">
@@ -31,7 +31,7 @@ During development you maybe write more than you want, for example, the code bel
 </md-input-container>
 ```
 
-We abstract all stuffs in components, so our input component is just
+We abstracted all stuffs in components, so our input component is just:
 
 ```html
 <mn-input placeholder="Username" ng-model="username" required />
@@ -40,7 +40,7 @@ We abstract all stuffs in components, so our input component is just
 
 ### Demo
 
-You can see all of our components here in our site [minimalist/components](http://reservafacil.github.io/minimalist) ~~not available yet, working in that~~.
+You can see all components in our site [minimalist/components](http://reservafacil.github.io/minimalist) ~~not available yet, working on it~~.
 
 ### Usage
 
@@ -50,7 +50,7 @@ npm install @reservafacil/minimalist
 ```
 
 ```js
-// In your scripts, just import the module, and bundle using a tool like webpack, or browserify
+// In your scripts, just import the module and bundle using a tool like webpack or browserify
 const {input} = require('@reservafacil/minimalist')
 ```
 
@@ -66,7 +66,7 @@ Using a framework? Check the directory [webcomponents/COMPONENT-NAME-HERE](https
 
 We believe in tests as the unique way to have sure that our work really works, in different browsers and operational systems. So, we cover all with tests.
 
-You can run all tests, cloning this project, and run
+You can run all tests, cloning this project.
 
 ```sh
 # install the dependencies
@@ -77,4 +77,4 @@ npm install
 npm test
 ```
 
-Actually we supports latest versions of Chrome, Firefox, Safari, and Edge. We will add more browsers soon.
+Actually we support latest versions of Chrome, Firefox, Safari and Edge. We will add more browsers soon as possible.
