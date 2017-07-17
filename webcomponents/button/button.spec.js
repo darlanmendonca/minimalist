@@ -30,7 +30,7 @@ describe('mn-button (webcomponent)', () => {
     })
 
     it('should have a tabindex attribute', () => {
-      expect(component).to.have.attribute('tabindex', '1')
+      expect(component).to.have.attribute('tabindex', '0')
     })
   })
 
