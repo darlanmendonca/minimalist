@@ -20,7 +20,7 @@ mn-dialog:not(.mn-dialog) {display: none}
     padding: 1.5em 0;
   }
 
-  .mn-card {
+  & > .mn-card {
     padding: .5em;
     margin: auto !important;
     transition: transform .2s ease, visibility .21s;
