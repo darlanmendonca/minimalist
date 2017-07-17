@@ -3,45 +3,12 @@
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" href="/vendor.css" />
-
-    <style>
-      .demo {
-        padding: 0 2em 0;
-        margin-top: 1em;
-      }
-
-      .demo div {
-        min-height: 2em;
-        background-color: #64B5F6;
-      }
-
-      .demo div:first-child, .demo div:nth-child(2n+3) {
-        background-color: #2196F3
-      }
-
-      .mn-layout-fullscreen.demo {
-        background-color: #2196F3;
-
-        div {background: none}
-      }
-    </style>
   </head>
 
   <body>
-    <div class="demo mn-layout-row">
-      <div class="flex flex-sm-50 flex-md-90"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex"></div>
-      <div class="flex-5">5</div>
-    </div>
+    <mn-input placeholder="Username"></mn-input>
+    <mn-button>flat button</mn-button>
+    <mn-button class="raised">raised button</mn-button>
 
     <script src="/vendor.js"></script>
     <script>

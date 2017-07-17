@@ -805,7 +805,7 @@ module.exports = class MnButton extends HTMLElement {
   }
 
   setButton() {
-    this.setAttribute('tabindex', '1')
+    this.setAttribute('tabindex', '0')
 
     this.addEventListener('click', (event) => {
       const button = event.target
