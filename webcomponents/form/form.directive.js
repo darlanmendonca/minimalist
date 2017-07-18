@@ -11,7 +11,9 @@ function MnFormDirective() {
       const form = element[0]
 
       form.addEventListener('submit', () => {
-        scope.$eval(attributes.submit)
+        if (form.validate()) {
+          scope.$eval(attributes.submit)
+        }
       })
     }
   }
