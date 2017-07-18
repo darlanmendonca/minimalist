@@ -9,9 +9,7 @@ function MnFormDirective() {
     restrict: 'C',
     link(scope, element, attributes) {
       element.bind('submit', () => {
-        if (form.validate()) {
-          scope.$eval(attributes.submit)
-        }
+        scope.$eval(attributes.submit)
       })
     }
   }
