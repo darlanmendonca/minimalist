@@ -52,7 +52,8 @@ module.exports = class MnForm extends HTMLElement {
 
   setReset() {
     document.addEventListener('click', (event) => {
-      const isButtonSubmit = event.target.matches('[reset-form]')
+      const isButtonSubmit = (event.target.matches('button[type="reset"]')
+        || event.target.matches('mn-button[reset]'))
         && event.target.closest('mn-form') === this
 
       if (isButtonSubmit) {

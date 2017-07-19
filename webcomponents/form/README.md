@@ -55,11 +55,13 @@ form.addEventListener('submit', (event) => {
 
 #### Reset
 
-If you want reset the `mn-form` to initial state, use the attribute `reset-form` in a button, e.g.
+If you want reset the `mn-form` to initial state, use the attribute `reset` in a `mn-button`, or a button with type reset, e.g.
 
 ```html
 <mn-form>
-  <button reset-form>reset</button>
+  <button type="reset">reset</button>
+  <!-- or -->
+  <mn-button reset>reset</mn-button>
 </mn-form>
 ```
 
