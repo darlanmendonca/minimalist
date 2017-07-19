@@ -30,6 +30,18 @@ In your html, you can use the tags `mn-form` e.g.
 </mn-form>
 ```
 
+#### Submit
+
+The submit can be do using a `button` or `mn-button`, e.g.
+
+```html
+<mn-form>
+  <button type="submit">submit</button>
+  <!-- or -->
+  <mn-button submit>submit</mn-button>
+</mn-form>
+```
+
 ```js
 const form = document.querySelector('mn-form')
 
@@ -40,6 +52,16 @@ form.addEventListener('submit', (event) => {
 })
 ```
 
+
+#### Reset
+
+If you want reset the `mn-form` to initial state, use the attribute `reset-form` in a button, e.g.
+
+```html
+<mn-form>
+  <button reset-form>reset</button>
+</mn-form>
+```
 
 The following attributes are supported in this component
 
