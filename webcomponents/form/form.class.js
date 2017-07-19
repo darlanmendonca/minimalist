@@ -7,10 +7,11 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
-    this._setSubmit()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
+    this.setStyle()
+    this.setSubmit()
+    this.setReset()
+    this.setAttributeDisabled()
+    this.setAttributeReadonly()
   }
 
   static get observedAttributes() {
@@ -25,11 +26,11 @@ module.exports = class MnForm extends HTMLElement {
     this[name] = value
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-form')
   }
 
-  _setSubmit() {
+  setSubmit() {
     document.addEventListener('keydown', (event) => {
       const enter = event.key === 'Enter'
       const srcElementInsideForm = event.target.closest('mn-form')
@@ -39,7 +40,8 @@ module.exports = class MnForm extends HTMLElement {
     })
 
     document.addEventListener('click', (event) => {
-      const isButtonSubmit = event.target.matches('button[type="submit"]')
+      const isButtonSubmit = (event.target.matches('button[type="submit"]')
+        || event.target.matches('mn-button[submit]'))
         && event.target.closest('mn-form') === this
 
       if (isButtonSubmit) {
@@ -48,11 +50,22 @@ module.exports = class MnForm extends HTMLElement {
     })
   }
 
-  _setAttributeDisabled() {
+  setReset() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = event.target.matches('[reset-form]')
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.reset()
+      }
+    })
+  }
+
+  setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
 
-  _setAttributeReadonly() {
+  setAttributeReadonly() {
     this.readonly = this.hasAttribute('readonly')
   }
 
@@ -65,8 +78,31 @@ module.exports = class MnForm extends HTMLElement {
     return isInvalid
   }
 
+  reset() {
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = this.defaults[name]
+      })
+  }
+
   get inputs() {
     return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
+  }
+
+  get defaults() {
+    const defaults = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          defaults[name] = input.default
+        }
+      })
+
+    return defaults
   }
 
   get data() {

@@ -19,6 +19,7 @@ module.exports = class MnSelect extends MnInput {
     this._setOptions()
     this._setKeyboardNavigation()
     this._setAttributeValue()
+    super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
