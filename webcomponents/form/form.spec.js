@@ -114,6 +114,18 @@ describe('mn-form (webcomponent)', () => {
 
       expect(reset).to.have.been.called()
     })
+
+    it('should be called when click in button with attribute reset', () => {
+      const button = document.createElement('mn-button')
+      button.setAttribute('reset', '')
+      component.appendChild(button)
+      console.log(button)
+      const reset = spy.on(component, 'reset')
+      button.click()
+
+      expect(reset).to.have.been.called()
+    })
+
   })
 
   describe('attribute disabled', () => {
