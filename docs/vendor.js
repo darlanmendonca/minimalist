@@ -658,6 +658,41 @@ module.exports = __webpack_require__(7);
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(5)
+__webpack_require__(32)
+
+angular
+  .module('app', ['minimalist'])
+
+angular
+  .module('app')
+  .controller('HomeController', HomeController)
+
+angular
+  .module('app')
+  .directive('test', TestTranscludeDirective)
+
+function HomeController() {
+  this.house = 'Stark'
+
+  this.houses = [
+    'Stark',
+    'Lannister',
+    'Targaryen',
+  ]
+}
+
+function TestTranscludeDirective() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: `
+      <div>1 - wow</div>
+      <ng-transclude></ng-transclude>
+    `,
+    // controller: 'SearchController',
+    // controllerAs: 'searchController',
+  }
+}
 
 
 /***/ }),
@@ -1919,18 +1954,18 @@ const evaluate = __webpack_require__(2)
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
+    this.options = this.querySelectorAll('option')
     return self
   }
 
   connectedCallback() {
+    this.innerHTML = ''
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    if (!this.closest('[ng-app]')) {
-      this._setActionSheet()
-    }
     this._setOptions()
+    this._setActionSheet()
     this._setKeyboardNavigation()
     this._setAttributeValue()
     super._setAttributeName()
@@ -2013,28 +2048,6 @@ module.exports = class MnSelect extends MnInput {
     const menu = document.createElement('menu')
     menu.classList.add('mn-card')
 
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
     this.appendChild(menu)
     this.menu = menu
   }
@@ -2061,6 +2074,27 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setOptions() {
+    Array
+      .from(this.options)
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        if (!this.closest('[ng-app]')) {
+          option.innerHTML = child.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+        }
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        this.menu.appendChild(option)
+      })
+
     document.addEventListener('mousedown', (event) => {
       const isOption = event.target.classList.contains('option')
         && event.target.closest('.mn-select') === this
@@ -2412,6 +2446,241 @@ function MnSidenavCustomElement() {
 
   return window.customElements.get('mn-sidenav')
 }
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnCheckbox', MnCheckboxDirective)
+
+module.exports = MnCheckboxDirective
+
+function MnCheckboxDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+
+      element.ready(() => {
+        component.ready = true
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        // scope.$watch(attributes.ngModel, setComponentValue)
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      // function setComponentValue(value) {
+      //   component.value = value
+      // }
+
+      function setViewValue() {
+        ngModel.$setViewValue(component.value)
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular.module('minimalist', [])
+
+module.exports = {
+  input: __webpack_require__(34),
+  select: __webpack_require__(36),
+  form: __webpack_require__(33),
+  checkbox: __webpack_require__(31),
+  radio: __webpack_require__(35),
+}
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnForm', MnFormDirective)
+
+function MnFormDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      element.bind('submit', () => {
+        scope.$eval(attributes.submit)
+      })
+    }
+  }
+}
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnInput', MnInputDirective)
+
+function MnInputDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+      const isSelect = component.classList.contains('mn-select')
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+      input.addEventListener('blur', setViewValue)
+      input.addEventListener('input', setViewValue)
+
+      element.ready(() => {
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        scope.$watch(attributes.ngModel, setComponentValue)
+
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      function setComponentValue(value) {
+        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+          component.value = value
+        }
+      }
+
+      function setViewValue(event) {
+        const activeElement = event.currentTarget === document.activeElement
+        const isDate = component.input.type === 'date'
+        const isNumber = component.classList.contains('mn-number')
+        const isBlur = event.type === 'blur'
+
+        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
+          ngModel.$setViewValue(component.value)
+        }
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnRadio', MnRadioDirective)
+
+module.exports = MnRadioDirective
+
+function MnRadioDirective() {
+  const MnCheckboxDirective = __webpack_require__(31)
+  return MnCheckboxDirective()
+}
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+/* global angular */
+// angular
+//   .module('minimalist')
+//   .directive('mnSelect', MnSelectDirective)
+
+// function MnSelectDirective() {
+//   return {
+//     restrict: 'C',
+//     require: 'ngModel',
+//     link(scope, element) {
+//       const component = element[0]
+
+//       element.ready(() => {
+//         component._setOptions()
+//         component._setActionSheet()
+//       })
+//     }
+//   }
+// }
+
+// angular
+//   .module('minimalist')
+//   .directive('option', MnSelectOptionDirective)
+
+// function MnSelectOptionDirective() {
+//   return {
+//     restrict: 'C',
+//     link(scope, element) {
+//       const option = element[0]
+//       const isMnOption = option.closest('.mn-select')
+
+//       element.ready(() => {
+//         if (isMnOption) {
+//           const actionSheet = isMnOption.actionSheet
+//           option.innerHTML = option.textContent
+//             .split('')
+//             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+//             .join('')
+
+//           if (actionSheet) {
+//             let actionSheetOption = Array
+//               .from(actionSheet.menu.querySelectorAll('.option'))
+//               .filter(children => children.textContent === option.textContent)[0]
+
+//             if (!actionSheetOption) {
+//               actionSheetOption = document.createElement('div')
+//               actionSheetOption.classList.add('option')
+//               actionSheetOption.textContent = option.textContent
+//               actionSheet.menu.appendChild(actionSheetOption)
+//             }
+
+//             element.bind('$destroy', () => {
+//               actionSheet.menu.removeChild(actionSheetOption)
+//             })
+//           }
+//         }
+//       })
+//     }
+//   }
+// }
 
 
 /***/ })

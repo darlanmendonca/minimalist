@@ -2,16 +2,36 @@
   <head>
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <link rel="stylesheet" href="/vendor.css" />
   </head>
 
   <body>
+    <h2>vanilla</h2>
     <mn-form class="mn-layout-row">
       <mn-select placeholder="House">
         <option>Stark</option>
         <option>Lannister</option>
       </mn-select>
     </mn-form>
+
+    <div ng-app="app" ng-controller="HomeController as controller">
+      <h2>angular</h2>
+      <mn-form class="mn-layout-row">
+        <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house'>
+          <option ng-repeat="option in controller.houses">{{ house }}</option>
+        </mn-select>
+      </mn-form>
+
+      <!-- <test>
+        <p>2 - lero lero</p>
+        <mn-form class="mn-layout-row">
+          <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house'>
+            <option ng-repeat="option in controller.houses">{{ house }}</option>
+          </mn-select>
+        </mn-form>
+      </test> -->
+    </div>
 
     <script src="/vendor.js"></script>
   </body>

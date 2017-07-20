@@ -5,18 +5,18 @@ const evaluate = require('evaluate-string')
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
+    this.options = this.querySelectorAll('option')
     return self
   }
 
   connectedCallback() {
+    this.innerHTML = ''
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    if (!this.closest('[ng-app]')) {
-      this._setActionSheet()
-    }
     this._setOptions()
+    this._setActionSheet()
     this._setKeyboardNavigation()
     this._setAttributeValue()
     super._setAttributeName()
@@ -99,28 +99,6 @@ module.exports = class MnSelect extends MnInput {
     const menu = document.createElement('menu')
     menu.classList.add('mn-card')
 
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
     this.appendChild(menu)
     this.menu = menu
   }
@@ -147,6 +125,27 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setOptions() {
+    Array
+      .from(this.options)
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        if (!this.closest('[ng-app]')) {
+          option.innerHTML = child.textContent
+            .split('')
+            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+            .join('')
+        }
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        this.menu.appendChild(option)
+      })
+
     document.addEventListener('mousedown', (event) => {
       const isOption = event.target.classList.contains('option')
         && event.target.closest('.mn-select') === this
