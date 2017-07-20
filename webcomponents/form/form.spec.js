@@ -105,13 +105,13 @@ describe('mn-form (webcomponent)', () => {
       expect(component.password).to.have.value('')
     })
 
-    it('should call method reset on click', () => {
+    it('should be called when click in button with type reset', () => {
       const button = document.createElement('button')
       button.setAttribute('type', 'reset')
-      document.body.appendChild(button)
+      component.appendChild(button)
+      const reset = spy.on(component, 'reset')
       button.click()
 
-      const reset = spy.on(component, 'reset')
       expect(reset).to.have.been.called()
     })
   })
