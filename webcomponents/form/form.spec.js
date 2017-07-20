@@ -44,8 +44,6 @@ describe('mn-form (webcomponent)', () => {
     })
 
     it('should apply values to keys', () => {
-      console.log('username', component.username)
-      console.log('password', component.password)
       component.username.value = 'john'
       component.password.value = 'snow'
       expect(component.data).to.have.property('username', 'john')
@@ -94,7 +92,7 @@ describe('mn-form (webcomponent)', () => {
     })
   })
 
-  describe('method reset', () => {
+  describe('method reset ', () => {
     it('should have the method', () => {
       expect(component).to.have.property('reset')
       expect(component.reset).to.be.a('function')
@@ -105,6 +103,16 @@ describe('mn-form (webcomponent)', () => {
       component.reset()
       expect(component.username).to.have.value('johnsnow')
       expect(component.password).to.have.value('')
+    })
+
+    it('should call method reset on click', () => {
+      const button = document.createElement('button')
+      button.setAttribute('type', 'reset')
+      document.body.appendChild(button)
+      button.click()
+
+      const reset = spy.on(component, 'reset')
+      expect(reset).to.have.been.called()
     })
   })
 
