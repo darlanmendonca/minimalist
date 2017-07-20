@@ -5,27 +5,28 @@ const evaluate = require('evaluate-string')
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
-    this.options = this.querySelectorAll('option')
     return self
   }
 
   connectedCallback() {
+    this.options = this.querySelectorAll('option')
+    console.log(this.options)
     this.innerHTML = ''
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    this._setOptions()
-    this._setActionSheet()
-    this._setKeyboardNavigation()
-    this._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setAttributeAutocomplete()
-    super._setAttributeSpellcheck()
-    this._setValidations()
+    // this._setOptions()
+    // this._setActionSheet()
+    // this._setKeyboardNavigation()
+    // this._setAttributeValue()
+    // super._setAttributeName()
+    // super._setAttributeDisabled()
+    // super._setAttributeReadonly()
+    // super._setAttributeAutofocus()
+    // super._setAttributeAutocomplete()
+    // super._setAttributeSpellcheck()
+    // this._setValidations()
   }
 
   static get observedAttributes() {
@@ -125,51 +126,75 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setOptions() {
+    // console.log('set options', this.options, this)
+
+    // const observer = new MutationObserver(function(mutations) {
+    //   mutations.forEach(function(mutation) {
+    //     console.log(mutation.addedNodes[0])
+    //     // if (mutation.addedNodes.length) {
+    //     // }
+    //   })
+    // })
+
+    // const observerConfig = {
+    //   attributes: false,
+    //   childList: true,
+    //   characterData: false,
+    // }
+    // observer.observe(this.menu, observerConfig)
+
     Array
       .from(this.options)
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
+      .forEach(option => {
         this.menu.appendChild(option)
+        // console.log(option)
       })
 
-    document.addEventListener('mousedown', (event) => {
-      const isOption = event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
+    // Array
+    //   .from(this.options)
+    //   .forEach(child => {
+    //     const option = document.createElement('div')
+    //     option.classList.add('option')
+    //     option.innerHTML = child.textContent
 
-      if (isOption) {
-        event.stopPropagation()
-        event.preventDefault()
+    //     if (!this.closest('[ng-app]')) {
+    //       option.innerHTML = child.textContent
+    //         .split('')
+    //         .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+    //         .join('')
+    //     }
 
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.input.blur()
-      }
-    })
+    //     Array
+    //       .from(child.attributes)
+    //       .forEach(attr => option.setAttribute(attr.name, attr.value))
 
-    document.addEventListener('mousemove', (event) => {
-      const isOption = event.target.classList && event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
+    //     this.menu.appendChild(option)
+    //   })
 
-      if (isOption) {
-        if (!this.keyboardNavigation) {
-          this.focusOption(event.target)
-        }
-      }
-    })
+    // document.addEventListener('mousedown', (event) => {
+    //   const isOption = event.target.classList.contains('option')
+    //     && event.target.closest('.mn-select') === this
+
+    //   if (isOption) {
+    //     event.stopPropagation()
+    //     event.preventDefault()
+
+    //     const value = event.target.getAttribute('value') || event.target.textContent
+    //     this.value = value
+    //     this.input.blur()
+    //   }
+    // })
+
+    // document.addEventListener('mousemove', (event) => {
+    //   const isOption = event.target.classList && event.target.classList.contains('option')
+    //     && event.target.closest('.mn-select') === this
+
+    //   if (isOption) {
+    //     if (!this.keyboardNavigation) {
+    //       this.focusOption(event.target)
+    //     }
+    //   }
+    // })
   }
 
   _setKeyboardNavigation() {

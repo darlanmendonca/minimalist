@@ -9,7 +9,7 @@
   <body>
     <h2>vanilla</h2>
     <mn-form class="mn-layout-row">
-      <mn-select placeholder="House">
+      <mn-select placeholder="House" id="house1">
         <option>Stark</option>
         <option>Lannister</option>
       </mn-select>
@@ -18,19 +18,19 @@
     <div ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
-        <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house'>
-          <option ng-repeat="option in controller.houses">{{ house }}</option>
+        <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house2">
+          <option ng-repeat="house in controller.houses">{{ house }}</option>
         </mn-select>
       </mn-form>
 
-      <!-- <test>
+      <test>
         <p>2 - lero lero</p>
         <mn-form class="mn-layout-row">
-          <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house'>
-            <option ng-repeat="option in controller.houses">{{ house }}</option>
+          <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house3">
+            <option ng-repeat="house in controller.houses">{{ house }}</option>
           </mn-select>
         </mn-form>
-      </test> -->
+      </test>
     </div>
 
     <script src="/vendor.js"></script>
