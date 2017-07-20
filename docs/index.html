@@ -7,26 +7,12 @@
 
   <body>
     <mn-form class="mn-layout-row">
-      <mn-input placeholder="Nome" name="username" value="darlan" class="flex"></mn-input>
-      <mn-password placeholder="Senha" name="password" class="flex"></mn-password>
-
-      <button type="reset" class="mn-button">reset button</button>
-      <mn-button reset>reset</mn-button>
-      <mn-button submit>submit</mn-button>
+      <mn-select placeholder="House">
+        <option>Stark</option>
+        <option>Lannister</option>
+      </mn-select>
     </mn-form>
 
     <script src="/vendor.js"></script>
-    <script>
-      const form = document.querySelector('mn-form')
-
-      const test = document.createElement('mn-input')
-      test.setAttribute('name', 'test')
-      test.setAttribute('value', 'test string')
-      form.appendChild(test)
-
-      form.addEventListener('submit', () => {
-        console.log('submit', form.data)
-      })
-    </script>
   </body>
 </html>
