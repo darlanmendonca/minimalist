@@ -128,6 +128,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setInput()
     this._setPlaceholder()
     this._setAttributeValue()
+    this._setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -152,9 +153,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.label && this.input) {
-      this[name] = value
-    }
+    this[name] = value
   }
 
   _setStyle() {
@@ -218,6 +217,14 @@ module.exports = class MnInput extends HTMLElement {
 
   _setAttributeValue() {
     this.value = this.getAttribute('value') || ''
+    this.default = this.value
+  }
+
+  _setAttributeName() {
+    const name = this.getAttribute('name')
+    if (name) {
+      this.name = name
+    }
   }
 
   _setAttributeDisabled() {
@@ -283,7 +290,7 @@ module.exports = class MnInput extends HTMLElement {
     const name = this.getAttribute('name')
     const element = this
 
-    if (form) {
+    if (form && !form[name]) {
       Object.defineProperty(form, name, {
         get: () => {
           return element.getAttribute('name')
@@ -806,14 +813,6 @@ module.exports = class MnButton extends HTMLElement {
 
   setButton() {
     this.setAttribute('tabindex', '0')
-
-    this.addEventListener('click', (event) => {
-      const button = event.target
-      const form = button.closest('form') || button.closest('mn-form')
-      if (button.hasAttribute('submit') && form) {
-        form.submit()
-      }
-    })
     this.addEventListener('click', () => this.blur())
 
     document.addEventListener('keyup', (event) => {
@@ -1262,10 +1261,11 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
-    this._setSubmit()
-    this._setAttributeDisabled()
-    this._setAttributeReadonly()
+    this.setStyle()
+    this.setSubmit()
+    this.setReset()
+    this.setAttributeDisabled()
+    this.setAttributeReadonly()
   }
 
   static get observedAttributes() {
@@ -1280,11 +1280,11 @@ module.exports = class MnForm extends HTMLElement {
     this[name] = value
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-form')
   }
 
-  _setSubmit() {
+  setSubmit() {
     document.addEventListener('keydown', (event) => {
       const enter = event.key === 'Enter'
       const srcElementInsideForm = event.target.closest('mn-form')
@@ -1294,7 +1294,8 @@ module.exports = class MnForm extends HTMLElement {
     })
 
     document.addEventListener('click', (event) => {
-      const isButtonSubmit = event.target.matches('button[type="submit"]')
+      const isButtonSubmit = (event.target.matches('button[type="submit"]')
+        || event.target.matches('mn-button[submit]'))
         && event.target.closest('mn-form') === this
 
       if (isButtonSubmit) {
@@ -1303,11 +1304,23 @@ module.exports = class MnForm extends HTMLElement {
     })
   }
 
-  _setAttributeDisabled() {
+  setReset() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="reset"]')
+        || event.target.matches('mn-button[reset]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.reset()
+      }
+    })
+  }
+
+  setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
 
-  _setAttributeReadonly() {
+  setAttributeReadonly() {
     this.readonly = this.hasAttribute('readonly')
   }
 
@@ -1320,8 +1333,31 @@ module.exports = class MnForm extends HTMLElement {
     return isInvalid
   }
 
+  reset() {
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = this.defaults[name]
+      })
+  }
+
   get inputs() {
     return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
+  }
+
+  get defaults() {
+    const defaults = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          defaults[name] = input.default
+        }
+      })
+
+    return defaults
   }
 
   get data() {
@@ -1440,6 +1476,7 @@ module.exports = class MnNumber extends MnInput {
     this._setInputKeys()
     super._setPlaceholder()
     super._setAttributeValue()
+    super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -1670,6 +1707,7 @@ module.exports = class MnPassword extends MnInput {
     super._setPlaceholder()
     this._setVisibilityButton()
     super._setAttributeValue()
+    super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -1895,6 +1933,7 @@ module.exports = class MnSelect extends MnInput {
     this._setOptions()
     this._setKeyboardNavigation()
     this._setAttributeValue()
+    super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()

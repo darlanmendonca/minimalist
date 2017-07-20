@@ -13,7 +13,7 @@ npm install @reservafacil/minimalist
 ```
 
 ```js
-// In your scripts, just import the module, and bundle using a tool like webpack, or browserify
+// In your scripts, just import the module and bundle using a tool like webpack or browserify as below
 const {form} = require('@reservafacil/minimalist')
 ```
 
@@ -30,16 +30,40 @@ In your html, you can use the tags `mn-form` e.g.
 </mn-form>
 ```
 
+#### Submit
+
+The submit can be used with `button` or `mn-button`, e.g.
+
+```html
+<mn-form>
+  <button type="submit">submit</button>
+  <!-- or -->
+  <mn-button submit>submit</mn-button>
+</mn-form>
+```
+
 ```js
 const form = document.querySelector('mn-form')
 
-// The form will be submited if you click in a child button with attribute submit, or type enter in a input
+// The form will be submited if you click in a child button with attribute submit or type enter in a input
 form.addEventListener('submit', (event) => {
   // but this event only is dispatched if form is valid
   console.log(event.data) // the data of form in JSON object
 })
 ```
 
+
+#### Reset
+
+If you want to reset the `mn-form` to initial state, you need to use the attribute `reset` in a `mn-button` or a button with type reset, e.g.
+
+```html
+<mn-form>
+  <button type="reset">reset</button>
+  <!-- or -->
+  <mn-button reset>reset</mn-button>
+</mn-form>
+```
 
 The following attributes are supported in this component
 
@@ -58,7 +82,7 @@ require('@reservafacil/minimalist/angular') // import minimalist module
 angular.module('app', ['minimalist'])
 ```
 
-In your template is all similar, but you use `submit` directive
+In your template all is similar, but you will use `submit` directive
 
 ```html
 <!-- controller.login is our submit method, defined in angular controller -->
@@ -67,4 +91,4 @@ In your template is all similar, but you use `submit` directive
 </mn-form>
 ```
 
-Others directives like `ng-disabled`, and `ng-required`, are also supported.
+Others directives like `ng-disabled` and `ng-required` are supported too.

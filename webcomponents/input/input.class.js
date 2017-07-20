@@ -13,6 +13,7 @@ module.exports = class MnInput extends HTMLElement {
     this._setInput()
     this._setPlaceholder()
     this._setAttributeValue()
+    this._setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -37,9 +38,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode && this.label && this.input) {
-      this[name] = value
-    }
+    this[name] = value
   }
 
   _setStyle() {
@@ -103,6 +102,14 @@ module.exports = class MnInput extends HTMLElement {
 
   _setAttributeValue() {
     this.value = this.getAttribute('value') || ''
+    this.default = this.value
+  }
+
+  _setAttributeName() {
+    const name = this.getAttribute('name')
+    if (name) {
+      this.name = name
+    }
   }
 
   _setAttributeDisabled() {
@@ -168,7 +175,7 @@ module.exports = class MnInput extends HTMLElement {
     const name = this.getAttribute('name')
     const element = this
 
-    if (form) {
+    if (form && !form[name]) {
       Object.defineProperty(form, name, {
         get: () => {
           return element.getAttribute('name')
