@@ -10,12 +10,12 @@
     <h2>vanilla</h2>
     <mn-form class="mn-layout-row">
       <mn-select placeholder="House" id="house1">
-        <option>Stark</option>
-        <option>Lannister</option>
+        <option value="stark">Stark</option>
+        <option value="lannister">Lannister</option>
       </mn-select>
     </mn-form>
 
-    <div ng-app="app" ng-controller="HomeController as controller">
+    <!-- <div ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
         <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house2">
@@ -34,8 +34,11 @@
 
       <mn-button ng-click='controller.remove()'>remove</mn-button>
       <mn-button ng-click='controller.add()'>add</mn-button>
-    </div>
+    </div> -->
 
     <script src="/vendor.js"></script>
+    <script>
+      const select = document.querySelector('mn-select')
+    </script>
   </body>
 </html>

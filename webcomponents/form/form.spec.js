@@ -119,7 +119,6 @@ describe('mn-form (webcomponent)', () => {
       const button = document.createElement('mn-button')
       button.setAttribute('reset', '')
       component.appendChild(button)
-      console.log(button)
       const reset = spy.on(component, 'reset')
       button.click()
 

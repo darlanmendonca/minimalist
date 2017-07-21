@@ -2254,9 +2254,8 @@ module.exports = class MnSelect extends MnInput {
       .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
       .join('')
 
-    const attributeValue = value.attributes[value]
-    if (attributeValue) {
-      option.setAttribute('value', attributeValue)
+    if (value.hasAttribute('value')) {
+      option.setAttribute('value', value.getAttribute('value'))
     }
 
     this.menu.appendChild(option)
