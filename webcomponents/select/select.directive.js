@@ -1,4 +1,4 @@
-/* global angular */
+/* //global angular */
 // angular
 //   .module('minimalist')
 //   .directive('mnSelect', MnSelectDirective)

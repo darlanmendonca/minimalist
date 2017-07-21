@@ -20,6 +20,16 @@ function HomeController() {
     'Lannister',
     'Targaryen',
   ]
+
+  this.remove = () => {
+    this.houses.pop()
+    console.log('removed house', this.houses)
+  }
+
+  this.add = () => {
+    this.houses.push('test')
+    console.log('added house', this.houses)
+  }
 }
 
 function TestTranscludeDirective() {

@@ -9,24 +9,22 @@ module.exports = class MnSelect extends MnInput {
   }
 
   connectedCallback() {
-    this.options = this.querySelectorAll('option')
-    console.log(this.options)
-    this.innerHTML = ''
+    this.empty()
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    // this._setOptions()
+    this._setOptions()
     // this._setActionSheet()
-    // this._setKeyboardNavigation()
-    // this._setAttributeValue()
-    // super._setAttributeName()
-    // super._setAttributeDisabled()
-    // super._setAttributeReadonly()
-    // super._setAttributeAutofocus()
-    // super._setAttributeAutocomplete()
-    // super._setAttributeSpellcheck()
-    // this._setValidations()
+    this._setKeyboardNavigation()
+    this._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setAttributeAutocomplete()
+    super._setAttributeSpellcheck()
+    this._setValidations()
   }
 
   static get observedAttributes() {
@@ -38,6 +36,76 @@ module.exports = class MnSelect extends MnInput {
       'readonly',
       'autofocus',
     ]
+  }
+
+  empty() {
+    Array
+      .from(this.children)
+      .forEach(children => {
+        if (children.tagName !== 'OPTION') {
+          this.removeChild(children)
+        }
+      })
+  }
+
+  _setOptions() {
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(option => {
+        const hasAngularAttribute = Array.from(option.attributes).some(attribute => attribute.name.startsWith('ng-'))
+
+        if (!hasAngularAttribute) {
+          this.addOption(option)
+        }
+      })
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // console.log(mutation)
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+        if (addOption) {
+          this.addOption(addedNode)
+        }
+
+        if (removeOption) {
+          this.removeOption(removedNode)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
+
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
+      }
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
   }
 
   _setStyle() {
@@ -125,76 +193,33 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 
-  _setOptions() {
-    // console.log('set options', this.options, this)
+  addOption(value) {
+    const option = document.createElement('div')
+    option.classList.add('option')
+    option.innerHTML = value.textContent
 
-    // const observer = new MutationObserver(function(mutations) {
-    //   mutations.forEach(function(mutation) {
-    //     console.log(mutation.addedNodes[0])
-    //     // if (mutation.addedNodes.length) {
-    //     // }
-    //   })
-    // })
+    option.innerHTML = value.textContent
+      .split('')
+      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+      .join('')
 
-    // const observerConfig = {
-    //   attributes: false,
-    //   childList: true,
-    //   characterData: false,
-    // }
-    // observer.observe(this.menu, observerConfig)
+    const attributeValue = value.attributes[value]
+    if (attributeValue) {
+      option.setAttribute('value', attributeValue)
+    }
 
-    Array
-      .from(this.options)
-      .forEach(option => {
-        this.menu.appendChild(option)
-        // console.log(option)
-      })
+    this.menu.appendChild(option)
+  }
 
-    // Array
-    //   .from(this.options)
-    //   .forEach(child => {
-    //     const option = document.createElement('div')
-    //     option.classList.add('option')
-    //     option.innerHTML = child.textContent
+  removeOption(value) {
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .find(option => option.textContent === value.textContent)
 
-    //     if (!this.closest('[ng-app]')) {
-    //       option.innerHTML = child.textContent
-    //         .split('')
-    //         .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-    //         .join('')
-    //     }
-
-    //     Array
-    //       .from(child.attributes)
-    //       .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-    //     this.menu.appendChild(option)
-    //   })
-
-    // document.addEventListener('mousedown', (event) => {
-    //   const isOption = event.target.classList.contains('option')
-    //     && event.target.closest('.mn-select') === this
-
-    //   if (isOption) {
-    //     event.stopPropagation()
-    //     event.preventDefault()
-
-    //     const value = event.target.getAttribute('value') || event.target.textContent
-    //     this.value = value
-    //     this.input.blur()
-    //   }
-    // })
-
-    // document.addEventListener('mousemove', (event) => {
-    //   const isOption = event.target.classList && event.target.classList.contains('option')
-    //     && event.target.closest('.mn-select') === this
-
-    //   if (isOption) {
-    //     if (!this.keyboardNavigation) {
-    //       this.focusOption(event.target)
-    //     }
-    //   }
-    // })
+    // console.log('removing', option)
+    if (option) {
+      this.menu.removeChild(option)
+    }
   }
 
   _setKeyboardNavigation() {
