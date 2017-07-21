@@ -2142,8 +2142,8 @@ module.exports = class MnSelect extends MnInput {
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
+    this._setActionSheet()
     this._setOptions()
-    // this._setActionSheet()
     this._setKeyboardNavigation()
     this._setAttributeValue()
     super._setAttributeName()
@@ -2153,6 +2153,12 @@ module.exports = class MnSelect extends MnInput {
     super._setAttributeAutocomplete()
     super._setAttributeSpellcheck()
     this._setValidations()
+  }
+
+  disconnectedCallback() {
+    if (this.actionSheet) {
+      this.actionSheet.parentNode.removeChild(this.actionSheet)
+    }
   }
 
   static get observedAttributes() {
@@ -2180,7 +2186,9 @@ module.exports = class MnSelect extends MnInput {
     Array
       .from(this.querySelectorAll('option'))
       .forEach(option => {
-        const hasAngularAttribute = Array.from(option.attributes).some(attribute => attribute.name.startsWith('ng-'))
+        const hasAngularAttribute = Array
+          .from(option.attributes)
+          .some(attribute => attribute.name.startsWith('ng-'))
 
         if (!hasAngularAttribute) {
           this.addOption(option)
@@ -2234,6 +2242,51 @@ module.exports = class MnSelect extends MnInput {
         }
       }
     })
+  }
+
+  addOption(value) {
+    const option = document.createElement('div')
+    option.classList.add('option')
+    option.innerHTML = value.textContent
+
+    option.innerHTML = value.textContent
+      .split('')
+      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+      .join('')
+
+    const attributeValue = value.attributes[value]
+    if (attributeValue) {
+      option.setAttribute('value', attributeValue)
+    }
+
+    this.menu.appendChild(option)
+
+    if (this.actionSheet) {
+      const actionSheetOption = document.createElement('div')
+      actionSheetOption.classList.add('option')
+      actionSheetOption.textContent = option.textContent
+      this.actionSheet.menu.appendChild(actionSheetOption)
+    }
+  }
+
+  removeOption(value) {
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .find(option => option.textContent === value.textContent)
+
+    if (option) {
+      this.menu.removeChild(option)
+    }
+
+    if (this.actionSheet) {
+      const actionSheetOption = Array
+        .from(this.actionSheet.menu.querySelectorAll('.option'))
+        .find(option => option.textContent === value.textContent)
+
+      if (actionSheetOption) {
+        this.actionSheet.menu.removeChild(actionSheetOption)
+      }
+    }
   }
 
   _setStyle() {
@@ -2303,13 +2356,6 @@ module.exports = class MnSelect extends MnInput {
   _setActionSheet() {
     if (screen.width < 768) {
       const actionSheet = new MnActionSheet()
-      Array
-        .from(this.querySelectorAll('.option'))
-        .forEach(option => {
-          const actionSheetOption = document.createElement('option')
-          actionSheetOption.textContent = option.textContent
-          actionSheet.appendChild(actionSheetOption)
-        })
       this.actionSheet = actionSheet
       this.actionSheet.addEventListener('change', (event) => {
         const {index} = event.data
@@ -2318,35 +2364,6 @@ module.exports = class MnSelect extends MnInput {
         this.actionSheet.hide()
       })
       document.body.appendChild(this.actionSheet)
-    }
-  }
-
-  addOption(value) {
-    const option = document.createElement('div')
-    option.classList.add('option')
-    option.innerHTML = value.textContent
-
-    option.innerHTML = value.textContent
-      .split('')
-      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-      .join('')
-
-    const attributeValue = value.attributes[value]
-    if (attributeValue) {
-      option.setAttribute('value', attributeValue)
-    }
-
-    this.menu.appendChild(option)
-  }
-
-  removeOption(value) {
-    const option = Array
-      .from(this.menu.querySelectorAll('.option'))
-      .find(option => option.textContent === value.textContent)
-
-    // console.log('removing', option)
-    if (option) {
-      this.menu.removeChild(option)
     }
   }
 
