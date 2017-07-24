@@ -2,31 +2,43 @@
   <head>
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <link rel="stylesheet" href="/vendor.css" />
   </head>
 
   <body>
+    <h2>vanilla</h2>
     <mn-form class="mn-layout-row">
-      <mn-input placeholder="Nome" name="username" value="darlan" class="flex"></mn-input>
-      <mn-password placeholder="Senha" name="password" class="flex"></mn-password>
-
-      <button type="reset" class="mn-button">reset button</button>
-      <mn-button reset>reset</mn-button>
-      <mn-button submit>submit</mn-button>
+      <mn-select placeholder="House" id="house1">
+        <option value="stark">Stark</option>
+        <option value="lannister">Lannister</option>
+      </mn-select>
     </mn-form>
+
+    <div ng-app="app" ng-controller="HomeController as controller">
+      <h2>angular</h2>
+      <mn-form class="mn-layout-row">
+        <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house2">
+          <option ng-repeat="house in controller.houses">{{ house }}</option>
+        </mn-select>
+      </mn-form>
+
+      <test>
+        <p>2 - lero lero</p>
+        <mn-form class="mn-layout-row">
+          <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house3">
+            <option ng-repeat="house in controller.houses">{{ house }}</option>
+          </mn-select>
+        </mn-form>
+      </test>
+
+      <mn-button ng-click='controller.remove()'>remove</mn-button>
+      <mn-button ng-click='controller.add()'>add</mn-button>
+    </div>
 
     <script src="/vendor.js"></script>
     <script>
-      const form = document.querySelector('mn-form')
-
-      const test = document.createElement('mn-input')
-      test.setAttribute('name', 'test')
-      test.setAttribute('value', 'test string')
-      form.appendChild(test)
-
-      form.addEventListener('submit', () => {
-        console.log('submit', form.data)
-      })
+      const select = document.querySelector('mn-select')
     </script>
   </body>
 </html>

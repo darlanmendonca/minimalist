@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -405,7 +405,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(8))
+    window.customElements.define('mn-action-sheet', __webpack_require__(10))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -649,40 +649,153 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(7);
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnCheckbox', MnCheckboxDirective)
+
+module.exports = MnCheckboxDirective
+
+function MnCheckboxDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+
+      element.ready(() => {
+        component.ready = true
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        // scope.$watch(attributes.ngModel, setComponentValue)
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      // function setComponentValue(value) {
+      //   component.value = value
+      // }
+
+      function setViewValue() {
+        ngModel.$setViewValue(component.value)
+      }
+    }
+  }
+}
+
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(5)
+/* global angular */
+
+angular.module('minimalist', [])
+
+module.exports = {
+  input: __webpack_require__(23),
+  select: __webpack_require__(33),
+  form: __webpack_require__(21),
+  checkbox: __webpack_require__(5),
+  radio: __webpack_require__(30),
+}
 
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {
-  input: __webpack_require__(20),
-  email: __webpack_require__(17),
-  password: __webpack_require__(24),
-  number: __webpack_require__(22),
-  date: __webpack_require__(13),
-  select: __webpack_require__(28),
-  actionSheet: __webpack_require__(3),
-  form: __webpack_require__(19),
-  sidenav: __webpack_require__(30),
-  checkbox: __webpack_require__(11),
-  radio: __webpack_require__(26),
-  dialog: __webpack_require__(15),
-  button: __webpack_require__(10),
+module.exports = __webpack_require__(9);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(7)
+__webpack_require__(6)
+
+angular
+  .module('app', ['minimalist'])
+
+angular
+  .module('app')
+  .controller('HomeController', HomeController)
+
+angular
+  .module('app')
+  .directive('test', TestTranscludeDirective)
+
+function HomeController() {
+  this.house = 'Stark'
+
+  this.houses = [
+    'Stark',
+    'Lannister',
+    'Targaryen',
+  ]
+
+  this.remove = () => {
+    this.houses.pop()
+    console.log('removed house', this.houses)
+  }
+
+  this.add = () => {
+    this.houses.push('test')
+    console.log('added house', this.houses)
+  }
+}
+
+function TestTranscludeDirective() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: `
+      <div>1 - wow</div>
+      <ng-transclude></ng-transclude>
+    `,
+    // controller: 'SearchController',
+    // controllerAs: 'searchController',
+  }
 }
 
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  input: __webpack_require__(24),
+  email: __webpack_require__(19),
+  password: __webpack_require__(28),
+  number: __webpack_require__(26),
+  date: __webpack_require__(15),
+  select: __webpack_require__(34),
+  actionSheet: __webpack_require__(3),
+  form: __webpack_require__(22),
+  sidenav: __webpack_require__(36),
+  checkbox: __webpack_require__(13),
+  radio: __webpack_require__(31),
+  dialog: __webpack_require__(17),
+  button: __webpack_require__(12),
+}
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -791,7 +904,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -825,7 +938,7 @@ module.exports = class MnButton extends HTMLElement {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -838,7 +951,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(9))
+    window.customElements.define('mn-button', __webpack_require__(11))
   }
 
   return window.customElements.get('mn-button')
@@ -846,7 +959,7 @@ function MnSidenavCustomElement() {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnCheckboxCustomElement()
@@ -867,7 +980,7 @@ function MnCheckboxCustomElement() {
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1049,7 +1162,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -1062,7 +1175,7 @@ function MnDateCustomElement() {
   }
 
   if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(12))
+    window.customElements.define('mn-date', __webpack_require__(14))
   }
 
   return window.customElements.get('mn-date')
@@ -1070,7 +1183,7 @@ function MnDateCustomElement() {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1185,7 +1298,7 @@ module.exports = class MnDialog extends HTMLElement {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -1198,7 +1311,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(14))
+    window.customElements.define('mn-dialog', __webpack_require__(16))
   }
 
   return window.customElements.get('mn-dialog')
@@ -1206,7 +1319,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1228,7 +1341,7 @@ module.exports = class MnEmail extends MnInput {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnEmailCustomElement()
@@ -1241,7 +1354,7 @@ function MnEmailCustomElement() {
   }
 
   if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(16))
+    window.customElements.define('mn-email', __webpack_require__(18))
   }
 
   return window.customElements.get('mn-email')
@@ -1249,7 +1362,7 @@ function MnEmailCustomElement() {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1413,7 +1526,29 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnForm', MnFormDirective)
+
+function MnFormDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      element.bind('submit', () => {
+        scope.$eval(attributes.submit)
+      })
+    }
+  }
+}
+
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -1426,7 +1561,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(18))
+    window.customElements.define('mn-form', __webpack_require__(20))
   }
 
   return window.customElements.get('mn-form')
@@ -1434,7 +1569,68 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 20 */
+/* 23 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnInput', MnInputDirective)
+
+function MnInputDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+      const isSelect = component.classList.contains('mn-select')
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+      input.addEventListener('blur', setViewValue)
+      input.addEventListener('input', setViewValue)
+
+      element.ready(() => {
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        scope.$watch(attributes.ngModel, setComponentValue)
+
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      function setComponentValue(value) {
+        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+          component.value = value
+        }
+      }
+
+      function setViewValue(event) {
+        const activeElement = event.currentTarget === document.activeElement
+        const isDate = component.input.type === 'date'
+        const isNumber = component.classList.contains('mn-number')
+        const isBlur = event.type === 'blur'
+
+        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
+          ngModel.$setViewValue(component.value)
+        }
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -1455,7 +1651,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1668,7 +1864,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -1681,7 +1877,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(21))
+    window.customElements.define('mn-number', __webpack_require__(25))
   }
 
   return window.customElements.get('mn-number')
@@ -1689,7 +1885,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1765,7 +1961,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -1778,7 +1974,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(23))
+    window.customElements.define('mn-password', __webpack_require__(27))
   }
 
   return window.customElements.get('mn-password')
@@ -1786,7 +1982,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(4)
@@ -1888,7 +2084,25 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 26 */
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnRadio', MnRadioDirective)
+
+module.exports = MnRadioDirective
+
+function MnRadioDirective() {
+  const MnCheckboxDirective = __webpack_require__(5)
+  return MnCheckboxDirective()
+}
+
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -1901,7 +2115,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(25))
+    window.customElements.define('mn-radio', __webpack_require__(29))
   }
 
   return window.customElements.get('mn-radio')
@@ -1909,7 +2123,7 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1923,13 +2137,12 @@ module.exports = class MnSelect extends MnInput {
   }
 
   connectedCallback() {
+    this.empty()
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    if (!this.closest('[ng-app]')) {
-      this._setActionSheet()
-    }
+    this._setActionSheet()
     this._setOptions()
     this._setKeyboardNavigation()
     this._setAttributeValue()
@@ -1942,6 +2155,12 @@ module.exports = class MnSelect extends MnInput {
     this._setValidations()
   }
 
+  disconnectedCallback() {
+    if (this.actionSheet) {
+      this.actionSheet.parentNode.removeChild(this.actionSheet)
+    }
+  }
+
   static get observedAttributes() {
     return [
       'value',
@@ -1951,6 +2170,122 @@ module.exports = class MnSelect extends MnInput {
       'readonly',
       'autofocus',
     ]
+  }
+
+  empty() {
+    Array
+      .from(this.children)
+      .forEach(children => {
+        if (children.tagName !== 'OPTION') {
+          this.removeChild(children)
+        }
+      })
+  }
+
+  _setOptions() {
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(option => {
+        const hasAngularAttribute = Array
+          .from(option.attributes)
+          .some(attribute => attribute.name.startsWith('ng-'))
+
+        if (!hasAngularAttribute) {
+          this.addOption(option)
+        }
+      })
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // console.log(mutation)
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+        if (addOption) {
+          this.addOption(addedNode)
+        }
+
+        if (removeOption) {
+          this.removeOption(removedNode)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
+
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
+      }
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
+  }
+
+  addOption(value) {
+    const option = document.createElement('div')
+    option.classList.add('option')
+    option.innerHTML = value.textContent
+
+    option.innerHTML = value.textContent
+      .split('')
+      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+      .join('')
+
+    if (value.hasAttribute('value')) {
+      option.setAttribute('value', value.getAttribute('value'))
+    }
+
+    this.menu.appendChild(option)
+
+    if (this.actionSheet) {
+      const actionSheetOption = document.createElement('div')
+      actionSheetOption.classList.add('option')
+      actionSheetOption.textContent = option.textContent
+      this.actionSheet.menu.appendChild(actionSheetOption)
+    }
+  }
+
+  removeOption(value) {
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .find(option => option.textContent === value.textContent)
+
+    if (option) {
+      this.menu.removeChild(option)
+    }
+
+    if (this.actionSheet) {
+      const actionSheetOption = Array
+        .from(this.actionSheet.menu.querySelectorAll('.option'))
+        .find(option => option.textContent === value.textContent)
+
+      if (actionSheetOption) {
+        this.actionSheet.menu.removeChild(actionSheetOption)
+      }
+    }
   }
 
   _setStyle() {
@@ -2013,28 +2348,6 @@ module.exports = class MnSelect extends MnInput {
     const menu = document.createElement('menu')
     menu.classList.add('mn-card')
 
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
     this.appendChild(menu)
     this.menu = menu
   }
@@ -2042,13 +2355,6 @@ module.exports = class MnSelect extends MnInput {
   _setActionSheet() {
     if (screen.width < 768) {
       const actionSheet = new MnActionSheet()
-      Array
-        .from(this.querySelectorAll('.option'))
-        .forEach(option => {
-          const actionSheetOption = document.createElement('option')
-          actionSheetOption.textContent = option.textContent
-          actionSheet.appendChild(actionSheetOption)
-        })
       this.actionSheet = actionSheet
       this.actionSheet.addEventListener('change', (event) => {
         const {index} = event.data
@@ -2058,33 +2364,6 @@ module.exports = class MnSelect extends MnInput {
       })
       document.body.appendChild(this.actionSheet)
     }
-  }
-
-  _setOptions() {
-    document.addEventListener('mousedown', (event) => {
-      const isOption = event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        event.stopPropagation()
-        event.preventDefault()
-
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.input.blur()
-      }
-    })
-
-    document.addEventListener('mousemove', (event) => {
-      const isOption = event.target.classList && event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        if (!this.keyboardNavigation) {
-          this.focusOption(event.target)
-        }
-      }
-    })
   }
 
   _setKeyboardNavigation() {
@@ -2275,7 +2554,73 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 28 */
+/* 33 */
+/***/ (function(module, exports) {
+
+/* //global angular */
+// angular
+//   .module('minimalist')
+//   .directive('mnSelect', MnSelectDirective)
+
+// function MnSelectDirective() {
+//   return {
+//     restrict: 'C',
+//     require: 'ngModel',
+//     link(scope, element) {
+//       const component = element[0]
+
+//       element.ready(() => {
+//         component._setOptions()
+//         component._setActionSheet()
+//       })
+//     }
+//   }
+// }
+
+// angular
+//   .module('minimalist')
+//   .directive('option', MnSelectOptionDirective)
+
+// function MnSelectOptionDirective() {
+//   return {
+//     restrict: 'C',
+//     link(scope, element) {
+//       const option = element[0]
+//       const isMnOption = option.closest('.mn-select')
+
+//       element.ready(() => {
+//         if (isMnOption) {
+//           const actionSheet = isMnOption.actionSheet
+//           option.innerHTML = option.textContent
+//             .split('')
+//             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+//             .join('')
+
+//           if (actionSheet) {
+//             let actionSheetOption = Array
+//               .from(actionSheet.menu.querySelectorAll('.option'))
+//               .filter(children => children.textContent === option.textContent)[0]
+
+//             if (!actionSheetOption) {
+//               actionSheetOption = document.createElement('div')
+//               actionSheetOption.classList.add('option')
+//               actionSheetOption.textContent = option.textContent
+//               actionSheet.menu.appendChild(actionSheetOption)
+//             }
+
+//             element.bind('$destroy', () => {
+//               actionSheet.menu.removeChild(actionSheetOption)
+//             })
+//           }
+//         }
+//       })
+//     }
+//   }
+// }
+
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2288,7 +2633,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(27))
+    window.customElements.define('mn-select', __webpack_require__(32))
   }
 
   return window.customElements.get('mn-select')
@@ -2296,7 +2641,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 29 */
+/* 35 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2394,7 +2739,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 30 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -2407,7 +2752,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(29))
+    window.customElements.define('mn-sidenav', __webpack_require__(35))
   }
 
   return window.customElements.get('mn-sidenav')

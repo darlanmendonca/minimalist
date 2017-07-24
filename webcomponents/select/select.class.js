@@ -9,13 +9,12 @@ module.exports = class MnSelect extends MnInput {
   }
 
   connectedCallback() {
+    this.empty()
     this._setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
-    if (!this.closest('[ng-app]')) {
-      this._setActionSheet()
-    }
+    this._setActionSheet()
     this._setOptions()
     this._setKeyboardNavigation()
     this._setAttributeValue()
@@ -28,6 +27,12 @@ module.exports = class MnSelect extends MnInput {
     this._setValidations()
   }
 
+  disconnectedCallback() {
+    if (this.actionSheet) {
+      this.actionSheet.parentNode.removeChild(this.actionSheet)
+    }
+  }
+
   static get observedAttributes() {
     return [
       'value',
@@ -37,6 +42,122 @@ module.exports = class MnSelect extends MnInput {
       'readonly',
       'autofocus',
     ]
+  }
+
+  empty() {
+    Array
+      .from(this.children)
+      .forEach(children => {
+        if (children.tagName !== 'OPTION') {
+          this.removeChild(children)
+        }
+      })
+  }
+
+  _setOptions() {
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(option => {
+        const hasAngularAttribute = Array
+          .from(option.attributes)
+          .some(attribute => attribute.name.startsWith('ng-'))
+
+        if (!hasAngularAttribute) {
+          this.addOption(option)
+        }
+      })
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // console.log(mutation)
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+        if (addOption) {
+          this.addOption(addedNode)
+        }
+
+        if (removeOption) {
+          this.removeOption(removedNode)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
+
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
+      }
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
+  }
+
+  addOption(value) {
+    const option = document.createElement('div')
+    option.classList.add('option')
+    option.innerHTML = value.textContent
+
+    option.innerHTML = value.textContent
+      .split('')
+      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+      .join('')
+
+    if (value.hasAttribute('value')) {
+      option.setAttribute('value', value.getAttribute('value'))
+    }
+
+    this.menu.appendChild(option)
+
+    if (this.actionSheet) {
+      const actionSheetOption = document.createElement('div')
+      actionSheetOption.classList.add('option')
+      actionSheetOption.textContent = option.textContent
+      this.actionSheet.menu.appendChild(actionSheetOption)
+    }
+  }
+
+  removeOption(value) {
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .find(option => option.textContent === value.textContent)
+
+    if (option) {
+      this.menu.removeChild(option)
+    }
+
+    if (this.actionSheet) {
+      const actionSheetOption = Array
+        .from(this.actionSheet.menu.querySelectorAll('.option'))
+        .find(option => option.textContent === value.textContent)
+
+      if (actionSheetOption) {
+        this.actionSheet.menu.removeChild(actionSheetOption)
+      }
+    }
   }
 
   _setStyle() {
@@ -99,28 +220,6 @@ module.exports = class MnSelect extends MnInput {
     const menu = document.createElement('menu')
     menu.classList.add('mn-card')
 
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        if (!this.closest('[ng-app]')) {
-          option.innerHTML = child.textContent
-            .split('')
-            .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-            .join('')
-        }
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
     this.appendChild(menu)
     this.menu = menu
   }
@@ -128,13 +227,6 @@ module.exports = class MnSelect extends MnInput {
   _setActionSheet() {
     if (screen.width < 768) {
       const actionSheet = new MnActionSheet()
-      Array
-        .from(this.querySelectorAll('.option'))
-        .forEach(option => {
-          const actionSheetOption = document.createElement('option')
-          actionSheetOption.textContent = option.textContent
-          actionSheet.appendChild(actionSheetOption)
-        })
       this.actionSheet = actionSheet
       this.actionSheet.addEventListener('change', (event) => {
         const {index} = event.data
@@ -144,33 +236,6 @@ module.exports = class MnSelect extends MnInput {
       })
       document.body.appendChild(this.actionSheet)
     }
-  }
-
-  _setOptions() {
-    document.addEventListener('mousedown', (event) => {
-      const isOption = event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        event.stopPropagation()
-        event.preventDefault()
-
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.input.blur()
-      }
-    })
-
-    document.addEventListener('mousemove', (event) => {
-      const isOption = event.target.classList && event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        if (!this.keyboardNavigation) {
-          this.focusOption(event.target)
-        }
-      }
-    })
   }
 
   _setKeyboardNavigation() {

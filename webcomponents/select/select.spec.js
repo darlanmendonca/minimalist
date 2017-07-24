@@ -104,6 +104,8 @@ describe('mn-select (webcomponent)', () => {
 
     it('should be a string when set by option value', () => {
       select.setProperty('value', 'stark')
+
+      console.log(component.value, component.input.value)
       expect(component).to.have.value('stark')
       expect(component.input).to.have.value('Stark')
     })
