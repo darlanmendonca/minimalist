@@ -543,7 +543,7 @@ describe('mn-input (directive)', () => {
 function loadComponent() {
   // require('minimalist').input
   require('./input.directive.js')
-  require('../select/select.directive.js')
+  // require('../select/select.directive.js')
 }
 
 function createMnInput(done) {
