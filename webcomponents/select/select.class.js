@@ -120,6 +120,11 @@ module.exports = class MnSelect extends MnInput {
     const option = document.createElement('div')
     option.classList.add('option')
     option.innerHTML = value.textContent
+    const focusedOption = this.menu.querySelector('.option.focus')
+
+    if (!focusedOption) {
+      option.classList.add('focus')
+    }
 
     option.innerHTML = value.textContent
       .split('')
@@ -383,6 +388,10 @@ module.exports = class MnSelect extends MnInput {
       this.input.value = ''
       this.input.dispatchEvent(new Event('change'))
     }
+  }
+
+  get filter() {
+    return this.input.value
   }
 
   set filter(value) {

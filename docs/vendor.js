@@ -2041,6 +2041,11 @@ module.exports = class MnSelect extends MnInput {
     const option = document.createElement('div')
     option.classList.add('option')
     option.innerHTML = value.textContent
+    const focusedOption = this.menu.querySelector('.option.focus')
+
+    if (!focusedOption) {
+      option.classList.add('focus')
+    }
 
     option.innerHTML = value.textContent
       .split('')
@@ -2306,6 +2311,10 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 
+  get filter() {
+    return this.input.value
+  }
+
   set filter(value) {
     if (value) {
       this.classList.add('filtered')
@@ -2490,8 +2499,6 @@ function MnSidenavCustomElement() {
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// fetch('http://localhost:4000/houses').then(res => res.json()).then(res => console.log(res))
-
 const MnSelect = __webpack_require__(32)
 
 module.exports = class MnPassword extends MnSelect {
@@ -2511,6 +2518,19 @@ module.exports = class MnPassword extends MnSelect {
 
   _setInput() {
     super._setInput()
+
+    this.input.addEventListener('input', () => {
+      const event = new Event('search')
+      event.query = this.input.value
+      this.dispatchEvent(event)
+    })
+  }
+
+  removeOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
   }
 }
 

@@ -8,15 +8,33 @@
 
   <body>
     <mn-form class="mn-layout-row">
-      <mn-autocomplete placeholder="House" id="house">
-        <!-- <option value="stark">Stark</option>
-        <option value="lannister">Lannister</option> -->
-      </mn-autocomplete>
+      <mn-autocomplete placeholder="House" id="house"></mn-autocomplete>
     </mn-form>
 
     <script src="/vendor.js"></script>
     <script>
       const autocomplete = document.querySelector('mn-autocomplete')
+
+      autocomplete.addEventListener('search', search)
+
+      function search(event) {
+        const {query} = event
+        fetch(`http://localhost:4000/houses?query=${query}`)
+          .then(res => res.json())
+          .then(update)
+          .then(() => {
+            this.filter = query
+          })
+      }
+
+      function update(options) {
+        autocomplete.removeOptions()
+        options.forEach((value) => {
+          const option = document.createElement('option')
+          option.textContent = value
+          autocomplete.appendChild(option)
+        })
+      }
     </script>
   </body>
 </html>
