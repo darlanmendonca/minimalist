@@ -438,7 +438,9 @@ module.exports = class MnSelect extends MnInput {
               option.classList.add('hidden')
             }
           })
-      } catch (error) {console.log(error)}
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       this.classList.remove('filtered')
       Array
