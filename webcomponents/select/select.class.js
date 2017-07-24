@@ -116,6 +116,17 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
+  createOption(text, value) {
+    const option = document.createElement('option')
+    option.textContent = text
+
+    if (value !== undefined) {
+      option.setAttribute('value', value)
+    }
+
+    this.appendChild(option)
+  }
+
   addOption(value) {
     const option = document.createElement('div')
     option.classList.add('option')
@@ -143,6 +154,8 @@ module.exports = class MnSelect extends MnInput {
       actionSheetOption.textContent = option.textContent
       this.actionSheet.menu.appendChild(actionSheetOption)
     }
+
+    this.filter = this.filter
   }
 
   removeOption(value) {
@@ -398,32 +411,34 @@ module.exports = class MnSelect extends MnInput {
     if (value) {
       this.classList.add('filtered')
 
-      Array
-        .from(this.menu.querySelectorAll('.option'))
-        .forEach(option => {
-          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+      try {
+        Array
+          .from(this.menu.querySelectorAll('.option'))
+          .forEach(option => {
+            const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
 
-          Array
-            .from(option.querySelectorAll('.match'))
-            .forEach(char => char.classList.remove('match'))
+            Array
+              .from(option.querySelectorAll('.match'))
+              .forEach(char => char.classList.remove('match'))
 
-          if (matchOption) {
-            option.classList.remove('hidden')
+            if (matchOption) {
+              option.classList.remove('hidden')
 
-            value
-              .split('')
-              .forEach(char => {
-                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
-                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
-                letter
-                  ? letter.classList.add('match')
-                  : null
-              })
+              value
+                .split('')
+                .forEach(char => {
+                  const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
+                  const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
+                  letter
+                    ? letter.classList.add('match')
+                    : null
+                })
 
-          } else {
-            option.classList.add('hidden')
-          }
-        })
+            } else {
+              option.classList.add('hidden')
+            }
+          })
+      } catch (error) {console.log(error)}
     } else {
       this.classList.remove('filtered')
       Array
