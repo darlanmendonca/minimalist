@@ -648,74 +648,8 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnCheckbox', MnCheckboxDirective)
-
-module.exports = MnCheckboxDirective
-
-function MnCheckboxDirective() {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element, attributes, ngModel) {
-      const component = element[0]
-      const input = component.input
-
-      if (!attributes.name) {
-        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
-        component.setAttribute('name', name)
-      }
-
-      ngModel.$validators = {}
-      input.addEventListener('change', setViewValue)
-
-      element.ready(() => {
-        component.ready = true
-        component.value = ngModel.$modelValue
-        ngModel.$setViewValue(component.value)
-        // scope.$watch(attributes.ngModel, setComponentValue)
-      })
-
-      scope.$on('$destroy', () => {
-        element.remove()
-      })
-
-      // function setComponentValue(value) {
-      //   component.value = value
-      // }
-
-      function setViewValue() {
-        ngModel.$setViewValue(component.value)
-      }
-    }
-  }
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global angular */
-
-angular.module('minimalist', [])
-
-module.exports = {
-  input: __webpack_require__(23),
-  select: __webpack_require__(33),
-  form: __webpack_require__(21),
-  checkbox: __webpack_require__(5),
-  radio: __webpack_require__(30),
-}
-
-
-/***/ }),
+/* 5 */,
+/* 6 */,
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -726,51 +660,7 @@ module.exports = __webpack_require__(9);
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(7)
-__webpack_require__(6)
-
-angular
-  .module('app', ['minimalist'])
-
-angular
-  .module('app')
-  .controller('HomeController', HomeController)
-
-angular
-  .module('app')
-  .directive('test', TestTranscludeDirective)
-
-function HomeController() {
-  this.house = 'Stark'
-
-  this.houses = [
-    'Stark',
-    'Lannister',
-    'Targaryen',
-  ]
-
-  this.remove = () => {
-    this.houses.pop()
-    console.log('removed house', this.houses)
-  }
-
-  this.add = () => {
-    this.houses.push('test')
-    console.log('added house', this.houses)
-  }
-}
-
-function TestTranscludeDirective() {
-  return {
-    restrict: 'E',
-    transclude: true,
-    template: `
-      <div>1 - wow</div>
-      <ng-transclude></ng-transclude>
-    `,
-    // controller: 'SearchController',
-    // controllerAs: 'searchController',
-  }
-}
+// require('../../angular.js')
 
 
 /***/ }),
@@ -783,14 +673,15 @@ module.exports = {
   password: __webpack_require__(28),
   number: __webpack_require__(26),
   date: __webpack_require__(15),
-  select: __webpack_require__(34),
+  select: __webpack_require__(33),
   actionSheet: __webpack_require__(3),
   form: __webpack_require__(22),
-  sidenav: __webpack_require__(36),
+  sidenav: __webpack_require__(35),
   checkbox: __webpack_require__(13),
   radio: __webpack_require__(31),
   dialog: __webpack_require__(17),
   button: __webpack_require__(12),
+  autocomplete: __webpack_require__(37),
 }
 
 
@@ -1526,28 +1417,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnForm', MnFormDirective)
-
-function MnFormDirective() {
-  return {
-    restrict: 'C',
-    link(scope, element, attributes) {
-      element.bind('submit', () => {
-        scope.$eval(attributes.submit)
-      })
-    }
-  }
-}
-
-
-/***/ }),
+/* 21 */,
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1569,67 +1439,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnInput', MnInputDirective)
-
-function MnInputDirective() {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element, attributes, ngModel) {
-      const component = element[0]
-      const input = component.input
-      const isSelect = component.classList.contains('mn-select')
-
-      if (!attributes.name) {
-        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
-        component.setAttribute('name', name)
-      }
-
-      ngModel.$validators = {}
-      input.addEventListener('change', setViewValue)
-      input.addEventListener('blur', setViewValue)
-      input.addEventListener('input', setViewValue)
-
-      element.ready(() => {
-        component.value = ngModel.$modelValue
-        ngModel.$setViewValue(component.value)
-        scope.$watch(attributes.ngModel, setComponentValue)
-
-      })
-
-      scope.$on('$destroy', () => {
-        element.remove()
-      })
-
-      function setComponentValue(value) {
-        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
-          component.value = value
-        }
-      }
-
-      function setViewValue(event) {
-        const activeElement = event.currentTarget === document.activeElement
-        const isDate = component.input.type === 'date'
-        const isNumber = component.classList.contains('mn-number')
-        const isBlur = event.type === 'blur'
-
-        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
-          ngModel.$setViewValue(component.value)
-        }
-      }
-    }
-  }
-}
-
-
-/***/ }),
+/* 23 */,
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2084,24 +1894,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnRadio', MnRadioDirective)
-
-module.exports = MnRadioDirective
-
-function MnRadioDirective() {
-  const MnCheckboxDirective = __webpack_require__(5)
-  return MnCheckboxDirective()
-}
-
-
-/***/ }),
+/* 30 */,
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2326,7 +2119,7 @@ module.exports = class MnSelect extends MnInput {
     })
 
     document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select') && event.target !== this
+      const clickOutside = !event.target.closest('.mn-select') && event.target !== this
 
       if (this.visible && clickOutside) {
         this.hide()
@@ -2555,72 +2348,6 @@ module.exports = class MnSelect extends MnInput {
 
 /***/ }),
 /* 33 */
-/***/ (function(module, exports) {
-
-/* //global angular */
-// angular
-//   .module('minimalist')
-//   .directive('mnSelect', MnSelectDirective)
-
-// function MnSelectDirective() {
-//   return {
-//     restrict: 'C',
-//     require: 'ngModel',
-//     link(scope, element) {
-//       const component = element[0]
-
-//       element.ready(() => {
-//         component._setOptions()
-//         component._setActionSheet()
-//       })
-//     }
-//   }
-// }
-
-// angular
-//   .module('minimalist')
-//   .directive('option', MnSelectOptionDirective)
-
-// function MnSelectOptionDirective() {
-//   return {
-//     restrict: 'C',
-//     link(scope, element) {
-//       const option = element[0]
-//       const isMnOption = option.closest('.mn-select')
-
-//       element.ready(() => {
-//         if (isMnOption) {
-//           const actionSheet = isMnOption.actionSheet
-//           option.innerHTML = option.textContent
-//             .split('')
-//             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-//             .join('')
-
-//           if (actionSheet) {
-//             let actionSheetOption = Array
-//               .from(actionSheet.menu.querySelectorAll('.option'))
-//               .filter(children => children.textContent === option.textContent)[0]
-
-//             if (!actionSheetOption) {
-//               actionSheetOption = document.createElement('div')
-//               actionSheetOption.classList.add('option')
-//               actionSheetOption.textContent = option.textContent
-//               actionSheet.menu.appendChild(actionSheetOption)
-//             }
-
-//             element.bind('$destroy', () => {
-//               actionSheet.menu.removeChild(actionSheetOption)
-//             })
-//           }
-//         }
-//       })
-//     }
-//   }
-// }
-
-
-/***/ }),
-/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2641,7 +2368,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2739,7 +2466,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -2752,10 +2479,60 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(35))
+    window.customElements.define('mn-sidenav', __webpack_require__(34))
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fetch('http://localhost:4000/houses').then(res => res.json()).then(res => console.log(res))
+
+const MnSelect = __webpack_require__(32)
+
+module.exports = class MnPassword extends MnSelect {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-autocomplete')
+  }
+
+  _setInput() {
+    super._setInput()
+  }
+}
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-autocomplete')) {
+    window.customElements.define('mn-autocomplete', __webpack_require__(36))
+  }
+
+  return window.customElements.get('mn-autocomplete')
 }
 
 

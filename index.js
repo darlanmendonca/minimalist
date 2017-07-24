@@ -12,4 +12,5 @@ module.exports = {
   radio: require('./webcomponents/radio/radio.webcomponent.js'),
   dialog: require('./webcomponents/dialog/dialog.webcomponent.js'),
   button: require('./webcomponents/button/button.webcomponent.js'),
+  autocomplete: require('./webcomponents/autocomplete/autocomplete.webcomponent.js'),
 }

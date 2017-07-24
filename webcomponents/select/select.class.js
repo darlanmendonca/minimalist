@@ -198,7 +198,7 @@ module.exports = class MnSelect extends MnInput {
     })
 
     document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select') && event.target !== this
+      const clickOutside = !event.target.closest('.mn-select') && event.target !== this
 
       if (this.visible && clickOutside) {
         this.hide()
