@@ -9,6 +9,7 @@
     "angular.js"
   ],
   "scripts": {
+    "prestart": "scripts/api",
     "start": "scripts/start",
     "lint": "scripts/lint",
     "pretest": "scripts/lint",
@@ -41,6 +42,7 @@
     "chai-things": "^0.2.0",
     "eslint": "^3.19.0",
     "eslint-config-mn-component": "^1.1.0",
+    "got-api": "git+https://github.com/darlanmendonca/got-api.git",
     "http-server": "^0.10.0",
     "karma": "^1.7.0",
     "karma-browserstack-launcher": "^1.2.0",
