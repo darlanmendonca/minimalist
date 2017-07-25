@@ -116,17 +116,6 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
-  createOption(text, value) {
-    const option = document.createElement('option')
-    option.textContent = text
-
-    if (value !== undefined) {
-      option.setAttribute('value', value)
-    }
-
-    this.appendChild(option)
-  }
-
   addOption(value) {
     const option = document.createElement('div')
     option.classList.add('option')

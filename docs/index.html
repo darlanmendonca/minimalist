@@ -26,7 +26,6 @@
       }
 
       function update(options) {
-        autocomplete.removeOptions()
         options.forEach((value) => {
           autocomplete.createOption(value, value.toLowerCase())
         })

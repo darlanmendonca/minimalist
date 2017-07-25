@@ -21,8 +21,20 @@ module.exports = class MnPassword extends MnSelect {
     this.input.addEventListener('input', () => {
       const event = new Event('search')
       event.query = this.input.value
+      this.removeOptions()
       this.dispatchEvent(event)
     })
+  }
+
+  createOption(text, value) {
+    const option = document.createElement('option')
+    option.textContent = text
+
+    if (value !== undefined) {
+      option.setAttribute('value', value)
+    }
+
+    this.appendChild(option)
   }
 
   removeOptions() {

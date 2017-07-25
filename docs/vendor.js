@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -405,7 +405,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(10))
+    window.customElements.define('mn-action-sheet', __webpack_require__(9))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -648,1275 +648,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(9);
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(7)
-// require('../../angular.js')
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(24),
-  email: __webpack_require__(19),
-  password: __webpack_require__(28),
-  number: __webpack_require__(26),
-  date: __webpack_require__(15),
-  select: __webpack_require__(33),
-  actionSheet: __webpack_require__(3),
-  form: __webpack_require__(22),
-  sidenav: __webpack_require__(35),
-  checkbox: __webpack_require__(13),
-  radio: __webpack_require__(31),
-  dialog: __webpack_require__(17),
-  button: __webpack_require__(12),
-  autocomplete: __webpack_require__(37),
-}
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnActionSheet extends HTMLElement {
-  constructor() {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setMenu()
-    this._setCancel()
-  }
-
-  static get observedAttributes() {
-    return []
-  }
-
-  attributeChangedCallback(name, old, value) {
-    if (this.parentNode) {
-      this[name] = value
-    }
-  }
-
-  _setStyle() {
-    this.classList.add('mn-action-sheet')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  _setMenu() {
-    const menu = document.createElement('menu')
-    menu.classList.add('mn-card')
-
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
-    document.addEventListener('click', event => {
-      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
-      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
-
-      if (isOption && index >= 0) {
-        const changeEvent = new Event('change')
-        changeEvent.data = {index}
-        this.dispatchEvent(changeEvent)
-      }
-    })
-
-    this.appendChild(menu)
-    this.menu = menu
-  }
-
-  _setCancel() {
-    const button = document.createElement('button')
-
-    button.addEventListener('click', () => {
-      this.hide()
-    })
-
-    document.addEventListener('touchmove', () => {
-      const clickOutside = event.target === this
-      this.touchmove = true
-      if (clickOutside) {
-        event.preventDefault()
-      }
-    })
-
-    document.addEventListener('touchend', (event) => {
-      const clickOutside = event.target === this && !this.touchmove
-      if (clickOutside) {
-        this.hide()
-      }
-      delete this.touchmove
-    })
-
-    this.button = button
-    this.appendChild(this.button)
-  }
-
-  show() {
-    this.menu.scrollTop = 0
-    this.classList.add('visible')
-    document.body.classList.add('mn-backdrop-visible')
-    document.body.classList.add('mn-action-sheet-visible')
-  }
-
-  hide() {
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-    document.body.classList.remove('mn-action-sheet-visible')
-  }
-}
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnButton extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setButton()
-  }
-
-  setStyle() {
-    this.classList.add('mn-button')
-  }
-
-  setButton() {
-    this.setAttribute('tabindex', '0')
-    this.addEventListener('click', () => this.blur())
-
-    document.addEventListener('keyup', (event) => {
-      if (event.target === this && event.key === 'Enter') {
-        this.click()
-      }
-    })
-  }
-}
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSidenavCustomElement()
-
-function MnSidenavCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(11))
-  }
-
-  return window.customElements.get('mn-button')
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnCheckboxCustomElement()
-
-function MnCheckboxCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-checkbox')) {
-    window.customElements.define('mn-checkbox', __webpack_require__(4))
-  }
-
-  return window.customElements.get('mn-checkbox')
-}
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnDate extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-date')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'date')
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate) {
-      this.input.setAttribute('type', 'text')
-      this.input.setAttribute('maxlength', 10)
-      this._setMask()
-    }
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
-    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
-    delete this.validations.pattern
-  }
-
-  _setMask() {
-    this.input.addEventListener('keydown', (event) => {
-      const isInputEditing = event.key === 'Backspace'
-        || this.input.selectionStart !== this.input.value.length
-
-      this.inputEditing = isInputEditing
-    })
-
-    this.input.addEventListener('input', () => {
-      if (!this.inputEditing) {
-        this.updateMask()
-      }
-
-      this.inputEditing = undefined
-    })
-
-    this.input.addEventListener('blur', () => {
-      this.updateMask()
-      const dateString = this.input.value
-        .split('/')
-        .reverse()
-        .join('-')
-
-      isValidDate(dateString)
-        ? this.updateMask()
-        : this.value = ''
-    })
-  }
-
-  updateMask() {
-    this.input.value = this.input.value
-      .replace(/[^\d\/]/, '') // disallow invalid chars
-      .replace(/[a-z]/ig, '') // disallow letters
-      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
-      .replace(/000(\d)$/g, '190$1') // disallow year 0
-      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
-      .replace(/\/{2}/g, '/') // disallow repeated /
-      .replace(/(^\/)/, '') // disallow / as first char
-      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
-      .replace(/^(\d)\//, '0$1/') // leading 0 day
-      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
-      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
-      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
-  }
-
-  get value() {
-    let date
-    try {
-      const isDateString = this.input.type === 'date'
-      const value = isDateString
-        ? this.input.value
-        : this.input.value
-          .split('/')
-          .reverse()
-          .join('-')
-
-      date = isValidDate(value)
-        ? newDate(value).toISOString()
-        : undefined
-    } catch (e) {}
-
-    return date
-      ? date
-      : undefined
-  }
-
-  set value(value = '') {
-    const validDate = typeof value === 'string'
-      && isValidDate(value)
-
-    value = value instanceof Date
-      ? value.toISOString().substring(0, 10)
-      : validDate
-        ? newDate(value)
-          .toISOString()
-          .substring(0, 10)
-        : ''
-
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate && validDate) {
-      const dateString = value.split('-')
-      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
-        .toLocaleString('pt-BR')
-        .substring(0, 10)
-    }
-
-    this.input.value = value
-    this.input.dispatchEvent(new Event('change'))
-  }
-}
-
-function isValidDate(dateString) {
-  const year = +dateString.split('-')[0]
-  const month = +dateString.split('-')[1]
-  const date = newDate(dateString)
-
-  return date.getFullYear() >= 1900
-    && date.getFullYear() === year
-    && date.getMonth() + 1 === month
-}
-
-function newDate(dateString) {
-  dateString = dateString || ''
-  const isString = typeof dateString === 'string'
-  dateString = dateString.replace(/T.+/, '')
-  dateString = isString && dateString.includes('/')
-    ? dateString
-      .split('/')
-      .reverse()
-      .join('-')
-    : dateString
-
-  dateString = dateString.split('-')
-
-  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
-  return date
-}
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDateCustomElement()
-
-function MnDateCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(14))
-  }
-
-  return window.customElements.get('mn-date')
-}
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnDialog extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setCard()
-    this.setButtonClose()
-    this.setOpenEvents()
-    this.setToggleEvents()
-    this.setCloseEvents()
-  }
-
-  setStyle() {
-    this.classList.add('mn-dialog')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  setCard() {
-    const card = document.createElement('div')
-    card.classList.add('mn-card')
-    card.innerHTML = this.innerHTML
-    this.innerHTML = ''
-    this.appendChild(card)
-    this.card = card
-  }
-
-  setButtonClose() {
-    const button = document.createElement('button')
-    button.classList.add('mn-button')
-    button.classList.add('action')
-    button.setAttribute('close-dialog', '')
-    const dialog = this.querySelector('.mn-card')
-    dialog.insertBefore(button, dialog.firstChild)
-  }
-
-  setOpenEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[open-dialog="${this.id}"]`)) {
-        this.open()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  setToggleEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[toggle-dialog="${this.id}"]`)) {
-        this.toggle()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  setCloseEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches('[close-dialog]')) {
-        this.close()
-        event.stopPropagation()
-      }
-    })
-
-    document.addEventListener('click', event => {
-      const dialogVisible = this.classList.contains('visible')
-      const clickOutside = event.target.matches('.mn-dialog')
-
-      if (dialogVisible && clickOutside) {
-        this.close()
-      }
-    })
-
-    document.addEventListener('keyup', event => {
-      const esc = event.key === 'Escape'
-      const isOpened = this.classList.contains('visible')
-
-      if (esc && isOpened) {
-        this.close()
-      }
-    })
-  }
-
-  open() {
-    const previousDialog = document.querySelector('.mn-dialog.visible')
-    if (previousDialog) {
-      previousDialog.classList.remove('visible')
-    }
-
-    this.classList.add('visible')
-    this.scrollTop = 0
-    document.body.classList.add('mn-dialog-visible')
-    document.body.classList.add('mn-backdrop-visible')
-  }
-
-  close() {
-    document.body.classList.remove('mn-dialog-visible')
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-  }
-
-  toggle() {
-    this.classList.toggle('visible')
-      ? this.open()
-      : this.close()
-  }
-}
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDialogCustomElement()
-
-function MnDialogCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(16))
-  }
-
-  return window.customElements.get('mn-dialog')
-}
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnEmail extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-    this.classList.add('mn-email')
-    this.input.setAttribute('type', 'email')
-    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
-    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
-  }
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnEmailCustomElement()
-
-function MnEmailCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(18))
-  }
-
-  return window.customElements.get('mn-email')
-}
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnForm extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setSubmit()
-    this.setReset()
-    this.setAttributeDisabled()
-    this.setAttributeReadonly()
-  }
-
-  static get observedAttributes() {
-    return [
-      'name',
-      'disabled',
-      'readonly',
-    ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
-  }
-
-  setStyle() {
-    this.classList.add('mn-form')
-  }
-
-  setSubmit() {
-    document.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-      const srcElementInsideForm = event.target.closest('mn-form')
-      if (enter && srcElementInsideForm) {
-        this.submit()
-      }
-    })
-
-    document.addEventListener('click', (event) => {
-      const isButtonSubmit = (event.target.matches('button[type="submit"]')
-        || event.target.matches('mn-button[submit]'))
-        && event.target.closest('mn-form') === this
-
-      if (isButtonSubmit) {
-        this.submit()
-      }
-    })
-  }
-
-  setReset() {
-    document.addEventListener('click', (event) => {
-      const isButtonSubmit = (event.target.matches('button[type="reset"]')
-        || event.target.matches('mn-button[reset]'))
-        && event.target.closest('mn-form') === this
-
-      if (isButtonSubmit) {
-        this.reset()
-      }
-    })
-  }
-
-  setAttributeDisabled() {
-    this.disabled = this.hasAttribute('disabled')
-  }
-
-  setAttributeReadonly() {
-    this.readonly = this.hasAttribute('readonly')
-  }
-
-  validate() {
-    this.inputs
-      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
-      .forEach(input => input.validate())
-
-    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
-    return isInvalid
-  }
-
-  reset() {
-    Object
-      .keys(this.data)
-      .forEach(name => {
-        this[name].value = this.defaults[name]
-      })
-  }
-
-  get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
-  }
-
-  get defaults() {
-    const defaults = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          defaults[name] = input.default
-        }
-      })
-
-    return defaults
-  }
-
-  get data() {
-    const data = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          data[name] = input.value
-        }
-      })
-
-    return data
-  }
-
-  set name(name) {
-    if (name && typeof name === 'string') {
-      window[name] = this
-    }
-  }
-
-  set disabled(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('disabled')
-          ? input.setAttribute('disabled', 'true')
-          : input.removeAttribute('disabled')
-      })
-  }
-
-  set readonly(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('readonly')
-          ? input.setAttribute('readonly', 'true')
-          : input.removeAttribute('readonly')
-      })
-  }
-
-  submit() {
-    this.classList.add('submitted')
-    const isValid = this.validate()
-    const event = new Event('submit')
-    event.data = this.data
-
-    if (isValid) {
-      this.dispatchEvent(event)
-    }
-  }
-}
-
-
-/***/ }),
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnFormCustomElement()
-
-function MnFormCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(20))
-  }
-
-  return window.customElements.get('mn-form')
-}
-
-
-/***/ }),
-/* 23 */,
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnInputCustomElement()
-
-function MnInputCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-input')) {
-    window.customElements.define('mn-input', __webpack_require__(1))
-  }
-
-  return window.customElements.get('mn-input')
-}
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnNumber extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    super._setInput()
-    this._setMask()
-    this._setMobileKeyboard()
-    this._setInputTransforms()
-    this._setInputKeys()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setAttributeMax()
-    this._setAttributeMin()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-number')
-  }
-
-  _setMask() {
-    this.mask = document.createElement('div')
-    this.mask.classList.add('mask')
-    this.appendChild(this.mask)
-
-    this.input.addEventListener('input', () => {
-      this.updateMask()
-    })
-  }
-
-  _setMobileKeyboard() {
-    this.input.setAttribute('pattern', '\\d*')
-  }
-
-  _setInputTransforms() {
-    this.input.addEventListener('change', () => {
-      try {
-        const value = eval(this.input.value.replace(/,/g, '.'))
-        value !== undefined
-          ? this.input.value = String(value).replace(/\./g, ',')
-          : null
-        const valueIsDefined = value !== undefined
-
-        if (valueIsDefined) {
-          const isCurrency = this.hasAttribute('currency')
-          const precision = this.getAttribute('precision') || 0
-
-          switch (true) {
-            case isCurrency:
-              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
-              break
-
-            default:
-              this.input.value = precision
-                ? value.toFixed(precision).replace(/\./g, ',')
-                : String(value).replace(/\./g, ',')
-              break
-          }
-        }
-      } catch (e) {
-        this.value = undefined
-      }
-
-      this.hasAttribute('percentage')
-        ? this.updateMask()
-        : null
-    })
-  }
-
-  _setInputKeys() {
-    this.input.addEventListener('keydown', (event) => {
-      if (!this.hasAttribute('readonly')) {
-        const step = this.hasAttribute('percentage')
-          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
-          : +this.getAttribute('step') || 1
-        const value = this.value || 0
-
-        switch (event.key) {
-          case 'ArrowUp':
-            this.value = value + step
-            break
-          case 'ArrowDown':
-            this.value = value - step
-            break
-        }
-
-        event.key === 'ArrowUp' || event.key === 'ArrowDown'
-          ? event.preventDefault()
-          : null
-      }
-    })
-  }
-
-  _setAttributeMax() {
-    this.max = this.getAttribute('max')
-  }
-
-  _setAttributeMin() {
-    this.min = this.getAttribute('min')
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    this.validations.min = () => this.value < this.getAttribute('min')
-    this.validations.max = () => this.value > this.getAttribute('max')
-    delete this.validations.pattern
-  }
-
-  get value() {
-    const isUndefined = this.input.value === ''
-    const numberString = this.input.value.replace(/,/g, '.')
-
-    const val = isUndefined
-      ? undefined
-      : this.hasAttribute('percentage')
-        ? (numberString * 100) / 10000
-        : parseFloat(numberString)
-
-    return val
-  }
-
-  set value(value = '') {
-    if (this.input) {
-      try {
-        value = eval(String(value).replace(/,/g, '.'))
-        const differentValue = this.input.value !== value
-
-        if (value !== undefined && differentValue) {
-          value = this.hasAttribute('percentage')
-            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
-            : value
-          this.input.value = value
-        } else {
-          this.input.value = ''
-        }
-
-      } catch (e) {
-        this.input.value = ''
-      }
-
-      this.input.dispatchEvent(new Event('change'))
-      this.input.dispatchEvent(new Event('input'))
-    }
-  }
-
-  set max(value) {
-    if (this.label) {
-      this.hasAttribute('max')
-        ? this.label.setAttribute('max', value)
-        : this.label.removeAttribute('max')
-    }
-  }
-
-  set min(value) {
-    if (this.label) {
-      this.hasAttribute('min')
-        ? this.label.setAttribute('min', value)
-        : this.label.removeAttribute('min')
-    }
-  }
-
-  updateMask() {
-    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
-  }
-}
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnNumberCustomElement()
-
-function MnNumberCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(25))
-  }
-
-  return window.customElements.get('mn-number')
-}
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    this._setVisibilityButton()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-password')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'password')
-  }
-
-  _setVisibilityButton() {
-    const button = document.createElement('button')
-    button.setAttribute('type', 'button')
-    button.setAttribute('tabindex', '-1')
-
-    this.appendChild(button)
-    this.button = button
-    this.input.addEventListener('blur', () => {
-      this.input.setAttribute('type', 'password')
-      this.classList.remove('show-password')
-      this.input.dispatchEvent(new Event('change'))
-    })
-
-    button.addEventListener('mousedown', event => {
-      event.preventDefault()
-    })
-
-    button.addEventListener('click', () => {
-      const toggledType = this.input.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password'
-      this.input.setAttribute('type', toggledType)
-      this.classList.toggle('show-password')
-      this.input.focus()
-    })
-  }
-}
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnPasswordCustomElement()
-
-function MnPasswordCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(27))
-  }
-
-  return window.customElements.get('mn-password')
-}
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnCheckbox = __webpack_require__(4)
-const evaluate = __webpack_require__(2)
-
-module.exports = class MnRadio extends MnCheckbox {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    super._setLabel()
-    this._setInput()
-    this._setCustomInput()
-    this._setForm()
-    this.checked = this.hasAttribute('checked')
-    this.disabled = this.hasAttribute('disabled')
-    this.readonly = this.hasAttribute('readonly')
-    this.name = this.hasAttribute('name')
-    this._setValidations()
-  }
-
-  _setStyle() {
-    this.classList.add('mn-radio')
-    this.classList.add('mn-option')
-  }
-
-  _setInput() {
-    this.input = document.createElement('input')
-    this.input.setAttribute('type', 'radio')
-    this.label.appendChild(this.input)
-
-    this.input.addEventListener('change', (event) => {
-      this.checked
-        ? this.setAttribute('checked', '')
-        : this.removeAttribute('checked')
-
-      this.options.forEach(option => {
-        if (option !== event.target.closest('mn-radio')) {
-          option.removeAttribute('checked')
-          option.input.checked = false
-        }
-
-        option.form && option.form.classList && option.form.classList.contains('submitted')
-          ? option.validate()
-          : null
-      })
-    })
-  }
-
-  _setCustomInput() {
-    const input = document.createElement('div')
-    input.classList.add('input')
-
-    this.label.appendChild(input)
-  }
-
-  _setValidations() {
-    this.validations = {
-      required: () => !this.value,
-    }
-  }
-
-  get options() {
-    const name = this.getAttribute('name')
-      ? `[name="${this.getAttribute('name')}"]`
-      : ':not([name])'
-
-    return Array.from(this.form.querySelectorAll(`.mn-radio${name}`))
-  }
-
-  get value() {
-    const value = this
-      .options
-      .filter(option => option.checked)
-      .map(option => option.hasAttribute('value')
-        ? evaluate(option.getAttribute('value'))
-        : option.getAttribute('placeholder')
-      )
-
-    return value[0]
-  }
-
-  set value(value) {
-    this.options.forEach(option => {
-      option.checked = false
-    })
-
-    const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
-
-    if (option) {
-      option.checked = true
-    }
-  }
-}
-
-
-/***/ }),
-/* 30 */,
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnRadioCustomElement()
-
-function MnRadioCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(29))
-  }
-
-  return window.customElements.get('mn-radio')
-}
-
-
-/***/ }),
-/* 32 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2035,17 +767,6 @@ module.exports = class MnSelect extends MnInput {
         }
       }
     })
-  }
-
-  createOption(text, value) {
-    const option = document.createElement('option')
-    option.textContent = text
-
-    if (value !== undefined) {
-      option.setAttribute('value', value)
-    }
-
-    this.appendChild(option)
   }
 
   addOption(value) {
@@ -2373,7 +1094,1343 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 33 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(8);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(6)
+// require('../../angular.js')
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  input: __webpack_require__(23),
+  email: __webpack_require__(20),
+  password: __webpack_require__(27),
+  number: __webpack_require__(25),
+  date: __webpack_require__(16),
+  select: __webpack_require__(30),
+  actionSheet: __webpack_require__(3),
+  form: __webpack_require__(22),
+  sidenav: __webpack_require__(32),
+  checkbox: __webpack_require__(14),
+  radio: __webpack_require__(29),
+  dialog: __webpack_require__(18),
+  button: __webpack_require__(13),
+  autocomplete: __webpack_require__(11),
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnActionSheet extends HTMLElement {
+  constructor() {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setMenu()
+    this._setCancel()
+  }
+
+  static get observedAttributes() {
+    return []
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode) {
+      this[name] = value
+    }
+  }
+
+  _setStyle() {
+    this.classList.add('mn-action-sheet')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        child.parentNode.removeChild(child)
+        menu.appendChild(option)
+      })
+
+    document.addEventListener('click', event => {
+      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
+      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
+
+      if (isOption && index >= 0) {
+        const changeEvent = new Event('change')
+        changeEvent.data = {index}
+        this.dispatchEvent(changeEvent)
+      }
+    })
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  _setCancel() {
+    const button = document.createElement('button')
+
+    button.addEventListener('click', () => {
+      this.hide()
+    })
+
+    document.addEventListener('touchmove', () => {
+      const clickOutside = event.target === this
+      this.touchmove = true
+      if (clickOutside) {
+        event.preventDefault()
+      }
+    })
+
+    document.addEventListener('touchend', (event) => {
+      const clickOutside = event.target === this && !this.touchmove
+      if (clickOutside) {
+        this.hide()
+      }
+      delete this.touchmove
+    })
+
+    this.button = button
+    this.appendChild(this.button)
+  }
+
+  show() {
+    this.menu.scrollTop = 0
+    this.classList.add('visible')
+    document.body.classList.add('mn-backdrop-visible')
+    document.body.classList.add('mn-action-sheet-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+    document.body.classList.remove('mn-action-sheet-visible')
+  }
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnSelect = __webpack_require__(5)
+
+module.exports = class MnPassword extends MnSelect {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-autocomplete')
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('input', () => {
+      const event = new Event('search')
+      event.query = this.input.value
+      this.removeOptions()
+      this.dispatchEvent(event)
+    })
+  }
+
+  createOption(text, value) {
+    const option = document.createElement('option')
+    option.textContent = text
+
+    if (value !== undefined) {
+      option.setAttribute('value', value)
+    }
+
+    this.appendChild(option)
+  }
+
+  removeOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+}
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-autocomplete')) {
+    window.customElements.define('mn-autocomplete', __webpack_require__(10))
+  }
+
+  return window.customElements.get('mn-autocomplete')
+}
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnButton extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setButton()
+  }
+
+  setStyle() {
+    this.classList.add('mn-button')
+  }
+
+  setButton() {
+    this.setAttribute('tabindex', '0')
+    this.addEventListener('click', () => this.blur())
+
+    document.addEventListener('keyup', (event) => {
+      if (event.target === this && event.key === 'Enter') {
+        this.click()
+      }
+    })
+  }
+}
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSidenavCustomElement()
+
+function MnSidenavCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-button')) {
+    window.customElements.define('mn-button', __webpack_require__(12))
+  }
+
+  return window.customElements.get('mn-button')
+}
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnCheckboxCustomElement()
+
+function MnCheckboxCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-checkbox')) {
+    window.customElements.define('mn-checkbox', __webpack_require__(4))
+  }
+
+  return window.customElements.get('mn-checkbox')
+}
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnDate extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-date')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'date')
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate) {
+      this.input.setAttribute('type', 'text')
+      this.input.setAttribute('maxlength', 10)
+      this._setMask()
+    }
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
+    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
+    delete this.validations.pattern
+  }
+
+  _setMask() {
+    this.input.addEventListener('keydown', (event) => {
+      const isInputEditing = event.key === 'Backspace'
+        || this.input.selectionStart !== this.input.value.length
+
+      this.inputEditing = isInputEditing
+    })
+
+    this.input.addEventListener('input', () => {
+      if (!this.inputEditing) {
+        this.updateMask()
+      }
+
+      this.inputEditing = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      this.updateMask()
+      const dateString = this.input.value
+        .split('/')
+        .reverse()
+        .join('-')
+
+      isValidDate(dateString)
+        ? this.updateMask()
+        : this.value = ''
+    })
+  }
+
+  updateMask() {
+    this.input.value = this.input.value
+      .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/[a-z]/ig, '') // disallow letters
+      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
+      .replace(/000(\d)$/g, '190$1') // disallow year 0
+      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
+      .replace(/\/{2}/g, '/') // disallow repeated /
+      .replace(/(^\/)/, '') // disallow / as first char
+      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
+      .replace(/^(\d)\//, '0$1/') // leading 0 day
+      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
+      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
+      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
+  }
+
+  get value() {
+    let date
+    try {
+      const isDateString = this.input.type === 'date'
+      const value = isDateString
+        ? this.input.value
+        : this.input.value
+          .split('/')
+          .reverse()
+          .join('-')
+
+      date = isValidDate(value)
+        ? newDate(value).toISOString()
+        : undefined
+    } catch (e) {}
+
+    return date
+      ? date
+      : undefined
+  }
+
+  set value(value = '') {
+    const validDate = typeof value === 'string'
+      && isValidDate(value)
+
+    value = value instanceof Date
+      ? value.toISOString().substring(0, 10)
+      : validDate
+        ? newDate(value)
+          .toISOString()
+          .substring(0, 10)
+        : ''
+
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate && validDate) {
+      const dateString = value.split('-')
+      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
+        .toLocaleString('pt-BR')
+        .substring(0, 10)
+    }
+
+    this.input.value = value
+    this.input.dispatchEvent(new Event('change'))
+  }
+}
+
+function isValidDate(dateString) {
+  const year = +dateString.split('-')[0]
+  const month = +dateString.split('-')[1]
+  const date = newDate(dateString)
+
+  return date.getFullYear() >= 1900
+    && date.getFullYear() === year
+    && date.getMonth() + 1 === month
+}
+
+function newDate(dateString) {
+  dateString = dateString || ''
+  const isString = typeof dateString === 'string'
+  dateString = dateString.replace(/T.+/, '')
+  dateString = isString && dateString.includes('/')
+    ? dateString
+      .split('/')
+      .reverse()
+      .join('-')
+    : dateString
+
+  dateString = dateString.split('-')
+
+  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
+  return date
+}
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDateCustomElement()
+
+function MnDateCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-date')) {
+    window.customElements.define('mn-date', __webpack_require__(15))
+  }
+
+  return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnDialog extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setCard()
+    this.setButtonClose()
+    this.setOpenEvents()
+    this.setToggleEvents()
+    this.setCloseEvents()
+  }
+
+  setStyle() {
+    this.classList.add('mn-dialog')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  setCard() {
+    const card = document.createElement('div')
+    card.classList.add('mn-card')
+    card.innerHTML = this.innerHTML
+    this.innerHTML = ''
+    this.appendChild(card)
+    this.card = card
+  }
+
+  setButtonClose() {
+    const button = document.createElement('button')
+    button.classList.add('mn-button')
+    button.classList.add('action')
+    button.setAttribute('close-dialog', '')
+    const dialog = this.querySelector('.mn-card')
+    dialog.insertBefore(button, dialog.firstChild)
+  }
+
+  setOpenEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[open-dialog="${this.id}"]`)) {
+        this.open()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  setToggleEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[toggle-dialog="${this.id}"]`)) {
+        this.toggle()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  setCloseEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches('[close-dialog]')) {
+        this.close()
+        event.stopPropagation()
+      }
+    })
+
+    document.addEventListener('click', event => {
+      const dialogVisible = this.classList.contains('visible')
+      const clickOutside = event.target.matches('.mn-dialog')
+
+      if (dialogVisible && clickOutside) {
+        this.close()
+      }
+    })
+
+    document.addEventListener('keyup', event => {
+      const esc = event.key === 'Escape'
+      const isOpened = this.classList.contains('visible')
+
+      if (esc && isOpened) {
+        this.close()
+      }
+    })
+  }
+
+  open() {
+    const previousDialog = document.querySelector('.mn-dialog.visible')
+    if (previousDialog) {
+      previousDialog.classList.remove('visible')
+    }
+
+    this.classList.add('visible')
+    this.scrollTop = 0
+    document.body.classList.add('mn-dialog-visible')
+    document.body.classList.add('mn-backdrop-visible')
+  }
+
+  close() {
+    document.body.classList.remove('mn-dialog-visible')
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+  }
+
+  toggle() {
+    this.classList.toggle('visible')
+      ? this.open()
+      : this.close()
+  }
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDialogCustomElement()
+
+function MnDialogCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-dialog')) {
+    window.customElements.define('mn-dialog', __webpack_require__(17))
+  }
+
+  return window.customElements.get('mn-dialog')
+}
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnEmail extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.classList.add('mn-email')
+    this.input.setAttribute('type', 'email')
+    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
+    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
+  }
+}
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnEmailCustomElement()
+
+function MnEmailCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-email')) {
+    window.customElements.define('mn-email', __webpack_require__(19))
+  }
+
+  return window.customElements.get('mn-email')
+}
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnForm extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setSubmit()
+    this.setReset()
+    this.setAttributeDisabled()
+    this.setAttributeReadonly()
+  }
+
+  static get observedAttributes() {
+    return [
+      'name',
+      'disabled',
+      'readonly',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    this[name] = value
+  }
+
+  setStyle() {
+    this.classList.add('mn-form')
+  }
+
+  setSubmit() {
+    document.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+      const srcElementInsideForm = event.target.closest('mn-form')
+      if (enter && srcElementInsideForm) {
+        this.submit()
+      }
+    })
+
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="submit"]')
+        || event.target.matches('mn-button[submit]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.submit()
+      }
+    })
+  }
+
+  setReset() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="reset"]')
+        || event.target.matches('mn-button[reset]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.reset()
+      }
+    })
+  }
+
+  setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
+  validate() {
+    this.inputs
+      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
+      .forEach(input => input.validate())
+
+    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    return isInvalid
+  }
+
+  reset() {
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = this.defaults[name]
+      })
+  }
+
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
+  }
+
+  get defaults() {
+    const defaults = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          defaults[name] = input.default
+        }
+      })
+
+    return defaults
+  }
+
+  get data() {
+    const data = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          data[name] = input.value
+        }
+      })
+
+    return data
+  }
+
+  set name(name) {
+    if (name && typeof name === 'string') {
+      window[name] = this
+    }
+  }
+
+  set disabled(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('disabled')
+          ? input.setAttribute('disabled', 'true')
+          : input.removeAttribute('disabled')
+      })
+  }
+
+  set readonly(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('readonly')
+          ? input.setAttribute('readonly', 'true')
+          : input.removeAttribute('readonly')
+      })
+  }
+
+  submit() {
+    this.classList.add('submitted')
+    const isValid = this.validate()
+    const event = new Event('submit')
+    event.data = this.data
+
+    if (isValid) {
+      this.dispatchEvent(event)
+    }
+  }
+}
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnFormCustomElement()
+
+function MnFormCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-form')) {
+    window.customElements.define('mn-form', __webpack_require__(21))
+  }
+
+  return window.customElements.get('mn-form')
+}
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnInputCustomElement()
+
+function MnInputCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-input')) {
+    window.customElements.define('mn-input', __webpack_require__(1))
+  }
+
+  return window.customElements.get('mn-input')
+}
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnNumber extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setInput()
+    this._setMask()
+    this._setMobileKeyboard()
+    this._setInputTransforms()
+    this._setInputKeys()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setAttributeMax()
+    this._setAttributeMin()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-number')
+  }
+
+  _setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.input.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
+  _setMobileKeyboard() {
+    this.input.setAttribute('pattern', '\\d*')
+  }
+
+  _setInputTransforms() {
+    this.input.addEventListener('change', () => {
+      try {
+        const value = eval(this.input.value.replace(/,/g, '.'))
+        value !== undefined
+          ? this.input.value = String(value).replace(/\./g, ',')
+          : null
+        const valueIsDefined = value !== undefined
+
+        if (valueIsDefined) {
+          const isCurrency = this.hasAttribute('currency')
+          const precision = this.getAttribute('precision') || 0
+
+          switch (true) {
+            case isCurrency:
+              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+              break
+
+            default:
+              this.input.value = precision
+                ? value.toFixed(precision).replace(/\./g, ',')
+                : String(value).replace(/\./g, ',')
+              break
+          }
+        }
+      } catch (e) {
+        this.value = undefined
+      }
+
+      this.hasAttribute('percentage')
+        ? this.updateMask()
+        : null
+    })
+  }
+
+  _setInputKeys() {
+    this.input.addEventListener('keydown', (event) => {
+      if (!this.hasAttribute('readonly')) {
+        const step = this.hasAttribute('percentage')
+          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
+          : +this.getAttribute('step') || 1
+        const value = this.value || 0
+
+        switch (event.key) {
+          case 'ArrowUp':
+            this.value = value + step
+            break
+          case 'ArrowDown':
+            this.value = value - step
+            break
+        }
+
+        event.key === 'ArrowUp' || event.key === 'ArrowDown'
+          ? event.preventDefault()
+          : null
+      }
+    })
+  }
+
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
+  }
+
+  get value() {
+    const isUndefined = this.input.value === ''
+    const numberString = this.input.value.replace(/,/g, '.')
+
+    const val = isUndefined
+      ? undefined
+      : this.hasAttribute('percentage')
+        ? (numberString * 100) / 10000
+        : parseFloat(numberString)
+
+    return val
+  }
+
+  set value(value = '') {
+    if (this.input) {
+      try {
+        value = eval(String(value).replace(/,/g, '.'))
+        const differentValue = this.input.value !== value
+
+        if (value !== undefined && differentValue) {
+          value = this.hasAttribute('percentage')
+            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
+            : value
+          this.input.value = value
+        } else {
+          this.input.value = ''
+        }
+
+      } catch (e) {
+        this.input.value = ''
+      }
+
+      this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
+    }
+  }
+
+  set max(value) {
+    if (this.label) {
+      this.hasAttribute('max')
+        ? this.label.setAttribute('max', value)
+        : this.label.removeAttribute('max')
+    }
+  }
+
+  set min(value) {
+    if (this.label) {
+      this.hasAttribute('min')
+        ? this.label.setAttribute('min', value)
+        : this.label.removeAttribute('min')
+    }
+  }
+
+  updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+  }
+}
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnNumberCustomElement()
+
+function MnNumberCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-number')) {
+    window.customElements.define('mn-number', __webpack_require__(24))
+  }
+
+  return window.customElements.get('mn-number')
+}
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'password')
+  }
+
+  _setVisibilityButton() {
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
+    button.setAttribute('tabindex', '-1')
+
+    this.appendChild(button)
+    this.button = button
+    this.input.addEventListener('blur', () => {
+      this.input.setAttribute('type', 'password')
+      this.classList.remove('show-password')
+      this.input.dispatchEvent(new Event('change'))
+    })
+
+    button.addEventListener('mousedown', event => {
+      event.preventDefault()
+    })
+
+    button.addEventListener('click', () => {
+      const toggledType = this.input.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password'
+      this.input.setAttribute('type', toggledType)
+      this.classList.toggle('show-password')
+      this.input.focus()
+    })
+  }
+}
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-password')) {
+    window.customElements.define('mn-password', __webpack_require__(26))
+  }
+
+  return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnCheckbox = __webpack_require__(4)
+const evaluate = __webpack_require__(2)
+
+module.exports = class MnRadio extends MnCheckbox {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setLabel()
+    this._setInput()
+    this._setCustomInput()
+    this._setForm()
+    this.checked = this.hasAttribute('checked')
+    this.disabled = this.hasAttribute('disabled')
+    this.readonly = this.hasAttribute('readonly')
+    this.name = this.hasAttribute('name')
+    this._setValidations()
+  }
+
+  _setStyle() {
+    this.classList.add('mn-radio')
+    this.classList.add('mn-option')
+  }
+
+  _setInput() {
+    this.input = document.createElement('input')
+    this.input.setAttribute('type', 'radio')
+    this.label.appendChild(this.input)
+
+    this.input.addEventListener('change', (event) => {
+      this.checked
+        ? this.setAttribute('checked', '')
+        : this.removeAttribute('checked')
+
+      this.options.forEach(option => {
+        if (option !== event.target.closest('mn-radio')) {
+          option.removeAttribute('checked')
+          option.input.checked = false
+        }
+
+        option.form && option.form.classList && option.form.classList.contains('submitted')
+          ? option.validate()
+          : null
+      })
+    })
+  }
+
+  _setCustomInput() {
+    const input = document.createElement('div')
+    input.classList.add('input')
+
+    this.label.appendChild(input)
+  }
+
+  _setValidations() {
+    this.validations = {
+      required: () => !this.value,
+    }
+  }
+
+  get options() {
+    const name = this.getAttribute('name')
+      ? `[name="${this.getAttribute('name')}"]`
+      : ':not([name])'
+
+    return Array.from(this.form.querySelectorAll(`.mn-radio${name}`))
+  }
+
+  get value() {
+    const value = this
+      .options
+      .filter(option => option.checked)
+      .map(option => option.hasAttribute('value')
+        ? evaluate(option.getAttribute('value'))
+        : option.getAttribute('placeholder')
+      )
+
+    return value[0]
+  }
+
+  set value(value) {
+    this.options.forEach(option => {
+      option.checked = false
+    })
+
+    const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
+
+    if (option) {
+      option.checked = true
+    }
+  }
+}
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnRadioCustomElement()
+
+function MnRadioCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-radio')) {
+    window.customElements.define('mn-radio', __webpack_require__(28))
+  }
+
+  return window.customElements.get('mn-radio')
+}
+
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2386,7 +2443,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(32))
+    window.customElements.define('mn-select', __webpack_require__(5))
   }
 
   return window.customElements.get('mn-select')
@@ -2394,7 +2451,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 34 */
+/* 31 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2492,7 +2549,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 35 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -2505,71 +2562,10 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(34))
+    window.customElements.define('mn-sidenav', __webpack_require__(31))
   }
 
   return window.customElements.get('mn-sidenav')
-}
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnSelect = __webpack_require__(32)
-
-module.exports = class MnPassword extends MnSelect {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-autocomplete')
-  }
-
-  _setInput() {
-    super._setInput()
-
-    this.input.addEventListener('input', () => {
-      const event = new Event('search')
-      event.query = this.input.value
-      this.dispatchEvent(event)
-    })
-  }
-
-  removeOptions() {
-    const options = this.querySelectorAll('option')
-    Array
-      .from(options)
-      .forEach(option => this.removeChild(option))
-  }
-}
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-autocomplete')) {
-    window.customElements.define('mn-autocomplete', __webpack_require__(36))
-  }
-
-  return window.customElements.get('mn-autocomplete')
 }
 
 
