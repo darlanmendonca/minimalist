@@ -2,14 +2,27 @@
   <head>
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js"></script>
     <link rel="stylesheet" href="/vendor.css" />
   </head>
 
   <body>
-    <mn-form class="mn-layout-row">
-      <mn-autocomplete placeholder="House" id="house"></mn-autocomplete>
-    </mn-form>
+    <section>
+      <h2>vanilla</h2>
+      <mn-form class="mn-layout-row">
+        <mn-autocomplete placeholder="House" required></mn-autocomplete>
+        <mn-button submit>submit</mn-button>
+      </mn-form>
+    </section>
+
+    <section ng-app="app" ng-controller="HomeController as controller">
+      <h2>angular</h2>
+      <mn-form class="mn-layout-row">
+        <mn-autocomplete placeholder="House" required ng-model="controller.house"></mn-autocomplete>
+        <mn-button submit>submit</mn-button>
+      </mn-form>
+    </section>
 
     <script src="/vendor.js"></script>
     <script>

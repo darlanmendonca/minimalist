@@ -1104,7 +1104,43 @@ module.exports = __webpack_require__(8);
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(6)
-// require('../../angular.js')
+__webpack_require__(34)
+
+
+angular.module('app', [
+  'minimalist',
+  'ngResource',
+])
+
+angular
+  .module('app')
+  .run(run)
+
+angular
+  .module('app')
+  .controller('HomeController', HomeController)
+
+angular
+  .module('app')
+  .service('Houses', HousesService)
+
+function run(MnAutocomplete, Houses) {
+  MnAutocomplete.addService('house', Houses.list)
+}
+
+function HomeController() {
+  this.test = 'test string'
+}
+
+function HousesService($resource) {
+  const service =  $resource('http://localhost:4000/houses')
+
+  this.list = list
+
+  function list(params = {}) {
+    return service.query(params).$promise
+  }
+}
 
 
 /***/ }),
@@ -2582,6 +2618,229 @@ function MnSidenavCustomElement() {
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnCheckbox', MnCheckboxDirective)
+
+module.exports = MnCheckboxDirective
+
+function MnCheckboxDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+
+      element.ready(() => {
+        component.ready = true
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        // scope.$watch(attributes.ngModel, setComponentValue)
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      // function setComponentValue(value) {
+      //   component.value = value
+      // }
+
+      function setViewValue() {
+        ngModel.$setViewValue(component.value)
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular.module('minimalist', [])
+
+module.exports = {
+  input: __webpack_require__(36),
+  form: __webpack_require__(35),
+  checkbox: __webpack_require__(33),
+  radio: __webpack_require__(37),
+  autocomplete: __webpack_require__(38),
+  autocompleteProvider: __webpack_require__(39),
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnForm', MnFormDirective)
+
+function MnFormDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      element.bind('submit', () => {
+        scope.$eval(attributes.submit)
+      })
+    }
+  }
+}
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnInput', MnInputDirective)
+
+function MnInputDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+      const input = component.input
+      const isSelect = component.classList.contains('mn-select')
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+      input.addEventListener('change', setViewValue)
+      input.addEventListener('blur', setViewValue)
+      input.addEventListener('input', setViewValue)
+
+      element.ready(() => {
+        component.value = ngModel.$modelValue
+        ngModel.$setViewValue(component.value)
+        scope.$watch(attributes.ngModel, setComponentValue)
+
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      function setComponentValue(value) {
+        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+          component.value = value
+        }
+      }
+
+      function setViewValue(event) {
+        const activeElement = event.currentTarget === document.activeElement
+        const isDate = component.input.type === 'date'
+        const isNumber = component.classList.contains('mn-number')
+        const isBlur = event.type === 'blur'
+
+        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
+          ngModel.$setViewValue(component.value)
+        }
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnRadio', MnRadioDirective)
+
+module.exports = MnRadioDirective
+
+function MnRadioDirective() {
+  const MnCheckboxDirective = __webpack_require__(33)
+  return MnCheckboxDirective()
+}
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnAutocomplete', MnAutocompleteDirective)
+
+function MnAutocompleteDirective(MnAutocomplete) {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element) {
+      element.bind('search', () => {
+        const name = element.attr('name')
+        const service = MnAutocomplete.services[name]
+
+        if (name && service) {
+          event.target
+            .fetch(service)
+            .then(options => {console.log(options)})
+        }
+      })
+    }
+  }
+}
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .provider('MnAutocomplete', MnAutocomplete)
+
+function MnAutocomplete() {
+  let services = {}
+  return {
+    addService,
+    $get: () => ({services, addService})
+  }
+
+  function addService(name, service) {
+    services[name] = service
+  }
 }
 
 
