@@ -9,19 +9,11 @@ angular.module('app', [
 
 angular
   .module('app')
-  .run(run)
-
-angular
-  .module('app')
   .controller('HomeController', HomeController)
 
 angular
   .module('app')
   .service('Houses', HousesService)
-
-function run(MnAutocomplete, Houses) {
-  MnAutocomplete.addService('house', Houses.list)
-}
 
 function HomeController() {
   this.test = 'test string'
@@ -35,4 +27,34 @@ function HousesService($resource) {
   function list(params = {}) {
     return service.query(params).$promise
   }
+}
+
+angular
+  .module('app')
+  .directive('houses', HousesAutocompleteDirective)
+
+function HousesAutocompleteDirective(Houses) {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element) {
+      element.bind('search', (event) => {
+        const {query} = event
+        event.target
+          .fetch(() => Houses.list({query}))
+          .then(setOptions)
+
+        function setOptions(houses) {
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+
+            event.target.appendChild(option)
+          })
+        }
+      })
+    }
+  }
+
 }

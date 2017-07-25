@@ -42,6 +42,9 @@ module.exports = class MnPassword extends MnSelect {
   fetch(request) {
     const requestType = typeof request
 
+    this.cleanOptions()
+    this.classList.add('loading')
+
     if (requestType === 'function') {
       return request()
         .then(res => {
@@ -49,9 +52,6 @@ module.exports = class MnPassword extends MnSelect {
           return res
         })
     } else {
-      this.cleanOptions()
-      this.classList.add('loading')
-
       return fetch(request)
         .then(res => {
           this.classList.remove('loading')

@@ -1114,19 +1114,11 @@ angular.module('app', [
 
 angular
   .module('app')
-  .run(run)
-
-angular
-  .module('app')
   .controller('HomeController', HomeController)
 
 angular
   .module('app')
   .service('Houses', HousesService)
-
-function run(MnAutocomplete, Houses) {
-  MnAutocomplete.addService('house', Houses.list)
-}
 
 function HomeController() {
   this.test = 'test string'
@@ -1140,6 +1132,36 @@ function HousesService($resource) {
   function list(params = {}) {
     return service.query(params).$promise
   }
+}
+
+angular
+  .module('app')
+  .directive('houses', HousesAutocompleteDirective)
+
+function HousesAutocompleteDirective(Houses) {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element) {
+      element.bind('search', (event) => {
+        const {query} = event
+        event.target
+          .fetch(() => Houses.list({query}))
+          .then(setOptions)
+
+        function setOptions(houses) {
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+
+            event.target.appendChild(option)
+          })
+        }
+      })
+    }
+  }
+
 }
 
 
@@ -1322,6 +1344,9 @@ module.exports = class MnPassword extends MnSelect {
   fetch(request) {
     const requestType = typeof request
 
+    this.cleanOptions()
+    this.classList.add('loading')
+
     if (requestType === 'function') {
       return request()
         .then(res => {
@@ -1329,9 +1354,6 @@ module.exports = class MnPassword extends MnSelect {
           return res
         })
     } else {
-      this.cleanOptions()
-      this.classList.add('loading')
-
       return fetch(request)
         .then(res => {
           this.classList.remove('loading')
@@ -2685,8 +2707,6 @@ module.exports = {
   form: __webpack_require__(35),
   checkbox: __webpack_require__(33),
   radio: __webpack_require__(37),
-  autocomplete: __webpack_require__(38),
-  autocompleteProvider: __webpack_require__(39),
 }
 
 
@@ -2788,59 +2808,6 @@ module.exports = MnRadioDirective
 function MnRadioDirective() {
   const MnCheckboxDirective = __webpack_require__(33)
   return MnCheckboxDirective()
-}
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnAutocomplete', MnAutocompleteDirective)
-
-function MnAutocompleteDirective(MnAutocomplete) {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element) {
-      element.bind('search', () => {
-        const name = element.attr('name')
-        const service = MnAutocomplete.services[name]
-
-        if (name && service) {
-          event.target
-            .fetch(service)
-            .then(options => {console.log(options)})
-        }
-      })
-    }
-  }
-}
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .provider('MnAutocomplete', MnAutocomplete)
-
-function MnAutocomplete() {
-  let services = {}
-  return {
-    addService,
-    $get: () => ({services, addService})
-  }
-
-  function addService(name, service) {
-    services[name] = service
-  }
 }
 
 
