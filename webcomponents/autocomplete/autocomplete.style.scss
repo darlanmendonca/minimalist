@@ -1,0 +1,24 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-autocomplete.loading {
+  border-bottom: 1px solid $oc-gray-4;
+
+  &:after {
+    animation: loading .7s infinite alternate;
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    left: 90%;
+  }
+
+  50% {
+    left: 0;
+    transition-timing-function: cubic-bezier(.17,.67,.63,.27);
+  }
+
+  100% {
+    right: 90%;
+  }
+}

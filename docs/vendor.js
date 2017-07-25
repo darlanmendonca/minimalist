@@ -1263,6 +1263,7 @@ module.exports = class MnPassword extends MnSelect {
     super._setInput()
 
     this.input.addEventListener('input', () => {
+      this.classList.add('loading')
       const event = new Event('search')
       event.query = this.input.value
       this.removeOptions()

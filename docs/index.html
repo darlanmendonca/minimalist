@@ -23,6 +23,9 @@
         fetch(`http://localhost:4000/houses?${params}`)
           .then(res => res.json())
           .then(update)
+          .then(() => {
+            autocomplete.classList.remove('loading')
+          })
       }
 
       function update(options) {
