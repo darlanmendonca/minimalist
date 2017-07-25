@@ -9,31 +9,27 @@
   <body>
     <mn-form class="mn-layout-row">
       <mn-autocomplete placeholder="House" id="house"></mn-autocomplete>
-      <mn-input placeholder="Username"></mn-input>
     </mn-form>
 
     <script src="/vendor.js"></script>
     <script>
       const autocomplete = document.querySelector('mn-autocomplete')
 
-      autocomplete.addEventListener('search', search)
-
-      function search(event) {
+      autocomplete.addEventListener('search', (event) => {
         const params = new URLSearchParams()
         params.append('query', event.query)
-        fetch(`http://localhost:4000/houses?${params}`)
-          .then(res => res.json())
-          .then(update)
-          .then(() => {
-            autocomplete.classList.remove('loading')
-          })
-      }
+        const houses = new Request(`http://localhost:4000/houses?${params}`)
 
-      function update(options) {
-        options.forEach((value) => {
-          autocomplete.createOption(value, value.toLowerCase())
-        })
-      }
+        event.target
+          .fetch(houses)
+          .then(options => options.forEach(value => {
+            const option = document.createElement('option')
+            option.textContent = value
+            option.setAttribute('value', value.toLowerCase())
+
+            event.target.appendChild(option)
+          }))
+      })
     </script>
   </body>
 </html>

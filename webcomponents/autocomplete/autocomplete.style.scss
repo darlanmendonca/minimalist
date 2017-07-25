@@ -2,12 +2,11 @@
 
 .mn-autocomplete.loading {
   --border-color: $oc-gray-4;
-  // --border-width: 1px;
   --background-loading: $oc-gray-8;
 
   .loading {
     content: '';
-    height: calc(var(--border-width) * 2);
+    height: var(--border-width);
     position: absolute;
     bottom: 0;
     left: 0;
