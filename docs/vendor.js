@@ -1270,25 +1270,38 @@ module.exports = class MnPassword extends MnSelect {
     super._setInput()
 
     this.input.addEventListener('input', () => {
-      const options = this.querySelectorAll('option')
-      Array
-        .from(options)
-        .forEach(option => this.removeChild(option))
-
       const event = new Event('search')
       event.query = this.input.value
       this.dispatchEvent(event)
     })
   }
 
-  fetch(request) {
-    this.classList.add('loading')
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
 
-    return fetch(request)
-      .then(res => {
-        this.classList.remove('loading')
-        return res.json()
-      })
+  fetch(request) {
+    const requestType = typeof request
+
+    if (requestType === 'function') {
+      return request()
+        .then(res => {
+          this.classList.remove('loading')
+          return res
+        })
+    } else {
+      this.cleanOptions()
+      this.classList.add('loading')
+
+      return fetch(request)
+        .then(res => {
+          this.classList.remove('loading')
+          return res.json()
+        })
+    }
   }
 }
 
