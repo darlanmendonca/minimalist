@@ -1,24 +1,39 @@
 @import '../../node_modules/open-color/open-color.scss';
 
 .mn-autocomplete.loading {
-  border-bottom: 1px solid $oc-gray-4;
+  --border-color: $oc-gray-4;
+  // --border-width: 1px;
+  --background-loading: $oc-gray-8;
 
-  &:after {
-    animation: loading .7s infinite alternate;
+  .loading {
+    content: '';
+    height: calc(var(--border-width) * 2);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--background-loading);
+    transition: all .2s ease;
+    transform: translate3d(0, 50%, 0);
+    z-index: 10;
+    pointer-events: none;
+    animation: loading .7s .2s infinite alternate;
   }
 }
 
 @-webkit-keyframes loading {
   0% {
-    left: 90%;
+    left: 80%;
+    right: 0%;
   }
 
   50% {
     left: 0;
-    transition-timing-function: cubic-bezier(.17,.67,.63,.27);
+    // right: 0;
   }
 
   100% {
-    right: 90%;
+    left: 0%;
+    right: 80%;
   }
 }

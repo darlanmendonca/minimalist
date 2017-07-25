@@ -8,11 +8,18 @@ module.exports = class MnPassword extends MnSelect {
 
   connectedCallback() {
     super.connectedCallback()
+    this.setLoading()
   }
 
   _setStyle() {
     super._setStyle()
     this.classList.add('mn-autocomplete')
+  }
+
+  setLoading() {
+    const loading = document.createElement('div')
+    loading.classList.add('loading')
+    this.appendChild(loading)
   }
 
   _setInput() {
