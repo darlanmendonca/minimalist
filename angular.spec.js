@@ -21,8 +21,4 @@ describe('minimalist/angular', () => {
   it('should export radio directive', () => {
     expect(angular).to.have.property('radio')
   })
-
-  it('should export autocomplete directive', () => {
-    expect(angular).to.have.property('autocomplete')
-  })
 })
