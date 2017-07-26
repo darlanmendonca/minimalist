@@ -27,7 +27,6 @@ function MnInputDirective() {
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
-
       })
 
       scope.$on('$destroy', () => {
@@ -35,7 +34,10 @@ function MnInputDirective() {
       })
 
       function setComponentValue(value) {
-        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+        const differentValue = component.getAttribute('value') !== value
+        const isObjectValue = angular.isObject(value)
+
+        if (!isSelect || differentValue && !isObjectValue) {
           component.value = value
         }
       }

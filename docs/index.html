@@ -19,7 +19,7 @@
     <section ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
-        <mn-autocomplete class="houses" placeholder="House" required ng-model="controller.house"></mn-autocomplete>
+        <mn-autocomplete class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-autocomplete>
         <mn-button submit>submit</mn-button>
       </mn-form>
     </section>
