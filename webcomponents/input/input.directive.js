@@ -34,7 +34,7 @@ function MnInputDirective() {
       })
 
       function setComponentValue(value) {
-        const differentValue = component.getAttribute('value') !== value
+        const differentValue = component.getAttribute('value') !== value && component.value !== value
         const isObjectValue = angular.isObject(value)
 
         if (!isSelect || differentValue && !isObjectValue) {
