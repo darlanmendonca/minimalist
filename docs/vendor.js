@@ -1189,6 +1189,7 @@ angular
 
 function HomeController() {
   this.test = 'test string'
+  this.house = 'stark'
 }
 
 function HousesService($resource) {
@@ -1209,7 +1210,16 @@ function HousesAutocompleteDirective(Houses) {
   return {
     restrict: 'C',
     require: 'ngModel',
-    link(scope, element) {
+    link(scope, element, attributes) {
+
+      scope.$watch(attributes.ngModel, setComponentValue)
+
+      function setComponentValue(value) {
+        const search = new Event('search')
+        search.query = value
+        element[0].dispatchEvent(search)
+      }
+
       element.bind('search', (event) => {
         const {query} = event
         event.target
