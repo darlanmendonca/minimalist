@@ -18,6 +18,10 @@ angular
 function HomeController() {
   this.test = 'test string'
   this.house = 'stark'
+
+  this.change = () => {
+    this.house = 'lannister'
+  }
 }
 
 function HousesService($resource) {
