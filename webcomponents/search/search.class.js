@@ -1,6 +1,6 @@
 const MnSelect = require('../select/select.class.js')
 
-module.exports = class MnPassword extends MnSelect {
+module.exports = class MnSearch extends MnSelect {
   constructor(self) {
     self = super(self)
     return self
@@ -13,7 +13,7 @@ module.exports = class MnPassword extends MnSelect {
 
   _setStyle() {
     super._setStyle()
-    this.classList.add('mn-autocomplete')
+    this.classList.add('mn-search')
   }
 
   setLoading() {

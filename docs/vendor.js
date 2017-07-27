@@ -1188,7 +1188,6 @@ angular
   .service('Houses', HousesService)
 
 function HomeController() {
-  this.test = 'test string'
   this.house = 'stark'
 
   this.change = () => {
@@ -1208,9 +1207,9 @@ function HousesService($resource) {
 
 angular
   .module('app')
-  .directive('houses', HousesAutocompleteDirective)
+  .directive('houses', HousesSearchDirective)
 
-function HousesAutocompleteDirective(Houses) {
+function HousesSearchDirective(Houses) {
   return {
     restrict: 'C',
     require: 'ngModel',
@@ -1264,7 +1263,7 @@ module.exports = {
   radio: __webpack_require__(34),
   dialog: __webpack_require__(20),
   button: __webpack_require__(15),
-  autocomplete: __webpack_require__(13),
+  search: __webpack_require__(38),
 }
 
 
@@ -1378,95 +1377,8 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnSelect = __webpack_require__(6)
-
-module.exports = class MnPassword extends MnSelect {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-    this.setLoading()
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-autocomplete')
-  }
-
-  setLoading() {
-    const loading = document.createElement('div')
-    loading.classList.add('loading')
-    this.appendChild(loading)
-  }
-
-  _setInput() {
-    super._setInput()
-
-    this.input.addEventListener('input', () => {
-      const event = new Event('search')
-      event.query = this.input.value
-      this.dispatchEvent(event)
-    })
-  }
-
-  cleanOptions() {
-    const options = this.querySelectorAll('option')
-    Array
-      .from(options)
-      .forEach(option => this.removeChild(option))
-  }
-
-  fetch(request) {
-    const requestType = typeof request
-
-    this.cleanOptions()
-    this.classList.add('loading')
-
-    if (requestType === 'function') {
-      return request()
-        .then(res => {
-          this.classList.remove('loading')
-          return res
-        })
-    } else {
-      return fetch(request)
-        .then(res => {
-          this.classList.remove('loading')
-          return res.json()
-        })
-    }
-  }
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-autocomplete')) {
-    window.customElements.define('mn-autocomplete', __webpack_require__(12))
-  }
-
-  return window.customElements.get('mn-autocomplete')
-}
-
-
-/***/ }),
+/* 12 */,
+/* 13 */,
 /* 14 */
 /***/ (function(module, exports) {
 
@@ -2824,6 +2736,95 @@ function MnSidenavCustomElement() {
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-search')) {
+    window.customElements.define('mn-search', __webpack_require__(39))
+  }
+
+  return window.customElements.get('mn-search')
+}
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnSelect = __webpack_require__(6)
+
+module.exports = class MnSearch extends MnSelect {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.setLoading()
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-search')
+  }
+
+  setLoading() {
+    const loading = document.createElement('div')
+    loading.classList.add('loading')
+    this.appendChild(loading)
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('input', () => {
+      const event = new Event('search')
+      event.query = this.input.value
+      this.dispatchEvent(event)
+    })
+  }
+
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+
+  fetch(request) {
+    const requestType = typeof request
+
+    this.cleanOptions()
+    this.classList.add('loading')
+
+    if (requestType === 'function') {
+      return request()
+        .then(res => {
+          this.classList.remove('loading')
+          return res
+        })
+    } else {
+      return fetch(request)
+        .then(res => {
+          this.classList.remove('loading')
+          return res.json()
+        })
+    }
+  }
 }
 
 

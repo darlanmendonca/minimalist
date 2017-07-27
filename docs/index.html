@@ -11,7 +11,7 @@
     <section>
       <h2>vanilla</h2>
       <mn-form class="mn-layout-row">
-        <mn-autocomplete placeholder="House" required></mn-autocomplete>
+        <mn-search placeholder="House" required></mn-search>
         <mn-button submit>submit</mn-button>
       </mn-form>
     </section>
@@ -19,7 +19,7 @@
     <section ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
-        <mn-autocomplete class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-autocomplete>
+        <mn-search class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-search>
         <mn-button submit>submit</mn-button>
         <mn-button ng-click='controller.change()'>change model to lannister</mn-button>
       </mn-form>
@@ -27,18 +27,12 @@
 
     <script src="/vendor.js"></script>
     <script>
-      const autocomplete = document.querySelector('mn-autocomplete')
+      const search = document.querySelector('mn-search')
 
-      autocomplete.addEventListener('search', (event) => {
+      search.addEventListener('search', (event) => {
         const params = new URLSearchParams()
         params.append('query', event.query)
         const houses = new Request(`http://localhost:4000/houses?${params}`)
-
-        // event.target
-        //   .fetch(() => Service.houses())
-        //   .then(houses => {
-        //     this.houses = houses
-        //   })
 
         event.target
           .fetch(houses)

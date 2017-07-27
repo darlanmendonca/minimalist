@@ -16,7 +16,6 @@ angular
   .service('Houses', HousesService)
 
 function HomeController() {
-  this.test = 'test string'
   this.house = 'stark'
 
   this.change = () => {
@@ -36,9 +35,9 @@ function HousesService($resource) {
 
 angular
   .module('app')
-  .directive('houses', HousesAutocompleteDirective)
+  .directive('houses', HousesSearchDirective)
 
-function HousesAutocompleteDirective(Houses) {
+function HousesSearchDirective(Houses) {
   return {
     restrict: 'C',
     require: 'ngModel',

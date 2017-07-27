@@ -7,9 +7,9 @@ function MnSelectCustomElement() {
     require('@webcomponents/custom-elements')
   }
 
-  if (!window.customElements.get('mn-autocomplete')) {
-    window.customElements.define('mn-autocomplete', require('./autocomplete.class.js'))
+  if (!window.customElements.get('mn-search')) {
+    window.customElements.define('mn-search', require('./search.class.js'))
   }
 
-  return window.customElements.get('mn-autocomplete')
+  return window.customElements.get('mn-search')
 }
