@@ -218,6 +218,16 @@ module.exports = class MnInput extends HTMLElement {
     this.input.autofocus = value || this.hasAttribute('autofocus')
   }
 
+  blur() {
+    this.input.blur()
+  }
+
+  focus() {
+    // this.input.dispatchEvent(new Event('touchstart'))
+    // this.input.dispatchEvent(new Event('touchsend'))
+    this.input.focus()
+  }
+
   validate() {
     const validations = {}
 

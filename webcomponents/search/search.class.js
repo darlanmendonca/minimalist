@@ -9,6 +9,7 @@ module.exports = class MnSearch extends MnSelect {
   connectedCallback() {
     super.connectedCallback()
     this.setLoading()
+    this.setSearchSheet()
   }
 
   _setStyle() {
@@ -20,6 +21,26 @@ module.exports = class MnSearch extends MnSelect {
     const loading = document.createElement('div')
     loading.classList.add('loading')
     this.appendChild(loading)
+  }
+
+  setSearchSheet() {
+    if (this.actionSheet) {
+      this.actionSheet = undefined
+
+      const input = document.createElement('mn-input')
+      input.setAttribute('placeholder', 'Type to search')
+      const dialog = document.createElement('mn-dialog')
+      this.searchSheet = dialog
+
+      dialog.appendChild(input)
+      document.body.appendChild(dialog)
+
+      this.input.addEventListener('focus', () => {
+        const input = dialog.querySelector('mn-input')
+        this.searchSheet.open()
+        setTimeout(() => input.focus(), 210)
+      })
+    }
   }
 
   _setInput() {
