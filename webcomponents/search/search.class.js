@@ -27,20 +27,72 @@ module.exports = class MnSearch extends MnSelect {
     if (this.actionSheet) {
       this.actionSheet = undefined
 
-      const input = document.createElement('mn-input')
-      input.setAttribute('placeholder', 'Type to search')
       const dialog = document.createElement('mn-dialog')
       this.searchSheet = dialog
+      this.searchSheet.classList.add('search-sheet')
+      const input = document.createElement('mn-input')
+      input.setAttribute('placeholder', 'Type to search')
 
-      dialog.appendChild(input)
-      document.body.appendChild(dialog)
+      this.searchSheet.appendChild(input)
+      document.body.appendChild(this.searchSheet)
+
+      this.searchSheetInput = this.searchSheet.querySelector('mn-input')
+      this.setSearchSheetList()
+
+      this.searchSheetInput.addEventListener('input', () => {
+        this.filter = event.target.value
+        const search = new Event('search')
+        search.query = event.target.value
+        this.dispatchEvent(search)
+      })
 
       this.input.addEventListener('focus', () => {
-        const input = dialog.querySelector('mn-input')
         this.searchSheet.open()
-        setTimeout(() => input.focus(), 210)
+        this.searchSheetInput.value = ''
+        this.searchSheetInput.dispatchEvent(new Event('input'))
+        setTimeout(() => this.searchSheetInput.focus(), 210)
       })
+
     }
+  }
+
+  setSearchSheetList() {
+    this.searchSheetList = document.createElement('ul')
+    this.searchSheetList.classList.add('mn-list')
+    this.searchSheet.querySelector('.mn-card').appendChild(this.searchSheetList)
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+        if (addOption) {
+          const item = document.createElement('div')
+          item.classList.add('mn-item')
+          item.textContent = addedNode.textContent
+          item.setAttribute('value', addedNode.getAttribute('value') || addedNode.textContent)
+          this.searchSheetList.appendChild(item)
+
+          item.addEventListener('touchend', (event) => {
+            this.searchSheet.close()
+            this.value = event.target.getAttribute('value')
+          })
+        }
+
+        if (removeOption) {
+          const value = removedNode.getAttribute('value')
+          const item = this.searchSheet.querySelector(`.mn-item[value="${value}"]`)
+          item.parentNode.removeChild(item)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
   }
 
   _setInput() {
