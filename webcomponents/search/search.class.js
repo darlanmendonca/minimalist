@@ -47,10 +47,13 @@ module.exports = class MnSearch extends MnSelect {
       })
 
       this.input.addEventListener('focus', () => {
+        this.blur()
         this.searchSheet.open()
         this.searchSheetInput.value = ''
         this.searchSheetInput.dispatchEvent(new Event('input'))
-        setTimeout(() => this.searchSheetInput.focus(), 210)
+        setTimeout(() => {
+          this.searchSheetInput.focus()
+        }, 410)
       })
 
     }
