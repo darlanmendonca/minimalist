@@ -1,8 +1,8 @@
-/* global describe, it, beforeEach */
-const {expect} = require('chai')
+/* global describe, it, beforeEach, afterEach */
+const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
-  // .use(require('chai-spies'))
+  .use(require('chai-spies'))
 
 let search // page object defined in method setPageObject
 let component
@@ -11,6 +11,8 @@ describe('mn-search (webcomponent)', () => {
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
+  beforeEach(mockFetch)
+  afterEach(() => window.fetch.restore())
 
   describe('instance', () => {
     it('should work with a constructor', () => {
@@ -58,12 +60,6 @@ describe('mn-search (webcomponent)', () => {
     })
   })
 
-  describe('method fetch', () => {
-    it('should be a function', () => {
-      expect(component.fetch).to.be.a('function')
-    })
-  })
-
   describe('event search', () => {
     it('should be called when type something, and contain query in event', () => {
       component.addEventListener('search', (event) => {
@@ -71,6 +67,27 @@ describe('mn-search (webcomponent)', () => {
       })
 
       search.writeText('test')
+    })
+  })
+
+  describe('method fetch', () => {
+    it('should be a function', () => {
+      expect(component.fetch).to.be.a('function')
+    })
+
+    it('should add class loading when start', () => {
+      const addClass = spy.on(component.classList, 'add')
+      search.requestData()
+      expect(addClass).to.have.been.called.with('loading')
+    })
+
+    it('should remove class loading when finish', () => {
+      const removeClass = spy.on(component.classList, 'remove')
+      search
+        .requestData()
+        .then(() => {
+          expect(removeClass).to.have.been.called.with('loading')
+        })
     })
   })
 })
@@ -97,4 +114,9 @@ function createComponent() {
 function setPageObject() {
   const PageObject = require('./search.po.js')
   search = new PageObject(component)
+}
+
+function mockFetch() {
+  const sinon = require('sinon')
+  sinon.stub(window, 'fetch')
 }
