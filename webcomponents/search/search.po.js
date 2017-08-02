@@ -5,9 +5,4 @@ module.exports = class SearchPageObject extends InputPageObject {
     super(component)
     return this
   }
-
-  writeText(string) {
-    this.component.input.value = string
-    this.component.input.dispatchEvent(new Event('input'))
-  }
 }

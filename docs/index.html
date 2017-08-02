@@ -30,7 +30,6 @@
       const search = document.querySelector('mn-search')
 
       search.addEventListener('search', (event) => {
-        console.log('search', event.query)
         const params = new URLSearchParams()
         params.append('query', event.query)
         const houses = new Request(`http://localhost:4000/houses?${params}`)
