@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -8,7 +8,6 @@ let actionSheet
 let component
 
 describe('mn-action-sheet (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -145,10 +144,6 @@ describe('mn-action-sheet (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').actionSheet
-}
 
 function cleanView() {
   const actionSheet = document.querySelector('mn-action-sheet')

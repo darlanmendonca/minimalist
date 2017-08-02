@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
@@ -9,7 +9,6 @@ let email // page object defined in method setPageObject
 let component
 
 describe('mn-email (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -325,10 +324,6 @@ describe('mn-email (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').email
-}
 
 function cleanView() {
   const form = document.querySelector('form')

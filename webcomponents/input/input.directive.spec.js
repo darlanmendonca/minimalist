@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach, afterEach, angular */
+/* global describe, it, beforeEach, afterEach, angular */
 const {expect} = require('chai')
   .use(require('chai-dom'))
 
@@ -8,7 +8,6 @@ let component
 let scope
 
 describe('mn-input (directive)', () => {
-  before(loadComponent)
   beforeEach(angular.mock.module('minimalist'))
   beforeEach(createMnInput)
 
@@ -539,12 +538,6 @@ describe('mn-input (directive)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').input
-  require('./input.directive.js')
-  // require('../select/select.directive.js')
-}
 
 function createMnInput(done) {
   return angular.mock.inject(($rootScope, $compile) => {

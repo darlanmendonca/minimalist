@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -8,7 +8,6 @@ let select // page object defined in method setPageObject
 let component
 
 describe('mn-select (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -376,10 +375,6 @@ describe('mn-select (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').select
-}
 
 function cleanView() {
   const form = document.querySelector('form')

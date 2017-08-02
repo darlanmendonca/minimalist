@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-colors'))
@@ -9,7 +9,6 @@ let password // page object defined in method setPageObject
 let component
 
 describe('mn-password (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -344,10 +343,6 @@ describe('mn-password (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').password
-}
 
 function cleanView() {
   const form = document.querySelector('form')

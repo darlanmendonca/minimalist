@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -8,7 +8,6 @@ let dialog
 let component
 
 describe('mn-dialog (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(createComponent)
   beforeEach(setPageObject)
 
@@ -120,10 +119,6 @@ describe('mn-dialog (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').dialog
-}
 
 function createComponent() {
   component = document.createElement('mn-dialog')
