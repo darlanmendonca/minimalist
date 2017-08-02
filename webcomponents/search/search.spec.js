@@ -59,135 +59,120 @@ describe('mn-search (webcomponent)', () => {
     })
   })
 
-  // all style specs need to be refactor, to better organization and readability
-  describe('css style', () => {
-    it('should have a inline-block display', () => {
-      expect(component).to.have.style('display', 'flex')
+  describe('property value', () => {
+    it('should be undefined by default', () => {
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
-    it('should have a relative position', () => {
-      expect(component).to.have.style('position', 'relative')
+    it('should be undefined when set a invalid value', () => {
+      search.setProperty('value', 'teste')
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
 
-    it('should have a margin', () => {
-      expect(component).to.have.style('margin', '1.5em 0px 1em')
+    it('should be undefined when set a empty string', () => {
+      search.setProperty('value', '')
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
     })
+
+    it('should be undefined when set undefined', () => {
+      search.setProperty('value', undefined)
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
+    })
+
+    // it('should be a string when set by option value', () => {
+    //   search.setProperty('value', 'stark')
+
+    //   expect(component).to.have.value('stark')
+    //   expect(component.input).to.have.value('Stark')
+    // })
+
+    // it('should be a string when set by option text', () => {
+    //   search.setProperty('value', 'Stark')
+    //   expect(component).to.have.value('stark')
+    //   expect(component.input).to.have.value('Stark')
+    // })
+
+    // it('should be a string when set by option text without value', () => {
+    //   search.addOption('Baratheon')
+    //   search.setProperty('value', 'Baratheon')
+    //   expect(component).to.have.value('Baratheon')
+    //   expect(component.input).to.have.value('Baratheon')
+    // })
+
+    // it('should keep value if enter and delete part of filter', () => {
+    //   search.setProperty('value', 'Stark')
+    //   search.writeText('St')
+    //   expect(component).to.have.value('stark')
+    //   expect(component.input).to.have.value('Stark')
+    // })
+
+    // it('should be undefined if enter and delete filter completely', () => {
+    //   search.setProperty('value', 'Stark')
+    //   search.writeText('')
+    //   expect(component).to.have.value(undefined)
+    //   expect(component.input).to.have.value('')
+    // })
+
+    // it('should evaluate to number when set option with numeric string value', () => {
+    //   search.addOption('Test', '5')
+    //   search.setProperty('value', 'Test')
+    //   expect(component).to.have.value(5)
+    //   expect(component.input).to.have.value('Test')
+    // })
+
+    // it('should evaluate to number when set option with numeric string text', () => {
+    //   search.addOption('5')
+    //   search.setProperty('value', '5')
+    //   expect(component).to.have.value(5)
+    //   expect(component.input).to.have.value('5')
+    // })
+
+    // it('should evaluate to number when set number instead string', () => {
+    //   search.addOption('5')
+    //   search.setProperty('value', 5)
+    //   expect(component).to.have.value(5)
+    //   expect(component.input).to.have.value('5')
+    // })
+
+    // it('should evaluate to boolean true', () => {
+    //   search.addOption('Test', 'true')
+    //   search.setProperty('value', 'Test')
+    //   expect(component).to.have.value(true)
+    //   expect(component.input).to.have.value('Test')
+    // })
+
+    // it('should evaluate to boolean false', () => {
+    //   search.addOption('Test', 'false')
+    //   search.setProperty('value', 'Test')
+    //   expect(component).to.have.value(false)
+    //   expect(component.input).to.have.value('Test')
+    // })
+
+    // it('should evaluate string object', () => {
+    //   search.addOption('Test', '{name: \'targaryen\'}')
+    //   search.setProperty('value', 'Test')
+    //   expect(component.value).to.deep.equal({name: 'targaryen'})
+    //   expect(component.input).to.have.value('Test')
+    // })
+
+    // it('should evaluate json object', () => {
+    //   search.addOption('Test', '{"name": "targaryen"}')
+    //   search.setProperty('value', 'Test')
+    //   expect(component.value).to.deep.equal({name: 'targaryen'})
+    //   expect(component.input).to.have.value('Test')
+    // })
+
+    // it('should evaluate array', () => {
+    //   search.addOption('Test', '[1, "2"]')
+    //   search.setProperty('value', 'Test')
+    //   expect(component.value).to.deep.equal([1, '2'])
+    //   expect(component.input).to.have.value('Test')
+    // })
   })
-
-  // describe('property value', () => {
-  //   it('should be undefined by default', () => {
-  //     expect(component).to.have.value(undefined)
-  //     expect(component.input).to.have.text('')
-  //   })
-
-  //   it('should be undefined when set a invalid value', () => {
-  //     search.setProperty('value', 'teste')
-  //     expect(component).to.have.value(undefined)
-  //     expect(component.input).to.have.text('')
-  //   })
-
-  //   it('should be undefined when set a empty string', () => {
-  //     search.setProperty('value', '')
-  //     expect(component).to.have.value(undefined)
-  //     expect(component.input).to.have.text('')
-  //   })
-
-  //   it('should be undefined when set undefined', () => {
-  //     search.setProperty('value', undefined)
-  //     expect(component).to.have.value(undefined)
-  //     expect(component.input).to.have.text('')
-  //   })
-
-  //   it('should be a string when set by option value', () => {
-  //     search.setProperty('value', 'stark')
-
-  //     expect(component).to.have.value('stark')
-  //     expect(component.input).to.have.value('Stark')
-  //   })
-
-  //   it('should be a string when set by option text', () => {
-  //     search.setProperty('value', 'Stark')
-  //     expect(component).to.have.value('stark')
-  //     expect(component.input).to.have.value('Stark')
-  //   })
-
-  //   it('should be a string when set by option text without value', () => {
-  //     search.addOption('Baratheon')
-  //     search.setProperty('value', 'Baratheon')
-  //     expect(component).to.have.value('Baratheon')
-  //     expect(component.input).to.have.value('Baratheon')
-  //   })
-
-  //   it('should keep value if enter and delete part of filter', () => {
-  //     search.setProperty('value', 'Stark')
-  //     search.writeText('St')
-  //     expect(component).to.have.value('stark')
-  //     expect(component.input).to.have.value('Stark')
-  //   })
-
-  //   it('should be undefined if enter and delete filter completely', () => {
-  //     search.setProperty('value', 'Stark')
-  //     search.writeText('')
-  //     expect(component).to.have.value(undefined)
-  //     expect(component.input).to.have.value('')
-  //   })
-
-  //   it('should evaluate to number when set option with numeric string value', () => {
-  //     search.addOption('Test', '5')
-  //     search.setProperty('value', 'Test')
-  //     expect(component).to.have.value(5)
-  //     expect(component.input).to.have.value('Test')
-  //   })
-
-  //   it('should evaluate to number when set option with numeric string text', () => {
-  //     search.addOption('5')
-  //     search.setProperty('value', '5')
-  //     expect(component).to.have.value(5)
-  //     expect(component.input).to.have.value('5')
-  //   })
-
-  //   it('should evaluate to number when set number instead string', () => {
-  //     search.addOption('5')
-  //     search.setProperty('value', 5)
-  //     expect(component).to.have.value(5)
-  //     expect(component.input).to.have.value('5')
-  //   })
-
-  //   it('should evaluate to boolean true', () => {
-  //     search.addOption('Test', 'true')
-  //     search.setProperty('value', 'Test')
-  //     expect(component).to.have.value(true)
-  //     expect(component.input).to.have.value('Test')
-  //   })
-
-  //   it('should evaluate to boolean false', () => {
-  //     search.addOption('Test', 'false')
-  //     search.setProperty('value', 'Test')
-  //     expect(component).to.have.value(false)
-  //     expect(component.input).to.have.value('Test')
-  //   })
-
-  //   it('should evaluate string object', () => {
-  //     search.addOption('Test', '{name: \'targaryen\'}')
-  //     search.setProperty('value', 'Test')
-  //     expect(component.value).to.deep.equal({name: 'targaryen'})
-  //     expect(component.input).to.have.value('Test')
-  //   })
-
-  //   it('should evaluate json object', () => {
-  //     search.addOption('Test', '{"name": "targaryen"}')
-  //     search.setProperty('value', 'Test')
-  //     expect(component.value).to.deep.equal({name: 'targaryen'})
-  //     expect(component.input).to.have.value('Test')
-  //   })
-
-  //   it('should evaluate array', () => {
-  //     search.addOption('Test', '[1, "2"]')
-  //     search.setProperty('value', 'Test')
-  //     expect(component.value).to.deep.equal([1, '2'])
-  //     expect(component.input).to.have.value('Test')
-  //   })
-  // })
 
   // describe('attribute value', () => {
   //   it('should set property value when attribute changed', () => {
