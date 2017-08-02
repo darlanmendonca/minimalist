@@ -5,7 +5,6 @@ const {expect} = require('chai')
   // .use(require('chai-spies'))
 
 let search // page object defined in method setPageObject
-console.log(search)
 let component
 
 describe('mn-search (webcomponent)', () => {
@@ -62,6 +61,16 @@ describe('mn-search (webcomponent)', () => {
   describe('method fetch', () => {
     it('should be a function', () => {
       expect(component.fetch).to.be.a('function')
+    })
+  })
+
+  describe('event search', () => {
+    it('should be called when type something, and contain query in event', () => {
+      component.addEventListener('search', (event) => {
+        expect(event).to.have.property('query', 'test')
+      })
+
+      search.writeText('test')
     })
   })
 })
