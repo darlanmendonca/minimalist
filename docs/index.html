@@ -40,9 +40,10 @@
 
         function setOptions(houses) {
           houses.forEach(house => {
+            const obj = {name: house, value: house.toLowerCase()}
             const option = document.createElement('option')
-            option.textContent = house
-            option.setAttribute('value', house.toLowerCase())
+            option.textContent = obj.name
+            option.setAttribute('value', JSON.stringify(obj))
 
             event.target.appendChild(option)
           })
