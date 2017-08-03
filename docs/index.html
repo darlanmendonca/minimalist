@@ -41,10 +41,10 @@
         async function setOptions(response) {
           const houses = await response.json()
           houses.forEach(house => {
-            const obj = {name: house, value: house.toLowerCase()}
+            // const obj = {name: house, value: house.toLowerCase()}
             const option = document.createElement('option')
-            option.textContent = obj.name
-            option.setAttribute('value', JSON.stringify(obj))
+            option.textContent = house//obj.name
+            option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
 
             event.target.appendChild(option)
           })

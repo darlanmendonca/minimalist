@@ -783,7 +783,6 @@ module.exports = class MnSelect extends MnInput {
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        // console.log(mutation)
         const addedNode = mutation.addedNodes[0]
         const removedNode = mutation.removedNodes[0]
         const addOption = addedNode && addedNode.tagName === 'OPTION'
@@ -1075,7 +1074,7 @@ module.exports = class MnSelect extends MnInput {
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
     const option = Array
-      .from(this.menu.querySelectorAll('.option'))
+      .from(this.querySelectorAll('option'))
       .filter(option => {
         return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
           || option.textContent == String(value) // eslint-disable-line eqeqeq
