@@ -38,7 +38,8 @@
           .fetch(houses)
           .then(setOptions)
 
-        function setOptions(houses) {
+        async function setOptions(response) {
+          const houses = await response.json()
           houses.forEach(house => {
             const obj = {name: house, value: house.toLowerCase()}
             const option = document.createElement('option')

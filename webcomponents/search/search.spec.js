@@ -81,23 +81,15 @@ describe('mn-search (webcomponent)', () => {
       expect(addClass).to.have.been.called.with('loading')
     })
 
-    it.skip('should remove class loading when finish', (done) => {
+    it('should remove class loading when finish', async () => {
       const removeClass = spy.on(component.classList, 'remove')
-      search
-        .requestData()
-        .then(() => {
-          expect(removeClass).to.have.been.called.with('loading')
-          done()
-        })
+      await search.requestData()
+      expect(removeClass).to.have.been.called.with('loading')
     })
 
-    it.skip('should return a response', () => {
-      search
-        .requestData()
-        .then(response => {
-          console.log(response)
-          expect(response).to.not.be.undefined
-        })
+    it('should return a response', async () => {
+      const response = await search.requestData()
+      expect(response).to.be.an.instanceof(Response)
     })
   })
 })
