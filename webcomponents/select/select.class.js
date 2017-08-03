@@ -363,6 +363,7 @@ module.exports = class MnSelect extends MnInput {
       .from(this.querySelectorAll('option'))
       .filter(option => {
         return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.getAttribute('value') === JSON.stringify(value)
           || option.textContent == String(value) // eslint-disable-line eqeqeq
       })[0]
 

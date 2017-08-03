@@ -103,7 +103,7 @@ describe('mn-search (webcomponent)', () => {
     it('should set options manually on response', async () => {
       const response = await search.requestData()
       const json = await response.json()
-      search.setOptions(json)
+      search.setStringOptions(json)
       expect(component.querySelectorAll('option')).to.have.length(3)
     })
   })
@@ -132,98 +132,120 @@ describe('mn-search (webcomponent)', () => {
       expect(component.input).to.have.text('')
     })
 
+    it('should be undefined when set value without option', () => {
+      search.setProperty('value', 'stark')
+
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.text('')
+    })
+
     it('should be a string when set by option value', async () => {
       const response = await search.requestData()
       const json = await response.json()
-      search.setOptions(json)
+      search.setStringOptions(json)
       search.setProperty('value', 'stark')
 
       expect(component).to.have.value('stark')
       expect(component.input).to.have.value('Stark')
     })
 
-    // it('should be a string when set by option text', () => {
-    //   search.setProperty('value', 'Stark')
-    //   expect(component).to.have.value('stark')
-    //   expect(component.input).to.have.value('Stark')
-    // })
+    it('should be a string when set by option text', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setStringOptions(json)
+      search.setProperty('value', 'Stark')
 
-    // it('should be a string when set by option text without value', () => {
-    //   search.addOption('Baratheon')
-    //   search.setProperty('value', 'Baratheon')
-    //   expect(component).to.have.value('Baratheon')
-    //   expect(component.input).to.have.value('Baratheon')
-    // })
+      expect(component).to.have.value('stark')
+      expect(component.input).to.have.value('Stark')
+    })
 
-    // it('should keep value if enter and delete part of filter', () => {
-    //   search.setProperty('value', 'Stark')
-    //   search.writeText('St')
-    //   expect(component).to.have.value('stark')
-    //   expect(component.input).to.have.value('Stark')
-    // })
+    it('should be a string when set by option text without value', () => {
+      search.addOption('Baratheon')
+      search.setProperty('value', 'Baratheon')
 
-    // it('should be undefined if enter and delete filter completely', () => {
-    //   search.setProperty('value', 'Stark')
-    //   search.writeText('')
-    //   expect(component).to.have.value(undefined)
-    //   expect(component.input).to.have.value('')
-    // })
+      expect(component).to.have.value('Baratheon')
+      expect(component.input).to.have.value('Baratheon')
+    })
 
-    // it('should evaluate to number when set option with numeric string value', () => {
-    //   search.addOption('Test', '5')
-    //   search.setProperty('value', 'Test')
-    //   expect(component).to.have.value(5)
-    //   expect(component.input).to.have.value('Test')
-    // })
+    it('should evaluate to number when set option by option text', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setNumberOptions(json)
+      search.setProperty('value', 'Stark')
 
-    // it('should evaluate to number when set option with numeric string text', () => {
-    //   search.addOption('5')
-    //   search.setProperty('value', '5')
-    //   expect(component).to.have.value(5)
-    //   expect(component.input).to.have.value('5')
-    // })
+      expect(component).to.have.value(0)
+      expect(component.input).to.have.value('Stark')
+    })
 
-    // it('should evaluate to number when set number instead string', () => {
-    //   search.addOption('5')
-    //   search.setProperty('value', 5)
-    //   expect(component).to.have.value(5)
-    //   expect(component.input).to.have.value('5')
-    // })
+    it('should evaluate to number when set by option value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setNumberOptions(json)
+      search.setProperty('value', 2)
 
-    // it('should evaluate to boolean true', () => {
-    //   search.addOption('Test', 'true')
-    //   search.setProperty('value', 'Test')
-    //   expect(component).to.have.value(true)
-    //   expect(component.input).to.have.value('Test')
-    // })
+      expect(component).to.have.value(2)
+      expect(component.input).to.have.value('Targaryen')
+    })
 
-    // it('should evaluate to boolean false', () => {
-    //   search.addOption('Test', 'false')
-    //   search.setProperty('value', 'Test')
-    //   expect(component).to.have.value(false)
-    //   expect(component.input).to.have.value('Test')
-    // })
+    it('should evaluate to boolean when set by option text', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
 
-    // it('should evaluate string object', () => {
-    //   search.addOption('Test', '{name: \'targaryen\'}')
-    //   search.setProperty('value', 'Test')
-    //   expect(component.value).to.deep.equal({name: 'targaryen'})
-    //   expect(component.input).to.have.value('Test')
-    // })
+      search.setProperty('value', 'Stark')
+      expect(component).to.have.value(true)
+      expect(component.input).to.have.value('Stark')
+    })
 
-    // it('should evaluate json object', () => {
-    //   search.addOption('Test', '{"name": "targaryen"}')
-    //   search.setProperty('value', 'Test')
-    //   expect(component.value).to.deep.equal({name: 'targaryen'})
-    //   expect(component.input).to.have.value('Test')
-    // })
+    it('should evaluate to boolean when set by option value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
 
-    // it('should evaluate array', () => {
-    //   search.addOption('Test', '[1, "2"]')
-    //   search.setProperty('value', 'Test')
-    //   expect(component.value).to.deep.equal([1, '2'])
-    //   expect(component.input).to.have.value('Test')
-    // })
+      search.setProperty('value', false)
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should evaluate to object when set by option text', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
+
+      search.setProperty('value', 'Targaryen')
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should evaluate to object when set by option value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
+
+      search.setProperty('value', {name: 'Targaryen', value: 'targaryen'})
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should evaluate to array when set by option text', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      search.setProperty('value', 'Targaryen')
+      expect(component.value).to.deep.equal(['targaryen'])
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should evaluate to array when set by option value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      search.setProperty('value', ['targaryen'])
+      expect(component.value).to.deep.equal(['targaryen'])
+      expect(component.input).to.have.value('Targaryen')
+    })
   })
 })
 
