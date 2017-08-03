@@ -81,7 +81,7 @@ describe('mn-search (webcomponent)', () => {
       expect(addClass).to.have.been.called.with('loading')
     })
 
-    it('should remove class loading when finish', async () => {
+    it('should remove class loading on response', async () => {
       const removeClass = spy.on(component.classList, 'remove')
       await search.requestData()
       expect(removeClass).to.have.been.called.with('loading')
@@ -90,6 +90,12 @@ describe('mn-search (webcomponent)', () => {
     it('should return a response', async () => {
       const response = await search.requestData()
       expect(response).to.be.an.instanceof(Response)
+    })
+
+    it('should clean the options on response', async () => {
+      const cleanOptions = spy.on(component, 'cleanOptions')
+      await search.requestData()
+      expect(cleanOptions).to.have.been.called()
     })
   })
 })

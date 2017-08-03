@@ -117,23 +117,17 @@ module.exports = class MnSearch extends MnSelect {
 
   fetch(request) {
     const requestType = typeof request
+    const loader = requestType === 'function'
+      ? request
+      : () => fetch(request)
 
     this.classList.add('loading')
 
-    if (requestType === 'function') {
-      return request()
-        .then(res => {
-          this.cleanOptions()
-          this.classList.remove('loading')
-          return res
-        })
-    } else {
-      return fetch(request)
-        .then(res => {
-          this.cleanOptions()
-          this.classList.remove('loading')
-          return res
-        })
-    }
+    return loader()
+      .then(res => {
+        this.cleanOptions()
+        this.classList.remove('loading')
+        return res
+      })
   }
 }
