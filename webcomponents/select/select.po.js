@@ -7,8 +7,7 @@ module.exports = class SelectPageObject extends InputPageObject {
   }
 
   addOption(text, value) {
-    const option = document.createElement('div')
-    option.classList.add('option')
+    const option = document.createElement('option')
     option.textContent = text
 
     if (value) {
