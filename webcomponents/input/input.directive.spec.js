@@ -6,6 +6,7 @@ require('angular-mocks')
 
 let component
 let scope
+let search
 
 describe('mn-input (directive)', () => {
   beforeEach(angular.mock.module('minimalist'))
@@ -537,6 +538,149 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('Array')
     })
   })
+
+  describe.only('mn-search ngModel', () => {
+    beforeEach(createMnSearch)
+    beforeEach(mockFetch)
+    afterEach(fixAngularErrorWithFocus)
+    afterEach(() => window.fetch.restore())
+
+    it('should be undefined if it doesn\'t exist', () => {
+      expect(scope.houses).to.be.undefined
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be undefined if applied undefined', () => {
+      scope.house = undefined
+      scope.$digest()
+      expect(scope.house).to.be.undefined
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be undefined if applied an invalid option to ngModel', () => {
+      scope.house = 'test'
+      scope.$digest()
+      expect(scope.house).to.be.equal(undefined)
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be undefined if applied an invalid option to property value', () => {
+      component.value = 'test'
+      expect(scope.house).to.be.equal(undefined)
+      expect(component).to.have.value(undefined)
+      expect(component.input).to.have.value('')
+    })
+
+    it('should be a string if applied a valid string to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setStringOptions(json)
+
+      scope.house = 'lannister'
+      scope.$digest()
+      expect(scope.house).to.be.equal('lannister')
+      expect(component).to.have.value('lannister')
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a string if applied a valid string to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setStringOptions(json)
+
+      component.value = 'lannister'
+      expect(scope.house).to.be.equal('lannister')
+      expect(component).to.have.value('lannister')
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a boolean true if applied a valid boolean to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
+
+      scope.house = true
+      scope.$digest()
+      expect(scope.house).to.be.true
+      expect(component).to.have.value(true)
+      expect(component.input).to.have.value('Stark')
+    })
+
+    it('should be a boolean true if applied a valid boolean to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
+
+      component.value = false
+      expect(scope.house).to.be.false
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a boolean false if applied a valid boolean to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
+
+      scope.house = false
+      scope.$digest()
+      expect(scope.house).to.be.false
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a boolean false if applied a valid boolean to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setBooleanOptions(json)
+
+      component.value = false
+      expect(scope.house).to.be.false
+      expect(component).to.have.value(false)
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it('should be a object if applied a valid object to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
+
+      scope.house = 'Targaryen'
+      scope.$digest()
+      expect(scope.house).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should be a object if applied a valid object to property value', () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
+
+      component.value = 'Targaryen'
+      expect(scope.house).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    // it('should be a array if applied a valid array to ngModel', () => {
+    //   scope.house = 'Array'
+    //   scope.$digest()
+    //   expect(scope.house).to.deep.equal(['john', 'ygrid'])
+    //   expect(component.value).to.deep.equal(['john', 'ygrid'])
+    //   expect(component.input).to.have.value('Array')
+    // })
+
+    // it('should be a array if applied a valid array to property value', () => {
+    //   component.value = 'Array'
+    //   expect(scope.house).to.deep.equal(['john', 'ygrid'])
+    //   expect(component.value).to.deep.equal(['john', 'ygrid'])
+    //   expect(component.input).to.have.value('Array')
+    // })
+  })
 })
 
 function createMnInput(done) {
@@ -627,12 +771,36 @@ function createMnSelect(done) {
     $compile(component)(scope)
     scope.$digest()
 
-    angular.element(component).ready(() => {
-      done()
-    })
+    angular
+      .element(component)
+      .ready(() => done())
+  })
+}
+
+function createMnSearch(done) {
+  return angular.mock.inject(($rootScope, $compile) => {
+    scope = $rootScope.$new()
+    component = document.createElement('mn-search')
+
+    component.setAttribute('ng-model', 'house')
+    document.body.appendChild(component)
+    $compile(component)(scope)
+    scope.$digest()
+
+    const PageObject = require('../search/search.po.js')
+    search = new PageObject(component)
+
+    angular
+      .element(component)
+      .ready(() => done())
   })
 }
 
 function fixAngularErrorWithFocus() {
   component.input.blur()
+}
+
+function mockFetch() {
+  const sinon = require('sinon')
+  sinon.stub(window, 'fetch')
 }
