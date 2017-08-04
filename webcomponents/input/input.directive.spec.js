@@ -539,7 +539,7 @@ describe('mn-input (directive)', () => {
     })
   })
 
-  describe.only('mn-search ngModel', () => {
+  describe('mn-search ngModel', () => {
     beforeEach(createMnSearch)
     beforeEach(mockFetch)
     afterEach(fixAngularErrorWithFocus)
@@ -643,7 +643,7 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('Lannister')
     })
 
-    it('should be a object if applied a valid object to ngModel', async () => {
+    it('should be a object if applied a text option with object to ngModel', async () => {
       const response = await search.requestData()
       const json = await response.json()
       search.setObjectOptions(json)
@@ -655,7 +655,7 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('Targaryen')
     })
 
-    it('should be a object if applied a valid object to property value', () => {
+    it('should be a object if applied a text option with object to property value', async () => {
       const response = await search.requestData()
       const json = await response.json()
       search.setObjectOptions(json)
@@ -666,20 +666,74 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('Targaryen')
     })
 
-    // it('should be a array if applied a valid array to ngModel', () => {
-    //   scope.house = 'Array'
-    //   scope.$digest()
-    //   expect(scope.house).to.deep.equal(['john', 'ygrid'])
-    //   expect(component.value).to.deep.equal(['john', 'ygrid'])
-    //   expect(component.input).to.have.value('Array')
-    // })
+    it.skip('should be a object if applied a valid object to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
 
-    // it('should be a array if applied a valid array to property value', () => {
-    //   component.value = 'Array'
-    //   expect(scope.house).to.deep.equal(['john', 'ygrid'])
-    //   expect(component.value).to.deep.equal(['john', 'ygrid'])
-    //   expect(component.input).to.have.value('Array')
-    // })
+      scope.house = {name: 'Targaryen', value: 'targaryen'}
+      scope.$digest()
+      expect(scope.house).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should be a object if applied a valid object to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setObjectOptions(json)
+
+      component.value = {name: 'Targaryen', value: 'targaryen'}
+      expect(scope.house).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.value).to.deep.equal({name: 'Targaryen', value: 'targaryen'})
+      expect(component.input).to.have.value('Targaryen')
+    })
+
+    it('should be a array if applied a text option with array to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      scope.house = 'Stark'
+      scope.$digest()
+      expect(scope.house).to.deep.equal(['stark'])
+      expect(component.value).to.deep.equal(['stark'])
+      expect(component.input).to.have.value('Stark')
+    })
+
+    it('should be a array if applied a text option with array to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      component.value = 'Lannister'
+      expect(scope.house).to.deep.equal(['lannister'])
+      expect(component.value).to.deep.equal(['lannister'])
+      expect(component.input).to.have.value('Lannister')
+    })
+
+    it.skip('should be a array if applied a array to ngModel', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      scope.house = ['stark']
+      scope.$digest()
+      expect(scope.house).to.deep.equal(['stark'])
+      expect(component.value).to.deep.equal(['stark'])
+      expect(component.input).to.have.value('Stark')
+    })
+
+    it('should be a array if applied a array to property value', async () => {
+      const response = await search.requestData()
+      const json = await response.json()
+      search.setArrayOptions(json)
+
+      component.value = ['lannister']
+      expect(scope.house).to.deep.equal(['lannister'])
+      expect(component.value).to.deep.equal(['lannister'])
+      expect(component.input).to.have.value('Lannister')
+    })
   })
 })
 
