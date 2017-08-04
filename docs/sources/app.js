@@ -69,5 +69,4 @@ function HousesSearchDirective(Houses) {
       })
     }
   }
-
 }

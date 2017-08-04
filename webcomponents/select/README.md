@@ -34,7 +34,7 @@ In your html, you can use the tags `mn-select` and `option` e.g.
   <option>Stark</option>
   <option>Lannister</option>
   <option>Targaryen</option>
-</mn-date>
+</mn-search>
 ```
 
 You can define initial value using attribute `value` in tag `mn-select`, e.g.
@@ -44,7 +44,7 @@ You can define initial value using attribute `value` in tag `mn-select`, e.g.
   <option>Stark</option><!-- initial value will be Stark -->
   <option>Lannister</option>
   <option>Targaryen</option>
-</mn-date>
+</mn-search>
 ```
 
 Too works with attribute `selected` in tag `option`, e.g.
@@ -54,7 +54,7 @@ Too works with attribute `selected` in tag `option`, e.g.
   <option>Stark</option>
   <option>Lannister</option>
   <option selected>Targaryen</option><!-- initial value will be Targaryen -->
-</mn-date>
+</mn-search>
 ```
 
 By default each option the text content, if you need a different value for each option, use attribute value in tag `option`, e.g.
@@ -64,7 +64,7 @@ By default each option the text content, if you need a different value for each 
   <option value="wolf">Stark</option>
   <option value="lion">Lannister</option>
   <option selected value="dragon">Targaryen</option><!-- initial value will be dragon -->
-</mn-date>
+</mn-search>
 ```
 
 You use as value strings, number, arrays and objects
@@ -74,7 +74,7 @@ You use as value strings, number, arrays and objects
   <option value="1">Stark</option><!-- if selected, the value of house will be a number 1 -->
   <option value="{name: 'lannister'}">Lannister</option><!-- if selected, the value of house will be an object -->
   <option selected value="['dragon']">Targaryen</option><!-- if selected, the value of house will be an array -->
-</mn-date>
+</mn-search>
 ```
 
 The following attributes are supported in this component
