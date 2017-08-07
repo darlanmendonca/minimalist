@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -333,6 +333,16 @@ module.exports = class MnInput extends HTMLElement {
     this.input.autofocus = value || this.hasAttribute('autofocus')
   }
 
+  blur() {
+    this.input.blur()
+  }
+
+  focus() {
+    // this.input.dispatchEvent(new Event('touchstart'))
+    // this.input.dispatchEvent(new Event('touchsend'))
+    this.input.focus()
+  }
+
   validate() {
     const validations = {}
 
@@ -405,7 +415,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(10))
+    window.customElements.define('mn-action-sheet', __webpack_require__(11))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -702,16 +712,445 @@ function MnCheckboxDirective() {
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* global angular */
+const MnInput = __webpack_require__(1)
+const MnActionSheet = __webpack_require__(3)
+const evaluate = __webpack_require__(2)
 
-angular.module('minimalist', [])
+module.exports = class MnSelect extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
 
-module.exports = {
-  input: __webpack_require__(23),
-  select: __webpack_require__(33),
-  form: __webpack_require__(21),
-  checkbox: __webpack_require__(5),
-  radio: __webpack_require__(30),
+  connectedCallback() {
+    this.empty()
+    this._setStyle()
+    this._setInput()
+    super._setPlaceholder()
+    this._setMenu()
+    this._setActionSheet()
+    this._setOptions()
+    this._setKeyboardNavigation()
+    this._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setAttributeAutocomplete()
+    super._setAttributeSpellcheck()
+    this._setValidations()
+  }
+
+  disconnectedCallback() {
+    if (this.actionSheet) {
+      this.actionSheet.parentNode.removeChild(this.actionSheet)
+    }
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  empty() {
+    Array
+      .from(this.children)
+      .forEach(children => {
+        if (children.tagName !== 'OPTION') {
+          this.removeChild(children)
+        }
+      })
+  }
+
+  _setOptions() {
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(option => {
+        const hasAngularAttribute = Array
+          .from(option.attributes)
+          .some(attribute => attribute.name.startsWith('ng-'))
+
+        if (!hasAngularAttribute) {
+          this.addOption(option)
+        }
+      })
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+        if (addOption) {
+          this.addOption(addedNode)
+        }
+
+        if (removeOption) {
+          this.removeOption(removedNode)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
+
+    document.addEventListener('mousedown', (event) => {
+      const isOption = event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        const value = event.target.getAttribute('value') || event.target.textContent
+        this.value = value
+        this.input.blur()
+      }
+    })
+
+    document.addEventListener('mousemove', (event) => {
+      const isOption = event.target.classList && event.target.classList.contains('option')
+        && event.target.closest('.mn-select') === this
+
+      if (isOption) {
+        if (!this.keyboardNavigation) {
+          this.focusOption(event.target)
+        }
+      }
+    })
+  }
+
+  addOption(value) {
+    const option = document.createElement('div')
+    option.classList.add('option')
+    option.innerHTML = value.textContent
+    const focusedOption = this.menu.querySelector('.option.focus')
+
+    if (!focusedOption) {
+      option.classList.add('focus')
+    }
+
+    option.innerHTML = value.textContent
+      .split('')
+      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
+      .join('')
+
+    if (value.hasAttribute('value')) {
+      option.setAttribute('value', value.getAttribute('value'))
+    }
+
+    this.menu.appendChild(option)
+
+    if (this.actionSheet) {
+      const actionSheetOption = document.createElement('div')
+      actionSheetOption.classList.add('option')
+      actionSheetOption.textContent = option.textContent
+      this.actionSheet.menu.appendChild(actionSheetOption)
+    }
+
+    this.filter = this.filter
+  }
+
+  removeOption(value) {
+    const option = Array
+      .from(this.menu.querySelectorAll('.option'))
+      .find(option => option.textContent === value.textContent)
+
+    if (option) {
+      this.menu.removeChild(option)
+    }
+
+    if (this.actionSheet) {
+      const actionSheetOption = Array
+        .from(this.actionSheet.menu.querySelectorAll('.option'))
+        .find(option => option.textContent === value.textContent)
+
+      if (actionSheetOption) {
+        this.actionSheet.menu.removeChild(actionSheetOption)
+      }
+    }
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-select')
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('focus', () => {
+      this.input.select()
+      !this.input.hasAttribute('readonly')
+        ? this.show()
+        : undefined
+      this.filter = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      const option = Array
+        .from(this.menu.querySelectorAll('.option'))
+        .filter(option => {
+          const optionValue = option.getAttribute('value') || option.textContent
+          return optionValue === this.getAttribute('value')
+        })[0]
+
+      if (this.input.value && option) {
+        this.input.value = option.textContent
+      } else {
+        this.value = undefined
+      }
+      this.hide()
+    })
+
+    this.input.addEventListener('input', () => {
+      this.filter = this.input.value
+      this.focusOption(this.menu.querySelector('.option:not(.hidden)'))
+    })
+
+    document.addEventListener('click', event => {
+      const clickOutside = !event.target.closest('.mn-select') && event.target !== this
+
+      if (this.visible && clickOutside) {
+        this.hide()
+      }
+    })
+  }
+
+  _setAttributeValue() {
+    const selectedOption = this.querySelector('.option[selected]')
+    const selectedValue = selectedOption
+      ? selectedOption.getAttribute('value') || selectedOption.textContent
+      : ''
+
+    const value = this.getAttribute('value') || selectedValue
+    this.value = value
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  _setActionSheet() {
+    if (screen.width < 768) {
+      const actionSheet = new MnActionSheet()
+      this.actionSheet = actionSheet
+      this.actionSheet.addEventListener('change', (event) => {
+        const {index} = event.data
+        const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
+        this.value = option.textContent
+        this.actionSheet.hide()
+      })
+      document.body.appendChild(this.actionSheet)
+    }
+  }
+
+  _setKeyboardNavigation() {
+    this.input.addEventListener('keydown', (event) => { // arrow navigate
+      const arrowDown = event.key === 'ArrowDown'
+      const arrowUp = event.key === 'ArrowUp'
+      let nextOption
+
+      const options = Array.from(this.menu.querySelectorAll('.option:not(.hidden)'))
+      const currentOption = this.menu.querySelector('.option.focus')
+
+      const currentIndex = Array.prototype.indexOf.call(options, currentOption)
+
+      if (arrowDown) {
+        event.preventDefault()
+        nextOption = options[currentIndex + 1]
+      } else if (arrowUp) {
+        event.preventDefault()
+        nextOption = options[currentIndex - 1]
+      }
+
+      if (nextOption) {
+        const top = nextOption.offsetTop
+        const bottom = top + nextOption.clientHeight
+        const scrollToTop = top < this.menu.scrollTop
+        const scrollToBottom = bottom > this.menu.scrollTop + this.menu.clientHeight
+
+        this.keyboardNavigation = true
+        if (scrollToTop) {
+          this.menu.scrollTop = top
+        } else if (scrollToBottom) {
+          this.menu.scrollTop = bottom - this.menu.clientHeight
+        }
+
+        this.focusOption(nextOption)
+        setTimeout(() => {
+          delete this.keyboardNavigation
+        }, 100)
+      }
+    })
+
+    this.input.addEventListener('keydown', event => {
+      const esc = event.key === 'Escape'
+
+      if (esc) {
+        this.value = this.value
+        this.input.select()
+        this.filter = undefined
+      }
+    })
+
+    this.input.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+
+      if (enter) {
+        const option = this.menu.querySelector('.option.focus')
+        event.preventDefault()
+        event.stopPropagation()
+
+        option
+          ? this.value = option.getAttribute('value') || option.textContent
+          : this.value = this.value
+
+        this.hide()
+        this.input.blur()
+      }
+    })
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined,
+    delete this.validations.pattern
+  }
+
+  show() {
+    this.classList.add('visible')
+    this.menu.scrollTop = 0
+    this.focusOption(this.querySelector('.option:first-child'))
+
+    if (this.actionSheet) {
+      this.input.blur()
+      this.actionSheet.show()
+    }
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    this.removeOptionFocus()
+  }
+
+  get visible() {
+    return this.classList.contains('visible')
+  }
+
+  removeOptionFocus() {
+    const latest = this.menu.querySelector('.focus')
+    latest
+      ? latest.classList.remove('focus')
+      : undefined
+  }
+
+  focusOption(option) {
+    this.removeOptionFocus()
+    option
+      ? option.classList.add('focus')
+      : null
+  }
+
+  get value() {
+    return this.getAttribute('value')
+      ? evaluate(this.getAttribute('value'))
+      : undefined
+  }
+
+  set value(value) {
+    const differentValue = this.getAttribute('value') !== value
+    const option = Array
+      .from(this.querySelectorAll('option'))
+      .filter(option => {
+        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.getAttribute('value') === JSON.stringify(value)
+          || option.textContent == String(value) // eslint-disable-line eqeqeq
+      })[0]
+
+    const textNotApplied = option && this.input.value !== option.textContent
+
+    if (textNotApplied) {
+      this.input.value = option
+        ? option.textContent
+        : ''
+      this.input.dispatchEvent(new Event('change'))
+    }
+
+    if (differentValue) {
+      const hasValue = value !== undefined && value !== null
+
+      hasValue && option
+        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
+        :  this.removeAttribute('value')
+
+      this.input.dispatchEvent(new Event('change'))
+    }
+
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
+    }
+  }
+
+  get filter() {
+    return this.input.value
+  }
+
+  set filter(value) {
+    if (value) {
+      this.classList.add('filtered')
+
+      try {
+        Array
+          .from(this.menu.querySelectorAll('.option'))
+          .forEach(option => {
+            const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+
+            Array
+              .from(option.querySelectorAll('.match'))
+              .forEach(char => char.classList.remove('match'))
+
+            if (matchOption) {
+              option.classList.remove('hidden')
+
+              value
+                .split('')
+                .forEach(char => {
+                  const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
+                  const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
+                  letter
+                    ? letter.classList.add('match')
+                    : null
+                })
+
+            } else {
+              option.classList.add('hidden')
+            }
+          })
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      this.classList.remove('filtered')
+      Array
+        .from(this.querySelectorAll('.option.hidden'))
+        .forEach(option => option.classList.remove('hidden'))
+    }
+  }
 }
 
 
@@ -719,17 +1158,36 @@ module.exports = {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(9);
+/* global angular */
+
+angular.module('minimalist', [])
+
+module.exports = {
+  input: __webpack_require__(24),
+  form: __webpack_require__(22),
+  checkbox: __webpack_require__(5),
+  radio: __webpack_require__(31),
+}
+
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(7)
-__webpack_require__(6)
+module.exports = __webpack_require__(10);
 
-angular
-  .module('app', ['minimalist'])
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(8)
+__webpack_require__(7)
+
+
+angular.module('app', [
+  'minimalist',
+  'ngResource',
+])
 
 angular
   .module('app')
@@ -737,65 +1195,89 @@ angular
 
 angular
   .module('app')
-  .directive('test', TestTranscludeDirective)
+  .service('Houses', HousesService)
 
 function HomeController() {
-  this.house = 'Stark'
+  this.house = 'stark'
 
-  this.houses = [
-    'Stark',
-    'Lannister',
-    'Targaryen',
-  ]
-
-  this.remove = () => {
-    this.houses.pop()
-    console.log('removed house', this.houses)
-  }
-
-  this.add = () => {
-    this.houses.push('test')
-    console.log('added house', this.houses)
+  this.change = () => {
+    this.house = 'lannister'
   }
 }
 
-function TestTranscludeDirective() {
+function HousesService($resource) {
+  const service =  $resource('http://localhost:4000/houses')
+
+  this.list = list
+
+  function list(params = {}) {
+    return service.query(params).$promise
+  }
+}
+
+angular
+  .module('app')
+  .directive('houses', HousesSearchDirective)
+
+function HousesSearchDirective(Houses) {
   return {
-    restrict: 'E',
-    transclude: true,
-    template: `
-      <div>1 - wow</div>
-      <ng-transclude></ng-transclude>
-    `,
-    // controller: 'SearchController',
-    // controllerAs: 'searchController',
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes) {
+
+      scope.$watch(attributes.ngModel, setComponentValue)
+
+      function setComponentValue(value) {
+        const search = new Event('search')
+        search.query = value
+        element[0].dispatchEvent(search)
+      }
+
+      element.bind('search', (event) => {
+        const {query} = event
+        event.target
+          .fetch(() => Houses.list({query}))
+          .then(setOptions)
+
+        function setOptions(houses) {
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+
+            event.target.appendChild(option)
+          })
+        }
+      })
+    }
   }
-}
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(24),
-  email: __webpack_require__(19),
-  password: __webpack_require__(28),
-  number: __webpack_require__(26),
-  date: __webpack_require__(15),
-  select: __webpack_require__(34),
-  actionSheet: __webpack_require__(3),
-  form: __webpack_require__(22),
-  sidenav: __webpack_require__(36),
-  checkbox: __webpack_require__(13),
-  radio: __webpack_require__(31),
-  dialog: __webpack_require__(17),
-  button: __webpack_require__(12),
 }
 
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  input: __webpack_require__(25),
+  email: __webpack_require__(20),
+  password: __webpack_require__(29),
+  number: __webpack_require__(27),
+  date: __webpack_require__(16),
+  select: __webpack_require__(35),
+  actionSheet: __webpack_require__(3),
+  form: __webpack_require__(23),
+  sidenav: __webpack_require__(37),
+  checkbox: __webpack_require__(14),
+  radio: __webpack_require__(32),
+  dialog: __webpack_require__(18),
+  button: __webpack_require__(13),
+  search: __webpack_require__(34),
+}
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -904,7 +1386,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -938,7 +1420,7 @@ module.exports = class MnButton extends HTMLElement {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -951,7 +1433,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(11))
+    window.customElements.define('mn-button', __webpack_require__(12))
   }
 
   return window.customElements.get('mn-button')
@@ -959,7 +1441,7 @@ function MnSidenavCustomElement() {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnCheckboxCustomElement()
@@ -980,7 +1462,7 @@ function MnCheckboxCustomElement() {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1162,7 +1644,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -1175,7 +1657,7 @@ function MnDateCustomElement() {
   }
 
   if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(14))
+    window.customElements.define('mn-date', __webpack_require__(15))
   }
 
   return window.customElements.get('mn-date')
@@ -1183,7 +1665,7 @@ function MnDateCustomElement() {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1298,7 +1780,7 @@ module.exports = class MnDialog extends HTMLElement {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -1311,7 +1793,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(16))
+    window.customElements.define('mn-dialog', __webpack_require__(17))
   }
 
   return window.customElements.get('mn-dialog')
@@ -1319,7 +1801,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1341,7 +1823,7 @@ module.exports = class MnEmail extends MnInput {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnEmailCustomElement()
@@ -1354,7 +1836,7 @@ function MnEmailCustomElement() {
   }
 
   if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(18))
+    window.customElements.define('mn-email', __webpack_require__(19))
   }
 
   return window.customElements.get('mn-email')
@@ -1362,7 +1844,7 @@ function MnEmailCustomElement() {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1526,7 +2008,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -1548,7 +2030,7 @@ function MnFormDirective() {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -1561,7 +2043,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(20))
+    window.customElements.define('mn-form', __webpack_require__(21))
   }
 
   return window.customElements.get('mn-form')
@@ -1569,7 +2051,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -1601,7 +2083,6 @@ function MnInputDirective() {
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
-
       })
 
       scope.$on('$destroy', () => {
@@ -1609,7 +2090,10 @@ function MnInputDirective() {
       })
 
       function setComponentValue(value) {
-        if (!isSelect || component.getAttribute('value') !== value && !angular.isObject(value)) {
+        const differentValue = component.getAttribute('value') !== value && component.value !== value
+        const isObjectValue = angular.isObject(value)
+
+        if (!isSelect || differentValue && !isObjectValue) {
           component.value = value
         }
       }
@@ -1630,7 +2114,7 @@ function MnInputDirective() {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -1651,7 +2135,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1864,7 +2348,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -1877,7 +2361,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(25))
+    window.customElements.define('mn-number', __webpack_require__(26))
   }
 
   return window.customElements.get('mn-number')
@@ -1885,7 +2369,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1961,7 +2445,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -1974,7 +2458,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(27))
+    window.customElements.define('mn-password', __webpack_require__(28))
   }
 
   return window.customElements.get('mn-password')
@@ -1982,7 +2466,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(4)
@@ -2084,7 +2568,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -2102,7 +2586,7 @@ function MnRadioDirective() {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -2115,7 +2599,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(29))
+    window.customElements.define('mn-radio', __webpack_require__(30))
   }
 
   return window.customElements.get('mn-radio')
@@ -2123,91 +2607,98 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(1)
-const MnActionSheet = __webpack_require__(3)
-const evaluate = __webpack_require__(2)
+const MnSelect = __webpack_require__(6)
 
-module.exports = class MnSelect extends MnInput {
+module.exports = class MnSearch extends MnSelect {
   constructor(self) {
     self = super(self)
     return self
   }
 
   connectedCallback() {
-    this.empty()
-    this._setStyle()
-    this._setInput()
-    super._setPlaceholder()
-    this._setMenu()
-    this._setActionSheet()
-    this._setOptions()
-    this._setKeyboardNavigation()
-    this._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setAttributeAutocomplete()
-    super._setAttributeSpellcheck()
-    this._setValidations()
+    super.connectedCallback()
+    this.setLoading()
+    this.setSearchSheet()
   }
 
-  disconnectedCallback() {
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-search')
+  }
+
+  setLoading() {
+    const loading = document.createElement('div')
+    loading.classList.add('loading')
+    this.appendChild(loading)
+  }
+
+  setSearchSheet() {
     if (this.actionSheet) {
-      this.actionSheet.parentNode.removeChild(this.actionSheet)
+      this.actionSheet = undefined
+
+      const dialog = document.createElement('mn-dialog')
+      this.searchSheet = dialog
+      this.searchSheet.classList.add('search-sheet')
+      const input = document.createElement('mn-input')
+      input.setAttribute('placeholder', 'Type to search')
+
+      this.searchSheet.appendChild(input)
+      document.body.appendChild(this.searchSheet)
+
+      this.searchSheetInput = this.searchSheet.querySelector('mn-input')
+      this.setSearchSheetList()
+
+      this.searchSheetInput.addEventListener('input', () => {
+        this.filter = event.target.value
+        const search = new Event('search')
+        search.query = event.target.value
+        this.dispatchEvent(search)
+      })
+
+      this.input.addEventListener('focus', () => {
+        this.blur()
+        this.searchSheet.open()
+        this.searchSheetInput.value = ''
+        this.searchSheetInput.dispatchEvent(new Event('input'))
+        setTimeout(() => {
+          this.searchSheetInput.focus()
+        }, 410)
+      })
+
     }
   }
 
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
-
-  empty() {
-    Array
-      .from(this.children)
-      .forEach(children => {
-        if (children.tagName !== 'OPTION') {
-          this.removeChild(children)
-        }
-      })
-  }
-
-  _setOptions() {
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(option => {
-        const hasAngularAttribute = Array
-          .from(option.attributes)
-          .some(attribute => attribute.name.startsWith('ng-'))
-
-        if (!hasAngularAttribute) {
-          this.addOption(option)
-        }
-      })
+  setSearchSheetList() {
+    this.searchSheetList = document.createElement('ul')
+    this.searchSheetList.classList.add('mn-list')
+    this.searchSheet.querySelector('.mn-card').appendChild(this.searchSheetList)
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        // console.log(mutation)
         const addedNode = mutation.addedNodes[0]
         const removedNode = mutation.removedNodes[0]
         const addOption = addedNode && addedNode.tagName === 'OPTION'
         const removeOption = removedNode && removedNode.tagName === 'OPTION'
         if (addOption) {
-          this.addOption(addedNode)
+          const item = document.createElement('div')
+          item.classList.add('mn-item')
+          item.textContent = addedNode.textContent
+          item.setAttribute('value', addedNode.getAttribute('value') || addedNode.textContent)
+          this.searchSheetList.appendChild(item)
+
+          item.addEventListener('touchend', (event) => {
+            this.searchSheet.close()
+            this.value = event.target.getAttribute('value')
+          })
         }
 
         if (removeOption) {
-          this.removeOption(removedNode)
+          const value = removedNode.getAttribute('value')
+          const item = this.searchSheet.querySelector(`.mn-item[value="${value}"]`)
+          item.parentNode.removeChild(item)
         }
       })
     })
@@ -2217,406 +2708,41 @@ module.exports = class MnSelect extends MnInput {
       childList: true,
       characterData: false,
     })
-
-    document.addEventListener('mousedown', (event) => {
-      const isOption = event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        event.stopPropagation()
-        event.preventDefault()
-
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.input.blur()
-      }
-    })
-
-    document.addEventListener('mousemove', (event) => {
-      const isOption = event.target.classList && event.target.classList.contains('option')
-        && event.target.closest('.mn-select') === this
-
-      if (isOption) {
-        if (!this.keyboardNavigation) {
-          this.focusOption(event.target)
-        }
-      }
-    })
-  }
-
-  addOption(value) {
-    const option = document.createElement('div')
-    option.classList.add('option')
-    option.innerHTML = value.textContent
-
-    option.innerHTML = value.textContent
-      .split('')
-      .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-      .join('')
-
-    if (value.hasAttribute('value')) {
-      option.setAttribute('value', value.getAttribute('value'))
-    }
-
-    this.menu.appendChild(option)
-
-    if (this.actionSheet) {
-      const actionSheetOption = document.createElement('div')
-      actionSheetOption.classList.add('option')
-      actionSheetOption.textContent = option.textContent
-      this.actionSheet.menu.appendChild(actionSheetOption)
-    }
-  }
-
-  removeOption(value) {
-    const option = Array
-      .from(this.menu.querySelectorAll('.option'))
-      .find(option => option.textContent === value.textContent)
-
-    if (option) {
-      this.menu.removeChild(option)
-    }
-
-    if (this.actionSheet) {
-      const actionSheetOption = Array
-        .from(this.actionSheet.menu.querySelectorAll('.option'))
-        .find(option => option.textContent === value.textContent)
-
-      if (actionSheetOption) {
-        this.actionSheet.menu.removeChild(actionSheetOption)
-      }
-    }
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-select')
   }
 
   _setInput() {
     super._setInput()
 
-    this.input.addEventListener('focus', () => {
-      this.input.select()
-      !this.input.hasAttribute('readonly')
-        ? this.show()
-        : undefined
-      this.filter = undefined
-    })
-
-    this.input.addEventListener('blur', () => {
-      const option = Array
-        .from(this.menu.querySelectorAll('.option'))
-        .filter(option => {
-          const optionValue = option.getAttribute('value') || option.textContent
-          return optionValue === this.getAttribute('value')
-        })[0]
-
-      if (this.input.value && option) {
-        this.input.value = option.textContent
-      } else {
-        this.value = undefined
-      }
-      this.hide()
-    })
-
     this.input.addEventListener('input', () => {
-      this.filter = this.input.value
-      this.focusOption(this.menu.querySelector('.option:not(.hidden)'))
-    })
-
-    document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select') && event.target !== this
-
-      if (this.visible && clickOutside) {
-        this.hide()
-      }
+      const event = new Event('search')
+      event.query = this.input.value
+      this.dispatchEvent(event)
     })
   }
 
-  _setAttributeValue() {
-    const selectedOption = this.querySelector('.option[selected]')
-    const selectedValue = selectedOption
-      ? selectedOption.getAttribute('value') || selectedOption.textContent
-      : ''
-
-    const value = this.getAttribute('value') || selectedValue
-    this.value = value
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
   }
 
-  _setMenu() {
-    const menu = document.createElement('menu')
-    menu.classList.add('mn-card')
+  fetch(request) {
+    const requestType = typeof request
+    const loader = requestType === 'function'
+      ? request
+      : () => fetch(request)
 
-    this.appendChild(menu)
-    this.menu = menu
-  }
+    this.classList.add('loading')
 
-  _setActionSheet() {
-    if (screen.width < 768) {
-      const actionSheet = new MnActionSheet()
-      this.actionSheet = actionSheet
-      this.actionSheet.addEventListener('change', (event) => {
-        const {index} = event.data
-        const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
-        this.value = option.textContent
-        this.actionSheet.hide()
+    return loader()
+      .then(res => {
+        this.cleanOptions()
+        this.classList.remove('loading')
+        return res
       })
-      document.body.appendChild(this.actionSheet)
-    }
-  }
-
-  _setKeyboardNavigation() {
-    this.input.addEventListener('keydown', (event) => { // arrow navigate
-      const arrowDown = event.key === 'ArrowDown'
-      const arrowUp = event.key === 'ArrowUp'
-      let nextOption
-
-      const options = Array.from(this.menu.querySelectorAll('.option:not(.hidden)'))
-      const currentOption = this.menu.querySelector('.option.focus')
-
-      const currentIndex = Array.prototype.indexOf.call(options, currentOption)
-
-      if (arrowDown) {
-        event.preventDefault()
-        nextOption = options[currentIndex + 1]
-      } else if (arrowUp) {
-        event.preventDefault()
-        nextOption = options[currentIndex - 1]
-      }
-
-      if (nextOption) {
-        const top = nextOption.offsetTop
-        const bottom = top + nextOption.clientHeight
-        const scrollToTop = top < this.menu.scrollTop
-        const scrollToBottom = bottom > this.menu.scrollTop + this.menu.clientHeight
-
-        this.keyboardNavigation = true
-        if (scrollToTop) {
-          this.menu.scrollTop = top
-        } else if (scrollToBottom) {
-          this.menu.scrollTop = bottom - this.menu.clientHeight
-        }
-
-        this.focusOption(nextOption)
-        setTimeout(() => {
-          delete this.keyboardNavigation
-        }, 100)
-      }
-    })
-
-    this.input.addEventListener('keydown', event => {
-      const esc = event.key === 'Escape'
-
-      if (esc) {
-        this.value = this.value
-        this.input.select()
-        this.filter = undefined
-      }
-    })
-
-    this.input.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-
-      if (enter) {
-        const option = this.menu.querySelector('.option.focus')
-        event.preventDefault()
-        event.stopPropagation()
-
-        option
-          ? this.value = option.getAttribute('value') || option.textContent
-          : this.value = this.value
-
-        this.hide()
-        this.input.blur()
-      }
-    })
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined,
-    delete this.validations.pattern
-  }
-
-  show() {
-    this.classList.add('visible')
-    this.menu.scrollTop = 0
-    this.focusOption(this.querySelector('.option:first-child'))
-
-    if (this.actionSheet) {
-      this.input.blur()
-      this.actionSheet.show()
-    }
-  }
-
-  hide() {
-    this.classList.remove('visible')
-    this.removeOptionFocus()
-  }
-
-  get visible() {
-    return this.classList.contains('visible')
-  }
-
-  removeOptionFocus() {
-    const latest = this.menu.querySelector('.focus')
-    latest
-      ? latest.classList.remove('focus')
-      : undefined
-  }
-
-  focusOption(option) {
-    this.removeOptionFocus()
-    option
-      ? option.classList.add('focus')
-      : null
-  }
-
-  get value() {
-    return this.getAttribute('value')
-      ? evaluate(this.getAttribute('value'))
-      : undefined
-  }
-
-  set value(value) {
-    const differentValue = this.getAttribute('value') !== value
-    const option = Array
-      .from(this.menu.querySelectorAll('.option'))
-      .filter(option => {
-        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
-          || option.textContent == String(value) // eslint-disable-line eqeqeq
-      })[0]
-
-    const textNotApplied = option && this.input.value !== option.textContent
-
-    if (textNotApplied) {
-      this.input.value = option
-        ? option.textContent
-        : ''
-      this.input.dispatchEvent(new Event('change'))
-    }
-
-    if (differentValue) {
-      const hasValue = value !== undefined && value !== null
-
-      hasValue && option
-        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-        :  this.removeAttribute('value')
-
-      this.input.dispatchEvent(new Event('change'))
-    }
-
-    if (!this.hasAttribute('value')) {
-      this.input.value = ''
-      this.input.dispatchEvent(new Event('change'))
-    }
-  }
-
-  set filter(value) {
-    if (value) {
-      this.classList.add('filtered')
-
-      Array
-        .from(this.menu.querySelectorAll('.option'))
-        .forEach(option => {
-          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
-
-          Array
-            .from(option.querySelectorAll('.match'))
-            .forEach(char => char.classList.remove('match'))
-
-          if (matchOption) {
-            option.classList.remove('hidden')
-
-            value
-              .split('')
-              .forEach(char => {
-                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
-                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
-                letter
-                  ? letter.classList.add('match')
-                  : null
-              })
-
-          } else {
-            option.classList.add('hidden')
-          }
-        })
-    } else {
-      this.classList.remove('filtered')
-      Array
-        .from(this.querySelectorAll('.option.hidden'))
-        .forEach(option => option.classList.remove('hidden'))
-    }
   }
 }
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports) {
-
-/* //global angular */
-// angular
-//   .module('minimalist')
-//   .directive('mnSelect', MnSelectDirective)
-
-// function MnSelectDirective() {
-//   return {
-//     restrict: 'C',
-//     require: 'ngModel',
-//     link(scope, element) {
-//       const component = element[0]
-
-//       element.ready(() => {
-//         component._setOptions()
-//         component._setActionSheet()
-//       })
-//     }
-//   }
-// }
-
-// angular
-//   .module('minimalist')
-//   .directive('option', MnSelectOptionDirective)
-
-// function MnSelectOptionDirective() {
-//   return {
-//     restrict: 'C',
-//     link(scope, element) {
-//       const option = element[0]
-//       const isMnOption = option.closest('.mn-select')
-
-//       element.ready(() => {
-//         if (isMnOption) {
-//           const actionSheet = isMnOption.actionSheet
-//           option.innerHTML = option.textContent
-//             .split('')
-//             .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
-//             .join('')
-
-//           if (actionSheet) {
-//             let actionSheetOption = Array
-//               .from(actionSheet.menu.querySelectorAll('.option'))
-//               .filter(children => children.textContent === option.textContent)[0]
-
-//             if (!actionSheetOption) {
-//               actionSheetOption = document.createElement('div')
-//               actionSheetOption.classList.add('option')
-//               actionSheetOption.textContent = option.textContent
-//               actionSheet.menu.appendChild(actionSheetOption)
-//             }
-
-//             element.bind('$destroy', () => {
-//               actionSheet.menu.removeChild(actionSheetOption)
-//             })
-//           }
-//         }
-//       })
-//     }
-//   }
-// }
 
 
 /***/ }),
@@ -2632,8 +2758,29 @@ function MnSelectCustomElement() {
     __webpack_require__(0)
   }
 
+  if (!window.customElements.get('mn-search')) {
+    window.customElements.define('mn-search', __webpack_require__(33))
+  }
+
+  return window.customElements.get('mn-search')
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(32))
+    window.customElements.define('mn-select', __webpack_require__(6))
   }
 
   return window.customElements.get('mn-select')
@@ -2641,7 +2788,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2739,7 +2886,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -2752,7 +2899,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(35))
+    window.customElements.define('mn-sidenav', __webpack_require__(36))
   }
 
   return window.customElements.get('mn-sidenav')

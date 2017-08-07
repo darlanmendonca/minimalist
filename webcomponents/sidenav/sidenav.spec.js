@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -8,7 +8,6 @@ let sidenav
 let component
 
 describe('mn-sidenav (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(createComponent)
   beforeEach(setPageObject)
 
@@ -179,10 +178,6 @@ describe('mn-sidenav (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').sidenav
-}
 
 function createComponent() {
   component = document.createElement('mn-sidenav')

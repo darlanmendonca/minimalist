@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -7,7 +7,6 @@ const {expect, spy} = require('chai')
 let component
 
 describe('mn-button (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(createComponent)
 
   describe('instance', () => {
@@ -63,10 +62,6 @@ describe('mn-button (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').button
-}
 
 function createComponent() {
   component = document.createElement('mn-button')

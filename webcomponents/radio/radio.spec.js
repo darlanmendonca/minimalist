@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect} = require('chai')
    .use(require('chai-dom'))
   .use(require('chai-colors'))
@@ -11,7 +11,6 @@ let stark
 let lannister
 
 describe('mn-radio (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -203,10 +202,6 @@ describe('mn-radio (webcomponent)', () => {
 
   })
 })
-
-function loadComponent() {
-  // require('minimalist').input
-}
 
 function cleanView() {
   const form = document.querySelector('form')

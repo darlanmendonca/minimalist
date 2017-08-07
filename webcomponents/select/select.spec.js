@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, beforeEach */
 const {expect, spy} = require('chai')
   .use(require('chai-dom'))
   .use(require('chai-style'))
@@ -8,7 +8,6 @@ let select // page object defined in method setPageObject
 let component
 
 describe('mn-select (webcomponent)', () => {
-  before(loadComponent)
   beforeEach(cleanView)
   beforeEach(createComponent)
   beforeEach(setPageObject)
@@ -105,7 +104,6 @@ describe('mn-select (webcomponent)', () => {
     it('should be a string when set by option value', () => {
       select.setProperty('value', 'stark')
 
-      console.log(component.value, component.input.value)
       expect(component).to.have.value('stark')
       expect(component.input).to.have.value('Stark')
     })
@@ -377,10 +375,6 @@ describe('mn-select (webcomponent)', () => {
     })
   })
 })
-
-function loadComponent() {
-  // require('minimalist').select
-}
 
 function cleanView() {
   const form = document.querySelector('form')

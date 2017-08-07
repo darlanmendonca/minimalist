@@ -23,6 +23,7 @@ mn-dialog:not(.mn-dialog) {display: none}
   & > .mn-card {
     padding: .5em;
     margin: auto !important;
+    box-sizing: border-box;
     transition: transform .2s ease, visibility .21s;
 
     @media (max-width: 767px) {

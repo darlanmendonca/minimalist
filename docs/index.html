@@ -2,43 +2,55 @@
   <head>
     <title>minimalist</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js"></script>
     <link rel="stylesheet" href="/vendor.css" />
   </head>
 
   <body>
-    <h2>vanilla</h2>
-    <mn-form class="mn-layout-row">
-      <mn-select placeholder="House" id="house1">
-        <option value="stark">Stark</option>
-        <option value="lannister">Lannister</option>
-      </mn-select>
-    </mn-form>
+    <section>
+      <h2>vanilla</h2>
+      <mn-form class="mn-layout-row">
+        <mn-search placeholder="House" required></mn-search>
+        <mn-button submit>submit</mn-button>
+      </mn-form>
+    </section>
 
-    <div ng-app="app" ng-controller="HomeController as controller">
+    <section ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
-        <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house2">
-          <option ng-repeat="house in controller.houses">{{ house }}</option>
-        </mn-select>
+        <mn-search class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-search>
+        <mn-button submit>submit</mn-button>
+        <mn-button ng-click='controller.change()'>change model to lannister</mn-button>
       </mn-form>
-
-      <test>
-        <p>2 - lero lero</p>
-        <mn-form class="mn-layout-row">
-          <mn-select placeholder="House: {{ controller.house }}" ng-model='controller.house' id="house3">
-            <option ng-repeat="house in controller.houses">{{ house }}</option>
-          </mn-select>
-        </mn-form>
-      </test>
-
-      <mn-button ng-click='controller.remove()'>remove</mn-button>
-      <mn-button ng-click='controller.add()'>add</mn-button>
-    </div>
+    </section>
 
     <script src="/vendor.js"></script>
     <script>
-      const select = document.querySelector('mn-select')
+      const search = document.querySelector('mn-search')
+
+      search.addEventListener('search', (event) => {
+        const params = new URLSearchParams()
+        params.append('query', event.query)
+        const houses = new Request(`http://localhost:4000/houses?${params}`)
+
+        event.target
+          .fetch(houses)
+          .then(setOptions)
+
+        async function setOptions(response) {
+          const houses = await response.json()
+          houses.forEach(house => {
+            // const obj = {name: house, value: house.toLowerCase()}
+            const option = document.createElement('option')
+            option.textContent = house//obj.name
+            option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
+
+            event.target.appendChild(option)
+          })
+        }
+      })
+
     </script>
   </body>
 </html>

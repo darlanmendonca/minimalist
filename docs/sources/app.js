@@ -1,8 +1,11 @@
 require('minimalist')
 require('../../angular.js')
 
-angular
-  .module('app', ['minimalist'])
+
+angular.module('app', [
+  'minimalist',
+  'ngResource',
+])
 
 angular
   .module('app')
@@ -10,37 +13,60 @@ angular
 
 angular
   .module('app')
-  .directive('test', TestTranscludeDirective)
+  .service('Houses', HousesService)
 
 function HomeController() {
-  this.house = 'Stark'
+  this.house = 'stark'
 
-  this.houses = [
-    'Stark',
-    'Lannister',
-    'Targaryen',
-  ]
-
-  this.remove = () => {
-    this.houses.pop()
-    console.log('removed house', this.houses)
-  }
-
-  this.add = () => {
-    this.houses.push('test')
-    console.log('added house', this.houses)
+  this.change = () => {
+    this.house = 'lannister'
   }
 }
 
-function TestTranscludeDirective() {
+function HousesService($resource) {
+  const service =  $resource('http://localhost:4000/houses')
+
+  this.list = list
+
+  function list(params = {}) {
+    return service.query(params).$promise
+  }
+}
+
+angular
+  .module('app')
+  .directive('houses', HousesSearchDirective)
+
+function HousesSearchDirective(Houses) {
   return {
-    restrict: 'E',
-    transclude: true,
-    template: `
-      <div>1 - wow</div>
-      <ng-transclude></ng-transclude>
-    `,
-    // controller: 'SearchController',
-    // controllerAs: 'searchController',
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes) {
+
+      scope.$watch(attributes.ngModel, setComponentValue)
+
+      function setComponentValue(value) {
+        const search = new Event('search')
+        search.query = value
+        element[0].dispatchEvent(search)
+      }
+
+      element.bind('search', (event) => {
+        const {query} = event
+        event.target
+          .fetch(() => Houses.list({query}))
+          .then(setOptions)
+
+        function setOptions(houses) {
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+
+            event.target.appendChild(option)
+          })
+        }
+      })
+    }
   }
 }

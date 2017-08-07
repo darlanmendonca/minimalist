@@ -69,7 +69,6 @@ module.exports = class MnSelect extends MnInput {
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        // console.log(mutation)
         const addedNode = mutation.addedNodes[0]
         const removedNode = mutation.removedNodes[0]
         const addOption = addedNode && addedNode.tagName === 'OPTION'
@@ -120,6 +119,11 @@ module.exports = class MnSelect extends MnInput {
     const option = document.createElement('div')
     option.classList.add('option')
     option.innerHTML = value.textContent
+    const focusedOption = this.menu.querySelector('.option.focus')
+
+    if (!focusedOption) {
+      option.classList.add('focus')
+    }
 
     option.innerHTML = value.textContent
       .split('')
@@ -138,6 +142,8 @@ module.exports = class MnSelect extends MnInput {
       actionSheetOption.textContent = option.textContent
       this.actionSheet.menu.appendChild(actionSheetOption)
     }
+
+    this.filter = this.filter
   }
 
   removeOption(value) {
@@ -198,7 +204,7 @@ module.exports = class MnSelect extends MnInput {
     })
 
     document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select') && event.target !== this
+      const clickOutside = !event.target.closest('.mn-select') && event.target !== this
 
       if (this.visible && clickOutside) {
         this.hide()
@@ -354,9 +360,10 @@ module.exports = class MnSelect extends MnInput {
   set value(value) {
     const differentValue = this.getAttribute('value') !== value
     const option = Array
-      .from(this.menu.querySelectorAll('.option'))
+      .from(this.querySelectorAll('option'))
       .filter(option => {
         return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+          || option.getAttribute('value') === JSON.stringify(value)
           || option.textContent == String(value) // eslint-disable-line eqeqeq
       })[0]
 
@@ -385,36 +392,44 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 
+  get filter() {
+    return this.input.value
+  }
+
   set filter(value) {
     if (value) {
       this.classList.add('filtered')
 
-      Array
-        .from(this.menu.querySelectorAll('.option'))
-        .forEach(option => {
-          const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
+      try {
+        Array
+          .from(this.menu.querySelectorAll('.option'))
+          .forEach(option => {
+            const matchOption = RegExp(value.split('').join('.*'), 'i').test(option.textContent)
 
-          Array
-            .from(option.querySelectorAll('.match'))
-            .forEach(char => char.classList.remove('match'))
+            Array
+              .from(option.querySelectorAll('.match'))
+              .forEach(char => char.classList.remove('match'))
 
-          if (matchOption) {
-            option.classList.remove('hidden')
+            if (matchOption) {
+              option.classList.remove('hidden')
 
-            value
-              .split('')
-              .forEach(char => {
-                const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
-                const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
-                letter
-                  ? letter.classList.add('match')
-                  : null
-              })
+              value
+                .split('')
+                .forEach(char => {
+                  const selector = `span[data-char="${char.toLowerCase()}"]:not(.match)`
+                  const letter = option.querySelector(`.match ~ ${selector}`) || option.querySelector(selector)
+                  letter
+                    ? letter.classList.add('match')
+                    : null
+                })
 
-          } else {
-            option.classList.add('hidden')
-          }
-        })
+            } else {
+              option.classList.add('hidden')
+            }
+          })
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       this.classList.remove('filtered')
       Array
