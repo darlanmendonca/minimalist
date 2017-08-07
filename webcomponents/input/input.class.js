@@ -203,9 +203,11 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set maxlength(value) {
-    value
-      ? this.input.setAttribute('maxlength', value)
-      : this.input.removeAttribute('maxlength')
+    if (this.input) {
+      value
+        ? this.input.setAttribute('maxlength', value)
+        : this.input.removeAttribute('maxlength')
+    }
   }
 
   set autocapitalize(value) {
