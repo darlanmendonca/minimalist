@@ -211,13 +211,17 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set autocapitalize(value) {
-    value
-      ? this.input.setAttribute('autocapitalize', value)
-      : this.input.removeAttribute('autocapitalize')
+    if (this.input) {
+      value
+        ? this.input.setAttribute('autocapitalize', value)
+        : this.input.removeAttribute('autocapitalize')
+    }
   }
 
   set autofocus(value) {
-    this.input.autofocus = value || this.hasAttribute('autofocus')
+    if (this.input) {
+      this.input.autofocus = value || this.hasAttribute('autofocus')
+    }
   }
 
   blur() {
