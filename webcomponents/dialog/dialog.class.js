@@ -64,7 +64,7 @@ module.exports = class MnDialog extends HTMLElement {
       }
     })
 
-    document.addEventListener('click', event => {
+    document.addEventListener('mousedown', event => {
       const dialogVisible = this.classList.contains('visible')
       const clickOutside = event.target.matches('.mn-dialog')
 
