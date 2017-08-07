@@ -91,15 +91,6 @@ function HousesSearchDirective(Houses) {
     restrict: 'C',
     require: 'ngModel',
     link(scope, element, attributes) {
-
-      scope.$watch(attributes.ngModel, setComponentValue)
-
-      function setComponentValue(value) {
-        const search = new Event('search')
-        search.query = value
-        element[0].dispatchEvent(search)
-      }
-
       element.bind('search', (event) => {
         const {query} = event
         event.target

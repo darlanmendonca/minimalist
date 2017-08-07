@@ -12,6 +12,7 @@ function MnInputDirective() {
       const component = element[0]
       const input = component.input
       const isSelect = component.classList.contains('mn-select')
+      const isSearch = component.classList.contains('mn-search')
 
       if (!attributes.name) {
         const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
@@ -19,15 +20,36 @@ function MnInputDirective() {
       }
 
       ngModel.$validators = {}
-      input.addEventListener('change', setViewValue)
+
+      if (!isSearch) {
+        input.addEventListener('change', setViewValue)
+        input.addEventListener('input', setViewValue)
+      }
       input.addEventListener('blur', setViewValue)
-      input.addEventListener('input', setViewValue)
 
       element.ready(() => {
-        component.value = ngModel.$modelValue
-        ngModel.$setViewValue(component.value)
-        scope.$watch(attributes.ngModel, setComponentValue)
+        const value = ngModel.$modelValue
+
+        component.value = value
+        ngModel.$setViewValue(value)
+        if (!isSearch) {
+          scope.$watch(attributes.ngModel, setComponentValue)
+        }
       })
+
+      if (isSearch) {
+        scope.$watch(attributes.ngModel, (value) => {
+          const search = new Event('search')
+          search.query = value
+          component.dispatchEvent(search)
+          component.addEventListener('loading', applyValue)
+
+          function applyValue() {
+            component.removeEventListener('loading', applyValue)
+            setTimeout(() => component.value = value, 0)
+          }
+        })
+      }
 
       scope.$on('$destroy', () => {
         element.remove()

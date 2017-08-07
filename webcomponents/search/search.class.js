@@ -127,6 +127,7 @@ module.exports = class MnSearch extends MnSelect {
       .then(res => {
         this.cleanOptions()
         this.classList.remove('loading')
+        this.dispatchEvent(new Event('loading'))
         return res
       })
   }

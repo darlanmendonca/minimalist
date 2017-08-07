@@ -8,19 +8,49 @@
   </head>
 
   <body>
-    <mn-button open-dialog="test">dialog</mn-button>
+    <section>
+      <h2>vanilla</h2>
+      <mn-form class="mn-layout-row">
+        <mn-search placeholder="House" required></mn-search>
+        <mn-button submit>submit</mn-button>
+      </mn-form>
+    </section>
 
-    <mn-dialog id="test">
-      <mn-select placeholder="test">
-        <option>one</option>
-        <option>two</option>
-        <option>three</option>
-        <option>four</option>
-        <option>five</option>
-      </mn-select>
-    </mn-dialog>
-
+    <section ng-app="app" ng-controller="HomeController as controller">
+      <h2>angular</h2>
+      <mn-form class="mn-layout-row">
+        <mn-search class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-search>
+        <mn-button submit>submit</mn-button>
+        <mn-button ng-click='controller.change()'>change model to lannister</mn-button>
+      </mn-form>
+    </section>
 
     <script src="/vendor.js"></script>
+    <script>
+      const search = document.querySelector('[ng-app] mn-search')
+
+      // search.addEventListener('search', (event) => {
+      //   const params = new URLSearchParams()
+      //   params.append('query', event.query)
+      //   const houses = new Request(`http://localhost:4000/houses?${params}`)
+
+      //   event.target
+      //     .fetch(houses)
+      //     .then(setOptions)
+
+      //   async function setOptions(response) {
+      //     const houses = await response.json()
+      //     houses.forEach(house => {
+      //       // const obj = {name: house, value: house.toLowerCase()}
+      //       const option = document.createElement('option')
+      //       option.textContent = house//obj.name
+      //       option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
+
+      //       event.target.appendChild(option)
+      //     })
+      //   }
+      // })
+
+    </script>
   </body>
 </html>
