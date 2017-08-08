@@ -134,7 +134,7 @@ module.exports = class MnDate extends MnInput {
           .substring(0, 10)
         : ''
 
-    const supportsInputDate = this.input && this.input.type === 'date'
+    const supportsInputDate = this.input.type === 'date'
 
     if (!supportsInputDate && validDate) {
       const dateString = value.split('-')

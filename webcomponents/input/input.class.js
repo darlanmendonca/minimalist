@@ -1,4 +1,5 @@
 const {HTMLElement} = window
+const evaluate = require('evaluate-string')
 
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
@@ -101,7 +102,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    this.value = this.getAttribute('value') || ''
+    this.value = evaluate(this.getAttribute('value') || '')
     this.default = this.value
   }
 
