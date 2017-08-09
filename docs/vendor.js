@@ -111,9 +111,10 @@ var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define|
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
@@ -216,7 +217,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    this.value = this.getAttribute('value') || ''
+    this.value = evaluate(this.getAttribute('value') || '')
     this.default = this.value
   }
 
@@ -1204,6 +1205,8 @@ angular
   .service('Houses', HousesService)
 
 function HomeController() {
+  this.name = 'test'
+  this.date = new Date()
   this.house = 'stark'
 
   this.change = () => {
@@ -1761,12 +1764,14 @@ module.exports = class MnDialog extends HTMLElement {
     this.scrollTop = 0
     document.body.classList.add('mn-dialog-visible')
     document.body.classList.add('mn-backdrop-visible')
+    this.dispatchEvent(new Event('open'))
   }
 
   close() {
     document.body.classList.remove('mn-dialog-visible')
     this.classList.remove('visible')
     document.body.classList.remove('mn-backdrop-visible')
+    this.dispatchEvent(new Event('close'))
   }
 
   toggle() {
@@ -2085,8 +2090,8 @@ function MnInputDirective() {
         const value = ngModel.$modelValue
 
         component.value = value
-        ngModel.$setViewValue(value)
         if (!isSearch) {
+          ngModel.$setViewValue(value)
           scope.$watch(attributes.ngModel, setComponentValue)
         }
       })

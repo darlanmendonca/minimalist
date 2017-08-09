@@ -16,6 +16,8 @@ angular
   .service('Houses', HousesService)
 
 function HomeController() {
+  this.name = 'test'
+  this.date = new Date()
   this.house = 'stark'
 
   this.change = () => {

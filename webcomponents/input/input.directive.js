@@ -31,8 +31,8 @@ function MnInputDirective() {
         const value = ngModel.$modelValue
 
         component.value = value
-        ngModel.$setViewValue(value)
         if (!isSearch) {
+          ngModel.$setViewValue(value)
           scope.$watch(attributes.ngModel, setComponentValue)
         }
       })
