@@ -19,8 +19,8 @@
     <section ng-app="app" ng-controller="HomeController as controller">
       <h2>angular</h2>
       <mn-form class="mn-layout-row">
-        <mn-date placeholder="Date {{ controller.date }}" ng-model='controller.date'></mn-date>
-        <mn-input placeholder="Name {{ controller.name }}" ng-model='controller.name'></mn-input>
+        <!-- <mn-date placeholder="Date {{ controller.date }}" ng-model='controller.date'></mn-date>
+        <mn-input placeholder="Name {{ controller.name }}" ng-model='controller.name'></mn-input> -->
         <mn-search class="houses" placeholder="House {{ controller.house }}" required ng-model="controller.house"></mn-search>
         <mn-button submit>submit</mn-button>
         <mn-button ng-click='controller.change()'>change model to lannister</mn-button>

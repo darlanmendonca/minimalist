@@ -1237,7 +1237,10 @@ function HousesSearchDirective(Houses) {
       element.bind('search', search)
 
       function search(event) {
-        const {query} = event
+        const query = angular.isObject(event.query) && event.query.name
+          ? event.query.name
+          : event.query
+
         event.target
           .fetch(() => Houses.list({query}))
           .then(setOptions)
@@ -2091,7 +2094,7 @@ function MnInputDirective() {
         const value = ngModel.$modelValue
 
         component.value = value
-        // ngModel.$setViewValue(value)
+        ngModel.$setViewValue(value)
         if (!isSearch) {
           scope.$watch(attributes.ngModel, setComponentValue)
         }
