@@ -18,10 +18,10 @@ angular
 function HomeController() {
   this.name = 'test'
   this.date = new Date()
-  this.house = 'stark'
+  this.house = {name: 'stark'}
 
   this.change = () => {
-    this.house = 'lannister'
+    this.house = {name: 'lannister'}
   }
 }
 
@@ -56,7 +56,7 @@ function HousesSearchDirective(Houses) {
           options.forEach(item => {
             const option = document.createElement('option')
             option.textContent = item
-            option.setAttribute('value', item.toLowerCase())
+            option.setAttribute('value', JSON.stringify({name: item.toLowerCase()}))
             event.target.appendChild(option)
           })
         }

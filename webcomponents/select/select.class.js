@@ -373,6 +373,7 @@ module.exports = class MnSelect extends MnInput {
       this.input.value = option
         ? option.textContent
         : ''
+
       this.input.dispatchEvent(new Event('change'))
     }
 
@@ -386,10 +387,10 @@ module.exports = class MnSelect extends MnInput {
       this.input.dispatchEvent(new Event('change'))
     }
 
-    if (!this.hasAttribute('value')) {
-      this.input.value = ''
-      this.input.dispatchEvent(new Event('change'))
-    }
+    // if (!this.hasAttribute('value')) {
+    //   this.input.value = ''
+    //   this.input.dispatchEvent(new Event('change'))
+    // }
   }
 
   get filter() {

@@ -1094,6 +1094,7 @@ module.exports = class MnSelect extends MnInput {
       this.input.value = option
         ? option.textContent
         : ''
+
       this.input.dispatchEvent(new Event('change'))
     }
 
@@ -1107,10 +1108,10 @@ module.exports = class MnSelect extends MnInput {
       this.input.dispatchEvent(new Event('change'))
     }
 
-    if (!this.hasAttribute('value')) {
-      this.input.value = ''
-      this.input.dispatchEvent(new Event('change'))
-    }
+    // if (!this.hasAttribute('value')) {
+    //   this.input.value = ''
+    //   this.input.dispatchEvent(new Event('change'))
+    // }
   }
 
   get filter() {
@@ -1207,10 +1208,10 @@ angular
 function HomeController() {
   this.name = 'test'
   this.date = new Date()
-  this.house = 'stark'
+  this.house = {name: 'stark'}
 
   this.change = () => {
-    this.house = 'lannister'
+    this.house = {name: 'lannister'}
   }
 }
 
@@ -1245,7 +1246,7 @@ function HousesSearchDirective(Houses) {
           options.forEach(item => {
             const option = document.createElement('option')
             option.textContent = item
-            option.setAttribute('value', item.toLowerCase())
+            option.setAttribute('value', JSON.stringify({name: item.toLowerCase()}))
             event.target.appendChild(option)
           })
         }
@@ -2083,8 +2084,8 @@ function MnInputDirective() {
       if (!isSearch) {
         input.addEventListener('change', setViewValue)
         input.addEventListener('input', setViewValue)
-        input.addEventListener('blur', setViewValue)
       }
+      input.addEventListener('blur', setViewValue)
 
       element.ready(() => {
         const value = ngModel.$modelValue
