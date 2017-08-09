@@ -24,8 +24,8 @@ function MnInputDirective() {
       if (!isSearch) {
         input.addEventListener('change', setViewValue)
         input.addEventListener('input', setViewValue)
+        input.addEventListener('blur', setViewValue)
       }
-      input.addEventListener('blur', setViewValue)
 
       element.ready(() => {
         const value = ngModel.$modelValue
