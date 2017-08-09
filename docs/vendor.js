@@ -2090,15 +2090,15 @@ function MnInputDirective() {
       }
       input.addEventListener('blur', setViewValue)
 
-      element.ready(() => {
-        const value = ngModel.$modelValue
+      if (!isSearch) {
+        element.ready(() => {
+          const value = ngModel.$modelValue
 
-        component.value = value
-        ngModel.$setViewValue(value)
-        if (!isSearch) {
-          scope.$watch(attributes.ngModel, setComponentValue)
-        }
-      })
+            component.value = value
+            ngModel.$setViewValue(value)
+            scope.$watch(attributes.ngModel, setComponentValue)
+        })
+      }
 
       if (isSearch) {
         scope.$watch(attributes.ngModel, (value) => {
