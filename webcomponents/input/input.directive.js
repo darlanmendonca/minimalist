@@ -31,8 +31,7 @@ function MnInputDirective() {
         const value = ngModel.$modelValue
 
         component.value = value
-        console.log('apply value in ready')
-        ngModel.$setViewValue(value)
+        // ngModel.$setViewValue(value)
         if (!isSearch) {
           scope.$watch(attributes.ngModel, setComponentValue)
         }
@@ -72,7 +71,6 @@ function MnInputDirective() {
         const isBlur = event.type === 'blur'
 
         if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
-          console.log('apply value in setViewValue')
           ngModel.$setViewValue(component.value)
         }
       }
