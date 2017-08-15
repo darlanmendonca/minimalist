@@ -33,7 +33,7 @@
   }
 
   button.mn-item, a.mn-item {
-    display: block;
+    display: flex;
     cursor: pointer;
     &:not(.detail-visible) {
       &:hover, &:focus {
