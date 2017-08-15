@@ -29,11 +29,9 @@ function MnInputDirective() {
 
       if (!isSearch) {
         element.ready(() => {
-          const value = ngModel.$modelValue
-
-            component.value = value
-            ngModel.$setViewValue(value)
-            scope.$watch(attributes.ngModel, setComponentValue)
+          component.value = ngModel.$modelValue
+          ngModel.$setViewValue(component.value)
+          scope.$watch(attributes.ngModel, setComponentValue)
         })
       }
 

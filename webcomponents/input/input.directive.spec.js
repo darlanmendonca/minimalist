@@ -36,6 +36,8 @@ describe('mn-input (directive)', () => {
     })
 
     it('should be empty string if it doesn\'t exist', () => {
+      console.log('scope', scope.username)
+      console.log('component', component.value)
       expect(scope.username).to.be.equal('')
       expect(component).to.have.value('')
     })
