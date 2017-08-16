@@ -8,9 +8,9 @@
   </head>
 
   <body>
-    <div class="mn-card mn-list">
+    <!-- <div class="mn-card mn-list">
       <div class="mn-item">test</div>
-    </div>
+    </div> -->
     <section>
       <h2>vanilla</h2>
       <mn-form class="mn-layout-row">
@@ -34,27 +34,29 @@
     <script>
       const search = document.querySelector('[ng-app] mn-search')
 
-      // search.addEventListener('search', (event) => {
-      //   const params = new URLSearchParams()
-      //   params.append('query', event.query)
-      //   const houses = new Request(`http://localhost:4000/houses?${params}`)
+      document
+        .querySelector('mn-search')
+        .addEventListener('search', (event) => {
+          const params = new URLSearchParams()
+          params.append('query', event.query)
+          const houses = new Request(`http://localhost:4000/houses?${params}`)
 
-      //   event.target
-      //     .fetch(houses)
-      //     .then(setOptions)
+          event.target
+            .fetch(houses)
+            .then(setOptions)
 
-      //   async function setOptions(response) {
-      //     const houses = await response.json()
-      //     houses.forEach(house => {
-      //       // const obj = {name: house, value: house.toLowerCase()}
-      //       const option = document.createElement('option')
-      //       option.textContent = house//obj.name
-      //       option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
+          async function setOptions(response) {
+            const houses = await response.json()
+            houses.forEach(house => {
+              // const obj = {name: house, value: house.toLowerCase()}
+              const option = document.createElement('option')
+              option.textContent = house//obj.name
+              option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
 
-      //       event.target.appendChild(option)
-      //     })
-      //   }
-      // })
+              event.target.appendChild(option)
+            })
+          }
+        })
 
     </script>
   </body>

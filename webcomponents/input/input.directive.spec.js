@@ -562,14 +562,16 @@ describe('mn-input (directive)', () => {
     it('should be undefined if applied an invalid option to ngModel', () => {
       scope.house = 'test'
       scope.$digest()
-      expect(scope.house).to.be.equal(undefined)
+
+      console.log(scope.house, component.value, component.input.value)
+      expect(scope.house).to.be.undefined
       expect(component).to.have.value(undefined)
       expect(component.input).to.have.value('')
     })
 
     it('should be undefined if applied an invalid option to property value', () => {
       component.value = 'test'
-      expect(scope.house).to.be.equal(undefined)
+      expect(scope.house).to.be.undefined
       expect(component).to.have.value(undefined)
       expect(component.input).to.have.value('')
     })

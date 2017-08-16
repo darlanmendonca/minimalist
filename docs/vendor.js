@@ -1108,10 +1108,10 @@ module.exports = class MnSelect extends MnInput {
       this.input.dispatchEvent(new Event('change'))
     }
 
-    // if (!this.hasAttribute('value')) {
-    //   this.input.value = ''
-    //   this.input.dispatchEvent(new Event('change'))
-    // }
+    if (!this.hasAttribute('value')) {
+      this.input.value = ''
+      this.input.dispatchEvent(new Event('change'))
+    }
   }
 
   get filter() {
@@ -2092,24 +2092,34 @@ function MnInputDirective() {
 
       if (!isSearch) {
         element.ready(() => {
-          const value = ngModel.$modelValue
-
-            component.value = value
-            ngModel.$setViewValue(value)
-            scope.$watch(attributes.ngModel, setComponentValue)
+          component.value = ngModel.$modelValue
+          ngModel.$setViewValue(component.value)
+          scope.$watch(attributes.ngModel, setComponentValue)
         })
       }
 
       if (isSearch) {
-        scope.$watch(attributes.ngModel, (value) => {
-          const search = new Event('search')
-          search.query = value
-          component.dispatchEvent(search)
-          component.addEventListener('loading', applyValue)
+        scope.$watch(attributes.ngModel, value => {
+          const notApplied = !angular.equals(component.value, value)
+          if (notApplied) {
+            // console.log(value)
+            const search = new Event('search')
+            search.query = value
+            component.dispatchEvent(search)
+            component.addEventListener('loading', applyValue)
 
-          function applyValue() {
-            component.removeEventListener('loading', applyValue)
-            setTimeout(() => component.value = value, 0)
+            function applyValue() {
+              component.removeEventListener('loading', applyValue)
+              // component.value = value
+              // ngModel.$setViewValue(component.value)
+              setTimeout(() => {
+                // console.log(value)
+                component.value = value
+                // console.log(ngModel)
+                ngModel.$modelValue = component.value
+                ngModel.$setViewValue(component.value)
+              })
+            }
           }
         })
       }
