@@ -1237,9 +1237,10 @@ function HousesSearchDirective(Houses) {
       element.bind('search', search)
 
       function search(event) {
-        const query = angular.isObject(event.query) && event.query.name
-          ? event.query.name
-          : event.query
+        const value = event.query
+        const query = angular.isObject(value) && value.name
+          ? value.name
+          : value
 
         event.target
           .fetch(() => Houses.list({query}))
@@ -2073,9 +2074,43 @@ function MnInputDirective() {
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
       const component = element[0]
-      const input = component.input
-      const isSelect = component.classList.contains('mn-select')
-      const isSearch = component.classList.contains('mn-search')
+      const isSearch = element.hasClass('mn-search')
+
+      element.bind('ready', () => {
+        component.value = ngModel.$modelValue
+      })
+
+      element.ready(() => {
+        scope.$watch(attributes.ngModel, setComponentValue)
+
+        if (!isSearch) {
+          component.input.addEventListener('change', setModelValue)
+          component.input.addEventListener('input', setModelValue)
+          component.input.addEventListener('blur', setModelValue)
+
+          setTimeout(setModelValue)
+        }
+
+        if (isSearch) {
+          const search = new Event('search')
+          search.query = ngModel.$modelValue
+          component.dispatchEvent(search)
+        }
+
+        component.value = ngModel.$modelValue
+      })
+
+      scope.$on('$destroy', () => {
+        element.remove()
+      })
+
+      function setComponentValue(value) {
+        component.value = value
+      }
+
+      function setModelValue() {
+        ngModel.$setViewValue(component.value)
+      }
 
       if (!attributes.name) {
         const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
@@ -2083,70 +2118,6 @@ function MnInputDirective() {
       }
 
       ngModel.$validators = {}
-
-      if (!isSearch) {
-        input.addEventListener('change', setViewValue)
-        input.addEventListener('input', setViewValue)
-      }
-      input.addEventListener('blur', setViewValue)
-
-      if (!isSearch) {
-        element.ready(() => {
-          component.value = ngModel.$modelValue
-          ngModel.$setViewValue(component.value)
-          scope.$watch(attributes.ngModel, setComponentValue)
-        })
-      }
-
-      if (isSearch) {
-        scope.$watch(attributes.ngModel, value => {
-          const notApplied = !angular.equals(component.value, value)
-          if (notApplied) {
-            // console.log(value)
-            const search = new Event('search')
-            search.query = value
-            component.dispatchEvent(search)
-            component.addEventListener('loading', applyValue)
-
-            function applyValue() {
-              component.removeEventListener('loading', applyValue)
-              // component.value = value
-              // ngModel.$setViewValue(component.value)
-              setTimeout(() => {
-                // console.log(value)
-                component.value = value
-                // console.log(ngModel)
-                ngModel.$modelValue = component.value
-                ngModel.$setViewValue(component.value)
-              })
-            }
-          }
-        })
-      }
-
-      scope.$on('$destroy', () => {
-        element.remove()
-      })
-
-      function setComponentValue(value) {
-        const differentValue = component.getAttribute('value') !== value && component.value !== value
-        const isObjectValue = angular.isObject(value)
-
-        if (!isSelect || differentValue && !isObjectValue) {
-          component.value = value
-        }
-      }
-
-      function setViewValue(event) {
-        const activeElement = event.currentTarget === document.activeElement
-        const isDate = component.input.type === 'date'
-        const isNumber = component.classList.contains('mn-number')
-        const isBlur = event.type === 'blur'
-
-        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
-          ngModel.$setViewValue(component.value)
-        }
-      }
     }
   }
 }
@@ -2779,6 +2750,11 @@ module.exports = class MnSearch extends MnSelect {
         this.cleanOptions()
         this.classList.remove('loading')
         this.dispatchEvent(new Event('loading'))
+
+        setTimeout(() => {
+          this.dispatchEvent(new Event('ready'))
+        })
+
         return res
       })
   }

@@ -563,7 +563,7 @@ describe('mn-input (directive)', () => {
       scope.house = 'test'
       scope.$digest()
 
-      console.log(scope.house, component.value, component.input.value)
+      // console.log(scope.house, component.value, component.input.value)
       expect(scope.house).to.be.undefined
       expect(component).to.have.value(undefined)
       expect(component.input).to.have.value('')

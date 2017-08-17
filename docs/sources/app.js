@@ -47,9 +47,10 @@ function HousesSearchDirective(Houses) {
       element.bind('search', search)
 
       function search(event) {
-        const query = angular.isObject(event.query) && event.query.name
-          ? event.query.name
-          : event.query
+        const value = event.query
+        const query = angular.isObject(value) && value.name
+          ? value.name
+          : value
 
         event.target
           .fetch(() => Houses.list({query}))

@@ -103,6 +103,7 @@ function KarmaConfig(config) {
 
       mocha: {
         grep: argv.grep,
+        bail: argv.bail,
       },
     },
 
