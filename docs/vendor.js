@@ -2088,7 +2088,8 @@ function MnInputDirective() {
           component.input.addEventListener('input', setModelValue)
           component.input.addEventListener('blur', setModelValue)
 
-          setTimeout(setModelValue)
+          setModelValue()
+          // setTimeout(setModelValue)
         }
 
         if (isSearch) {
