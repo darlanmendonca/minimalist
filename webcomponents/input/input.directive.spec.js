@@ -191,6 +191,7 @@ describe('mn-input (directive)', () => {
         ? '2017-04-01'
         : '01/04/2017'
       component.input.dispatchEvent(new Event('input'))
+
       expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
       expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
@@ -501,6 +502,7 @@ describe('mn-input (directive)', () => {
     it('should be a object if applied a valid object to ngModel', () => {
       scope.house = 'Object'
       scope.$digest()
+
       expect(scope.house).to.deep.equal({name: 'john snow'})
       expect(component.value).to.deep.equal({name: 'john snow'})
       expect(component.input).to.have.value('Object')

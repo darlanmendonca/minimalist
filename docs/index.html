@@ -14,6 +14,11 @@
     <section>
       <h2>vanilla</h2>
       <mn-form class="mn-layout-row">
+        <mn-select placeholder="house">
+          <option value="{name: 'stark'}">stark</option>
+          <option value="{name: 'lannister'}">lannister</option>
+          <option value="{name: 'targaryen'}">targaryen</option>
+        </mn-select>
         <mn-search placeholder="House" required></mn-search>
         <mn-button submit>submit</mn-button>
       </mn-form>
@@ -32,6 +37,7 @@
 
     <script src="/vendor.js"></script>
     <script>
+      const select = document.querySelector('mn-select')
       const search = document.querySelector('[ng-app] mn-search')
 
       document
