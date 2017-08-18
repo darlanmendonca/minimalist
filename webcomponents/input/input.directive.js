@@ -23,9 +23,6 @@ function MnInputDirective() {
           component.input.addEventListener('change', setModelValue)
           component.input.addEventListener('input', setModelValue)
           component.input.addEventListener('blur', setModelValue)
-
-          setModelValue()
-          // setTimeout(setModelValue)
         }
 
         if (isSearch) {
@@ -35,6 +32,7 @@ function MnInputDirective() {
         }
 
         component.value = ngModel.$modelValue
+        setModelValue()
       })
 
       scope.$on('$destroy', () => {

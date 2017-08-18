@@ -177,18 +177,13 @@ describe('mn-input (directive)', () => {
       expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
-    it('should not update if input dispatch event change while focused', () => {
+    it('should update if input dispatch event change while focused', () => {
       component.input.focus()
       component.input.value = '2017-04-01'
       component.input.dispatchEvent(new Event('change'))
 
-      if (component.input.type === 'date') {
-        expect(scope.date).to.be.undefined
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      } else {
-        expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      }
+      expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should update if input dispatch event input', () => {
@@ -200,7 +195,7 @@ describe('mn-input (directive)', () => {
       expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
-    it('should not update if input dispatch event input while focused', () => {
+    it('should update if input dispatch event input while focused', () => {
       component.input.focus()
       component.input.value = component.input.type === 'date'
         ? '2017-04-01'
@@ -208,13 +203,8 @@ describe('mn-input (directive)', () => {
 
       component.input.dispatchEvent(new Event('input'))
 
-      if (component.input.type === 'date') {
-        expect(scope.date).to.be.undefined
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      } else {
-        expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      }
+      expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should update if input dispatch event blur', () => {
