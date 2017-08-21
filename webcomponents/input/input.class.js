@@ -99,11 +99,10 @@ module.exports = class MnInput extends HTMLElement {
 
   setChangeEvents() {
     this.input.addEventListener('input', this.dispatchChangeEvent)
-    // this.input.addEventListener('change', this.dispatchChangeEvent)
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
   dispatchChangeEvent() {
-    // console.log('dispatch now', this.parentNode)
     this.dispatchEvent(new Event('change'))
   }
 

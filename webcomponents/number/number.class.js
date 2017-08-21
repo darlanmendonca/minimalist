@@ -10,6 +10,7 @@ module.exports = class MnNumber extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     super._setInput()
+    super.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()

@@ -214,11 +214,10 @@ module.exports = class MnInput extends HTMLElement {
 
   setChangeEvents() {
     this.input.addEventListener('input', this.dispatchChangeEvent)
-    // this.input.addEventListener('change', this.dispatchChangeEvent)
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
   dispatchChangeEvent() {
-    // console.log('dispatch now', this.parentNode)
     this.dispatchEvent(new Event('change'))
   }
 
@@ -1500,6 +1499,7 @@ module.exports = class MnDate extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     this._setInput()
+    super.setChangeEvents()
     super._setPlaceholder()
     super._setAttributeValue()
     super._setAttributeDisabled()
@@ -2169,6 +2169,7 @@ module.exports = class MnNumber extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     super._setInput()
+    super.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
@@ -2403,6 +2404,7 @@ module.exports = class MnPassword extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     this._setInput()
+    super.setChangeEvents()
     super._setPlaceholder()
     this._setVisibilityButton()
     super._setAttributeValue()

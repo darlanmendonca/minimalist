@@ -10,6 +10,7 @@ module.exports = class MnDate extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     this._setInput()
+    super.setChangeEvents()
     super._setPlaceholder()
     super._setAttributeValue()
     super._setAttributeDisabled()
