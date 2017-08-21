@@ -12,6 +12,7 @@ module.exports = class MnInput extends HTMLElement {
     this.trimValue = true
     this._setStyle()
     this._setInput()
+    this.setChangeEvents()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeName()
@@ -63,6 +64,8 @@ module.exports = class MnInput extends HTMLElement {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       }
 
+      this.dispatchChangeEvent()
+
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
@@ -92,6 +95,16 @@ module.exports = class MnInput extends HTMLElement {
     })
 
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
+  }
+
+  setChangeEvents() {
+    this.input.addEventListener('input', this.dispatchChangeEvent)
+    // this.input.addEventListener('change', this.dispatchChangeEvent)
+  }
+
+  dispatchChangeEvent() {
+    // console.log('dispatch now', this.parentNode)
+    this.dispatchEvent(new Event('change'))
   }
 
   _setPlaceholder() {

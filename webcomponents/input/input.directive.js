@@ -10,7 +10,6 @@ function MnInputDirective() {
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
       const component = element[0]
-      const isSearch = element.hasClass('mn-search')
 
       ngModel.$validators = {}
 
@@ -21,25 +20,9 @@ function MnInputDirective() {
 
       element.ready(() => {
         scope.$watch(attributes.ngModel, setComponentValue)
-
-        // if (!isSearch) {
-          component.value = ngModel.$modelValue
-          // component.input.addEventListener('change', setModelValue)
-          // component.input.addEventListener('input', setModelValue)
-          // component.input.addEventListener('blur', setModelValue)
-          // component.addEventListener('change', setModelValue)
-          setModelValue()
-        // }
-
-        // if (isSearch) {
-        //   component.input.addEventListener('change', setModelValue)
-        //   component.input.addEventListener('input', setModelValue)
-        //   component.input.addEventListener('blur', setModelValue)
-        //   setModelValue()
-        //   // const search = new Event('search')
-        //   // search.query = ngModel.$modelValue
-        //   // component.dispatchEvent(search)
-        // }
+        component.value = ngModel.$modelValue
+        component.addEventListener('change', setModelValue)
+        setModelValue()
       })
 
       scope.$on('$destroy', () => {
@@ -55,7 +38,6 @@ function MnInputDirective() {
 
         if (!modelApplied) {
           ngModel.$setViewValue(component.value)
-          console.log('set model as', component.value, ngModel.$modelValue)
         }
       }
 
