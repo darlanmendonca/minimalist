@@ -19,6 +19,9 @@ function HomeController() {
   this.name = 'test'
   this.date = new Date()
   this.house = {name: 'stark'}
+  this.option = 'targaryen'
+
+  this.options = ['stark', 'lannister', 'targaryen']
 
   this.change = () => {
     this.house = {name: 'lannister'}

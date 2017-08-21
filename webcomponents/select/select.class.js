@@ -375,6 +375,7 @@ module.exports = class MnSelect extends MnInput {
         : ''
 
       this.input.dispatchEvent(new Event('change'))
+
     }
 
     if (differentValue) {
