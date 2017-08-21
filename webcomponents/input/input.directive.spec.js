@@ -499,11 +499,11 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('Negative')
     })
 
-    it('should be a object if applied a valid object to ngModel', () => {
+    it.only('should be a object if applied a valid object to ngModel', () => {
       scope.house = 'Object'
       scope.$digest()
 
-      // console.log(scope.house, component.value, component.input.value)
+      console.log(scope.house, component.value, component.input.value)
       expect(scope.house).to.deep.equal({name: 'john snow'})
       expect(component.value).to.deep.equal({name: 'john snow'})
       expect(component.input).to.have.value('Object')

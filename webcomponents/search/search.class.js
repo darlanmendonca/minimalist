@@ -70,6 +70,7 @@ module.exports = class MnSearch extends MnSelect {
         const removedNode = mutation.removedNodes[0]
         const addOption = addedNode && addedNode.tagName === 'OPTION'
         const removeOption = removedNode && removedNode.tagName === 'OPTION'
+
         if (addOption) {
           const item = document.createElement('div')
           item.classList.add('mn-item')

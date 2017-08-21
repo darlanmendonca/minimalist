@@ -11,18 +11,23 @@ function MnInputDirective() {
     link(scope, element, attributes, ngModel) {
       const component = element[0]
 
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
       ngModel.$validators = {}
 
-      // element.bind('ready', () => {
-      //   console.log('ready dispatched')
-      //   component.value = ngModel.$modelValue
-      // })
-
       element.ready(() => {
+        const isSelect = component.classList.contains('mn-search')
+        if (isSelect) {
+          console.log(ngModel.$modelValue)
+        }
         scope.$watch(attributes.ngModel, setComponentValue)
         component.value = ngModel.$modelValue
         component.addEventListener('change', setModelValue)
         setModelValue()
+
       })
 
       scope.$on('$destroy', () => {
@@ -30,7 +35,9 @@ function MnInputDirective() {
       })
 
       function setComponentValue(value) {
-        component.value = value
+        if (angular.isDefined(value)) {
+          component.value = value
+        }
       }
 
       function setModelValue() {
@@ -40,12 +47,6 @@ function MnInputDirective() {
           ngModel.$setViewValue(component.value)
         }
       }
-
-      if (!attributes.name) {
-        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
-        component.setAttribute('name', name)
-      }
-
     }
   }
 }
