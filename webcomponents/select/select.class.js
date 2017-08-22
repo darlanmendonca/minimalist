@@ -76,8 +76,8 @@ module.exports = class MnSelect extends MnInput {
         if (addOption) {
           this.addOption(addedNode)
 
-          const isObjectValue = angular.isObject(this.value)
-            && angular.isObject(JSON.parse(this.getAttribute('value')))
+          const isObjectValue = typeof this.value === 'object'
+            && typeof JSON.parse(this.getAttribute('value')) === 'object'
 
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
