@@ -810,13 +810,13 @@ module.exports = class MnSelect extends MnInput {
           this.addOption(addedNode)
 
           const isObjectValue = typeof this.value === 'object'
-            && typeof JSON.parse(this.getAttribute('value')) === 'object'
+            && typeof evaluate(this.getAttribute('value')) === 'object'
 
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
             || isObjectValue && (this.value.id || this.value._id)
-              ? this.value.id === JSON.parse(this.getAttribute('value')).id ||
-                this.value._id === JSON.parse(this.getAttribute('value'))._id
+              ? this.value.id === evaluate(this.getAttribute('value')).id ||
+                this.value._id === evaluate(this.getAttribute('value'))._id
               : false
 
           if (isOptionSelected && !this.classList.contains('focus')) {
