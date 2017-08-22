@@ -813,7 +813,6 @@ module.exports = class MnSelect extends MnInput {
             || addedNode.textContent === this.getAttribute('value')
 
           if (isOptionSelected && !this.classList.contains('focus')) {
-            console.log(this.getAttribute('placeholder'), addedNode, addedNode.textContent)
             this.input.value = addedNode.textContent
             this.classList.add('has-value')
           }
