@@ -44,19 +44,17 @@ const search = document.querySelector('mn-search')
 search.addEventListener('search', (event) => {
   const params = new URLSearchParams()
   params.append('query', event.query)
-  const houses = new Request(`/houses?${params}`) // the url to server our options
+  const houses = new Request(`/houses?${params}`) // the simple String or Request
 
   event.target
     .fetch(houses)
     .then(setOptions)
 
-  async function setOptions(response) {
-    const houses = await response.json()
+  function setOptions(response) {
     houses.forEach(house => {
-      // const obj = {name: house, value: house.toLowerCase()}
       const option = document.createElement('option')
-      option.textContent = house//obj.name
-      option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
+      option.textContent = house
+      option.setAttribute('value', house.toLowerCase())
 
       event.target.appendChild(option)
     })
