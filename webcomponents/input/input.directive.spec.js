@@ -439,18 +439,20 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to ngModel', () => {
+    it('should apply if applied invalid option to ngModel', () => {
       scope.house = 'test'
       scope.$digest()
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to property value', () => {
+    it('should apply if applied an invalid option to property value', () => {
       component.value = 'test'
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
@@ -551,19 +553,20 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to ngModel', () => {
+    it('should apply if applied an invalid option to ngModel', () => {
       scope.house = 'test'
       scope.$digest()
 
-      expect(scope.house).to.be.undefined
-      expect(component).to.have.value(undefined)
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to property value', () => {
+    it('should apply if applied an invalid option to property value', () => {
       component.value = 'test'
-      expect(scope.house).to.be.undefined
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
