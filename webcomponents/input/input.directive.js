@@ -10,8 +10,6 @@ function MnInputDirective() {
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
       const component = element[0]
-      const input = component.input
-      const isSelect = component.classList.contains('mn-select')
 
       if (!attributes.name) {
         const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
@@ -19,14 +17,12 @@ function MnInputDirective() {
       }
 
       ngModel.$validators = {}
-      input.addEventListener('change', setViewValue)
-      input.addEventListener('blur', setViewValue)
-      input.addEventListener('input', setViewValue)
 
       element.ready(() => {
-        component.value = ngModel.$modelValue
-        ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
+        component.value = ngModel.$modelValue
+        component.addEventListener('change', setModelValue)
+        setModelValue()
       })
 
       scope.$on('$destroy', () => {
@@ -34,21 +30,15 @@ function MnInputDirective() {
       })
 
       function setComponentValue(value) {
-        const differentValue = component.getAttribute('value') !== value && component.value !== value
-        const isObjectValue = angular.isObject(value)
-
-        if (!isSelect || differentValue && !isObjectValue) {
+        if (angular.isDefined(value)) {
           component.value = value
         }
       }
 
-      function setViewValue(event) {
-        const activeElement = event.currentTarget === document.activeElement
-        const isDate = component.input.type === 'date'
-        const isNumber = component.classList.contains('mn-number')
-        const isBlur = event.type === 'blur'
+      function setModelValue() {
+        const modelApplied = angular.equals(ngModel.$modelValue, component.value)
 
-        if (isBlur || !activeElement || !isDate && !isNumber && !isSelect) {
+        if (!modelApplied) {
           ngModel.$setViewValue(component.value)
         }
       }

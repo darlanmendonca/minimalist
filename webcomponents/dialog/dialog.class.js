@@ -93,12 +93,14 @@ module.exports = class MnDialog extends HTMLElement {
     this.scrollTop = 0
     document.body.classList.add('mn-dialog-visible')
     document.body.classList.add('mn-backdrop-visible')
+    this.dispatchEvent(new Event('open'))
   }
 
   close() {
     document.body.classList.remove('mn-dialog-visible')
     this.classList.remove('visible')
     document.body.classList.remove('mn-backdrop-visible')
+    this.dispatchEvent(new Event('close'))
   }
 
   toggle() {

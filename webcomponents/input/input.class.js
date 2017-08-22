@@ -1,4 +1,5 @@
 const {HTMLElement} = window
+const evaluate = require('evaluate-string')
 
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
@@ -11,6 +12,7 @@ module.exports = class MnInput extends HTMLElement {
     this.trimValue = true
     this._setStyle()
     this._setInput()
+    this.setChangeEvents()
     this._setPlaceholder()
     this._setAttributeValue()
     this._setAttributeName()
@@ -62,6 +64,8 @@ module.exports = class MnInput extends HTMLElement {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       }
 
+      this.dispatchChangeEvent()
+
       this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
@@ -93,6 +97,15 @@ module.exports = class MnInput extends HTMLElement {
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
   }
 
+  setChangeEvents() {
+    this.input.addEventListener('input', this.dispatchChangeEvent)
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
+  }
+
+  dispatchChangeEvent() {
+    this.dispatchEvent(new Event('change'))
+  }
+
   _setPlaceholder() {
     this.label = document.createElement('label')
     this.label.classList.add('placeholder')
@@ -101,7 +114,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   _setAttributeValue() {
-    this.value = this.getAttribute('value') || ''
+    this.value = evaluate(this.getAttribute('value') || '')
     this.default = this.value
   }
 

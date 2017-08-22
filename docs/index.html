@@ -8,19 +8,67 @@
   </head>
 
   <body>
-    <mn-button open-dialog="test">dialog</mn-button>
+    <!-- <div class="mn-card mn-list">
+      <div class="mn-item">test</div>
+    </div> -->
+    <section>
+      <h2>vanilla</h2>
+      <mn-form class="mn-layout-row">
+        <mn-select placeholder="house">
+          <option value="{name: 'stark'}">stark</option>
+          <option value="{name: 'lannister'}">lannister</option>
+          <option value="{name: 'targaryen'}">targaryen</option>
+        </mn-select>
 
-    <mn-dialog id="test">
-      <mn-select placeholder="test">
-        <option>one</option>
-        <option>two</option>
-        <option>three</option>
-        <option>four</option>
-        <option>five</option>
-      </mn-select>
-    </mn-dialog>
+        <mn-search placeholder="House" required></mn-search>
+        <mn-button submit>submit</mn-button>
+      </mn-form>
+    </section>
 
+    <section ng-app="app" ng-controller="HomeController as controller">
+      <h2>angular</h2>
+      <mn-form class="mn-layout-row">
+        <mn-date placeholder="Date: {{ controller.date }}" ng-model='controller.date'></mn-date>
+        <mn-input placeholder="Name: {{ controller.name }}" ng-model='controller.name'></mn-input>
+        <mn-search class="houses" placeholder="House: {{ controller.house }}" required ng-model="controller.house"></mn-search>
+
+        <mn-select placeholder="Option: {{ controller.option }}" ng-model='controller.option'>
+          <option value="{{ option }}" ng-repeat='option in controller.options'>{{ option }}</option>
+        </mn-select>
+        <mn-button submit>submit</mn-button>
+        <mn-button ng-click='controller.change()'>change model to lannister</mn-button>
+      </mn-form>
+    </section>
 
     <script src="/vendor.js"></script>
+    <script>
+      const select = document.querySelector('mn-select')
+      const search = document.querySelector('[ng-app] mn-search')
+
+      document
+        .querySelector('mn-search')
+        .addEventListener('search', (event) => {
+          const params = new URLSearchParams()
+          params.append('query', event.query)
+          const houses = new Request(`http://localhost:4000/houses?${params}`)
+
+          event.target
+            .fetch(houses)
+            .then(setOptions)
+
+          async function setOptions(response) {
+            const houses = await response.json()
+            houses.forEach(house => {
+              // const obj = {name: house, value: house.toLowerCase()}
+              const option = document.createElement('option')
+              option.textContent = house//obj.name
+              option.setAttribute('value', house.toLowerCase())//JSON.stringify(obj))
+
+              event.target.appendChild(option)
+            })
+          }
+        })
+
+    </script>
   </body>
 </html>

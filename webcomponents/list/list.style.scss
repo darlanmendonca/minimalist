@@ -18,23 +18,26 @@
     width: 100%;
     text-align: inherit;
     line-height: 1.4em;
-    cursor: pointer;
     flex-wrap: wrap;
     transition: background-color .2s ease;
 
     &:first-child {border-top: 0}
-
-    &:not(.detail-visible) {
-      &:hover, &:focus {
-        background-color: $oc-gray-3;
-      }
-    }
 
     &.detail-visible {
       cursor: default;
 
       & > .mn-item-detail {
         max-height: 1000px;
+      }
+    }
+  }
+
+  button.mn-item, a.mn-item {
+    display: flex;
+    cursor: pointer;
+    &:not(.detail-visible) {
+      &:hover, &:focus {
+        background-color: $oc-gray-3;
       }
     }
   }

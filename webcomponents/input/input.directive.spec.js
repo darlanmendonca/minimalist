@@ -177,18 +177,13 @@ describe('mn-input (directive)', () => {
       expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
-    it('should not update if input dispatch event change while focused', () => {
+    it('should update if input dispatch event change while focused', () => {
       component.input.focus()
       component.input.value = '2017-04-01'
       component.input.dispatchEvent(new Event('change'))
 
-      if (component.input.type === 'date') {
-        expect(scope.date).to.be.undefined
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      } else {
-        expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      }
+      expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should update if input dispatch event input', () => {
@@ -196,11 +191,12 @@ describe('mn-input (directive)', () => {
         ? '2017-04-01'
         : '01/04/2017'
       component.input.dispatchEvent(new Event('input'))
+
       expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
       expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
-    it('should not update if input dispatch event input while focused', () => {
+    it('should update if input dispatch event input while focused', () => {
       component.input.focus()
       component.input.value = component.input.type === 'date'
         ? '2017-04-01'
@@ -208,13 +204,8 @@ describe('mn-input (directive)', () => {
 
       component.input.dispatchEvent(new Event('input'))
 
-      if (component.input.type === 'date') {
-        expect(scope.date).to.be.undefined
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      } else {
-        expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
-        expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
-      }
+      expect(scope.date).to.be.equal(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should update if input dispatch event blur', () => {
@@ -448,18 +439,20 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to ngModel', () => {
+    it('should apply if applied invalid option to ngModel', () => {
       scope.house = 'test'
       scope.$digest()
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to property value', () => {
+    it('should apply if applied an invalid option to property value', () => {
       component.value = 'test'
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
@@ -511,6 +504,7 @@ describe('mn-input (directive)', () => {
     it('should be a object if applied a valid object to ngModel', () => {
       scope.house = 'Object'
       scope.$digest()
+
       expect(scope.house).to.deep.equal({name: 'john snow'})
       expect(component.value).to.deep.equal({name: 'john snow'})
       expect(component.input).to.have.value('Object')
@@ -559,18 +553,20 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to ngModel', () => {
+    it('should apply if applied an invalid option to ngModel', () => {
       scope.house = 'test'
       scope.$digest()
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 
-    it('should be undefined if applied an invalid option to property value', () => {
+    it('should apply if applied an invalid option to property value', () => {
       component.value = 'test'
-      expect(scope.house).to.be.equal(undefined)
-      expect(component).to.have.value(undefined)
+
+      expect(scope.house).to.be.equal('test')
+      expect(component).to.have.value('test')
       expect(component.input).to.have.value('')
     })
 

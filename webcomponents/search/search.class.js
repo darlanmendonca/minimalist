@@ -70,6 +70,7 @@ module.exports = class MnSearch extends MnSelect {
         const removedNode = mutation.removedNodes[0]
         const addOption = addedNode && addedNode.tagName === 'OPTION'
         const removeOption = removedNode && removedNode.tagName === 'OPTION'
+
         if (addOption) {
           const item = document.createElement('div')
           item.classList.add('mn-item')
@@ -127,6 +128,12 @@ module.exports = class MnSearch extends MnSelect {
       .then(res => {
         this.cleanOptions()
         this.classList.remove('loading')
+        this.dispatchEvent(new Event('loading'))
+
+        // setTimeout(() => {
+        //   this.dispatchEvent(new Event('ready'))
+        // })
+
         return res
       })
   }

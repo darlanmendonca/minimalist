@@ -83,6 +83,10 @@ mn-select option {
   }
 }
 
+.mn-select.invalid {
+  --icon-color: --border-color;
+}
+
 .mn-select[disabled] {
   --icon-color: $oc-gray-5;
 }
