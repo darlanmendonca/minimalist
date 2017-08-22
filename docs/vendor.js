@@ -809,9 +809,12 @@ module.exports = class MnSelect extends MnInput {
         if (addOption) {
           this.addOption(addedNode)
 
+          const isObjectValue = angular.isObject(this.value)
+            && angular.isObject(JSON.parse(this.getAttribute('value')))
+
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
-            || angular.isObject(this.value) && angular.isObject(JSON.parse(this.getAttribute('value')))
+            || isObjectValue && (this.value.id || this.value._id)
               ? this.value.id === JSON.parse(this.getAttribute('value')).id ||
                 this.value._id === JSON.parse(this.getAttribute('value'))._id
               : false
