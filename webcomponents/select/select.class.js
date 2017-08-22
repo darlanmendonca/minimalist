@@ -75,6 +75,14 @@ module.exports = class MnSelect extends MnInput {
         const removeOption = removedNode && removedNode.tagName === 'OPTION'
         if (addOption) {
           this.addOption(addedNode)
+
+          const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
+            || addedNode.textContent === this.getAttribute('value')
+
+          if (isOptionSelected && !this.classList.contains('focus')) {
+            this.input.value = addedNode.textContent
+            this.classList.add('has-value')
+          }
         }
 
         if (removeOption) {
@@ -378,11 +386,19 @@ module.exports = class MnSelect extends MnInput {
     }
 
     if (differentValue) {
+      const search = new Event('search')
+      search.query = value
+      this.dispatchEvent(search)
+
       const hasValue = value !== undefined && value !== null
 
-      hasValue && option
-        ? this.setAttribute('value', option.getAttribute('value') || option.textContent)
-        :  this.removeAttribute('value')
+      const optionValue = option
+        ? option.getAttribute('value') || option.textContent
+        : JSON.stringify(value)
+
+      hasValue
+        ? this.setAttribute('value', optionValue)
+        : this.removeAttribute('value')
 
       this.input.dispatchEvent(new Event('change'))
     }

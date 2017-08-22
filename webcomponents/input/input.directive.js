@@ -19,15 +19,10 @@ function MnInputDirective() {
       ngModel.$validators = {}
 
       element.ready(() => {
-        const isSelect = component.classList.contains('mn-search')
-        if (isSelect) {
-          console.log(ngModel.$modelValue)
-        }
         scope.$watch(attributes.ngModel, setComponentValue)
         component.value = ngModel.$modelValue
         component.addEventListener('change', setModelValue)
         setModelValue()
-
       })
 
       scope.$on('$destroy', () => {
