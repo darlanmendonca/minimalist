@@ -78,9 +78,12 @@ module.exports = class MnSelect extends MnInput {
 
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
+            || angular.isObject(this.value) && angular.isObject(JSON.parse(this.getAttribute('value')))
+              ? this.value.id === JSON.parse(this.getAttribute('value')).id ||
+                this.value._id === JSON.parse(this.getAttribute('value'))._id
+              : false
 
           if (isOptionSelected && !this.classList.contains('focus')) {
-            console.log(this.getAttribute('placeholder'), addedNode, addedNode.textContent)
             this.input.value = addedNode.textContent
             this.classList.add('has-value')
           }
