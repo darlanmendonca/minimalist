@@ -80,25 +80,25 @@ describe('mn-select (webcomponent)', () => {
   describe('property value', () => {
     it('should be undefined by default', () => {
       expect(component).to.have.value(undefined)
-      expect(component.input).to.have.text('')
+      expect(component.input).to.have.value('')
     })
 
-    it('should be undefined when set a invalid value', () => {
+    it('should apply value when set a invalid value', () => {
       select.setProperty('value', 'teste')
-      expect(component).to.have.value(undefined)
-      expect(component.input).to.have.text('')
+      expect(component).to.have.value('teste')
+      expect(component.input).to.have.value('')
     })
 
     it('should be undefined when set a empty string', () => {
       select.setProperty('value', '')
       expect(component).to.have.value(undefined)
-      expect(component.input).to.have.text('')
+      expect(component.input).to.have.value('')
     })
 
     it('should be undefined when set undefined', () => {
       select.setProperty('value', undefined)
       expect(component).to.have.value(undefined)
-      expect(component.input).to.have.text('')
+      expect(component.input).to.have.value('')
     })
 
     it('should be a string when set by option value', () => {
