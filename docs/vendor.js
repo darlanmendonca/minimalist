@@ -702,25 +702,31 @@ function MnCheckboxDirective() {
       }
 
       ngModel.$validators = {}
-      input.addEventListener('change', setViewValue)
+      input.addEventListener('change', setModelValue)
 
       element.ready(() => {
         component.ready = true
         component.value = ngModel.$modelValue
         ngModel.$setViewValue(component.value)
-        // scope.$watch(attributes.ngModel, setComponentValue)
+        scope.$watch(attributes.ngModel, setComponentValue)
       })
 
       scope.$on('$destroy', () => {
         element.remove()
       })
 
-      // function setComponentValue(value) {
-      //   component.value = value
-      // }
+      function setComponentValue(value) {
+        if (angular.isDefined(value)) {
+          component.value = value
+        }
+      }
 
-      function setViewValue() {
-        ngModel.$setViewValue(component.value)
+      function setModelValue() {
+        const modelApplied = angular.equals(ngModel.$modelValue, component.value)
+
+        if (!modelApplied) {
+          ngModel.$setViewValue(component.value)
+        }
       }
     }
   }
@@ -1229,72 +1235,17 @@ __webpack_require__(7)
 
 angular.module('app', [
   'minimalist',
-  'ngResource',
 ])
 
 angular
   .module('app')
   .controller('HomeController', HomeController)
 
-angular
-  .module('app')
-  .service('Houses', HousesService)
-
 function HomeController() {
-  this.name = 'test'
-  this.date = new Date()
-  this.house = {name: 'stark'}
-  this.option = 'targaryen'
+  this.houses = ['stark', 'lannister', 'targaryen']
+  this.options = ['targaryen']
 
-  this.options = ['stark', 'lannister', 'targaryen']
-
-  this.change = () => {
-    this.house = {name: 'lannister'}
-  }
-}
-
-function HousesService($resource) {
-  const service =  $resource('http://localhost:4000/houses')
-
-  this.list = list
-
-  function list(params = {}) {
-    return service.query(params).$promise
-  }
-}
-
-angular
-  .module('app')
-  .directive('houses', HousesSearchDirective)
-
-function HousesSearchDirective(Houses) {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element, attributes) {
-      element.bind('search', search)
-
-      function search(event) {
-        const value = event.query
-        const query = angular.isObject(value) && value.name
-          ? value.name
-          : value
-
-        event.target
-          .fetch(() => Houses.list({query}))
-          .then(setOptions)
-
-        function setOptions(options) {
-          options.forEach(item => {
-            const option = document.createElement('option')
-            option.textContent = item
-            option.setAttribute('value', JSON.stringify({name: item.toLowerCase()}))
-            event.target.appendChild(option)
-          })
-        }
-      }
-    }
-  }
+  this.change = () => this.options = ['stark', 'lannister']
 }
 
 
