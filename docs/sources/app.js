@@ -13,6 +13,10 @@ angular
 function HomeController() {
   this.houses = ['stark', 'lannister', 'targaryen']
   this.options = ['targaryen']
+  this.accept = true
 
-  this.change = () => this.options = ['stark', 'lannister']
+  this.change = () => {
+    // console.log('>', !this.accept)
+    this.accept = !this.accept
+  }
 }

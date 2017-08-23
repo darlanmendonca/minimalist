@@ -12,7 +12,6 @@ function MnCheckboxDirective() {
     require: 'ngModel',
     link(scope, element, attributes, ngModel) {
       const component = element[0]
-      const input = component.input
 
       if (!attributes.name) {
         const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
@@ -20,28 +19,27 @@ function MnCheckboxDirective() {
       }
 
       ngModel.$validators = {}
-      input.addEventListener('change', setModelValue)
 
       element.ready(() => {
         component.ready = true
-        component.value = ngModel.$modelValue
-        ngModel.$setViewValue(component.value)
         scope.$watch(attributes.ngModel, setComponentValue)
+        component.value = ngModel.$modelValue
+        component.input.addEventListener('change', setModelValue)
+        ngModel.$setViewValue(component.value)
       })
 
       scope.$on('$destroy', () => {
         element.remove()
       })
 
-      function setComponentValue(value) {
-        if (angular.isDefined(value)) {
+      function setComponentValue(value, oldValue) {
+        if (!angular.equals(value, oldValue)) {
           component.value = value
         }
       }
 
       function setModelValue() {
         const modelApplied = angular.equals(ngModel.$modelValue, component.value)
-
         if (!modelApplied) {
           ngModel.$setViewValue(component.value)
         }

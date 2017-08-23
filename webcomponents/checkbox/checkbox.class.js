@@ -187,14 +187,18 @@ module.exports = class MnCheckbox extends HTMLElement {
       ? value
       : [value]
 
-    this.options
-    .forEach(option => {
-      const check = values.some(value => value === option.getAttribute('value'))
-      check
-        ? option.setAttribute('checked', '')
-        : option.removeAttribute('checked')
-      option.checked = check
-    })
+    this
+      .options
+      .forEach(option => {
+        const check = values.some(value =>
+          value === option.getAttribute('value') || value === evaluate(option.getAttribute('value'))
+        )
+        // console.log(value === true, check)
+        check
+          ? option.setAttribute('checked', '')
+          : option.removeAttribute('checked')
+        option.checked = check
+      })
   }
 
   get options() {
