@@ -15,9 +15,9 @@
 @import '../../webcomponents/list/list.style.scss';
 @import '../../webcomponents/search/search.style.scss';
 
-body {
-  background-color: $oc-gray-1;
-  font-family: sans-serif;
-}
 
-h2 {font-weight: normal}
+@import '../../node_modules/open-color/open-color.scss';
+@import 'identity/typography.scss';
+@import 'identity/logotype.scss';
+@import 'identity/background.scss';
+@import 'identity/home.scss';

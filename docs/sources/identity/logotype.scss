@@ -1,0 +1,16 @@
+@import '../../../node_modules/open-color/open-color.scss';
+
+.logotype {
+  font-family: helvetica;
+  font-weight: 100;
+  color: transparent;
+  background: linear-gradient(135deg, $oc-orange-5, $oc-yellow-4);
+  -webkit-background-clip: text;
+  user-select: none;
+  display: table;
+
+  small {
+    font-size: .5em;
+    display: block;
+  }
+}
