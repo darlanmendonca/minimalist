@@ -2,7 +2,7 @@
 
 set -e
 
-./node_modules/.bin/webpack docs/sources/app.js docs/vendor.js \
+./node_modules/.bin/webpack hotsite/app.js docs/vendor.js \
 --devtool source-map \
 --hide-modules true \
 --watch \

@@ -4,6 +4,7 @@ set -e
 
 port=3000
 
+npm run pug $1 &
 npm run sass $1 &
 npm run javascript $1 & \
 

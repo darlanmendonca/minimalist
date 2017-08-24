@@ -1,5 +1,5 @@
 require('minimalist')
-require('../../angular.js')
+require('../angular.js')
 
 
 angular.module('app', [
