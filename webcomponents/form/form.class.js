@@ -71,6 +71,7 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   validate() {
+    this.dispatchEvent(new Event('validate'))
     this.inputs
       .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
