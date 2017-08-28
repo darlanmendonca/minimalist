@@ -77,7 +77,7 @@ module.exports = class MnForm extends HTMLElement {
     //   .forEach(input => input.validate())
 
     // const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
-    const isInvalid = this.querySelector('.invalid')
+    const isInvalid = Boolean(this.querySelector('.invalid'))
     return isInvalid
   }
 
