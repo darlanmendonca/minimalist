@@ -1271,6 +1271,7 @@ module.exports = {
   input: __webpack_require__(25),
   email: __webpack_require__(20),
   password: __webpack_require__(29),
+  hidden: __webpack_require__(39),
   number: __webpack_require__(27),
   date: __webpack_require__(16),
   select: __webpack_require__(35),
@@ -2916,6 +2917,69 @@ function MnSidenavCustomElement() {
   }
 
   return window.customElements.get('mn-sidenav')
+}
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super.setChangeEvents()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'disabled',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-hidden')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'hidden')
+  }
+}
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnHiddenCustomElement()
+
+function MnHiddenCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-hidden')) {
+    window.customElements.define('mn-hidden', __webpack_require__(38))
+  }
+
+  return window.customElements.get('mn-hidden')
 }
 
 
