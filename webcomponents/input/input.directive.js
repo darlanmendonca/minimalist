@@ -20,7 +20,9 @@ function MnInputDirective() {
 
       element.ready(() => {
         scope.$watch(attributes.ngModel, setComponentValue)
-        component.value = ngModel.$modelValue
+        component.value = component.hasAttribute('value')
+          ? component.getAttribute('value')
+          : ngModel.$modelValue
         component.addEventListener('change', setModelValue)
         setModelValue()
       })

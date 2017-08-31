@@ -1214,10 +1214,10 @@ module.exports = class MnSelect extends MnInput {
 angular.module('minimalist', [])
 
 module.exports = {
-  input: __webpack_require__(24),
+  input: __webpack_require__(26),
   form: __webpack_require__(22),
   checkbox: __webpack_require__(5),
-  radio: __webpack_require__(31),
+  radio: __webpack_require__(33),
 }
 
 
@@ -1247,9 +1247,9 @@ function HomeController() {
   this.houses = ['stark', 'lannister', 'targaryen']
   this.options = ['targaryen']
   this.accept = true
-  this.data = {
-    test: 'lero',
-  }
+  // this.data = {
+  //   test: 'lero',
+  // }
 
   this.change = () => {
     // console.log('>', !this.accept)
@@ -1268,21 +1268,21 @@ function HomeController() {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(25),
+  input: __webpack_require__(27),
   email: __webpack_require__(20),
-  password: __webpack_require__(29),
-  hidden: __webpack_require__(39),
-  number: __webpack_require__(27),
+  password: __webpack_require__(31),
+  hidden: __webpack_require__(25),
+  number: __webpack_require__(29),
   date: __webpack_require__(16),
-  select: __webpack_require__(35),
+  select: __webpack_require__(37),
   actionSheet: __webpack_require__(3),
   form: __webpack_require__(23),
-  sidenav: __webpack_require__(37),
+  sidenav: __webpack_require__(39),
   checkbox: __webpack_require__(14),
-  radio: __webpack_require__(32),
+  radio: __webpack_require__(34),
   dialog: __webpack_require__(18),
   button: __webpack_require__(13),
-  search: __webpack_require__(34),
+  search: __webpack_require__(36),
 }
 
 
@@ -2067,6 +2067,69 @@ function MnFormCustomElement() {
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super.setChangeEvents()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'disabled',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-hidden')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'hidden')
+  }
+}
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnHiddenCustomElement()
+
+function MnHiddenCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-hidden')) {
+    window.customElements.define('mn-hidden', __webpack_require__(24))
+  }
+
+  return window.customElements.get('mn-hidden')
+}
+
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -2091,7 +2154,9 @@ function MnInputDirective() {
 
       element.ready(() => {
         scope.$watch(attributes.ngModel, setComponentValue)
-        component.value = ngModel.$modelValue
+        component.value = component.hasAttribute('value')
+          ? component.getAttribute('value')
+          : ngModel.$modelValue
         component.addEventListener('change', setModelValue)
         setModelValue()
       })
@@ -2119,7 +2184,7 @@ function MnInputDirective() {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -2140,7 +2205,7 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2354,7 +2419,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -2367,7 +2432,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(26))
+    window.customElements.define('mn-number', __webpack_require__(28))
   }
 
   return window.customElements.get('mn-number')
@@ -2375,7 +2440,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2452,7 +2517,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -2465,7 +2530,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(28))
+    window.customElements.define('mn-password', __webpack_require__(30))
   }
 
   return window.customElements.get('mn-password')
@@ -2473,7 +2538,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(4)
@@ -2575,7 +2640,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -2593,7 +2658,7 @@ function MnRadioDirective() {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -2606,7 +2671,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(30))
+    window.customElements.define('mn-radio', __webpack_require__(32))
   }
 
   return window.customElements.get('mn-radio')
@@ -2614,7 +2679,7 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnSelect = __webpack_require__(6)
@@ -2760,7 +2825,7 @@ module.exports = class MnSearch extends MnSelect {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2773,7 +2838,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-search')) {
-    window.customElements.define('mn-search', __webpack_require__(33))
+    window.customElements.define('mn-search', __webpack_require__(35))
   }
 
   return window.customElements.get('mn-search')
@@ -2781,7 +2846,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -2802,7 +2867,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2900,7 +2965,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -2913,73 +2978,10 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(36))
+    window.customElements.define('mn-sidenav', __webpack_require__(38))
   }
 
   return window.customElements.get('mn-sidenav')
-}
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super.setChangeEvents()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'disabled',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-hidden')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'hidden')
-  }
-}
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnHiddenCustomElement()
-
-function MnHiddenCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-hidden')) {
-    window.customElements.define('mn-hidden', __webpack_require__(38))
-  }
-
-  return window.customElements.get('mn-hidden')
 }
 
 
