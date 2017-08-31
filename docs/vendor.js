@@ -1247,10 +1247,18 @@ function HomeController() {
   this.houses = ['stark', 'lannister', 'targaryen']
   this.options = ['targaryen']
   this.accept = true
+  this.data = {
+    test: 'lero',
+  }
 
   this.change = () => {
     // console.log('>', !this.accept)
-    this.accept = !this.accept
+    // this.accept = !this.accept
+    this.data.test = 'lero2'
+  }
+
+  this.submit = (event) => {
+    console.log('submit', this.data)
   }
 }
 
@@ -1924,11 +1932,13 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   validate() {
+    this.dispatchEvent(new Event('validate'))
     this.inputs
       .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
 
-    const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    // const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
+    const isInvalid = !this.querySelector('.invalid')
     return isInvalid
   }
 

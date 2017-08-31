@@ -8,19 +8,12 @@
   </head>
 
   <body>
-    <mn-form ng-app="app" ng-controller="HomeController as controller">
-      <label>
-        accept: {{ controller.accept }}
-        <mn-checkbox ng-model='controller.accept' value='true'></mn-checkbox>
-      </label>
-
-      <!-- <p>Houses: {{ controller.options }}</p>
-      <mn-checkbox
-        ng-repeat="option in controller.houses"
-        placeholder="{{ option }}" ng-model="controller.options" value="{{ option }}">
-      </mn-checkbox> -->
-
+    <mn-form ng-app="app" ng-controller="HomeController as controller" submit='controller.submit()'>
+      <mn-hidden ng-model="controller.data.test"></mn-hidden>
+      <mn-input ng-model="controller.data.pass" required placeholder='pass'></mn-input>
+      <p>value: {{ controller.data.test }}</p>
       <mn-button ng-click='controller.change()'>change</mn-button>
+      <mn-button submit>submit</mn-button>
     </mn-form>
     <script src="/vendor.js"></script>
   </body>

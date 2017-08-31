@@ -14,9 +14,17 @@ function HomeController() {
   this.houses = ['stark', 'lannister', 'targaryen']
   this.options = ['targaryen']
   this.accept = true
+  this.data = {
+    test: 'lero',
+  }
 
   this.change = () => {
     // console.log('>', !this.accept)
-    this.accept = !this.accept
+    // this.accept = !this.accept
+    this.data.test = 'lero2'
+  }
+
+  this.submit = (event) => {
+    console.log('submit', this.data)
   }
 }
