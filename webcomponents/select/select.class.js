@@ -54,6 +54,13 @@ module.exports = class MnSelect extends MnInput {
       })
   }
 
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+
   _setOptions() {
     Array
       .from(this.querySelectorAll('option'))
