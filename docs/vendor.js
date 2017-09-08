@@ -752,6 +752,7 @@ module.exports = class MnSelect extends MnInput {
   connectedCallback() {
     this.empty()
     this._setStyle()
+    this.setMultiple()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
@@ -1119,11 +1120,25 @@ module.exports = class MnSelect extends MnInput {
       : null
   }
 
+  setMultiple() {
+    const values = document.createElement('div')
+    values.classList.add('values')
+    this.appendChild(values)
+    this.values = values
+  }
+
   push(value) {
     const item = document.createElement('div')
+    const buttonClose = document.createElement('button')
+    buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
     item.classList.add('item')
     item.textContent = value
-    this.appendChild(item)
+    item.appendChild(buttonClose)
+    this.values.appendChild(item)
+  }
+
+  remove(item) {
+    item.parentNode.removeChild(item)
   }
 
   get value() {
