@@ -1,5 +1,22 @@
 @import '../../node_modules/open-color/open-color.scss';
 
+.item {
+  line-height: 2em;
+  --background-color: $oc-gray-7;
+  --color: $oc-gray-2;
+  transform: translateZ(0);
+
+  font-size: .8em;
+  color: var(--color);
+  background-color: var(--background-color);
+  padding: 0 1em;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  text-align: center;
+  border-radius: 1.2em;
+  text-align: center;
+}
+
 .mn-select {
   --icon-color: $oc-gray-6;
   --option-background: $oc-gray-4;

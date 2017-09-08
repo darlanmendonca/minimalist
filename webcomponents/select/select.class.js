@@ -120,7 +120,12 @@ module.exports = class MnSelect extends MnInput {
         event.preventDefault()
 
         const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
+
+        this.hasAttribute('multiple')
+          ? this.push(value)
+          : this.value = value
+
+        // this.value = value
         this.input.blur()
       }
     })
@@ -371,6 +376,13 @@ module.exports = class MnSelect extends MnInput {
     option
       ? option.classList.add('focus')
       : null
+  }
+
+  push(value) {
+    const item = document.createElement('div')
+    item.classList.add('item')
+    item.textContent = value
+    this.appendChild(item)
   }
 
   get value() {

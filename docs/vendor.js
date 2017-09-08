@@ -795,6 +795,13 @@ module.exports = class MnSelect extends MnInput {
       })
   }
 
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+
   _setOptions() {
     Array
       .from(this.querySelectorAll('option'))
@@ -854,7 +861,12 @@ module.exports = class MnSelect extends MnInput {
         event.preventDefault()
 
         const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
+
+        this.hasAttribute('multiple')
+          ? this.push(value)
+          : this.value = value
+
+        // this.value = value
         this.input.blur()
       }
     })
@@ -1105,6 +1117,13 @@ module.exports = class MnSelect extends MnInput {
     option
       ? option.classList.add('focus')
       : null
+  }
+
+  push(value) {
+    const item = document.createElement('div')
+    item.classList.add('item')
+    item.textContent = value
+    this.appendChild(item)
   }
 
   get value() {
@@ -2791,13 +2810,6 @@ module.exports = class MnSearch extends MnSelect {
       event.query = this.input.value
       this.dispatchEvent(event)
     })
-  }
-
-  cleanOptions() {
-    const options = this.querySelectorAll('option')
-    Array
-      .from(options)
-      .forEach(option => this.removeChild(option))
   }
 
   fetch(request) {

@@ -8,13 +8,11 @@
   </head>
 
   <body>
-    <mn-form ng-app="app" ng-controller="HomeController as controller" submit='controller.submit()'>
-      <mn-hidden ng-model="controller.data.test" value='lero'></mn-hidden>
-      <mn-input ng-model="controller.data.pass" required placeholder='pass'></mn-input>
-      <p>value: {{ controller.data.test }}</p>
-      <mn-button ng-click='controller.change()'>change</mn-button>
-      <mn-button submit>submit</mn-button>
-    </mn-form>
+    <mn-select placeholder="House" multiple>
+      <option>Stark</option>
+      <option>Lannister</option>
+      <option>Targaryen</option>
+    </mn-select>
     <script src="/vendor.js"></script>
   </body>
 </html>
