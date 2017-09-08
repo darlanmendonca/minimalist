@@ -1,5 +1,9 @@
 @import '../../node_modules/open-color/open-color.scss';
 
+[multiple] {
+  flex-wrap: wrap;
+}
+
 [multiple] .values {
   transform: translateY(.3em);
   margin-right: .2em;
