@@ -397,10 +397,20 @@ module.exports = class MnSelect extends MnInput {
     item.textContent = value
     item.appendChild(buttonClose)
     this.values.appendChild(item)
+
+    const values = Array
+      .from(this.values.querySelectorAll('.item'))
+      .map(item => item.textContent)
+    this.setAttribute('value', JSON.stringify(values))
   }
 
   remove(item) {
     item.parentNode.removeChild(item)
+
+    const values = Array
+      .from(this.values.querySelectorAll('.item'))
+      .map(item => item.textContent)
+    this.setAttribute('value', JSON.stringify(values))
   }
 
   get value() {
