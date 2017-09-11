@@ -220,6 +220,9 @@ module.exports = class MnSelect extends MnInput {
 
       if (this.input.value && option) {
         this.input.value = option.textContent
+      } else if (this.hasAttribute('multiple')) {
+        this.input.value = ''
+        this.filter = ''
       } else {
         this.value = undefined
       }
