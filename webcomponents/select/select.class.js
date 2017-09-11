@@ -407,13 +407,14 @@ module.exports = class MnSelect extends MnInput {
   }
 
   set value(value) {
+    const valueIsMultiple = this.hasAttribute('multiple')
     const differentValue = this.getAttribute('value') !== value
     const option = Array
       .from(this.querySelectorAll('option'))
       .filter(option => {
-        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+        return option.getAttribute('value') === String(value)
           || option.getAttribute('value') === JSON.stringify(value)
-          || option.textContent == String(value) // eslint-disable-line eqeqeq
+          || option.textContent === String(value)
       })[0]
 
     const textNotApplied = option && this.input.value !== option.textContent
@@ -440,6 +441,14 @@ module.exports = class MnSelect extends MnInput {
       hasValue
         ? this.setAttribute('value', optionValue)
         : this.removeAttribute('value')
+
+      if (valueIsMultiple) {
+        const values = Array.isArray(evaluate(value))
+          ? evaluate(value)
+          : [value].filter(item => item)
+
+        values.forEach(val => this.push(val))
+      }
 
       this.input.dispatchEvent(new Event('change'))
     }

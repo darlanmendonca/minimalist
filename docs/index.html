@@ -13,6 +13,14 @@
       <option>Lannister</option>
       <option>Targaryen</option>
     </mn-select>
+
+    <mn-button>set value</mn-button>
     <script src="/vendor.js"></script>
+    <script>
+      const select = document.querySelector('mn-select')
+      const button = document.querySelector('mn-button')
+
+      button.addEventListener('click', () => select.value = ['Stark', 'Lannister'])
+    </script>
   </body>
 </html>

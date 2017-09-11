@@ -54,7 +54,7 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('input', () => {
-      this.input.value
+      this.hasAttribute('value')
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
@@ -66,13 +66,13 @@ module.exports = class MnInput extends HTMLElement {
 
       this.dispatchChangeEvent()
 
-      this.input.value
+      this.hasAttribute('value')
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
 
     this.input.addEventListener('blur', () => {
-      this.input.value
+      this.hasAttribute('value')
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
