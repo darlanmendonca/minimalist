@@ -406,9 +406,11 @@ module.exports = class MnSelect extends MnInput {
       item.appendChild(buttonClose)
       this.values.appendChild(item)
 
+      const values = Array
+        .from(this.values.querySelectorAll('.item'))
+        .map(item => item.getAttribute('value') || item.textContent)
       this.setAttribute('value', JSON.stringify(values))
     }
-
   }
 
   remove(item) {
@@ -470,7 +472,20 @@ module.exports = class MnSelect extends MnInput {
           ? evaluate(value)
           : [value].filter(item => item)
 
-        values.forEach(val => this.push(val))
+        values.forEach(val => {
+          const option = Array
+            .from(this.querySelectorAll('option'))
+            .filter(option => {
+              return option.getAttribute('value') === String(val)
+                || option.getAttribute('value') === JSON.stringify(val)
+                || option.textContent === String(val)
+            })[0]
+
+          const text = option
+            ? option.textContent
+            : undefined
+          this.push(val, text)
+        })
       }
 
       this.input.dispatchEvent(new Event('change'))
