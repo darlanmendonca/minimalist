@@ -1131,18 +1131,24 @@ module.exports = class MnSelect extends MnInput {
   }
 
   push(value) {
-    const item = document.createElement('div')
-    const buttonClose = document.createElement('button')
-    buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
-    item.classList.add('item')
-    item.textContent = value
-    item.appendChild(buttonClose)
-    this.values.appendChild(item)
-
     const values = Array
       .from(this.values.querySelectorAll('.item'))
       .map(item => item.textContent)
-    this.setAttribute('value', JSON.stringify(values))
+
+    const itemUsed = values.find(item => item === value)
+
+    if (!itemUsed) {
+      const item = document.createElement('div')
+      const buttonClose = document.createElement('button')
+      buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
+      item.classList.add('item')
+      item.textContent = value
+      item.appendChild(buttonClose)
+      this.values.appendChild(item)
+
+      this.setAttribute('value', JSON.stringify(values))
+    }
+
   }
 
   remove(item) {
