@@ -1145,11 +1145,12 @@ module.exports = class MnSelect extends MnInput {
       item.classList.add('item')
       item.textContent = text || value
       item.appendChild(buttonClose)
+      item.setAttribute('value', value)
       this.values.appendChild(item)
 
       const values = Array
         .from(this.values.querySelectorAll('.item'))
-        .map(item => item.getAttribute('value') || item.textContent)
+        .map(item => evaluate(item.getAttribute('value')) || item.textContent)
       this.setAttribute('value', JSON.stringify(values))
     }
   }
