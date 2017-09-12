@@ -121,9 +121,10 @@ module.exports = class MnSelect extends MnInput {
         event.preventDefault()
 
         const value = event.target.getAttribute('value') || event.target.textContent
+        const text = event.target.textContent
 
         this.hasAttribute('multiple')
-          ? this.push(value)
+          ? this.push(value, text)
           : this.value = value
 
         // this.value = value
@@ -389,7 +390,7 @@ module.exports = class MnSelect extends MnInput {
     this.values = values
   }
 
-  push(value) {
+  push(value, text) {
     const values = Array
       .from(this.values.querySelectorAll('.item'))
       .map(item => item.textContent)
@@ -401,7 +402,7 @@ module.exports = class MnSelect extends MnInput {
       const buttonClose = document.createElement('button')
       buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
       item.classList.add('item')
-      item.textContent = value
+      item.textContent = text || value
       item.appendChild(buttonClose)
       this.values.appendChild(item)
 
@@ -416,7 +417,10 @@ module.exports = class MnSelect extends MnInput {
     const values = Array
       .from(this.values.querySelectorAll('.item'))
       .map(item => item.textContent)
-    this.setAttribute('value', JSON.stringify(values))
+    // this.setAttribute('value', JSON.stringify(values))
+    values.length
+        ? this.setAttribute('value', JSON.stringify(values))
+        : this.removeAttribute('value')
   }
 
   get value() {
