@@ -13,3 +13,7 @@ You found docs about each style or webcomponent, in [webcomponents/COMPONENT-NAM
 ### Contributions
 
 Found a bug, or have an idea? Please, create a issue or a pull request, always have enhancements to do!! 
+
+### Tests
+
+We are using (and loving) [Browserstack](https://www.browserstack.com/) to automated tests, on latest browsers of Chrome, Firefox, Safari and Edge. If you found a bug, please, report and help us.

@@ -795,6 +795,13 @@ module.exports = class MnSelect extends MnInput {
       })
   }
 
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+
   _setOptions() {
     Array
       .from(this.querySelectorAll('option'))
@@ -2791,13 +2798,6 @@ module.exports = class MnSearch extends MnSelect {
       event.query = this.input.value
       this.dispatchEvent(event)
     })
-  }
-
-  cleanOptions() {
-    const options = this.querySelectorAll('option')
-    Array
-      .from(options)
-      .forEach(option => this.removeChild(option))
   }
 
   fetch(request) {
