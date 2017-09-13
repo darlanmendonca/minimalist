@@ -393,7 +393,11 @@ module.exports = class MnSelect extends MnInput {
   push(value, text) {
     const values = Array
       .from(this.values.querySelectorAll('.item'))
-      .map(item => item.textContent)
+      .map(item =>
+        item.hasAttribute('value')
+          ? item.getAttribute('value')
+          : item.textContent
+      )
 
     const itemUsed = values.find(item => item === value)
 
