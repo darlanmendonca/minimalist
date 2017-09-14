@@ -1145,7 +1145,7 @@ module.exports = class MnSelect extends MnInput {
 
   push(value, text) {
     const values = Array
-      .from(this.values.querySelectorAll('.item'))
+      .from(this.values.querySelectorAll('.value'))
       .map(item =>
         item.hasAttribute('value')
           ? item.getAttribute('value')
@@ -1159,14 +1159,14 @@ module.exports = class MnSelect extends MnInput {
       const item = document.createElement('div')
       const buttonClose = document.createElement('button')
       buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
-      item.classList.add('item')
+      item.classList.add('value')
       item.textContent = text || value
       item.appendChild(buttonClose)
       item.setAttribute('value', value)
       this.values.appendChild(item)
 
       const values = Array
-        .from(this.values.querySelectorAll('.item'))
+        .from(this.values.querySelectorAll('.value'))
         .map(item => evaluate(item.getAttribute('value')) || item.textContent)
       this.setAttribute('value', JSON.stringify(values))
     }
@@ -1176,7 +1176,7 @@ module.exports = class MnSelect extends MnInput {
     item.parentNode.removeChild(item)
 
     const values = Array
-      .from(this.values.querySelectorAll('.item'))
+      .from(this.values.querySelectorAll('.value'))
       .map(item => item.textContent)
     // this.setAttribute('value', JSON.stringify(values))
     values.length
