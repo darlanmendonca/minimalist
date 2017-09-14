@@ -752,7 +752,6 @@ module.exports = class MnSelect extends MnInput {
   connectedCallback() {
     this.empty()
     this._setStyle()
-    this.setMultiple()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
@@ -868,7 +867,6 @@ module.exports = class MnSelect extends MnInput {
           ? this.push(value, text)
           : this.value = value
 
-        // this.value = value
         this.input.blur()
       }
     })
@@ -1086,10 +1084,6 @@ module.exports = class MnSelect extends MnInput {
           ? this.push(value, option.textContent)
           : this.value = value
 
-        // option
-        //   ? this.value = option.getAttribute('value') || option.textContent
-        //   : this.value = this.value
-
         this.hide()
         this.input.blur()
       }
@@ -1136,16 +1130,9 @@ module.exports = class MnSelect extends MnInput {
       : null
   }
 
-  setMultiple() {
-    const values = document.createElement('div')
-    values.classList.add('values')
-    this.appendChild(values)
-    this.values = values
-  }
-
   push(value, text) {
     const values = Array
-      .from(this.values.querySelectorAll('.value'))
+      .from(this.querySelectorAll('.value'))
       .map(item =>
         item.hasAttribute('value')
           ? item.getAttribute('value')
@@ -1163,10 +1150,10 @@ module.exports = class MnSelect extends MnInput {
       item.textContent = text || value
       item.appendChild(buttonClose)
       item.setAttribute('value', value)
-      this.values.appendChild(item)
+      this.insertBefore(item, this.input)
 
       const values = Array
-        .from(this.values.querySelectorAll('.value'))
+        .from(this.querySelectorAll('.value'))
         .map(item => evaluate(item.getAttribute('value')) || item.textContent)
       this.setAttribute('value', JSON.stringify(values))
     }
@@ -1176,9 +1163,9 @@ module.exports = class MnSelect extends MnInput {
     item.parentNode.removeChild(item)
 
     const values = Array
-      .from(this.values.querySelectorAll('.value'))
+      .from(this.querySelectorAll('.value'))
       .map(item => item.textContent)
-    // this.setAttribute('value', JSON.stringify(values))
+
     values.length
         ? this.setAttribute('value', JSON.stringify(values))
         : this.removeAttribute('value')
@@ -1227,7 +1214,10 @@ module.exports = class MnSelect extends MnInput {
         : this.removeAttribute('value')
 
       if (valueIsMultiple) {
-        this.values.innerHTML = ''
+        Array
+          .from(this.querySelectorAll('.value'))
+          .forEach(item => item.parentNode.removeChild(item))
+
         const values = Array.isArray(evaluate(value))
           ? evaluate(value)
           : [value].filter(item => item)
