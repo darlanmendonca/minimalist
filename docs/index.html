@@ -9,10 +9,16 @@
 
   <body>
     <mn-select placeholder="House" multiple>
-      <option value="{name: 'darlan'}">Object</option>
-      <option>Stark</option>
+      <option value="{name: 'darlan'}" selected>Object</option>
+      <option selected>Stark</option>
       <option>Lannister</option>
       <option>Targaryen</option>
+    </mn-select>
+
+    <mn-select placeholder="Test">
+      <option>test1</option>
+      <option selected>test2</option>
+      <option>test3</option>
     </mn-select>
 
     <mn-button>set value</mn-button>

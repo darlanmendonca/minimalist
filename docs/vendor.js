@@ -895,6 +895,10 @@ module.exports = class MnSelect extends MnInput {
       option.classList.add('focus')
     }
 
+    if (value.hasAttribute('selected')) {
+      option.setAttribute('selected', '')
+    }
+
     option.innerHTML = value.textContent
       .split('')
       .map(char => `<span class="char" data-char="${char.toLowerCase()}">${char}</span>`)
@@ -986,13 +990,14 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setAttributeValue() {
-    const selectedOption = this.querySelector('.option[selected]')
-    const selectedValue = selectedOption
-      ? selectedOption.getAttribute('value') || selectedOption.textContent
-      : ''
-
-    const value = this.getAttribute('value') || selectedValue
-    this.value = value
+    Array
+      .from(this.querySelectorAll('.option[selected]'))
+      .forEach(option => {
+        const value = option.getAttribute('value') || option.textContent
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
+      })
   }
 
   _setMenu() {
@@ -1073,10 +1078,17 @@ module.exports = class MnSelect extends MnInput {
         const option = this.menu.querySelector('.option.focus')
         event.preventDefault()
         event.stopPropagation()
+        const value = option
+          ? option.getAttribute('value') || option.textContent
+          : this.value
 
-        option
-          ? this.value = option.getAttribute('value') || option.textContent
-          : this.value = this.value
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
+
+        // option
+        //   ? this.value = option.getAttribute('value') || option.textContent
+        //   : this.value = this.value
 
         this.hide()
         this.input.blur()
@@ -1141,6 +1153,7 @@ module.exports = class MnSelect extends MnInput {
       )
 
     const itemUsed = values.find(item => item === value)
+    this.classList.add('has-value')
 
     if (!itemUsed) {
       const item = document.createElement('div')
