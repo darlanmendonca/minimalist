@@ -1214,6 +1214,7 @@ module.exports = class MnSelect extends MnInput {
         : this.removeAttribute('value')
 
       if (valueIsMultiple) {
+        this.values.innerHTML = ''
         const values = Array.isArray(evaluate(value))
           ? evaluate(value)
           : [value].filter(item => item)
