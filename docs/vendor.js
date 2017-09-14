@@ -1013,7 +1013,11 @@ module.exports = class MnSelect extends MnInput {
       this.actionSheet.addEventListener('change', (event) => {
         const {index} = event.data
         const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
-        this.value = option.textContent
+        const value = option.getAttribute('value') || option.textContent
+
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
         this.actionSheet.hide()
       })
       document.body.appendChild(this.actionSheet)
