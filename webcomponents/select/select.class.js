@@ -394,7 +394,6 @@ module.exports = class MnSelect extends MnInput {
   }
 
   push(value, text) {
-    const attributeValue = this.getAttribute('value')
     const values = Array
       .from(this.querySelectorAll('.value'))
       .map(item =>
