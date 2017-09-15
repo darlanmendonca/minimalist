@@ -1135,6 +1135,7 @@ module.exports = class MnSelect extends MnInput {
   }
 
   push(value, text) {
+    const attributeValue = this.getAttribute('value')
     const values = Array
       .from(this.querySelectorAll('.value'))
       .map(item =>
@@ -1195,7 +1196,7 @@ module.exports = class MnSelect extends MnInput {
     const textNotApplied = option && this.input.value !== option.textContent
 
     if (textNotApplied) {
-      this.input.value = option
+      this.input.value = option && !this.hasAttribute('multiple')
         ? option.textContent
         : ''
 

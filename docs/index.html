@@ -8,6 +8,7 @@
   </head>
 
   <body>
+    <!-- <h2>vanilla</h2>
     <mn-select placeholder="House" multiple>
       <option value="{name: 'darlan'}" selected>Object</option>
       <option selected>Stark</option>
@@ -21,13 +22,41 @@
       <option>test3</option>
     </mn-select>
 
-    <mn-button>set value</mn-button>
+    <mn-button>set value</mn-button> -->
+
+
+    <h2>angular</h2>
+    <section ng-app="app" ng-controller="AppController as app">
+      <mn-select placeholder="House" ng-model="app.house" multiple>
+        <option ng-repeat='house in app.houses' value="{{ house }}">{{ house }}</option>
+      </mn-select>
+      Model: {{ app.house }}
+    </section>
+
     <script src="/vendor.js"></script>
     <script>
-      const select = document.querySelector('mn-select')
-      const button = document.querySelector('mn-button')
+      // vanilla
+      // const select = document.querySelector('mn-select')
+      // const button = document.querySelector('mn-button')
 
-      button.addEventListener('click', () => select.value = ['Stark', 'Lannister'])
+      // button.addEventListener('click', () => select.value = ['Stark', 'Lannister'])
+
+
+      // angular
+      angular
+        .module('app')
+        .controller('AppController', AppController);
+
+      function AppController() {
+        this.houses = [
+          'Stark',
+          'Lannister',
+          'Targaryen',
+        ]
+
+        // this.house = ['Stark', 'Lannister']
+        // console.log(this.houses)
+      }
     </script>
   </body>
 </html>
