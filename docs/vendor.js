@@ -2279,7 +2279,7 @@ function MnInputDirective() {
 
       function setComponentValue(value, oldValue) {
         if (component.hasAttribute('multiple')) {
-          if (!angular.equals(value, oldValue)) {
+          if (!angular.equals(value, oldValue) && !angular.isArray(value)) {
             component.value = value
           }
         } else if (angular.isDefined(value)) {
