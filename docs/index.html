@@ -116,7 +116,7 @@
           link(scope, element, attributes) {
             element.bind('search', (event) => {
               const {query} = event
-              console.log('search by', query)
+
               event.target
                 .fetch(() => Houses.list({query}))
                 .then(setOptions)
