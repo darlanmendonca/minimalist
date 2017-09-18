@@ -355,7 +355,11 @@ module.exports = class MnSelect extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => {
+      return this.hasAttribute('multiple')
+        ? this.value.length === 0
+        : this.value === undefined
+    }
     delete this.validations.pattern
   }
 

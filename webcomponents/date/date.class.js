@@ -51,7 +51,7 @@ module.exports = class MnDate extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => this.value === undefined
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
     delete this.validations.pattern

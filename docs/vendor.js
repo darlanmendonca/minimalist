@@ -1096,7 +1096,11 @@ module.exports = class MnSelect extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => {
+      return this.hasAttribute('multiple')
+        ? this.value.length === 0
+        : this.value === undefined
+    }
     delete this.validations.pattern
   }
 
@@ -1636,7 +1640,7 @@ module.exports = class MnDate extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => this.value === undefined
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
     delete this.validations.pattern
@@ -2449,7 +2453,7 @@ module.exports = class MnNumber extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => this.value === undefined
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
     delete this.validations.pattern

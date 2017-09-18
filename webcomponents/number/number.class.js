@@ -127,7 +127,7 @@ module.exports = class MnNumber extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => this.value === undefined
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
     delete this.validations.pattern
