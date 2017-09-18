@@ -8,8 +8,9 @@
   </head>
 
   <body>
-    <!-- <h2>vanilla</h2>
-    <mn-select placeholder="House" multiple>
+    <h2>vanilla</h2>
+    <mn-search placeholder="House" multiple></mn-search>
+    <!-- <mn-select placeholder="House" multiple>
       <option value="{name: 'darlan'}" selected>Object</option>
       <option selected>Stark</option>
       <option>Lannister</option>
@@ -25,7 +26,7 @@
     <mn-button>set value</mn-button> -->
 
 
-    <h2>angular</h2>
+    <!-- <h2>angular</h2>
     <mn-form ng-app="app" ng-controller="AppController as app">
       <mn-select placeholder="House" ng-model="app.house" multiple required>
         <option ng-repeat='house in app.houses' value="{{ house }}">{{ house }}</option>
@@ -33,7 +34,7 @@
       Model: {{ app.house }}
 
       <mn-button submit>submit</mn-button>
-    </mn-form>
+    </mn-form> -->
 
     <script src="/vendor.js"></script>
     <script>
@@ -42,6 +43,28 @@
       // const button = document.querySelector('mn-button')
 
       // button.addEventListener('click', () => select.value = ['Stark', 'Lannister'])
+
+      const search = document.querySelector('mn-search')
+
+      search.addEventListener('search', (event) => {
+        const params = new URLSearchParams()
+        params.append('query', event.query)
+        const houses = new Request(`http://localhost:4000/houses?${params}`) // the simple String or Request
+
+        event.target
+          .fetch(houses)
+          .then(response => response.json())
+          .then(setOptions)
+
+        function setOptions(houses) {
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+            event.target.appendChild(option)
+          })
+        }
+      })
 
 
       // angular
