@@ -26,12 +26,14 @@
 
 
     <h2>angular</h2>
-    <section ng-app="app" ng-controller="AppController as app">
-      <mn-select placeholder="House" ng-model="app.house" multiple>
+    <mn-form ng-app="app" ng-controller="AppController as app">
+      <mn-select placeholder="House" ng-model="app.house" multiple required>
         <option ng-repeat='house in app.houses' value="{{ house }}">{{ house }}</option>
       </mn-select>
       Model: {{ app.house }}
-    </section>
+
+      <mn-button submit>submit</mn-button>
+    </mn-form>
 
     <script src="/vendor.js"></script>
     <script>

@@ -31,8 +31,12 @@ function MnInputDirective() {
         element.remove()
       })
 
-      function setComponentValue(value) {
-        if (angular.isDefined(value)) {
+      function setComponentValue(value, oldValue) {
+        if (component.hasAttribute('multiple')) {
+          if (!angular.equals(value, oldValue)) {
+            component.value = value
+          }
+        } else if (angular.isDefined(value)) {
           component.value = value
         }
       }

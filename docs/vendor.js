@@ -1143,6 +1143,8 @@ module.exports = class MnSelect extends MnInput {
           : item.textContent
       )
 
+    const attributeValue = this.getAttribute('value')
+
     const itemUsed = values.find(item => item === value)
     this.classList.add('has-value')
 
@@ -1161,6 +1163,12 @@ module.exports = class MnSelect extends MnInput {
         .map(item => evaluate(item.getAttribute('value')) || item.textContent)
       this.setAttribute('value', JSON.stringify(values))
     }
+
+    const changeAttributeValue = attributeValue !== this.getAttribute('value')
+
+    if (changeAttributeValue) {
+      this.dispatchEvent(new Event('change'))
+    }
   }
 
   remove(item) {
@@ -1173,12 +1181,18 @@ module.exports = class MnSelect extends MnInput {
     values.length
         ? this.setAttribute('value', JSON.stringify(values))
         : this.removeAttribute('value')
+
+    this.dispatchEvent(new Event('change'))
   }
 
   get value() {
-    return this.getAttribute('value')
+    const value = this.getAttribute('value')
       ? evaluate(this.getAttribute('value'))
       : undefined
+
+    return this.hasAttribute('multiple') && !value
+      ? []
+      : value
   }
 
   set value(value) {
@@ -2259,8 +2273,12 @@ function MnInputDirective() {
         element.remove()
       })
 
-      function setComponentValue(value) {
-        if (angular.isDefined(value)) {
+      function setComponentValue(value, oldValue) {
+        if (component.hasAttribute('multiple')) {
+          if (!angular.equals(value, oldValue)) {
+            component.value = value
+          }
+        } else if (angular.isDefined(value)) {
           component.value = value
         }
       }
