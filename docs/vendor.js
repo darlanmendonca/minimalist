@@ -958,7 +958,9 @@ module.exports = class MnSelect extends MnInput {
       const option = Array
         .from(this.menu.querySelectorAll('.option'))
         .filter(option => {
-          const optionValue = option.getAttribute('value') || option.textContent
+          const optionValue = option.hasAttribute('value')
+            ? option.getAttribute('value')
+            : option.textContent
           return optionValue === this.getAttribute('value')
         })[0]
 
@@ -1162,7 +1164,7 @@ module.exports = class MnSelect extends MnInput {
       value = typeof value === 'string'
         ? evaluate(value)
         : value
-      // console.log(JSON.stringify(value), typeof JSON.stringify(value), value)
+
       item.setAttribute('value', JSON.stringify(value))
       this.insertBefore(item, this.input)
 
@@ -1185,7 +1187,11 @@ module.exports = class MnSelect extends MnInput {
 
     const values = Array
       .from(this.querySelectorAll('.value'))
-      .map(item => evaluate(item.getAttribute('value')) || item.textContent)
+      .map(item => {
+        return item.hasAttribute('value')
+          ? evaluate(item.getAttribute('value'))
+          : item.textContent
+      })
 
     values.length
         ? this.setAttribute('value', JSON.stringify(values))
@@ -1198,7 +1204,6 @@ module.exports = class MnSelect extends MnInput {
     const value = this.getAttribute('value')
       ? evaluate(this.getAttribute('value'))
       : undefined
-    // console.log(value, this.getAttribute('value'))
 
     return this.hasAttribute('multiple') && !value
       ? []
@@ -1236,11 +1241,15 @@ module.exports = class MnSelect extends MnInput {
       const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
 
       const optionValue = option
-        ? evaluate(option.getAttribute('value')) || option.textContent
+        ? option.hasAttribute('value')
+          ? evaluate(option.getAttribute('value'))
+          : option.textContent
         : evaluate(JSON.stringify(value))
 
       hasValue
-        ? this.setAttribute('value', JSON.stringify(optionValue))
+        ? this.setAttribute('value', typeof optionValue === 'object'
+          ? JSON.stringify(optionValue)
+          : optionValue)
         : this.removeAttribute('value')
 
       if (valueIsMultiple) {
