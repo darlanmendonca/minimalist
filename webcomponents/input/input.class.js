@@ -54,7 +54,7 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('input', () => {
-      this.hasAttribute('value')
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
@@ -66,7 +66,7 @@ module.exports = class MnInput extends HTMLElement {
 
       this.dispatchChangeEvent()
 
-      this.hasAttribute('value')
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
