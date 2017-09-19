@@ -72,7 +72,7 @@ module.exports = class MnInput extends HTMLElement {
     })
 
     this.input.addEventListener('blur', () => {
-      this.hasAttribute('value')
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
