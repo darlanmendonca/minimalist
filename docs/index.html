@@ -80,12 +80,12 @@
 
       function AppController() {
         this.houses = [
-          'Stark',
-          'Lannister',
-          'Targaryen',
+          {name: 'Stark'},
+          {name: 'Lannister'},
+          {name: 'Targaryen'},
         ]
 
-        // this.house = ['Stark', 'Lannister']
+        this.house = [{name: 'Stark'}, {name: 'Lannister'}]
         // console.log(this.houses)
       }
 
@@ -114,6 +114,7 @@
           restrict: 'A',
           require: 'ngModel',
           link(scope, element, attributes) {
+            element[0].keyValue = 'name'
             element.bind('search', (event) => {
               const {query} = event
 
@@ -125,7 +126,7 @@
                 houses.forEach(house => {
                   const option = document.createElement('option')
                   option.textContent = house
-                  option.setAttribute('value', house.toLowerCase())
+                  option.setAttribute('value', JSON.stringify({name: house}))
 
                   event.target.appendChild(option)
                 })

@@ -1157,14 +1157,19 @@ module.exports = class MnSelect extends MnInput {
       const buttonClose = document.createElement('button')
       buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
       item.classList.add('value')
-      item.textContent = text || value
+      item.textContent = text || value[this.keyValue] || value
       item.appendChild(buttonClose)
-      item.setAttribute('value', value)
+      value = typeof value === 'string'
+        ? evaluate(value)
+        : value
+      // console.log(JSON.stringify(value), typeof JSON.stringify(value), value)
+      item.setAttribute('value', JSON.stringify(value))
       this.insertBefore(item, this.input)
 
       const values = Array
         .from(this.querySelectorAll('.value'))
         .map(item => evaluate(item.getAttribute('value')) || item.textContent)
+
       this.setAttribute('value', JSON.stringify(values))
     }
 
@@ -1180,7 +1185,7 @@ module.exports = class MnSelect extends MnInput {
 
     const values = Array
       .from(this.querySelectorAll('.value'))
-      .map(item => item.textContent)
+      .map(item => evaluate(item.getAttribute('value')) || item.textContent)
 
     values.length
         ? this.setAttribute('value', JSON.stringify(values))
@@ -1193,6 +1198,7 @@ module.exports = class MnSelect extends MnInput {
     const value = this.getAttribute('value')
       ? evaluate(this.getAttribute('value'))
       : undefined
+    // console.log(value, this.getAttribute('value'))
 
     return this.hasAttribute('multiple') && !value
       ? []
@@ -1222,17 +1228,19 @@ module.exports = class MnSelect extends MnInput {
 
     if (differentValue) {
       const search = new Event('search')
-      search.query = value
+      search.query = typeof value === 'string'
+        ? value
+        : ''
       this.dispatchEvent(search)
 
       const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
 
       const optionValue = option
-        ? option.getAttribute('value') || option.textContent
-        : JSON.stringify(value)
+        ? evaluate(option.getAttribute('value')) || option.textContent
+        : evaluate(JSON.stringify(value))
 
       hasValue
-        ? this.setAttribute('value', optionValue)
+        ? this.setAttribute('value', JSON.stringify(optionValue))
         : this.removeAttribute('value')
 
       if (valueIsMultiple) {
