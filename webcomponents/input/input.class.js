@@ -181,20 +181,22 @@ module.exports = class MnInput extends HTMLElement {
       if (differentValue) {
         const valueIsMultiple = this.hasAttribute('multiple')
 
-        if (!valueIsMultiple) {
-          this.input.value = this.trimValue && value
-            ? value.replace(/\s{2,}/g, ' ').trim()
-            : value
-        } else {
+        if (valueIsMultiple) {
           Array
             .from(this.querySelectorAll('.value'))
             .forEach(item => item.parentNode.removeChild(item))
 
           const values = Array.isArray(value)
             ? value.map(item => String(item))
-            : [value].filter(item => item)
+            : [value]
 
-          values.forEach(val => this.push(val))
+          values
+            .filter(item => item)
+            .forEach(val => this.push(val))
+        } else {
+          this.input.value = this.trimValue && value
+            ? value.replace(/\s{2,}/g, ' ').trim()
+            : value
         }
 
         this.input.dispatchEvent(new Event('change'))
