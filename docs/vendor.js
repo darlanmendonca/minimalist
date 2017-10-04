@@ -282,17 +282,36 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   get value() {
-    return this.input.value
+    return this.hasAttribute('multiple')
+      ? evaluate(this.getAttribute('value'))
+        ? evaluate(this.getAttribute('value')).map(item => String(item))
+        : []
+      : this.input.value
   }
 
   set value(value = '') {
     if (this.input) {
-      const differentValue = this.input.value !== value
+      const differentValue = this.getAttribute('value') !== value
 
       if (differentValue) {
-        this.input.value = this.trimValue && value
-          ? value.replace(/\s{2,}/g, ' ').trim()
-          : value
+        const valueIsMultiple = this.hasAttribute('multiple')
+
+        if (!valueIsMultiple) {
+          this.input.value = this.trimValue && value
+            ? value.replace(/\s{2,}/g, ' ').trim()
+            : value
+        } else {
+          Array
+            .from(this.querySelectorAll('.value'))
+            .forEach(item => item.parentNode.removeChild(item))
+
+          const values = Array.isArray(value)
+            ? value.map(item => String(item))
+            : [value].filter(item => item)
+
+          values.forEach(val => this.push(val))
+        }
+
         this.input.dispatchEvent(new Event('change'))
       }
     }
@@ -382,6 +401,48 @@ module.exports = class MnInput extends HTMLElement {
     isInvalid
       ? this.classList.add('invalid')
       : this.classList.remove('invalid')
+  }
+
+  push(value, text) {
+    const values = Array
+      .from(this.querySelectorAll('.value'))
+      .map(item =>
+        item.hasAttribute('value')
+          ? item.getAttribute('value')
+          : item.textContent
+      )
+
+    const attributeValue = this.getAttribute('value')
+
+    const itemUsed = values.find(item => item === value)
+    this.classList.add('has-value')
+
+    if (!itemUsed) {
+      const item = document.createElement('div')
+      const buttonClose = document.createElement('button')
+      buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
+      item.classList.add('value')
+      item.textContent = text || value[this.keyValue] || value
+      item.appendChild(buttonClose)
+      value = typeof value === 'string'
+        ? evaluate(value)
+        : value
+
+      item.setAttribute('value', JSON.stringify(value))
+      this.insertBefore(item, this.input)
+
+      const values = Array
+        .from(this.querySelectorAll('.value'))
+        .map(item => evaluate(item.getAttribute('value')) || item.textContent)
+
+      this.setAttribute('value', JSON.stringify(values))
+    }
+
+    const changeAttributeValue = attributeValue !== this.getAttribute('value')
+
+    if (changeAttributeValue) {
+      this.dispatchEvent(new Event('change'))
+    }
   }
 }
 
@@ -1140,47 +1201,47 @@ module.exports = class MnSelect extends MnInput {
       : null
   }
 
-  push(value, text) {
-    const values = Array
-      .from(this.querySelectorAll('.value'))
-      .map(item =>
-        item.hasAttribute('value')
-          ? item.getAttribute('value')
-          : item.textContent
-      )
+  // push(value, text) {
+  //   const values = Array
+  //     .from(this.querySelectorAll('.value'))
+  //     .map(item =>
+  //       item.hasAttribute('value')
+  //         ? item.getAttribute('value')
+  //         : item.textContent
+  //     )
 
-    const attributeValue = this.getAttribute('value')
+  //   const attributeValue = this.getAttribute('value')
 
-    const itemUsed = values.find(item => item === value)
-    this.classList.add('has-value')
+  //   const itemUsed = values.find(item => item === value)
+  //   this.classList.add('has-value')
 
-    if (!itemUsed) {
-      const item = document.createElement('div')
-      const buttonClose = document.createElement('button')
-      buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
-      item.classList.add('value')
-      item.textContent = text || value[this.keyValue] || value
-      item.appendChild(buttonClose)
-      value = typeof value === 'string'
-        ? evaluate(value)
-        : value
+  //   if (!itemUsed) {
+  //     const item = document.createElement('div')
+  //     const buttonClose = document.createElement('button')
+  //     buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
+  //     item.classList.add('value')
+  //     item.textContent = text || value[this.keyValue] || value
+  //     item.appendChild(buttonClose)
+  //     value = typeof value === 'string'
+  //       ? evaluate(value)
+  //       : value
 
-      item.setAttribute('value', JSON.stringify(value))
-      this.insertBefore(item, this.input)
+  //     item.setAttribute('value', JSON.stringify(value))
+  //     this.insertBefore(item, this.input)
 
-      const values = Array
-        .from(this.querySelectorAll('.value'))
-        .map(item => evaluate(item.getAttribute('value')) || item.textContent)
+  //     const values = Array
+  //       .from(this.querySelectorAll('.value'))
+  //       .map(item => evaluate(item.getAttribute('value')) || item.textContent)
 
-      this.setAttribute('value', JSON.stringify(values))
-    }
+  //     this.setAttribute('value', JSON.stringify(values))
+  //   }
 
-    const changeAttributeValue = attributeValue !== this.getAttribute('value')
+  //   const changeAttributeValue = attributeValue !== this.getAttribute('value')
 
-    if (changeAttributeValue) {
-      this.dispatchEvent(new Event('change'))
-    }
-  }
+  //   if (changeAttributeValue) {
+  //     this.dispatchEvent(new Event('change'))
+  //   }
+  // }
 
   remove(item) {
     item.parentNode.removeChild(item)

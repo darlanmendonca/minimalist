@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <mn-input placeholder="Names" multiple></mn-input>
+    <mn-input placeholder="Names"></mn-input>
 
 
     <h2>vanilla</h2>
@@ -56,6 +56,7 @@
 
       // button.addEventListener('click', () => select.value = ['Stark', 'Lannister'])
 
+      const input = document.querySelector('mn-input')
       const search = document.querySelector('mn-search')
 
       search.addEventListener('search', (event) => {
