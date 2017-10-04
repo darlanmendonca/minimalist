@@ -120,3 +120,49 @@
 
   &.required {--invalid-message: ' is required'}
 }
+
+[multiple] {
+  flex-wrap: wrap;
+}
+
+[multiple] .values {
+  transform: translateY(.3em);
+  margin-right: .2em;
+}
+
+[multiple] .value {
+  line-height: 2em;
+  --background-color: $oc-gray-7;
+  --color: $oc-gray-2;
+  transform: translateZ(0);
+
+  font-size: .7em;
+  color: var(--color);
+  background-color: var(--background-color);
+  padding: 0 1em;
+  margin: .1em;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  text-align: center;
+  border-radius: 1.2em;
+  text-align: center;
+  height: 2em;
+  transform: translateY(5px);
+
+  button{
+    border: 0;
+    background: none;
+    transform: translate(.6em);
+    cursor: pointer;
+    outline: 0;
+
+    &:before {
+      transform: scale(1.5);
+      display: block;
+      text-align: center;
+      font-family: arial, sans-serif;
+      content: '×';
+      color: var(--color)
+    }
+  }
+}
