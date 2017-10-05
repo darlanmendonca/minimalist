@@ -119,13 +119,13 @@ const evaluate = __webpack_require__(2)
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     return self
   }
 
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     this._setStyle()
     this._setInput()
     this.setChangeEvents()
@@ -478,6 +478,7 @@ module.exports = class MnInput extends HTMLElement {
 
     this.input.dispatchEvent(new Event('change'))
     this.dispatchEvent(new Event('change'))
+    this.input.value = ''
   }
 }
 
@@ -2372,6 +2373,7 @@ function MnInputCustomElement() {
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
@@ -2507,7 +2509,7 @@ module.exports = class MnNumber extends MnInput {
   }
 
   get value() {
-    const isUndefined = this.input.value === ''
+    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
     const numberString = this.input.value.replace(/,/g, '.')
 
     const val = isUndefined
@@ -2515,6 +2517,21 @@ module.exports = class MnNumber extends MnInput {
       : this.hasAttribute('percentage')
         ? (numberString * 100) / 10000
         : parseFloat(numberString)
+
+    if (isUndefined) {
+      return undefined
+    } else {
+
+      if (this.hasAttribute('multiple')) {
+        return evaluate(this.getAttribute('value'))
+          ? evaluate(this.getAttribute('value')).map(item => +item)
+          : []
+      } else {
+        return this.hasAttribute('percentage')
+          ? (numberString * 100) / 10000
+          : parseFloat(numberString)
+      }
+    }
 
     return val
   }

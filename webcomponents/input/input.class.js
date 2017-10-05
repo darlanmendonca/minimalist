@@ -4,13 +4,13 @@ const evaluate = require('evaluate-string')
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     return self
   }
 
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     this._setStyle()
     this._setInput()
     this.setChangeEvents()
@@ -363,5 +363,6 @@ module.exports = class MnInput extends HTMLElement {
 
     this.input.dispatchEvent(new Event('change'))
     this.dispatchEvent(new Event('change'))
+    this.input.value = ''
   }
 }

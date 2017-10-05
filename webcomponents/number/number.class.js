@@ -1,4 +1,5 @@
 const MnInput = require('../input/input.class.js')
+const evaluate = require('evaluate-string')
 
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
@@ -134,7 +135,7 @@ module.exports = class MnNumber extends MnInput {
   }
 
   get value() {
-    const isUndefined = this.input.value === ''
+    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
     const numberString = this.input.value.replace(/,/g, '.')
 
     const val = isUndefined
@@ -142,6 +143,21 @@ module.exports = class MnNumber extends MnInput {
       : this.hasAttribute('percentage')
         ? (numberString * 100) / 10000
         : parseFloat(numberString)
+
+    if (isUndefined) {
+      return undefined
+    } else {
+
+      if (this.hasAttribute('multiple')) {
+        return evaluate(this.getAttribute('value'))
+          ? evaluate(this.getAttribute('value')).map(item => +item)
+          : []
+      } else {
+        return this.hasAttribute('percentage')
+          ? (numberString * 100) / 10000
+          : parseFloat(numberString)
+      }
+    }
 
     return val
   }
