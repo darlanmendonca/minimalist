@@ -190,6 +190,11 @@ module.exports = class MnInput extends HTMLElement {
       this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+
+      if (this.input.value) {
+        this.push(this.input.value)
+        this.input.value = ''
+      }
     })
 
     const validate = () => { // validate
@@ -430,7 +435,7 @@ module.exports = class MnInput extends HTMLElement {
         ? evaluate(value)
         : value
 
-      item.setAttribute('value', JSON.stringify(value))
+      item.setAttribute('value', typeof value === 'object' ? JSON.stringify(value) : value)
       this.insertBefore(item, this.input)
 
       const values = Array
