@@ -191,6 +191,7 @@ module.exports = class MnInput extends HTMLElement {
   set value(value = '') {
     if (this.input) {
       const differentValue = this.getAttribute('value') !== value
+      this.input.value = value
 
       if (differentValue) {
         const valueIsMultiple = this.hasAttribute('multiple')
@@ -336,7 +337,9 @@ module.exports = class MnInput extends HTMLElement {
         .from(this.querySelectorAll('.value'))
         .map(item => evaluate(item.getAttribute('value')) || item.textContent)
 
-      this.setAttribute('value', JSON.stringify(values))
+      if (this.hasAttribute('multiple')) {
+        this.setAttribute('value', JSON.stringify(values))
+      }
     }
 
     const changeAttributeValue = attributeValue !== this.getAttribute('value')

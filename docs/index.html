@@ -21,6 +21,7 @@
     <mn-search placeholder="House" multiple></mn-search>
 
     <mn-number placeholder="Números" multiple></mn-number>
+    <mn-email placeholder="Email"></mn-email>
     <!-- <mn-select placeholder="House" multiple>
       <option value="{name: 'darlan'}" selected>Object</option>
       <option selected>Stark</option>
@@ -63,6 +64,7 @@
       const multiple = document.querySelector('mn-input[multiple]')
       const numbers = document.querySelector('mn-number')
       const search = document.querySelector('mn-search')
+      const email = document.querySelector('mn-email')
 
       search.addEventListener('search', (event) => {
         const params = new URLSearchParams()

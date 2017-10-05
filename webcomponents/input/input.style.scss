@@ -126,7 +126,6 @@
 }
 
 [multiple] .values {
-  transform: translateY(.3em);
   margin-right: .2em;
 }
 
@@ -134,7 +133,6 @@
   line-height: 2em;
   --background-color: $oc-gray-7;
   --color: $oc-gray-2;
-  transform: translateZ(0);
 
   font-size: .7em;
   color: var(--color);
@@ -147,7 +145,7 @@
   border-radius: 1.2em;
   text-align: center;
   height: 2em;
-  transform: translateY(5px);
+  transform: translate3d(0, 3px, 0);
 
   button{
     border: 0;
