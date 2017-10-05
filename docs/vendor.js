@@ -189,7 +189,7 @@ module.exports = class MnInput extends HTMLElement {
 
     this.input.addEventListener('keydown', (event) => {
       const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
-      if (isDelimeterKey) {
+      if (this.hasAttribute('multiple') && isDelimeterKey) {
         this.input.dispatchEvent(new Event('blur'))
         event.preventDefault()
       }
