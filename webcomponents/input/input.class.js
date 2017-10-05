@@ -331,4 +331,23 @@ module.exports = class MnInput extends HTMLElement {
       this.dispatchEvent(new Event('change'))
     }
   }
+
+  remove(item) {
+    item.parentNode.removeChild(item)
+
+    const values = Array
+      .from(this.querySelectorAll('.value'))
+      .map(item => {
+        return item.hasAttribute('value')
+          ? evaluate(item.getAttribute('value'))
+          : item.textContent
+      })
+
+    values.length
+        ? this.setAttribute('value', JSON.stringify(values))
+        : this.removeAttribute('value')
+
+    this.input.dispatchEvent(new Event('change'))
+    this.dispatchEvent(new Event('change'))
+  }
 }

@@ -399,66 +399,6 @@ module.exports = class MnSelect extends MnInput {
       : null
   }
 
-  // push(value, text) {
-  //   const values = Array
-  //     .from(this.querySelectorAll('.value'))
-  //     .map(item =>
-  //       item.hasAttribute('value')
-  //         ? item.getAttribute('value')
-  //         : item.textContent
-  //     )
-
-  //   const attributeValue = this.getAttribute('value')
-
-  //   const itemUsed = values.find(item => item === value)
-  //   this.classList.add('has-value')
-
-  //   if (!itemUsed) {
-  //     const item = document.createElement('div')
-  //     const buttonClose = document.createElement('button')
-  //     buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
-  //     item.classList.add('value')
-  //     item.textContent = text || value[this.keyValue] || value
-  //     item.appendChild(buttonClose)
-  //     value = typeof value === 'string'
-  //       ? evaluate(value)
-  //       : value
-
-  //     item.setAttribute('value', JSON.stringify(value))
-  //     this.insertBefore(item, this.input)
-
-  //     const values = Array
-  //       .from(this.querySelectorAll('.value'))
-  //       .map(item => evaluate(item.getAttribute('value')) || item.textContent)
-
-  //     this.setAttribute('value', JSON.stringify(values))
-  //   }
-
-  //   const changeAttributeValue = attributeValue !== this.getAttribute('value')
-
-  //   if (changeAttributeValue) {
-  //     this.dispatchEvent(new Event('change'))
-  //   }
-  // }
-
-  remove(item) {
-    item.parentNode.removeChild(item)
-
-    const values = Array
-      .from(this.querySelectorAll('.value'))
-      .map(item => {
-        return item.hasAttribute('value')
-          ? evaluate(item.getAttribute('value'))
-          : item.textContent
-      })
-
-    values.length
-        ? this.setAttribute('value', JSON.stringify(values))
-        : this.removeAttribute('value')
-
-    this.dispatchEvent(new Event('change'))
-  }
-
   get value() {
     const value = this.getAttribute('value')
       ? evaluate(this.getAttribute('value'))
