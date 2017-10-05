@@ -200,7 +200,7 @@ module.exports = class MnInput extends HTMLElement {
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
 
-      if (this.input.value) {
+      if (this.input.value && this.hasAttribute('multiple')) {
         this.push(this.input.value)
         this.input.value = ''
       }
