@@ -125,6 +125,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
+    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     this._setStyle()
     this._setInput()
     this.setChangeEvents()
@@ -184,6 +185,14 @@ module.exports = class MnInput extends HTMLElement {
       this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+    })
+
+    this.input.addEventListener('keydown', (event) => {
+      const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
+      if (isDelimeterKey) {
+        this.input.dispatchEvent(new Event('blur'))
+        event.preventDefault()
+      }
     })
 
     this.input.addEventListener('blur', () => {
