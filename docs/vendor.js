@@ -2739,7 +2739,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this._setInput()
     this._setCustomInput()
     this._setForm()
-    this.checked = this.hasAttribute('checked')
+    // this.checked = this.hasAttribute('checked')
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
