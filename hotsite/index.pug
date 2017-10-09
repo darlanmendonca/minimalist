@@ -8,12 +8,13 @@ html
 
     link(rel='stylesheet' href='/vendor.css')
 
-  body
+  body(ng-app='app')
     include pages/home
 
     section.tabs.mn-layout-container-full
       mn-radio(placeholder='mn-button' name='tab' checked)
       mn-radio(placeholder='mn-layout' name='tab')
+      mn-radio(placeholder='mn-card' name='tab')
       mn-radio(placeholder='mn-sidenav' name='tab')
       mn-radio(placeholder='mn-dialog' name='tab')
       mn-radio(placeholder='mn-list' name='tab')
@@ -28,5 +29,7 @@ html
       mn-radio(placeholder='mn-select' name='tab')
       mn-radio(placeholder='mn-search' name='tab')
       mn-radio(placeholder='mn-hidden' name='tab')
+
+    //- include pages/button
 
     script(src='/vendor.js')
