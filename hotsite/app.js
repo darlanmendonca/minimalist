@@ -1,11 +1,5 @@
-<<<<<<< HEAD:hotsite/app.js
-require('minimalist')
-require('../angular.js')
-=======
-require('../../index.js') // main file of minimalist
-require('../../angular.js') // directives
->>>>>>> master:docs/sources/app.js
-
+require('../index.js') // main file of minimalist
+require('../angular.js') // directives
 
 angular.module('app', [
   'minimalist',
