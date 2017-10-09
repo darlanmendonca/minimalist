@@ -100,6 +100,18 @@
   }
 }
 
+.mn-layout-container-full {
+  padding: 3.8rem .5rem 0;
+
+  @media (min-width: 768px) {
+    padding-left: calc(.5rem + 50px);
+  }
+
+  @media (min-width: 992px) {
+    padding-left: calc(.5rem + 50px);
+  }
+}
+
 .mn-layout-container {
   margin-right: auto;
   margin-left: auto;
