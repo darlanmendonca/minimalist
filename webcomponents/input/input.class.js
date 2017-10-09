@@ -4,6 +4,7 @@ const evaluate = require('evaluate-string')
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     return self
   }
 
@@ -54,7 +55,7 @@ module.exports = class MnInput extends HTMLElement {
     this.appendChild(this.input)
 
     this.input.addEventListener('input', () => {
-      this.input.value
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
@@ -66,15 +67,28 @@ module.exports = class MnInput extends HTMLElement {
 
       this.dispatchChangeEvent()
 
-      this.input.value
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
     })
 
+    this.input.addEventListener('keydown', (event) => {
+      const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
+      if (this.hasAttribute('multiple') && isDelimeterKey) {
+        this.input.dispatchEvent(new Event('blur'))
+        event.preventDefault()
+      }
+    })
+
     this.input.addEventListener('blur', () => {
-      this.input.value
+      this.hasAttribute('value') || this.input.value
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
+
+      if (this.input.value && this.hasAttribute('multiple')) {
+        this.push(this.input.value)
+        this.input.value = ''
+      }
     })
 
     const validate = () => { // validate
@@ -167,17 +181,39 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   get value() {
-    return this.input.value
+    return this.hasAttribute('multiple')
+      ? evaluate(this.getAttribute('value'))
+        ? evaluate(this.getAttribute('value')).map(item => String(item))
+        : []
+      : this.input.value
   }
 
   set value(value = '') {
     if (this.input) {
-      const differentValue = this.input.value !== value
+      const differentValue = this.getAttribute('value') !== value
+      this.input.value = value
 
       if (differentValue) {
-        this.input.value = this.trimValue && value
-          ? value.replace(/\s{2,}/g, ' ').trim()
-          : value
+        const valueIsMultiple = this.hasAttribute('multiple')
+
+        if (valueIsMultiple) {
+          Array
+            .from(this.querySelectorAll('.value'))
+            .forEach(item => item.parentNode.removeChild(item))
+
+          const values = Array.isArray(value)
+            ? value.map(item => String(item))
+            : [value]
+
+          values
+            .filter(item => item)
+            .forEach(val => this.push(val))
+        } else {
+          this.input.value = this.trimValue && value
+            ? value.replace(/\s{2,}/g, ' ').trim()
+            : value
+        }
+
         this.input.dispatchEvent(new Event('change'))
       }
     }
@@ -267,5 +303,69 @@ module.exports = class MnInput extends HTMLElement {
     isInvalid
       ? this.classList.add('invalid')
       : this.classList.remove('invalid')
+  }
+
+  push(value, text) {
+    const values = Array
+      .from(this.querySelectorAll('.value'))
+      .map(item =>
+        item.hasAttribute('value')
+          ? item.getAttribute('value')
+          : item.textContent
+      )
+
+    const attributeValue = this.getAttribute('value')
+
+    const itemUsed = values.find(item => item === value)
+    this.classList.add('has-value')
+
+    if (!itemUsed) {
+      const item = document.createElement('div')
+      const buttonClose = document.createElement('button')
+      buttonClose.addEventListener('click', event => this.remove(event.target.parentNode))
+      item.classList.add('value')
+      item.textContent = text || value[this.keyValue] || value
+      item.appendChild(buttonClose)
+      value = typeof value === 'string'
+        ? evaluate(value)
+        : value
+
+      item.setAttribute('value', typeof value === 'object' ? JSON.stringify(value) : value)
+      this.insertBefore(item, this.input)
+
+      const values = Array
+        .from(this.querySelectorAll('.value'))
+        .map(item => evaluate(item.getAttribute('value')) || item.textContent)
+
+      if (this.hasAttribute('multiple')) {
+        this.setAttribute('value', JSON.stringify(values))
+      }
+    }
+
+    const changeAttributeValue = attributeValue !== this.getAttribute('value')
+
+    if (changeAttributeValue) {
+      this.dispatchEvent(new Event('change'))
+    }
+  }
+
+  remove(item) {
+    item.parentNode.removeChild(item)
+
+    const values = Array
+      .from(this.querySelectorAll('.value'))
+      .map(item => {
+        return item.hasAttribute('value')
+          ? evaluate(item.getAttribute('value'))
+          : item.textContent
+      })
+
+    values.length
+        ? this.setAttribute('value', JSON.stringify(values))
+        : this.removeAttribute('value')
+
+    this.input.dispatchEvent(new Event('change'))
+    this.dispatchEvent(new Event('change'))
+    this.input.value = ''
   }
 }

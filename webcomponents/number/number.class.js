@@ -1,8 +1,10 @@
 const MnInput = require('../input/input.class.js')
+const evaluate = require('evaluate-string')
 
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Enter', 'Space']
     return self
   }
 
@@ -10,7 +12,7 @@ module.exports = class MnNumber extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     super._setInput()
-    super.setChangeEvents()
+    this.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
@@ -60,37 +62,45 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputTransforms() {
     this.input.addEventListener('change', () => {
-      try {
-        const value = eval(this.input.value.replace(/,/g, '.'))
-        value !== undefined
-          ? this.input.value = String(value).replace(/\./g, ',')
-          : null
-        const valueIsDefined = value !== undefined
+      const commaOrDot = !this.input.value.endsWith(',')
+        && !this.input.value.endsWith('.')
+      if (commaOrDot) {
+        try {
+          const value = eval(this.input.value.replace(/,/g, '.'))
+          value !== undefined
+            ? this.input.value = String(value).replace(/\./g, ',')
+            : null
+          const valueIsDefined = value !== undefined
 
-        if (valueIsDefined) {
-          const isCurrency = this.hasAttribute('currency')
-          const precision = this.getAttribute('precision') || 0
+          if (valueIsDefined) {
+            const isCurrency = this.hasAttribute('currency')
+            const precision = this.getAttribute('precision') || 0
 
-          switch (true) {
-            case isCurrency:
-              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
-              break
+            switch (true) {
+              case isCurrency:
+                this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+                break
 
-            default:
-              this.input.value = precision
-                ? value.toFixed(precision).replace(/\./g, ',')
-                : String(value).replace(/\./g, ',')
-              break
+              default:
+                this.input.value = precision
+                  ? value.toFixed(precision).replace(/\./g, ',')
+                  : String(value).replace(/\./g, ',')
+                break
+            }
           }
+        } catch (e) {
+          this.value = undefined
         }
-      } catch (e) {
-        this.value = undefined
-      }
 
-      this.hasAttribute('percentage')
-        ? this.updateMask()
-        : null
+        this.hasAttribute('percentage')
+          ? this.updateMask()
+          : null
+      }
     })
+  }
+
+  setChangeEvents() {
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
   _setInputKeys() {
@@ -127,14 +137,14 @@ module.exports = class MnNumber extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => this.value === undefined
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
     delete this.validations.pattern
   }
 
   get value() {
-    const isUndefined = this.input.value === ''
+    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
     const numberString = this.input.value.replace(/,/g, '.')
 
     const val = isUndefined
@@ -142,6 +152,20 @@ module.exports = class MnNumber extends MnInput {
       : this.hasAttribute('percentage')
         ? (numberString * 100) / 10000
         : parseFloat(numberString)
+
+    if (isUndefined) {
+      return undefined
+    } else {
+      if (this.hasAttribute('multiple')) {
+        return evaluate(this.getAttribute('value'))
+          ? evaluate(this.getAttribute('value')).map(item => +String(item).replace(',', '.'))
+          : []
+      } else {
+        return this.hasAttribute('percentage')
+          ? (numberString * 100) / 10000
+          : parseFloat(numberString)
+      }
+    }
 
     return val
   }
@@ -188,14 +212,6 @@ module.exports = class MnNumber extends MnInput {
 
   updateMask() {
     const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
 
     if (this.mask && this.hasAttribute('percentage')) {
       const text = hasValue

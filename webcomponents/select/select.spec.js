@@ -374,6 +374,25 @@ describe('mn-select (webcomponent)', () => {
       expect(component).to.not.have.class('required')
     })
   })
+
+  describe('attribute multiple', () => {
+    it('should have value as array', () => {
+      select.setAttribute('multiple')
+      expect(component.value).to.be.an('array')
+    })
+    // it('should set property value when attribute changed', () => {
+    //   select.setAttribute('value', 'lannister')
+    //   expect(component).to.have.value('lannister')
+    //   expect(component.input).to.have.value('Lannister')
+    // })
+
+    // it('should set property value when attribute is removed', () => {
+    //   select.setAttribute('value', 'Lannister')
+    //   select.removeAttribute('value')
+    //   expect(component).to.have.value(undefined)
+    //   expect(component.input).to.have.value('')
+    // })
+  })
 })
 
 function cleanView() {
