@@ -8,7 +8,8 @@
   </head>
 
   <body>
-    <mn-input placeholder="Names"></mn-input>
+    <mn-number placeholder="Número"></mn-number>
+    <!-- <mn-input placeholder="Names"></mn-input>
     <mn-input placeholder="Names" multiple></mn-input>
 
 
@@ -21,7 +22,7 @@
     <mn-search placeholder="House" multiple></mn-search>
 
     <mn-number placeholder="Números" multiple></mn-number>
-    <mn-email placeholder="Email"></mn-email>
+    <mn-email placeholder="Email"></mn-email> -->
     <!-- <mn-select placeholder="House" multiple>
       <option value="{name: 'darlan'}" selected>Object</option>
       <option selected>Stark</option>
@@ -38,11 +39,11 @@
     <mn-button>set value</mn-button> -->
 
 
-    <h2>angular</h2>
+    <!-- <h2>angular</h2>
     <section ng-app="app" ng-controller="AppController as app">
       <mn-search houses placeholder="House" multiple ng-model='app.house'></mn-search>
       Model: {{ app.house }}
-    </section>
+    </section> -->
     <!-- <mn-form ng-app="app" ng-controller="AppController as app">
       <mn-select placeholder="House" ng-model="app.house" multiple required>
         <option ng-repeat='house in app.houses' value="{{ house }}">{{ house }}</option>
@@ -54,6 +55,9 @@
 
     <script src="/vendor.js"></script>
     <script>
+      const number = document.querySelector('mn-number')
+    </script>
+    <!-- <script>
       // vanilla
       // const select = document.querySelector('mn-select')
       // const button = document.querySelector('mn-button')
@@ -151,6 +155,6 @@
           }
         }
       }
-    </script>
+    </script> -->
   </body>
 </html>

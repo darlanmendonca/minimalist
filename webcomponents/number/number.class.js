@@ -135,7 +135,7 @@ module.exports = class MnNumber extends MnInput {
   }
 
   get value() {
-    const isUndefined = this.input.value === '' && this.hasAttribute('value')
+    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
     const numberString = this.input.value.replace(/,/g, '.')
 
     const val = isUndefined
