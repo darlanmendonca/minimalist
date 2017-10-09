@@ -299,6 +299,7 @@ describe('mn-number (webcomponent)', () => {
     it('should set undefined if enter a invalid number', () => {
       number.setAttribute('value', '2')
       number.writeText('123a')
+      console.log(component.value, component.input.value)
       expect(component).to.have.value(undefined)
     })
 

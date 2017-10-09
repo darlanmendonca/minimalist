@@ -61,36 +61,38 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputTransforms() {
     this.input.addEventListener('change', () => {
-      try {
-        const value = eval(this.input.value.replace(/,/g, '.'))
-        value !== undefined
-          ? this.input.value = String(value).replace(/\./g, ',')
-          : null
-        const valueIsDefined = value !== undefined
+      if (!this.input.value.endsWith(',') && !this.input.value.endsWith('.')) {
+        try {
+          const value = eval(this.input.value.replace(/,/g, '.'))
+          value !== undefined
+            ? this.input.value = String(value).replace(/\./g, ',')
+            : null
+          const valueIsDefined = value !== undefined
 
-        if (valueIsDefined) {
-          const isCurrency = this.hasAttribute('currency')
-          const precision = this.getAttribute('precision') || 0
+          if (valueIsDefined) {
+            const isCurrency = this.hasAttribute('currency')
+            const precision = this.getAttribute('precision') || 0
 
-          switch (true) {
-            case isCurrency:
-              this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
-              break
+            switch (true) {
+              case isCurrency:
+                this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+                break
 
-            default:
-              this.input.value = precision
-                ? value.toFixed(precision).replace(/\./g, ',')
-                : String(value).replace(/\./g, ',')
-              break
+              default:
+                this.input.value = precision
+                  ? value.toFixed(precision).replace(/\./g, ',')
+                  : String(value).replace(/\./g, ',')
+                break
+            }
           }
+        } catch (e) {
+          this.value = undefined
         }
-      } catch (e) {
-        this.value = undefined
-      }
 
-      this.hasAttribute('percentage')
-        ? this.updateMask()
-        : null
+        this.hasAttribute('percentage')
+          ? this.updateMask()
+          : null
+      }
     })
   }
 
@@ -204,14 +206,6 @@ module.exports = class MnNumber extends MnInput {
 
   updateMask() {
     const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
 
     if (this.mask && this.hasAttribute('percentage')) {
       const text = hasValue
