@@ -297,13 +297,13 @@ describe('mn-number (webcomponent)', () => {
     })
 
     it('should set undefined if enter a invalid number', () => {
-      number.setAttribute('value', '2')
+      number.writeText('2')
       number.writeText('123a')
       expect(component).to.have.value(undefined)
     })
 
     it('should set undefined if type nothing', () => {
-      number.setAttribute('value', '2')
+      number.writeText('2')
       number.writeText('')
       expect(component).to.have.value(undefined)
     })

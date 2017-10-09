@@ -2,6 +2,7 @@ module.exports = {
   input: require('./webcomponents/input/input.webcomponent.js'),
   email: require('./webcomponents/email/email.webcomponent.js'),
   password: require('./webcomponents/password/password.webcomponent.js'),
+  hidden: require('./webcomponents/hidden/hidden.webcomponent.js'),
   number: require('./webcomponents/number/number.webcomponent.js'),
   date: require('./webcomponents/date/date.webcomponent.js'),
   select: require('./webcomponents/select/select.webcomponent.js'),

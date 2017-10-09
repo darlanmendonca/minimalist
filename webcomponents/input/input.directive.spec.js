@@ -136,6 +136,60 @@ describe('mn-input (directive)', () => {
     })
   })
 
+  describe('mn-hidden ngModel', () => {
+    beforeEach(createMnHidden)
+
+    it('should define a name', () => {
+      expect(component).to.have.attribute('name', 'hidden')
+    })
+
+    it('should be empty string if it doesn\'t exist', () => {
+      expect(scope.hidden).to.be.equal('')
+      expect(component).to.have.value('')
+    })
+
+    it('should be undefined if applied undefined', () => {
+      scope.hidden = undefined
+      scope.$digest()
+      expect(scope.hidden).to.be.undefined
+      expect(component).to.have.value('')
+    })
+
+    it('should be a string if applied a string to ngModel', () => {
+      scope.hidden = 'test'
+      scope.$digest()
+      expect(scope.hidden).to.be.equal('test')
+      expect(component).to.have.value('test')
+    })
+
+    it('should be a string if applied a string to property value', () => {
+      component.value = 'test2'
+      expect(scope.hidden).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+
+    it('should be update if input dispatch event change', () => {
+      component.input.value = 'test'
+      component.input.dispatchEvent(new Event('change'))
+      expect(scope.hidden).to.be.equal('test')
+      expect(component).to.have.value('test')
+    })
+
+    it('should be update if input dispatch event input', () => {
+      component.input.value = 'test2'
+      component.input.dispatchEvent(new Event('input'))
+      expect(scope.hidden).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+
+    it('should be update if input dispatch event blur', () => {
+      component.input.value = 'test2'
+      component.input.dispatchEvent(new Event('blur'))
+      expect(scope.hidden).to.be.equal('test2')
+      expect(component).to.have.value('test2')
+    })
+  })
+
   describe('mn-date ngModel', () => {
     beforeEach(createMnDate)
     afterEach(fixAngularErrorWithFocus)
@@ -282,9 +336,9 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('0')
     })
 
-    it('should be update if input dispatch event input', () => {
+    it('should be update if input dispatch event change', () => {
       component.input.value = '0'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0)
       expect(component).to.have.value(0)
       expect(component.input).to.have.value('0')
@@ -381,7 +435,7 @@ describe('mn-input (directive)', () => {
     it('should work with attribute percentage if write a number', () => {
       component.setAttribute('percentage', '')
       component.input.value = '1'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0.01)
       expect(component).to.have.value(0.01)
       expect(component.input).to.have.value('1')
@@ -410,7 +464,7 @@ describe('mn-input (directive)', () => {
       component.setAttribute('percentage', '')
       component.setAttribute('precision', '3')
       component.input.value = '1'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0.01)
       expect(component).to.have.value(0.01)
       expect(component.input).to.have.value('1,000')
@@ -753,6 +807,21 @@ function createMnPassword(done) {
     scope = $rootScope.$new()
     component = document.createElement('mn-password')
     component.setAttribute('ng-model', 'password')
+    document.body.appendChild(component)
+    $compile(component)(scope)
+    scope.$digest()
+
+    angular.element(component).ready(() => {
+      done()
+    })
+  })
+}
+
+function createMnHidden(done) {
+  return angular.mock.inject(($rootScope, $compile) => {
+    scope = $rootScope.$new()
+    component = document.createElement('mn-hidden')
+    component.setAttribute('ng-model', 'hidden')
     document.body.appendChild(component)
     $compile(component)(scope)
     scope.$digest()

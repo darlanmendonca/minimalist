@@ -54,6 +54,13 @@ module.exports = class MnSelect extends MnInput {
       })
   }
 
+  cleanOptions() {
+    const options = this.querySelectorAll('option')
+    Array
+      .from(options)
+      .forEach(option => this.removeChild(option))
+  }
+
   _setOptions() {
     Array
       .from(this.querySelectorAll('option'))
@@ -113,7 +120,12 @@ module.exports = class MnSelect extends MnInput {
         event.preventDefault()
 
         const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
+        const text = event.target.textContent
+
+        this.hasAttribute('multiple')
+          ? this.push(value, text)
+          : this.value = value
+
         this.input.blur()
       }
     })
@@ -138,6 +150,10 @@ module.exports = class MnSelect extends MnInput {
 
     if (!focusedOption) {
       option.classList.add('focus')
+    }
+
+    if (value.hasAttribute('selected')) {
+      option.setAttribute('selected', '')
     }
 
     option.innerHTML = value.textContent
@@ -201,12 +217,17 @@ module.exports = class MnSelect extends MnInput {
       const option = Array
         .from(this.menu.querySelectorAll('.option'))
         .filter(option => {
-          const optionValue = option.getAttribute('value') || option.textContent
+          const optionValue = option.hasAttribute('value')
+            ? option.getAttribute('value')
+            : option.textContent
           return optionValue === this.getAttribute('value')
         })[0]
 
       if (this.input.value && option) {
         this.input.value = option.textContent
+      } else if (this.hasAttribute('multiple')) {
+        this.input.value = ''
+        this.filter = ''
       } else {
         this.value = undefined
       }
@@ -228,13 +249,14 @@ module.exports = class MnSelect extends MnInput {
   }
 
   _setAttributeValue() {
-    const selectedOption = this.querySelector('.option[selected]')
-    const selectedValue = selectedOption
-      ? selectedOption.getAttribute('value') || selectedOption.textContent
-      : ''
-
-    const value = this.getAttribute('value') || selectedValue
-    this.value = value
+    Array
+      .from(this.querySelectorAll('.option[selected]'))
+      .forEach(option => {
+        const value = option.getAttribute('value') || option.textContent
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
+      })
   }
 
   _setMenu() {
@@ -252,7 +274,11 @@ module.exports = class MnSelect extends MnInput {
       this.actionSheet.addEventListener('change', (event) => {
         const {index} = event.data
         const option = this.menu.querySelector(`.option:nth-child(${index + 1})`)
-        this.value = option.textContent
+        const value = option.getAttribute('value') || option.textContent
+
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
         this.actionSheet.hide()
       })
       document.body.appendChild(this.actionSheet)
@@ -315,10 +341,13 @@ module.exports = class MnSelect extends MnInput {
         const option = this.menu.querySelector('.option.focus')
         event.preventDefault()
         event.stopPropagation()
+        const value = option
+          ? option.getAttribute('value') || option.textContent
+          : this.value
 
-        option
-          ? this.value = option.getAttribute('value') || option.textContent
-          : this.value = this.value
+        this.hasAttribute('multiple')
+          ? this.push(value, option.textContent)
+          : this.value = value
 
         this.hide()
         this.input.blur()
@@ -328,7 +357,11 @@ module.exports = class MnSelect extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined,
+    this.validations.required = () => {
+      return this.hasAttribute('multiple')
+        ? this.value.length === 0
+        : this.value === undefined
+    }
     delete this.validations.pattern
   }
 
@@ -367,25 +400,30 @@ module.exports = class MnSelect extends MnInput {
   }
 
   get value() {
-    return this.getAttribute('value')
+    const value = this.getAttribute('value')
       ? evaluate(this.getAttribute('value'))
       : undefined
+
+    return this.hasAttribute('multiple') && !value
+      ? []
+      : value
   }
 
   set value(value) {
+    const valueIsMultiple = this.hasAttribute('multiple')
     const differentValue = this.getAttribute('value') !== value
     const option = Array
       .from(this.querySelectorAll('option'))
       .filter(option => {
-        return option.getAttribute('value') == String(value) // eslint-disable-line eqeqeq
+        return option.getAttribute('value') === String(value)
           || option.getAttribute('value') === JSON.stringify(value)
-          || option.textContent == String(value) // eslint-disable-line eqeqeq
+          || option.textContent === String(value)
       })[0]
 
     const textNotApplied = option && this.input.value !== option.textContent
 
     if (textNotApplied) {
-      this.input.value = option
+      this.input.value = option && !this.hasAttribute('multiple')
         ? option.textContent
         : ''
 
@@ -394,18 +432,49 @@ module.exports = class MnSelect extends MnInput {
 
     if (differentValue) {
       const search = new Event('search')
-      search.query = value
+      search.query = typeof value === 'string'
+        ? value
+        : ''
       this.dispatchEvent(search)
 
-      const hasValue = value !== undefined && value !== null && value !== ''
+      const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
 
       const optionValue = option
-        ? option.getAttribute('value') || option.textContent
-        : JSON.stringify(value)
+        ? option.hasAttribute('value')
+          ? evaluate(option.getAttribute('value'))
+          : option.textContent
+        : evaluate(JSON.stringify(value))
 
       hasValue
-        ? this.setAttribute('value', optionValue)
+        ? this.setAttribute('value', typeof optionValue === 'object'
+          ? JSON.stringify(optionValue)
+          : optionValue)
         : this.removeAttribute('value')
+
+      if (valueIsMultiple) {
+        Array
+          .from(this.querySelectorAll('.value'))
+          .forEach(item => item.parentNode.removeChild(item))
+
+        const values = Array.isArray(evaluate(value))
+          ? evaluate(value)
+          : [value].filter(item => item)
+
+        values.forEach(val => {
+          const option = Array
+            .from(this.querySelectorAll('option'))
+            .filter(option => {
+              return option.getAttribute('value') === String(val)
+                || option.getAttribute('value') === JSON.stringify(val)
+                || option.textContent === String(val)
+            })[0]
+
+          const text = option
+            ? option.textContent
+            : undefined
+          this.push(val, text)
+        })
+      }
 
       this.input.dispatchEvent(new Event('change'))
     }

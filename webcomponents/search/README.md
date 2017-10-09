@@ -48,6 +48,7 @@ search.addEventListener('search', (event) => {
 
   event.target
     .fetch(houses)
+    .then(response => response.json())
     .then(setOptions)
 
   function setOptions(response) {

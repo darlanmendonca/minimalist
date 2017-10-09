@@ -20,7 +20,9 @@ function MnInputDirective() {
 
       element.ready(() => {
         scope.$watch(attributes.ngModel, setComponentValue)
-        component.value = ngModel.$modelValue
+        component.value = component.hasAttribute('value')
+          ? component.getAttribute('value')
+          : ngModel.$modelValue
         component.addEventListener('change', setModelValue)
         setModelValue()
       })
@@ -29,8 +31,12 @@ function MnInputDirective() {
         element.remove()
       })
 
-      function setComponentValue(value) {
-        if (angular.isDefined(value)) {
+      function setComponentValue(value, oldValue) {
+        if (component.hasAttribute('multiple')) {
+          if (!angular.equals(value, oldValue) && !angular.isArray(value)) {
+            component.value = value
+          }
+        } else if (angular.isDefined(value)) {
           component.value = value
         }
       }

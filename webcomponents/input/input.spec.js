@@ -51,6 +51,10 @@ describe('mn-input (webcomponent)', () => {
     })
   })
 
+  describe.skip('css class has-value', () => {
+
+  })
+
   // all style specs need to be refactor, to better organization and readability
   describe('css style', () => {
     it('should have a inline-block display', () => {

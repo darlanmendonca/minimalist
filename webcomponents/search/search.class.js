@@ -109,13 +109,6 @@ module.exports = class MnSearch extends MnSelect {
     })
   }
 
-  cleanOptions() {
-    const options = this.querySelectorAll('option')
-    Array
-      .from(options)
-      .forEach(option => this.removeChild(option))
-  }
-
   fetch(request) {
     const requestType = typeof request
     const loader = requestType === 'function'
