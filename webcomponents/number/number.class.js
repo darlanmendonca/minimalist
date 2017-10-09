@@ -4,6 +4,7 @@ const evaluate = require('evaluate-string')
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Enter', 'Space']
     return self
   }
 
@@ -61,7 +62,9 @@ module.exports = class MnNumber extends MnInput {
 
   _setInputTransforms() {
     this.input.addEventListener('change', () => {
-      if (!this.input.value.endsWith(',') && !this.input.value.endsWith('.')) {
+      const commaOrDot = !this.input.value.endsWith(',')
+        && !this.input.value.endsWith('.')
+      if (commaOrDot) {
         try {
           const value = eval(this.input.value.replace(/,/g, '.'))
           value !== undefined
@@ -97,7 +100,9 @@ module.exports = class MnNumber extends MnInput {
 
     this.input.addEventListener('blur', () => {
       const value = eval(this.input.value.replace(/,/g, '.'))
-      this.input.value = String(value).replace('.', ',')
+      this.input.value = value !== undefined
+        ? String(value).replace('.', ',')
+        : ''
     })
   }
 
@@ -154,10 +159,9 @@ module.exports = class MnNumber extends MnInput {
     if (isUndefined) {
       return undefined
     } else {
-
       if (this.hasAttribute('multiple')) {
         return evaluate(this.getAttribute('value'))
-          ? evaluate(this.getAttribute('value')).map(item => +item)
+          ? evaluate(this.getAttribute('value')).map(item => +String(item).replace(',', '.'))
           : []
       } else {
         return this.hasAttribute('percentage')
