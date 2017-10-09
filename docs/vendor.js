@@ -2471,6 +2471,11 @@ module.exports = class MnNumber extends MnInput {
           : null
       }
     })
+
+    this.input.addEventListener('blur', () => {
+      const value = eval(this.input.value.replace(/,/g, '.'))
+      this.input.value = String(value).replace('.', ',')
+    })
   }
 
   _setInputKeys() {
