@@ -63,46 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(9) // main file of minimalist
-__webpack_require__(8) // directives
-
-angular.module('app', [
-  'minimalist',
-])
-
-angular
-  .module('app')
-  .controller('HomeController', HomeController)
-
-function HomeController() {
-  this.houses = ['stark', 'lannister', 'targaryen']
-  this.options = ['targaryen']
-  this.accept = true
-  // this.data = {
-  //   test: 'lero',
-  // }
-
-  this.change = () => {
-    // console.log('>', !this.accept)
-    // this.accept = !this.accept
-    this.data.test = 'lero2'
-  }
-
-  this.submit = (event) => {
-    console.log('submit', this.data)
-  }
-}
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports) {
 
 (function(){
@@ -145,11 +110,11 @@ var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define|
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
-const evaluate = __webpack_require__(3)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {
@@ -522,7 +487,7 @@ module.exports = class MnInput extends HTMLElement {
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports) {
 
 // const string = evaluateString('string')
@@ -556,7 +521,7 @@ function evaluateString(value) {
 }
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnActionSheetCustomElement()
@@ -565,7 +530,7 @@ function MnActionSheetCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
@@ -577,11 +542,11 @@ function MnActionSheetCustomElement() {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
-const evaluate = __webpack_require__(3)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnCheckbox extends HTMLElement {
   constructor(self) {
@@ -816,7 +781,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -871,12 +836,12 @@ function MnCheckboxDirective() {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
-const MnActionSheet = __webpack_require__(4)
-const evaluate = __webpack_require__(3)
+const MnInput = __webpack_require__(1)
+const MnActionSheet = __webpack_require__(3)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
@@ -1410,7 +1375,7 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -1420,13 +1385,13 @@ angular.module('minimalist', [])
 module.exports = {
   input: __webpack_require__(25),
   form: __webpack_require__(21),
-  checkbox: __webpack_require__(6),
+  checkbox: __webpack_require__(5),
   radio: __webpack_require__(32),
 }
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -1437,7 +1402,7 @@ module.exports = {
   number: __webpack_require__(28),
   date: __webpack_require__(15),
   select: __webpack_require__(36),
-  actionSheet: __webpack_require__(4),
+  actionSheet: __webpack_require__(3),
   form: __webpack_require__(22),
   sidenav: __webpack_require__(38),
   checkbox: __webpack_require__(13),
@@ -1445,6 +1410,41 @@ module.exports = {
   dialog: __webpack_require__(17),
   button: __webpack_require__(12),
   search: __webpack_require__(35),
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(8) // main file of minimalist
+__webpack_require__(7) // directives
+
+angular.module('app', [
+  'minimalist',
+])
+
+angular
+  .module('app')
+  .controller('HomeController', HomeController)
+
+function HomeController() {
+  this.houses = ['stark', 'lannister', 'targaryen']
+  this.options = ['targaryen']
+  this.accept = true
+  // this.data = {
+  //   test: 'lero',
+  // }
+
+  this.change = () => {
+    // console.log('>', !this.accept)
+    // this.accept = !this.accept
+    this.data.test = 'lero2'
+  }
+
+  this.submit = (event) => {
+    console.log('submit', this.data)
+  }
 }
 
 
@@ -1601,7 +1601,7 @@ function MnSidenavCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-button')) {
@@ -1622,11 +1622,11 @@ function MnCheckboxCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-checkbox')) {
-    window.customElements.define('mn-checkbox', __webpack_require__(5))
+    window.customElements.define('mn-checkbox', __webpack_require__(4))
   }
 
   return window.customElements.get('mn-checkbox')
@@ -1637,7 +1637,7 @@ function MnCheckboxCustomElement() {
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
+const MnInput = __webpack_require__(1)
 
 module.exports = class MnDate extends MnInput {
   constructor(self) {
@@ -1826,7 +1826,7 @@ function MnDateCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-date')) {
@@ -1964,7 +1964,7 @@ function MnDialogCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-dialog')) {
@@ -1979,7 +1979,7 @@ function MnDialogCustomElement() {
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
+const MnInput = __webpack_require__(1)
 
 module.exports = class MnEmail extends MnInput {
   constructor(self) {
@@ -2007,7 +2007,7 @@ function MnEmailCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-email')) {
@@ -2216,7 +2216,7 @@ function MnFormCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-form')) {
@@ -2231,7 +2231,7 @@ function MnFormCustomElement() {
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
+const MnInput = __webpack_require__(1)
 
 module.exports = class MnPassword extends MnInput {
   constructor(self) {
@@ -2279,7 +2279,7 @@ function MnHiddenCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-hidden')) {
@@ -2359,11 +2359,11 @@ function MnInputCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-input')) {
-    window.customElements.define('mn-input', __webpack_require__(2))
+    window.customElements.define('mn-input', __webpack_require__(1))
   }
 
   return window.customElements.get('mn-input')
@@ -2374,8 +2374,8 @@ function MnInputCustomElement() {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
-const evaluate = __webpack_require__(3)
+const MnInput = __webpack_require__(1)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnNumber extends MnInput {
   constructor(self) {
@@ -2610,7 +2610,7 @@ function MnNumberCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-number')) {
@@ -2625,7 +2625,7 @@ function MnNumberCustomElement() {
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnInput = __webpack_require__(2)
+const MnInput = __webpack_require__(1)
 
 module.exports = class MnPassword extends MnInput {
   constructor(self) {
@@ -2708,7 +2708,7 @@ function MnPasswordCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-password')) {
@@ -2723,8 +2723,8 @@ function MnPasswordCustomElement() {
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnCheckbox = __webpack_require__(5)
-const evaluate = __webpack_require__(3)
+const MnCheckbox = __webpack_require__(4)
+const evaluate = __webpack_require__(2)
 
 module.exports = class MnRadio extends MnCheckbox {
   constructor(self) {
@@ -2834,7 +2834,7 @@ angular
 module.exports = MnRadioDirective
 
 function MnRadioDirective() {
-  const MnCheckboxDirective = __webpack_require__(6)
+  const MnCheckboxDirective = __webpack_require__(5)
   return MnCheckboxDirective()
 }
 
@@ -2849,7 +2849,7 @@ function MnRadioCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-radio')) {
@@ -2864,7 +2864,7 @@ function MnRadioCustomElement() {
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnSelect = __webpack_require__(7)
+const MnSelect = __webpack_require__(6)
 
 module.exports = class MnSearch extends MnSelect {
   constructor(self) {
@@ -3009,7 +3009,7 @@ function MnSelectCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-search')) {
@@ -3030,11 +3030,11 @@ function MnSelectCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(7))
+    window.customElements.define('mn-select', __webpack_require__(6))
   }
 
   return window.customElements.get('mn-select')
@@ -3149,7 +3149,7 @@ function MnSidenavCustomElement() {
   const supportsCustomElements = 'customElements' in window
 
   if (!supportsCustomElements) {
-    __webpack_require__(1)
+    __webpack_require__(0)
   }
 
   if (!window.customElements.get('mn-sidenav')) {

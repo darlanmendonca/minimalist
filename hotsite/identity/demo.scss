@@ -1,0 +1,17 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.tabs {
+  transform: translateY(calc(-100% + (-10px)));
+  overflow: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mn-radio {
+  --color: $oc-orange-5;
+  color: $oc-gray-4;
+
+  &[checked]:before {
+    color: $oc-gray-9;
+  }
+}

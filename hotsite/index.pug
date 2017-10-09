@@ -11,4 +11,22 @@ html
   body
     include pages/home
 
+    section.tabs.mn-layout-container
+      mn-radio(placeholder='mn-button' name='tab')
+      mn-radio(placeholder='mn-layout' name='tab')
+      mn-radio(placeholder='mn-sidenav' name='tab')
+      mn-radio(placeholder='mn-dialog' name='tab')
+      mn-radio(placeholder='mn-list' name='tab')
+      mn-radio(placeholder='mn-form' name='tab')
+      mn-radio(placeholder='mn-input' name='tab' checked)
+      mn-radio(placeholder='mn-email' name='tab')
+      mn-radio(placeholder='mn-number' name='tab')
+      mn-radio(placeholder='mn-password' name='tab')
+      mn-radio(placeholder='mn-date' name='tab')
+      mn-radio(placeholder='mn-radio' name='tab')
+      mn-radio(placeholder='mn-checkbox' name='tab')
+      mn-radio(placeholder='mn-select' name='tab')
+      mn-radio(placeholder='mn-search' name='tab')
+      mn-radio(placeholder='mn-hidden' name='tab')
+
     script(src='/vendor.js')
