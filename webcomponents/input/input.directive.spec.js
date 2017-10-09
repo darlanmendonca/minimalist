@@ -336,9 +336,9 @@ describe('mn-input (directive)', () => {
       expect(component.input).to.have.value('0')
     })
 
-    it('should be update if input dispatch event input', () => {
+    it('should be update if input dispatch event change', () => {
       component.input.value = '0'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0)
       expect(component).to.have.value(0)
       expect(component.input).to.have.value('0')
@@ -435,7 +435,7 @@ describe('mn-input (directive)', () => {
     it('should work with attribute percentage if write a number', () => {
       component.setAttribute('percentage', '')
       component.input.value = '1'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0.01)
       expect(component).to.have.value(0.01)
       expect(component.input).to.have.value('1')
@@ -464,7 +464,7 @@ describe('mn-input (directive)', () => {
       component.setAttribute('percentage', '')
       component.setAttribute('precision', '3')
       component.input.value = '1'
-      component.input.dispatchEvent(new Event('input'))
+      component.input.dispatchEvent(new Event('change'))
       expect(scope.number).to.be.equal(0.01)
       expect(component).to.have.value(0.01)
       expect(component.input).to.have.value('1,000')

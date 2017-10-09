@@ -12,7 +12,7 @@ module.exports = class MnNumber extends MnInput {
     this.innerHTML = ''
     this._setStyle()
     super._setInput()
-    super.setChangeEvents()
+    this.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
     this._setInputTransforms()
@@ -97,13 +97,10 @@ module.exports = class MnNumber extends MnInput {
           : null
       }
     })
+  }
 
-    this.input.addEventListener('blur', () => {
-      const value = eval(this.input.value.replace(/,/g, '.'))
-      this.input.value = value !== undefined
-        ? String(value).replace('.', ',')
-        : ''
-    })
+  setChangeEvents() {
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
   _setInputKeys() {
