@@ -4,6 +4,7 @@
   overflow: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 1em;
 
   &::-webkit-scrollbar {
     height: 0px;
@@ -12,7 +13,7 @@
 
 .mn-radio {
   --color: $oc-orange-5;
-  color: $oc-gray-4;
+  color: $oc-gray-7;
 
   &[checked]:before {
     color: $oc-gray-9;

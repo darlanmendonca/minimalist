@@ -9,6 +9,10 @@
   user-select: none;
   display: table;
 
+  @media (max-device-width: 480px) {
+    -webkit-text-fill-color: $oc-orange-4;
+  }
+
   small {
     font-size: .5em;
     display: block;
