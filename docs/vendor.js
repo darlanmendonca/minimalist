@@ -148,7 +148,7 @@ module.exports = class MnInput extends HTMLElement {
       'name',
       'placeholder',
       'disabled',
-      'readonly',
+      // 'readonly',
       'maxlength',
       'autocapitalize',
       'autofocus',

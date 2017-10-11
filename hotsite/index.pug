@@ -37,8 +37,8 @@ html
         mn-form(submit='home.submit()')
           .mn-layout-row.flex
           .mn-layout-row.flex
-            mn-input.flex(placeholder='name' required ng-model='home.name' multiple)
-            mn-input.flex(placeholder='test' required ng-model='home.test' multiple)
+            mn-input.flex(placeholder='name' required ng-model='home.name' readonly)
+            //- mn-input.flex(placeholder='test' required ng-model='home.test' multiple)
           .mn-layout-row.align-end
             mn-button(submit) submit
 
