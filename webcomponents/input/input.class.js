@@ -191,11 +191,13 @@ module.exports = class MnInput extends HTMLElement {
   set value(value = '') {
     if (this.input) {
       const differentValue = this.getAttribute('value') !== value
-      this.input.value = value
+      const valueIsMultiple = this.hasAttribute('multiple')
+
+      if (!valueIsMultiple) {
+        this.input.value = value
+      }
 
       if (differentValue) {
-        const valueIsMultiple = this.hasAttribute('multiple')
-
         if (valueIsMultiple) {
           Array
             .from(this.querySelectorAll('.value'))
@@ -209,6 +211,7 @@ module.exports = class MnInput extends HTMLElement {
             .filter(item => item)
             .forEach(val => this.push(val))
         } else {
+          this.input.value = value
           this.input.value = this.trimValue && value
             ? value.replace(/\s{2,}/g, ' ').trim()
             : value

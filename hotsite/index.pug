@@ -11,7 +11,7 @@ html
   body(ng-app='app')
     include pages/home
 
-    section.tabs.mn-layout-container-full
+    //- section.tabs.mn-layout-container-full
       mn-radio(placeholder='mn-button' name='tab' checked)
       mn-radio(placeholder='mn-layout' name='tab')
       mn-radio(placeholder='mn-card' name='tab')
@@ -31,5 +31,14 @@ html
       mn-radio(placeholder='mn-hidden' name='tab')
 
     //- include pages/button
+
+    section.mn-layout-container(ng-controller='HomeController as home')
+      .mn-card.padding
+        mn-form(submit='home.submit()')
+          .mn-layout-row.flex
+          .mn-layout-row.flex
+            mn-input.flex(placeholder='name' required ng-model='home.name' multiple)
+          .mn-layout-row.align-end
+            mn-button(submit) submit
 
     script(src='/vendor.js')
