@@ -76,7 +76,6 @@ module.exports = class MnForm extends HTMLElement {
       .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
 
-    // const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
     const isInvalid = !this.querySelector('.invalid')
     return isInvalid
   }

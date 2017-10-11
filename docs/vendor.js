@@ -284,7 +284,9 @@ module.exports = class MnInput extends HTMLElement {
 
   _setValidations() {
     this.validations = {
-      required: () => this.value === '',
+      required: () => this.hasAttribute('multiple')
+        ? this.value.length === 0
+        : this.value === '',
       pattern: () => {
         const reg = new RegExp(this.getAttribute('pattern'))
 
@@ -2104,7 +2106,6 @@ module.exports = class MnForm extends HTMLElement {
       .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
       .forEach(input => input.validate())
 
-    // const isInvalid = !this.inputs.some(input => input.classList.contains('invalid'))
     const isInvalid = !this.querySelector('.invalid')
     return isInvalid
   }
