@@ -35,9 +35,10 @@ html
     section.mn-layout-container(ng-controller='HomeController as home')
       .mn-card.padding
         mn-form(submit='home.submit()')
-          .mn-layout-row.flex
-          .mn-layout-row.flex
-            mn-input.flex(placeholder='name' required ng-model='home.name')
+          .mn-layout-column.flex
+            mn-input.flex(placeholder='Name' required ng-model='home.name')
+            mn-input.flex(placeholder='Houses' required ng-model='home.houses' multiple)
+            mn-number.flex(placeholder='numbers' required ng-model='home.numbers' multiple)
             //- mn-input.flex(placeholder='test' required ng-model='home.test' multiple)
           .mn-layout-row.align-end
             mn-button(submit) submit
