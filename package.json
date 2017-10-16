@@ -39,6 +39,7 @@
     "chai-colors": "^1.0.1",
     "chai-dom": "^1.4.3",
     "chai-spies": "^0.7.1",
+    "chai-string": "^1.4.0",
     "chai-style": "~1.0.0",
     "chai-things": "^0.2.0",
     "eslint": "^3.19.0",

@@ -4,8 +4,9 @@ const {expect, spy} = require('chai')
   .use(require('chai-colors'))
   .use(require('chai-style'))
   .use(require('chai-spies'))
+  .use(require('chai-string'))
 
-const timezone = new Date().getTimezoneOffset() / 60
+// const timezone = new Date().getTimezoneOffset() / 60
 let date // page object defined in method setPageObject
 let component
 
@@ -84,24 +85,28 @@ describe('mn-date (webcomponent)', () => {
 
     it('should be a DateISOString when set a string in yyyy-mm-dd pattern', () => {
       date.setProperty('value', '2017-04-30')
-      expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
+      expect(component.value).to.startsWith('2017-04-30')
+      // expect(component).to.have.value(`2017-04-30T0${timezone}:00:00.000Z`)
     })
 
     it('should be a DateISOString at midnight when set a date object with hours', () => {
       date.setProperty('value', new Date(2017, 3, 2, 12, 0))
-      expect(component).to.have.value(`2017-04-02T0${timezone}:00:00.000Z`)
+      expect(component.value).to.startsWith('2017-04-02')
+      // expect(component).to.have.value(`2017-04-02T0${timezone}:00:00.000Z`)
     })
 
     it('should be a DateISOString at midnight when set a date object without hours', () => {
       date.setProperty('value', new Date(2017, 3, 1))
-      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component.value).to.startsWith('2017-04-01')
+      // expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
   })
 
   describe('attribute value', () => {
     it('should set property value when attribute changed', () => {
       date.setAttribute('value', '2017-04-01')
-      expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
+      expect(component.value).to.startsWith('2017-04-01')
+      // expect(component).to.have.value(`2017-04-01T0${timezone}:00:00.000Z`)
     })
 
     it('should set property value when attribute is removed', () => {
