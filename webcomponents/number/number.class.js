@@ -64,9 +64,11 @@ module.exports = class MnNumber extends MnInput {
     this.input.addEventListener('change', () => {
       const commaOrDot = !this.input.value.endsWith(',')
         && !this.input.value.endsWith('.')
+
       if (commaOrDot) {
         try {
           const value = eval(this.input.value.replace(/,/g, '.'))
+
           value !== undefined
             ? this.input.value = String(value).replace(/\./g, ',')
             : null
@@ -90,6 +92,7 @@ module.exports = class MnNumber extends MnInput {
           }
         } catch (e) {
           this.value = undefined
+          this.input.value = ''
         }
 
         this.hasAttribute('percentage')
@@ -137,7 +140,9 @@ module.exports = class MnNumber extends MnInput {
 
   _setValidations() {
     super._setValidations()
-    this.validations.required = () => this.value === undefined
+    this.validations.required = () => this.hasAttribute('multiple')
+      ? this.value.length === 0
+      : this.value === undefined
     this.validations.min = () => this.value < this.getAttribute('min')
     this.validations.max = () => this.value > this.getAttribute('max')
     delete this.validations.pattern
@@ -171,22 +176,47 @@ module.exports = class MnNumber extends MnInput {
   }
 
   set value(value = '') {
-    if (this.input) {
-      try {
-        value = eval(String(value).replace(/,/g, '.'))
-        const differentValue = this.input.value !== value
+    const valueIsMultiple = this.hasAttribute('multiple')
+    const differentValue = this.getAttribute('value') !== value//this.input.value !== value
+    const hasValue = value !== ''
 
-        if (value !== undefined && differentValue) {
-          value = this.hasAttribute('percentage')
-            ? +(value * 100).toFixed(this.getAttribute('precision') || 2)//value * 100
-            : value
-          this.input.value = value
-        } else {
+    if (this.input && hasValue && differentValue) {
+      if (valueIsMultiple) {
+        Array
+          .from(this.querySelectorAll('.value'))
+          .forEach(item => item.parentNode.removeChild(item))
+
+        const values = Array.isArray(value)
+          ? value.map(item => String(item))
+          : [value]
+
+        values
+          .filter(item => item)
+          .forEach(val => {
+            // val = eval(String(val).replace(/,/g, '.'))
+
+            // if (val !== undefined && differentValue) {
+            //   val = this.hasAttribute('percentage')
+            //     ? +(val * 100).toFixed(this.getAttribute('precision') || 2)
+            //     : val
+            // }
+            this.push(val)
+          })
+      } else {
+        try {
+          value = eval(String(value).replace(/,/g, '.'))
+
+          if (value !== undefined && differentValue) {
+            value = this.hasAttribute('percentage')
+              ? +(value * 100).toFixed(this.getAttribute('precision') || 2)
+              : value
+            this.input.value = value
+          } else {
+            this.input.value = ''
+          }
+        } catch (e) {
           this.input.value = ''
         }
-
-      } catch (e) {
-        this.input.value = ''
       }
 
       this.input.dispatchEvent(new Event('change'))

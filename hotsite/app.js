@@ -13,5 +13,5 @@ function HomeController() {
   this.name = 'darlan'
   this.houses = ['stark', 'lannister', 'targaryen']
   this.number = 10
-  this.numbers = [10, 20, 30]
+  this.numbers = [10, 20, 30, .5]
 }
