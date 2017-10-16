@@ -61,7 +61,7 @@ module.exports = class MnInput extends HTMLElement {
     })
 
     this.input.addEventListener('change', () => { // set class .has-value
-      if (this.trimValue) {
+      if (this.trimValue && document.activeElement !== this.input) {
         this.input.value = this.input.value.replace(/\s{2,}/g, ' ').trim()
       }
 
@@ -214,9 +214,12 @@ module.exports = class MnInput extends HTMLElement {
             .forEach(val => this.push(val))
         } else {
           this.input.value = value
-          this.input.value = this.trimValue && value
-            ? value.replace(/\s{2,}/g, ' ').trim()
-            : value
+
+          if (document.activeElement !== this.input) {
+            this.input.value = this.trimValue && value
+              ? value.replace(/\s{2,}/g, ' ').trim()
+              : value
+          }
         }
 
         this.input.dispatchEvent(new Event('change'))
