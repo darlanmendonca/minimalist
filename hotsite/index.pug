@@ -37,9 +37,13 @@ html
         mn-form(submit='home.submit()')
           .mn-layout-column.flex
             mn-input.flex(placeholder='Name' required ng-model='home.name')
-            mn-input.flex(placeholder='Houses' required ng-model='home.houses' multiple)
+            //- mn-input.flex(placeholder='Houses' required ng-model='home.houses' multiple)
             mn-number.flex(placeholder='Number' required ng-model='home.number')
             mn-number.flex(placeholder='Numbers' required ng-model='home.numbers' multiple)
+            mn-select.flex(placeholder='Selecione' required ng-model='home.options' multiple)
+              option lorem
+              option ipsum
+            mn-search.flex.houses(placeholder='Houses' required ng-model='home.houses' multiple)
           .mn-layout-row.align-end
             mn-button(submit) submit
 

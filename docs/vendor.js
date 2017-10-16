@@ -854,6 +854,7 @@ const evaluate = __webpack_require__(2)
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
+    this.delimeterKeys = ['Comma', 'Space']
     return self
   }
 
@@ -1173,23 +1174,16 @@ module.exports = class MnSelect extends MnInput {
       }
     })
 
-    this.input.addEventListener('keydown', event => {
-      const esc = event.key === 'Escape'
-
-      if (esc) {
-        this.value = this.value
-        this.input.select()
-        this.filter = undefined
-      }
-    })
-
     this.input.addEventListener('keydown', (event) => {
       const enter = event.key === 'Enter'
+      const option = this.menu.querySelector('.option.focus')
 
       if (enter) {
-        const option = this.menu.querySelector('.option.focus')
         event.preventDefault()
         event.stopPropagation()
+      }
+
+      if (enter && option) {
         const value = option
           ? option.getAttribute('value') || option.textContent
           : this.value
@@ -1198,8 +1192,22 @@ module.exports = class MnSelect extends MnInput {
           ? this.push(value, option.textContent)
           : this.value = value
 
+        if (this.hasAttribute('multiple')) {
+          this.input.value = ''
+        }
+
         this.hide()
         this.input.blur()
+      }
+    })
+
+    this.input.addEventListener('keydown', event => {
+      const esc = event.key === 'Escape'
+
+      if (esc) {
+        this.value = this.value
+        this.input.select()
+        this.filter = undefined
       }
     })
   }
@@ -1438,9 +1446,47 @@ angular
 
 function HomeController() {
   this.name = 'darlan'
-  this.houses = ['stark', 'lannister', 'targaryen']
+  // this.houses = ['stark', 'lannister', 'targaryen']
   this.number = 10
   this.numbers = [10, 20, 30, .5]
+}
+
+angular
+  .module('app')
+  .directive('houses', HousesSearchDirective)
+
+function HousesSearchDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes) {
+
+      element.bind('search', search)
+
+      function search(event) {
+        const params = new URLSearchParams()
+        params.append('query', event.query)
+        const houses = new Request(`http://localhost:4000/houses`)
+
+        event.target
+          .fetch(houses)
+          .then(response => response.json())
+          .then(setOptions)
+
+        function setOptions(response) {
+          const houses = response
+
+          houses.forEach(house => {
+            const option = document.createElement('option')
+            option.textContent = house
+            option.setAttribute('value', house.toLowerCase())
+
+            event.target.appendChild(option)
+          })
+        }
+      }
+    }
+  }
 }
 
 
