@@ -5,7 +5,7 @@ const evaluate = require('evaluate-string')
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
-    this.delimeterKeys = ['Comma', 'Space']
+    this.delimeterKeys = []
     return self
   }
 

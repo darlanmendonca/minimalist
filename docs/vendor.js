@@ -854,7 +854,7 @@ const evaluate = __webpack_require__(2)
 module.exports = class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
-    this.delimeterKeys = ['Comma', 'Space']
+    this.delimeterKeys = []
     return self
   }
 
