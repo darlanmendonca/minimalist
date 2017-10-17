@@ -32,7 +32,7 @@
     }
   }
 
-  button.mn-item, a.mn-item {
+  button.mn-item, a.mn-item, [ng-click].mn-item {
     display: flex;
     cursor: pointer;
     &:not(.detail-visible) {
