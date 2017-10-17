@@ -2079,6 +2079,7 @@ module.exports = class MnForm extends HTMLElement {
     this.setStyle()
     this.setSubmit()
     this.setReset()
+    this.setEmpty()
     this.setAttributeDisabled()
     this.setAttributeReadonly()
   }
@@ -2131,6 +2132,18 @@ module.exports = class MnForm extends HTMLElement {
     })
   }
 
+  setEmpty() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="empty"]')
+        || event.target.matches('mn-button[empty]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.empty()
+      }
+    })
+  }
+
   setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
@@ -2155,6 +2168,15 @@ module.exports = class MnForm extends HTMLElement {
       .keys(this.data)
       .forEach(name => {
         this[name].value = this.defaults[name]
+      })
+  }
+
+  empty() {
+    this.classList.remove('submitted')
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = undefined
       })
   }
 
@@ -2600,9 +2622,9 @@ module.exports = class MnNumber extends MnInput {
     return val
   }
 
-  set value(value = '') {
+  set value(value) {
     const valueIsMultiple = this.hasAttribute('multiple')
-    const differentValue = this.getAttribute('value') !== value//this.input.value !== value
+    const differentValue = this.getAttribute('value') !== value
     const hasValue = value !== ''
 
     if (this.input && hasValue && differentValue) {
@@ -2613,7 +2635,11 @@ module.exports = class MnNumber extends MnInput {
 
         const values = Array.isArray(value)
           ? value.map(item => String(item))
-          : [value]
+          : [value].filter(item => item !== undefined)
+
+        if (!values.length) {
+          this.removeAttribute('value')
+        }
 
         values
           .filter(item => item)

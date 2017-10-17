@@ -178,9 +178,9 @@ module.exports = class MnNumber extends MnInput {
     return val
   }
 
-  set value(value = '') {
+  set value(value) {
     const valueIsMultiple = this.hasAttribute('multiple')
-    const differentValue = this.getAttribute('value') !== value//this.input.value !== value
+    const differentValue = this.getAttribute('value') !== value
     const hasValue = value !== ''
 
     if (this.input && hasValue && differentValue) {
@@ -191,7 +191,11 @@ module.exports = class MnNumber extends MnInput {
 
         const values = Array.isArray(value)
           ? value.map(item => String(item))
-          : [value]
+          : [value].filter(item => item !== undefined)
+
+        if (!values.length) {
+          this.removeAttribute('value')
+        }
 
         values
           .filter(item => item)

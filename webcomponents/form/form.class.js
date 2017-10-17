@@ -10,6 +10,7 @@ module.exports = class MnForm extends HTMLElement {
     this.setStyle()
     this.setSubmit()
     this.setReset()
+    this.setEmpty()
     this.setAttributeDisabled()
     this.setAttributeReadonly()
   }
@@ -62,6 +63,18 @@ module.exports = class MnForm extends HTMLElement {
     })
   }
 
+  setEmpty() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="empty"]')
+        || event.target.matches('mn-button[empty]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.empty()
+      }
+    })
+  }
+
   setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
@@ -86,6 +99,15 @@ module.exports = class MnForm extends HTMLElement {
       .keys(this.data)
       .forEach(name => {
         this[name].value = this.defaults[name]
+      })
+  }
+
+  empty() {
+    this.classList.remove('submitted')
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = undefined
       })
   }
 
