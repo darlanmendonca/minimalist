@@ -1376,6 +1376,7 @@ module.exports = class MnSelect extends MnInput {
                 })
 
             } else {
+              option.classList.remove('focus')
               option.classList.add('hidden')
             }
           })
@@ -3064,10 +3065,6 @@ module.exports = class MnSearch extends MnSelect {
         this.cleanOptions()
         this.classList.remove('loading')
         this.dispatchEvent(new Event('loading'))
-
-        // setTimeout(() => {
-        //   this.dispatchEvent(new Event('ready'))
-        // })
 
         return res
       })

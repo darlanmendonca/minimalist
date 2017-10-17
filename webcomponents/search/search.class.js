@@ -123,10 +123,6 @@ module.exports = class MnSearch extends MnSelect {
         this.classList.remove('loading')
         this.dispatchEvent(new Event('loading'))
 
-        // setTimeout(() => {
-        //   this.dispatchEvent(new Event('ready'))
-        // })
-
         return res
       })
   }

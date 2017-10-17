@@ -525,6 +525,7 @@ module.exports = class MnSelect extends MnInput {
                 })
 
             } else {
+              option.classList.remove('focus')
               option.classList.add('hidden')
             }
           })
