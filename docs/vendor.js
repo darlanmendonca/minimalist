@@ -2397,6 +2397,7 @@ function MnInputDirective() {
         const model = keys.reduce((obj, key) => obj[key], scope.$parent)
         delete model[prop]
         element.remove()
+        console.log(component.parentNode)
       })
 
       function setComponentValue(value, oldValue) {
@@ -2410,10 +2411,13 @@ function MnInputDirective() {
       }
 
       function setModelValue() {
-        const modelApplied = angular.equals(ngModel.$modelValue, component.value)
+        const componentExists = component.parentNode
+        if (componentExists) {
+          const modelApplied = angular.equals(ngModel.$modelValue, component.value)
 
-        if (!modelApplied) {
-          ngModel.$setViewValue(component.value)
+          if (!modelApplied) {
+            ngModel.$setViewValue(component.value)
+          }
         }
       }
     }
