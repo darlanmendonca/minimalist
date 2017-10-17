@@ -23,6 +23,7 @@ function MnInputDirective() {
         component.value = component.hasAttribute('value')
           ? component.getAttribute('value')
           : ngModel.$modelValue
+        component.default = component.value
         component.addEventListener('change', setModelValue)
         setModelValue()
       })

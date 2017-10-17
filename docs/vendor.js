@@ -2150,6 +2150,7 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   reset() {
+    this.classList.remove('submitted')
     Object
       .keys(this.data)
       .forEach(name => {
@@ -2363,6 +2364,7 @@ function MnInputDirective() {
         component.value = component.hasAttribute('value')
           ? component.getAttribute('value')
           : ngModel.$modelValue
+        component.default = component.value
         component.addEventListener('change', setModelValue)
         setModelValue()
       })
