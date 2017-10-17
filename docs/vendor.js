@@ -200,7 +200,7 @@ module.exports = class MnInput extends HTMLElement {
         ? this.classList.add('has-value')
         : this.classList.remove('has-value')
 
-      if (this.input.value && this.hasAttribute('multiple')) {
+      if (this.input.value && this.hasAttribute('multiple') && this.delimeterKeys.length) {
         this.push(this.input.value)
         this.input.value = ''
       }
