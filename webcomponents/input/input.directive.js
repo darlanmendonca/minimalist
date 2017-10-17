@@ -31,8 +31,10 @@ function MnInputDirective() {
       scope.$on('$destroy', () => {
         const keys = attributes.ngModel.split('.')
         const prop = keys.pop()
-        const model = keys.reduce((obj, key) => obj[key], scope.$parent)
-        delete model[prop]
+        if (scope.$parent[keys[0]]) {
+          const model = keys.reduce((obj, key) => obj[key], scope.$parent)
+          delete model[prop]
+        }
         element.remove()
       })
 
