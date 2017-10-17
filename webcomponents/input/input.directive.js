@@ -34,7 +34,6 @@ function MnInputDirective() {
         const model = keys.reduce((obj, key) => obj[key], scope.$parent)
         delete model[prop]
         element.remove()
-        console.log(component.parentNode)
       })
 
       function setComponentValue(value, oldValue) {
