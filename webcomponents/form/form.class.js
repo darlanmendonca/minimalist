@@ -81,6 +81,7 @@ module.exports = class MnForm extends HTMLElement {
   }
 
   reset() {
+    this.classList.remove('submitted')
     Object
       .keys(this.data)
       .forEach(name => {
