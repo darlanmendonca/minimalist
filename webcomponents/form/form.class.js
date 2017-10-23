@@ -98,11 +98,13 @@ module.exports = class MnForm extends HTMLElement {
     Object
       .keys(this.data)
       .forEach(name => {
-        this[name].value = this.defaults[name]
+        if (this[name]) {
+          this[name].value = this.defaults[name]
 
-        const validations = Object.keys(this[name].validations)
-        validations.push('invalid')
-        validations.forEach(validationClass => this[name].classList.remove(validationClass))
+          const validations = Object.keys(this[name].validations)
+          validations.push('invalid')
+          validations.forEach(validationClass => this[name].classList.remove(validationClass))
+        }
       })
   }
 
