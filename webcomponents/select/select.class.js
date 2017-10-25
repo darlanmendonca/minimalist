@@ -441,7 +441,7 @@ module.exports = class MnSelect extends MnInput {
     if (differentValue) {
       const search = new Event('search')
       search.query = typeof value === 'string'
-        ? value
+        ? evaluate(value)
         : ''
       this.dispatchEvent(search)
 
