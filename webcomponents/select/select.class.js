@@ -443,7 +443,10 @@ module.exports = class MnSelect extends MnInput {
       search.query = typeof value === 'string'
         ? evaluate(value)
         : ''
-      this.dispatchEvent(search)
+
+      if (search.query) {
+        this.dispatchEvent(search)
+      }
 
       const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
 
