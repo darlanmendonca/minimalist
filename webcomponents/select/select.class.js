@@ -444,9 +444,7 @@ module.exports = class MnSelect extends MnInput {
         ? evaluate(value)
         : ''
 
-      if (search.query) {
-        this.dispatchEvent(search)
-      }
+      this.dispatchEvent(search)
 
       const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
 
