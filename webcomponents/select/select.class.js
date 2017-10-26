@@ -419,7 +419,9 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const valueIsMultiple = this.hasAttribute('multiple')
-    const differentValue = this.getAttribute('value') !== value
+    const differentValue = typeof value === 'object'
+      ? this.getAttribute('value') !== JSON.stringify(value)
+      : this.getAttribute('value') !== value
     const option = Array
       .from(this.querySelectorAll('option'))
       .filter(option => {
