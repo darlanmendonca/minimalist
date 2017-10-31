@@ -14,4 +14,5 @@ module.exports = {
   dialog: require('./webcomponents/dialog/dialog.webcomponent.js'),
   button: require('./webcomponents/button/button.webcomponent.js'),
   search: require('./webcomponents/search/search.webcomponent.js'),
+  list: require('./webcomponents/list/list.webcomponent.js'),
 }
