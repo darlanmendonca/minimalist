@@ -17,7 +17,7 @@ module.exports = class MnList extends HTMLElement {
 
   setCollapse() {
     document.addEventListener('click', event => {
-      const isItemCollapse = event.target.matches(`.mn-item[collapse]`)
+      const isItemCollapse = event.target.matches('.mn-item[collapse]')
       const nestedList = event.target.parentNode !== this
 
       if (isItemCollapse && !nestedList) {
