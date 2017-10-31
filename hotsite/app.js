@@ -12,6 +12,7 @@ angular
 function HomeController() {
   this.name = 'darlan'
   // this.houses = ['stark', 'lannister', 'targaryen']
+  this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
 }

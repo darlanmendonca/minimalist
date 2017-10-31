@@ -32,8 +32,15 @@ html
 
     //- include pages/button
 
-    section.mn-layout-container(ng-controller='HomeController as home')
-      .mn-card.padding
+    section.mn-layout-container(ng-controller='HomeController as home' style='margin-bottom: 2em')
+      .mn-card.mn-list
+        .mn-item lero 1
+        .mn-item.detail-visible(collapse) lero 2
+          //- .mn-list.mn-item-detail
+            .mn-item lorem 1
+            .mn-item lorem 2
+        .mn-item lero 3
+      //- .mn-card.padding
         mn-form(submit='home.submit()')
           .mn-layout-column
             p {{ home }}

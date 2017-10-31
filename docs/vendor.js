@@ -1270,7 +1270,9 @@ module.exports = class MnSelect extends MnInput {
 
   set value(value) {
     const valueIsMultiple = this.hasAttribute('multiple')
-    const differentValue = this.getAttribute('value') !== value
+    const differentValue = typeof value === 'object'
+      ? this.getAttribute('value') !== JSON.stringify(value)
+      : this.getAttribute('value') !== value
     const option = Array
       .from(this.querySelectorAll('option'))
       .filter(option => {
@@ -1292,8 +1294,9 @@ module.exports = class MnSelect extends MnInput {
     if (differentValue) {
       const search = new Event('search')
       search.query = typeof value === 'string'
-        ? value
+        ? evaluate(value)
         : ''
+
       this.dispatchEvent(search)
 
       const hasValue = value !== undefined && value !== null && value !== '' && value.length !== 0
@@ -1450,6 +1453,7 @@ angular
 function HomeController() {
   this.name = 'darlan'
   // this.houses = ['stark', 'lannister', 'targaryen']
+  this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
 }
@@ -2167,11 +2171,13 @@ module.exports = class MnForm extends HTMLElement {
     Object
       .keys(this.data)
       .forEach(name => {
-        this[name].value = this.defaults[name]
+        if (this[name]) {
+          this[name].value = this.defaults[name]
 
-        const validations = Object.keys(this[name].validations)
-        validations.push('invalid')
-        validations.forEach(validationClass => this[name].classList.remove(validationClass))
+          const validations = Object.keys(this[name].validations)
+          validations.push('invalid')
+          validations.forEach(validationClass => this[name].classList.remove(validationClass))
+        }
       })
   }
 
