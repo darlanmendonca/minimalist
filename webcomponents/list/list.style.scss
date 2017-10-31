@@ -32,9 +32,10 @@
     }
   }
 
-  button.mn-item, a.mn-item, [ng-click].mn-item {
+  button.mn-item, a.mn-item, [ng-click].mn-item, .mn-item[collapse] {
     display: flex;
     cursor: pointer;
+
     &:not(.detail-visible) {
       &:hover, &:focus {
         background-color: $oc-gray-3;
@@ -42,7 +43,7 @@
     }
   }
 
-  .mn-list {margin-top: 1em}
+  .mn-list {transform: translateY(1em)}
 }
 
 .mn-list .mn-item-detail {
@@ -50,7 +51,7 @@
   flex: 0 1 100%;
   max-height: 0;
   overflow: hidden;
-  transform: translateZ(0);
+  transform: translateZ(0) translateY(1em);
   transition: max-height .3s ease;
 
   p {margin-bottom: 0}
