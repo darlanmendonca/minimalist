@@ -1,0 +1,16 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-chip {
+  --color: $oc-gray-5;
+  --text-color: $oc-gray-7;
+
+  position: relative;
+  display: inline-block;
+  padding: 0 1em;
+  line-height: 1.5em;
+  border-radius: 1.2em;
+  margin: 2px;
+  border-radius: 1.2em;
+  background-color: var(--color);
+  color: var(--text-color);
+}
