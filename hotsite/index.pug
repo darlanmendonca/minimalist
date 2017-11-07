@@ -37,16 +37,16 @@ html
         .mn-item(draggable) item 1
         .mn-item item 2
         .mn-item(draggable) item 3
+        .mn-item(collapse draggable) collapsable
+          mn-list.mn-item-detail
+            .mn-item lorem 1
+            .mn-item lorem 2
 
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
       h3(style='color: white') angular
       mn-list.mn-card
         .mn-item(ng-repeat='item in home.houses' draggable) {{ item }}
         //- .mn-item(draggable) lero 1
-        .mn-item(collapse) lero 2
-          mn-list.mn-item-detail
-            .mn-item lorem 1
-            .mn-item lorem 2
         //- .mn-item lero 3
       //- .mn-card.padding
         mn-form(submit='home.submit()')
