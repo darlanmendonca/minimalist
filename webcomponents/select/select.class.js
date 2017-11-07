@@ -90,8 +90,7 @@ module.exports = class MnSelect extends MnInput {
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
             || isObjectValue && (this.value.id || this.value._id)
-              ? this.value.id === evaluate(this.getAttribute('value')).id ||
-                this.value._id === evaluate(this.getAttribute('value'))._id
+              ? this.value.id === evaluate(addedNode.getAttribute('value')).id
               : false
 
           if (isOptionSelected && !this.classList.contains('focus')) {
