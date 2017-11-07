@@ -43,10 +43,10 @@ html
       mn-list.mn-card
         .mn-item(ng-repeat='item in home.houses' draggable) {{ item }}
         //- .mn-item(draggable) lero 1
-        //- .mn-item(collapse) lero 2
-        //-   mn-list.mn-item-detail
-        //-     .mn-item lorem 1
-        //-     .mn-item lorem 2
+        .mn-item(collapse) lero 2
+          mn-list.mn-item-detail
+            .mn-item lorem 1
+            .mn-item lorem 2
         //- .mn-item lero 3
       //- .mn-card.padding
         mn-form(submit='home.submit()')
