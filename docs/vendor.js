@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -532,6 +532,33 @@ function evaluateString(value) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnActionSheetCustomElement()
@@ -544,7 +571,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(10))
+    window.customElements.define('mn-action-sheet', __webpack_require__(23))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -552,7 +579,7 @@ function MnActionSheetCustomElement() {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
@@ -791,7 +818,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -846,11 +873,11 @@ function MnCheckboxDirective() {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
-const MnActionSheet = __webpack_require__(3)
+const MnActionSheet = __webpack_require__(4)
 const evaluate = __webpack_require__(2)
 
 module.exports = class MnSelect extends MnInput {
@@ -1396,7 +1423,7 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -1404,34 +1431,11 @@ module.exports = class MnSelect extends MnInput {
 angular.module('minimalist', [])
 
 module.exports = {
-  input: __webpack_require__(25),
-  form: __webpack_require__(21),
-  checkbox: __webpack_require__(5),
-  radio: __webpack_require__(34),
-}
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(26),
-  email: __webpack_require__(19),
-  password: __webpack_require__(32),
-  hidden: __webpack_require__(24),
-  number: __webpack_require__(30),
-  date: __webpack_require__(15),
-  select: __webpack_require__(38),
-  actionSheet: __webpack_require__(3),
-  form: __webpack_require__(22),
-  sidenav: __webpack_require__(40),
-  checkbox: __webpack_require__(13),
-  radio: __webpack_require__(35),
-  dialog: __webpack_require__(17),
-  button: __webpack_require__(12),
-  search: __webpack_require__(37),
-  list: __webpack_require__(28),
+  input: __webpack_require__(38),
+  form: __webpack_require__(34),
+  checkbox: __webpack_require__(6),
+  radio: __webpack_require__(48),
+  list: __webpack_require__(41),
 }
 
 
@@ -1439,8 +1443,32 @@ module.exports = {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(8) // main file of minimalist
-__webpack_require__(7) // directives
+module.exports = {
+  input: __webpack_require__(39),
+  email: __webpack_require__(32),
+  password: __webpack_require__(46),
+  hidden: __webpack_require__(37),
+  number: __webpack_require__(44),
+  date: __webpack_require__(28),
+  select: __webpack_require__(52),
+  actionSheet: __webpack_require__(4),
+  form: __webpack_require__(35),
+  sidenav: __webpack_require__(54),
+  checkbox: __webpack_require__(26),
+  radio: __webpack_require__(49),
+  dialog: __webpack_require__(30),
+  button: __webpack_require__(25),
+  search: __webpack_require__(51),
+  list: __webpack_require__(42),
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(9) // main file of minimalist
+__webpack_require__(8) // directives
 
 angular.module('app', [
   'minimalist',
@@ -1498,1911 +1526,20 @@ function HousesSearchDirective() {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnActionSheet extends HTMLElement {
-  constructor() {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setMenu()
-    this._setCancel()
-  }
-
-  static get observedAttributes() {
-    return []
-  }
-
-  attributeChangedCallback(name, old, value) {
-    if (this.parentNode) {
-      this[name] = value
-    }
-  }
-
-  _setStyle() {
-    this.classList.add('mn-action-sheet')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  _setMenu() {
-    const menu = document.createElement('menu')
-    menu.classList.add('mn-card')
-
-    Array
-      .from(this.querySelectorAll('option'))
-      .forEach(child => {
-        const option = document.createElement('div')
-        option.classList.add('option')
-        option.innerHTML = child.textContent
-
-        Array
-          .from(child.attributes)
-          .forEach(attr => option.setAttribute(attr.name, attr.value))
-
-        child.parentNode.removeChild(child)
-        menu.appendChild(option)
-      })
-
-    document.addEventListener('click', event => {
-      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
-      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
-
-      if (isOption && index >= 0) {
-        const changeEvent = new Event('change')
-        changeEvent.data = {index}
-        this.dispatchEvent(changeEvent)
-      }
-    })
-
-    this.appendChild(menu)
-    this.menu = menu
-  }
-
-  _setCancel() {
-    const button = document.createElement('button')
-
-    button.addEventListener('click', () => {
-      this.hide()
-    })
-
-    document.addEventListener('touchmove', () => {
-      const clickOutside = event.target === this
-      this.touchmove = true
-      if (clickOutside) {
-        event.preventDefault()
-      }
-    })
-
-    document.addEventListener('touchend', (event) => {
-      const clickOutside = event.target === this && !this.touchmove
-      if (clickOutside) {
-        this.hide()
-      }
-      delete this.touchmove
-    })
-
-    this.button = button
-    this.appendChild(this.button)
-  }
-
-  show() {
-    this.menu.scrollTop = 0
-    this.classList.add('visible')
-    document.body.classList.add('mn-backdrop-visible')
-    document.body.classList.add('mn-action-sheet-visible')
-  }
-
-  hide() {
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-    document.body.classList.remove('mn-action-sheet-visible')
-  }
-}
-
-
-/***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnButton extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setButton()
-  }
-
-  setStyle() {
-    this.classList.add('mn-button')
-  }
-
-  setButton() {
-    this.setAttribute('tabindex', '0')
-    this.addEventListener('click', () => this.blur())
-
-    document.addEventListener('keyup', (event) => {
-      if (event.target === this && event.key === 'Enter') {
-        this.click()
-      }
-    })
-  }
-}
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSidenavCustomElement()
-
-function MnSidenavCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(11))
-  }
-
-  return window.customElements.get('mn-button')
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnCheckboxCustomElement()
-
-function MnCheckboxCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-checkbox')) {
-    window.customElements.define('mn-checkbox', __webpack_require__(4))
-  }
-
-  return window.customElements.get('mn-checkbox')
-}
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnDate extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super.setChangeEvents()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-date')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'date')
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate) {
-      this.input.setAttribute('type', 'text')
-      this.input.setAttribute('maxlength', 10)
-      this._setMask()
-    }
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.value === undefined
-    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
-    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
-    delete this.validations.pattern
-  }
-
-  _setMask() {
-    this.input.addEventListener('keydown', (event) => {
-      const isInputEditing = event.key === 'Backspace'
-        || this.input.selectionStart !== this.input.value.length
-
-      this.inputEditing = isInputEditing
-    })
-
-    this.input.addEventListener('input', () => {
-      if (!this.inputEditing) {
-        this.updateMask()
-      }
-
-      this.inputEditing = undefined
-    })
-
-    this.input.addEventListener('blur', () => {
-      this.updateMask()
-      const dateString = this.input.value
-        .split('/')
-        .reverse()
-        .join('-')
-
-      isValidDate(dateString)
-        ? this.updateMask()
-        : this.value = ''
-    })
-  }
-
-  updateMask() {
-    this.input.value = this.input.value
-      .replace(/[^\d\/]/, '') // disallow invalid chars
-      .replace(/[a-z]/ig, '') // disallow letters
-      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
-      .replace(/000(\d)$/g, '190$1') // disallow year 0
-      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
-      .replace(/\/{2}/g, '/') // disallow repeated /
-      .replace(/(^\/)/, '') // disallow / as first char
-      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
-      .replace(/^(\d)\//, '0$1/') // leading 0 day
-      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
-      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
-      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
-  }
-
-  get value() {
-    let date
-    try {
-      const isDateString = this.input.type === 'date'
-      const value = isDateString
-        ? this.input.value
-        : this.input.value
-          .split('/')
-          .reverse()
-          .join('-')
-
-      date = isValidDate(value)
-        ? newDate(value).toISOString()
-        : undefined
-    } catch (e) {}
-
-    return date
-      ? date
-      : undefined
-  }
-
-  set value(value = '') {
-    const validDate = typeof value === 'string'
-      && isValidDate(value)
-
-    value = value instanceof Date
-      ? value.toISOString().substring(0, 10)
-      : validDate
-        ? newDate(value)
-          .toISOString()
-          .substring(0, 10)
-        : ''
-
-    const supportsInputDate = this.input.type === 'date'
-
-    if (!supportsInputDate && validDate) {
-      const dateString = value.split('-')
-      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
-        .toLocaleString('pt-BR')
-        .substring(0, 10)
-    }
-
-    this.input.value = value
-    this.input.dispatchEvent(new Event('change'))
-  }
-}
-
-function isValidDate(dateString) {
-  const year = +dateString.split('-')[0]
-  const month = +dateString.split('-')[1]
-  const date = newDate(dateString)
-
-  return date.getFullYear() >= 1900
-    && date.getFullYear() === year
-    && date.getMonth() + 1 === month
-}
-
-function newDate(dateString) {
-  dateString = dateString || ''
-  const isString = typeof dateString === 'string'
-  dateString = dateString.replace(/T.+/, '')
-  dateString = isString && dateString.includes('/')
-    ? dateString
-      .split('/')
-      .reverse()
-      .join('-')
-    : dateString
-
-  dateString = dateString.split('-')
-
-  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
-  return date
-}
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDateCustomElement()
-
-function MnDateCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(14))
-  }
-
-  return window.customElements.get('mn-date')
-}
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnDialog extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setCard()
-    this.setButtonClose()
-    this.setOpenEvents()
-    this.setToggleEvents()
-    this.setCloseEvents()
-  }
-
-  setStyle() {
-    this.classList.add('mn-dialog')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  setCard() {
-    const card = document.createElement('div')
-    card.classList.add('mn-card')
-    card.innerHTML = this.innerHTML
-    this.innerHTML = ''
-    this.appendChild(card)
-    this.card = card
-  }
-
-  setButtonClose() {
-    const button = document.createElement('button')
-    button.classList.add('mn-button')
-    button.classList.add('action')
-    button.setAttribute('close-dialog', '')
-    const dialog = this.querySelector('.mn-card')
-    dialog.insertBefore(button, dialog.firstChild)
-  }
-
-  setOpenEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[open-dialog="${this.id}"]`)) {
-        this.open()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  setToggleEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[toggle-dialog="${this.id}"]`)) {
-        this.toggle()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  setCloseEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches('[close-dialog]')) {
-        this.close()
-        event.stopPropagation()
-      }
-    })
-
-    document.addEventListener('mousedown', event => {
-      const dialogVisible = this.classList.contains('visible')
-      const clickOutside = event.target.matches('.mn-dialog')
-
-      if (dialogVisible && clickOutside) {
-        this.close()
-      }
-    })
-
-    document.addEventListener('keyup', event => {
-      const esc = event.key === 'Escape'
-      const isOpened = this.classList.contains('visible')
-
-      if (esc && isOpened) {
-        this.close()
-      }
-    })
-  }
-
-  open() {
-    const previousDialog = document.querySelector('.mn-dialog.visible')
-    if (previousDialog) {
-      previousDialog.classList.remove('visible')
-    }
-
-    this.classList.add('visible')
-    this.scrollTop = 0
-    document.body.classList.add('mn-dialog-visible')
-    document.body.classList.add('mn-backdrop-visible')
-    this.dispatchEvent(new Event('open'))
-  }
-
-  close() {
-    document.body.classList.remove('mn-dialog-visible')
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-    this.dispatchEvent(new Event('close'))
-  }
-
-  toggle() {
-    this.classList.toggle('visible')
-      ? this.open()
-      : this.close()
-  }
-}
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDialogCustomElement()
-
-function MnDialogCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(16))
-  }
-
-  return window.customElements.get('mn-dialog')
-}
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnEmail extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-    this.classList.add('mn-email')
-    this.input.setAttribute('type', 'email')
-    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
-    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
-  }
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnEmailCustomElement()
-
-function MnEmailCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(18))
-  }
-
-  return window.customElements.get('mn-email')
-}
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnForm extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setSubmit()
-    this.setReset()
-    this.setEmpty()
-    this.setAttributeDisabled()
-    this.setAttributeReadonly()
-  }
-
-  static get observedAttributes() {
-    return [
-      'name',
-      'disabled',
-      'readonly',
-    ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    this[name] = value
-  }
-
-  setStyle() {
-    this.classList.add('mn-form')
-  }
-
-  setSubmit() {
-    document.addEventListener('keydown', (event) => {
-      const enter = event.key === 'Enter'
-      const srcElementInsideForm = event.target.closest('mn-form')
-      if (enter && srcElementInsideForm) {
-        this.submit()
-      }
-    })
-
-    document.addEventListener('click', (event) => {
-      const isButtonSubmit = (event.target.matches('button[type="submit"]')
-        || event.target.matches('mn-button[submit]'))
-        && event.target.closest('mn-form') === this
-
-      if (isButtonSubmit) {
-        this.submit()
-      }
-    })
-  }
-
-  setReset() {
-    document.addEventListener('click', (event) => {
-      const isButtonSubmit = (event.target.matches('button[type="reset"]')
-        || event.target.matches('mn-button[reset]'))
-        && event.target.closest('mn-form') === this
-
-      if (isButtonSubmit) {
-        this.reset()
-      }
-    })
-  }
-
-  setEmpty() {
-    document.addEventListener('click', (event) => {
-      const isButtonSubmit = (event.target.matches('button[type="empty"]')
-        || event.target.matches('mn-button[empty]'))
-        && event.target.closest('mn-form') === this
-
-      if (isButtonSubmit) {
-        this.empty()
-      }
-    })
-  }
-
-  setAttributeDisabled() {
-    this.disabled = this.hasAttribute('disabled')
-  }
-
-  setAttributeReadonly() {
-    this.readonly = this.hasAttribute('readonly')
-  }
-
-  validate() {
-    this.dispatchEvent(new Event('validate'))
-    this.inputs
-      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
-      .forEach(input => input.validate())
-
-    const isInvalid = !this.querySelector('.invalid')
-    return isInvalid
-  }
-
-  reset() {
-    this.classList.remove('submitted')
-    Object
-      .keys(this.data)
-      .forEach(name => {
-        if (this[name]) {
-          this[name].value = this.defaults[name]
-
-          const validations = Object.keys(this[name].validations)
-          validations.push('invalid')
-          validations.forEach(validationClass => this[name].classList.remove(validationClass))
-        }
-      })
-  }
-
-  empty() {
-    this.classList.remove('submitted')
-    Object
-      .keys(this.data)
-      .forEach(name => {
-        this[name].value = undefined
-      })
-  }
-
-  get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
-  }
-
-  get defaults() {
-    const defaults = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          defaults[name] = input.default
-        }
-      })
-
-    return defaults
-  }
-
-  get data() {
-    const data = {}
-
-    this.inputs
-      .forEach(input => {
-        const name = input.getAttribute('name')
-
-        if (name) {
-          data[name] = input.value
-        }
-      })
-
-    return data
-  }
-
-  set name(name) {
-    if (name && typeof name === 'string') {
-      window[name] = this
-    }
-  }
-
-  set disabled(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('disabled')
-          ? input.setAttribute('disabled', 'true')
-          : input.removeAttribute('disabled')
-      })
-  }
-
-  set readonly(value) {
-    this.inputs
-      .forEach(input => {
-        this.hasAttribute('readonly')
-          ? input.setAttribute('readonly', 'true')
-          : input.removeAttribute('readonly')
-      })
-  }
-
-  submit() {
-    this.classList.add('submitted')
-    const isValid = this.validate()
-    const event = new Event('submit')
-    event.data = this.data
-
-    if (isValid) {
-      this.dispatchEvent(event)
-    }
-  }
-}
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnForm', MnFormDirective)
-
-function MnFormDirective() {
-  return {
-    restrict: 'C',
-    link(scope, element, attributes) {
-      element.bind('submit', () => {
-        scope.$eval(attributes.submit)
-      })
-    }
-  }
-}
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnFormCustomElement()
-
-function MnFormCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(20))
-  }
-
-  return window.customElements.get('mn-form')
-}
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super.setChangeEvents()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'disabled',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-hidden')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'hidden')
-  }
-}
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnHiddenCustomElement()
-
-function MnHiddenCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-hidden')) {
-    window.customElements.define('mn-hidden', __webpack_require__(23))
-  }
-
-  return window.customElements.get('mn-hidden')
-}
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnInput', MnInputDirective)
-
-function MnInputDirective() {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element, attributes, ngModel) {
-      const component = element[0]
-
-      if (!attributes.name) {
-        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
-        component.setAttribute('name', name)
-      }
-
-      ngModel.$validators = {}
-
-      element.ready(() => {
-        scope.$watch(attributes.ngModel, setComponentValue)
-        component.value = component.hasAttribute('value')
-          ? component.getAttribute('value')
-          : ngModel.$modelValue
-        component.default = component.value
-        component.addEventListener('change', setModelValue)
-        setModelValue()
-      })
-
-      scope.$on('$destroy', () => {
-        const keys = attributes.ngModel.split('.')
-        const prop = keys.pop()
-        if (scope.$parent[keys[0]]) {
-          const model = keys.reduce((obj, key) => obj[key], scope.$parent)
-          delete model[prop]
-        }
-        element.remove()
-      })
-
-      function setComponentValue(value, oldValue) {
-        if (component.hasAttribute('multiple')) {
-          if (!angular.equals(value, oldValue) && !angular.isArray(value)) {
-            component.value = value
-          }
-        } else if (angular.isDefined(value)) {
-          component.value = value
-        }
-      }
-
-      function setModelValue() {
-        const componentExists = component.parentNode
-        if (componentExists) {
-          const modelApplied = angular.equals(ngModel.$modelValue, component.value)
-
-          if (!modelApplied) {
-            ngModel.$setViewValue(component.value)
-          }
-        }
-      }
-    }
-  }
-}
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnInputCustomElement()
-
-function MnInputCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-input')) {
-    window.customElements.define('mn-input', __webpack_require__(1))
-  }
-
-  return window.customElements.get('mn-input')
-}
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const {HTMLElement} = window
-
-module.exports = class MnList extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.setStyle()
-    this.setCollapse()
-    this.setDraggable()
-  }
-
-  setStyle() {
-    this.classList.add('mn-list')
-  }
-
-  setCollapse() {
-    document.addEventListener('click', event => {
-      const isItemCollapse = event.target.matches('.mn-item[collapse]')
-      const nestedList = event.target.parentNode !== this
-
-      if (isItemCollapse && !nestedList) {
-        event.target.classList.contains('detail-visible')
-          ? event.target.classList.remove('detail-visible')
-          : event.target.classList.add('detail-visible')
-        event.stopPropagation()
-      }
-    })
-  }
-
-  setDraggable() {
-    const dragula = __webpack_require__(49)
-    let originIndex
-
-    const options = {
-      containers: [this],
-      moves(element) {
-        originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
-        console.log('drag from', originIndex)
-        return element.matches('.mn-item[draggable]')
-      },
-      direction: 'vertical',
-      mirrorContainer: this,
-    }
-
-    dragula(options)
-    .on('drop', (element) => {
-      const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
-      console.log('dropped to', targetIndex)
-    })
-  }
-}
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnDialogCustomElement()
-
-function MnDialogCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-list')) {
-    window.customElements.define('mn-list', __webpack_require__(27))
-  }
-
-  return window.customElements.get('mn-list')
-}
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-const evaluate = __webpack_require__(2)
-
-module.exports = class MnNumber extends MnInput {
-  constructor(self) {
-    self = super(self)
-    this.delimeterKeys = ['Enter', 'Space']
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    super._setInput()
-    this.setChangeEvents()
-    this._setMask()
-    this._setMobileKeyboard()
-    this._setInputTransforms()
-    this._setInputKeys()
-    super._setPlaceholder()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setAttributeMax()
-    this._setAttributeMin()
-    this._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-      'max',
-      'min',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-number')
-  }
-
-  _setMask() {
-    this.mask = document.createElement('div')
-    this.mask.classList.add('mask')
-    this.appendChild(this.mask)
-
-    this.input.addEventListener('input', () => {
-      this.updateMask()
-    })
-  }
-
-  _setMobileKeyboard() {
-    this.input.setAttribute('pattern', '\\d*')
-  }
-
-  _setInputTransforms() {
-    this.input.addEventListener('change', () => {
-      const commaOrDot = !this.input.value.endsWith(',')
-        && !this.input.value.endsWith('.')
-
-      if (commaOrDot) {
-        try {
-          const value = eval(this.input.value.replace(/,/g, '.'))
-
-          value !== undefined
-            ? this.input.value = String(value).replace(/\./g, ',')
-            : null
-          const valueIsDefined = value !== undefined
-
-          if (valueIsDefined) {
-            const isCurrency = this.hasAttribute('currency')
-            const precision = this.getAttribute('precision') || 0
-
-            switch (true) {
-              case isCurrency:
-                this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
-                break
-
-              default:
-                this.input.value = precision
-                  ? value.toFixed(precision).replace(/\./g, ',')
-                  : String(value).replace(/\./g, ',')
-                break
-            }
-          }
-        } catch (e) {
-          this.value = undefined
-          this.input.value = ''
-        }
-
-        this.hasAttribute('percentage')
-          ? this.updateMask()
-          : null
-      }
-    })
-  }
-
-  setChangeEvents() {
-    this.input.addEventListener('blur', this.dispatchChangeEvent)
-  }
-
-  _setInputKeys() {
-    this.input.addEventListener('keydown', (event) => {
-      if (!this.hasAttribute('readonly')) {
-        const step = this.hasAttribute('percentage')
-          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
-          : +this.getAttribute('step') || 1
-        const value = this.value || 0
-
-        switch (event.key) {
-          case 'ArrowUp':
-            this.value = value + step
-            break
-          case 'ArrowDown':
-            this.value = value - step
-            break
-        }
-
-        event.key === 'ArrowUp' || event.key === 'ArrowDown'
-          ? event.preventDefault()
-          : null
-      }
-    })
-  }
-
-  _setAttributeMax() {
-    this.max = this.getAttribute('max')
-  }
-
-  _setAttributeMin() {
-    this.min = this.getAttribute('min')
-  }
-
-  _setValidations() {
-    super._setValidations()
-    this.validations.required = () => this.hasAttribute('multiple')
-      ? this.value.length === 0
-      : this.value === undefined
-    this.validations.min = () => this.value < this.getAttribute('min')
-    this.validations.max = () => this.value > this.getAttribute('max')
-    delete this.validations.pattern
-  }
-
-  get value() {
-    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
-    const value = this.hasAttribute('value')
-      ? this.getAttribute('value')
-      : this.input.value
-    const numberString = value.replace(/,/g, '.')
-
-    const val = isUndefined
-      ? undefined
-      : this.hasAttribute('percentage')
-        ? (numberString * 100) / 10000
-        : parseFloat(numberString)
-
-    if (isUndefined) {
-      return undefined
-    } else {
-      if (this.hasAttribute('multiple')) {
-        return evaluate(this.getAttribute('value'))
-          ? evaluate(this.getAttribute('value')).map(item => +String(item).replace(',', '.'))
-          : []
-      } else {
-        return this.hasAttribute('percentage')
-          ? (numberString * 100) / 10000
-          : parseFloat(numberString)
-      }
-    }
-
-    return val
-  }
-
-  set value(value) {
-    const valueIsMultiple = this.hasAttribute('multiple')
-    const differentValue = this.getAttribute('value') !== value
-    const hasValue = value !== ''
-
-    if (this.input && hasValue && differentValue) {
-      if (valueIsMultiple) {
-        Array
-          .from(this.querySelectorAll('.value'))
-          .forEach(item => item.parentNode.removeChild(item))
-
-        const values = Array.isArray(value)
-          ? value.map(item => String(item))
-          : [value].filter(item => item !== undefined)
-
-        if (!values.length) {
-          this.removeAttribute('value')
-        }
-
-        values
-          .filter(item => item)
-          .forEach(val => {
-            // val = eval(String(val).replace(/,/g, '.'))
-
-            // if (val !== undefined && differentValue) {
-            //   val = this.hasAttribute('percentage')
-            //     ? +(val * 100).toFixed(this.getAttribute('precision') || 2)
-            //     : val
-            // }
-            this.push(val)
-          })
-      } else {
-        try {
-          value = eval(String(value).replace(/,/g, '.'))
-
-          if (value !== undefined && differentValue) {
-            value = this.hasAttribute('percentage')
-              ? +(value * 100).toFixed(this.getAttribute('precision') || 2)
-              : value
-            this.input.value = value
-          } else {
-            this.input.value = ''
-          }
-        } catch (e) {
-          this.input.value = ''
-        }
-      }
-
-      this.input.dispatchEvent(new Event('change'))
-      this.input.dispatchEvent(new Event('input'))
-    }
-  }
-
-  set max(value) {
-    if (this.label) {
-      this.hasAttribute('max')
-        ? this.label.setAttribute('max', value)
-        : this.label.removeAttribute('max')
-    }
-  }
-
-  set min(value) {
-    if (this.label) {
-      this.hasAttribute('min')
-        ? this.label.setAttribute('min', value)
-        : this.label.removeAttribute('min')
-    }
-  }
-
-  updateMask() {
-    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
-
-    if (this.mask && this.hasAttribute('percentage')) {
-      const text = hasValue
-        ? `${this.input.value} %`
-        : ''
-
-      this.mask.textContent = text
-    }
-  }
-}
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnNumberCustomElement()
-
-function MnNumberCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(29))
-  }
-
-  return window.customElements.get('mn-number')
-}
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnInput = __webpack_require__(1)
-
-module.exports = class MnPassword extends MnInput {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    this._setInput()
-    super.setChangeEvents()
-    super._setPlaceholder()
-    this._setVisibilityButton()
-    super._setAttributeValue()
-    super._setAttributeName()
-    super._setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
-  }
-
-  static get observedAttributes() {
-    return [
-      'value',
-      'name',
-      'placeholder',
-      'disabled',
-      'readonly',
-      'autofocus',
-    ]
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-password')
-  }
-
-  _setInput() {
-    super._setInput()
-    this.input.setAttribute('type', 'password')
-  }
-
-  _setVisibilityButton() {
-    const button = document.createElement('button')
-    button.setAttribute('type', 'button')
-    button.setAttribute('tabindex', '-1')
-
-    this.appendChild(button)
-    this.button = button
-    this.input.addEventListener('blur', () => {
-      this.input.setAttribute('type', 'password')
-      this.classList.remove('show-password')
-      this.input.dispatchEvent(new Event('change'))
-    })
-
-    button.addEventListener('mousedown', event => {
-      event.preventDefault()
-    })
-
-    button.addEventListener('click', () => {
-      const toggledType = this.input.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password'
-      this.input.setAttribute('type', toggledType)
-      this.classList.toggle('show-password')
-      this.input.focus()
-    })
-  }
-}
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnPasswordCustomElement()
-
-function MnPasswordCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(31))
-  }
-
-  return window.customElements.get('mn-password')
-}
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnCheckbox = __webpack_require__(4)
-const evaluate = __webpack_require__(2)
-
-module.exports = class MnRadio extends MnCheckbox {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this.innerHTML = ''
-    this._setStyle()
-    super._setLabel()
-    this._setInput()
-    this._setCustomInput()
-    this._setForm()
-    // this.checked = this.hasAttribute('checked')
-    this.disabled = this.hasAttribute('disabled')
-    this.readonly = this.hasAttribute('readonly')
-    this.name = this.hasAttribute('name')
-    this._setValidations()
-  }
-
-  _setStyle() {
-    this.classList.add('mn-radio')
-    this.classList.add('mn-option')
-  }
-
-  _setInput() {
-    this.input = document.createElement('input')
-    this.input.setAttribute('type', 'radio')
-    this.label.appendChild(this.input)
-
-    this.input.addEventListener('change', (event) => {
-      this.checked
-        ? this.setAttribute('checked', '')
-        : this.removeAttribute('checked')
-
-      this.options.forEach(option => {
-        if (option !== event.target.closest('mn-radio')) {
-          option.removeAttribute('checked')
-          option.input.checked = false
-        }
-
-        option.form && option.form.classList && option.form.classList.contains('submitted')
-          ? option.validate()
-          : null
-      })
-    })
-  }
-
-  _setCustomInput() {
-    const input = document.createElement('div')
-    input.classList.add('input')
-
-    this.label.appendChild(input)
-  }
-
-  _setValidations() {
-    this.validations = {
-      required: () => !this.value,
-    }
-  }
-
-  get options() {
-    const name = this.getAttribute('name')
-      ? `[name="${this.getAttribute('name')}"]`
-      : ':not([name])'
-
-    return Array.from(this.form.querySelectorAll(`.mn-radio${name}`))
-  }
-
-  get value() {
-    const value = this
-      .options
-      .filter(option => option.checked)
-      .map(option => option.hasAttribute('value')
-        ? evaluate(option.getAttribute('value'))
-        : option.getAttribute('placeholder')
-      )
-
-    return value[0]
-  }
-
-  set value(value) {
-    this.options.forEach(option => {
-      option.checked = false
-    })
-
-    const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
-
-    if (option) {
-      option.checked = true
-    }
-  }
-}
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global angular */
-
-angular
-  .module('minimalist')
-  .directive('mnRadio', MnRadioDirective)
-
-module.exports = MnRadioDirective
-
-function MnRadioDirective() {
-  const MnCheckboxDirective = __webpack_require__(5)
-  return MnCheckboxDirective()
-}
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnRadioCustomElement()
-
-function MnRadioCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(33))
-  }
-
-  return window.customElements.get('mn-radio')
-}
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const MnSelect = __webpack_require__(6)
-
-module.exports = class MnSearch extends MnSelect {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-    this.setLoading()
-    this.setSearchSheet()
-  }
-
-  _setStyle() {
-    super._setStyle()
-    this.classList.add('mn-search')
-  }
-
-  setLoading() {
-    const loading = document.createElement('div')
-    loading.classList.add('loading')
-    this.appendChild(loading)
-  }
-
-  setSearchSheet() {
-    if (this.actionSheet) {
-      this.actionSheet = undefined
-
-      const dialog = document.createElement('mn-dialog')
-      this.searchSheet = dialog
-      this.searchSheet.classList.add('search-sheet')
-      const input = document.createElement('mn-input')
-      input.setAttribute('placeholder', 'Type to search')
-
-      this.searchSheet.appendChild(input)
-      document.body.appendChild(this.searchSheet)
-
-      this.searchSheetInput = this.searchSheet.querySelector('mn-input')
-      this.setSearchSheetList()
-
-      this.searchSheetInput.addEventListener('input', () => {
-        this.filter = event.target.value
-        const search = new Event('search')
-        search.query = event.target.value
-        this.dispatchEvent(search)
-      })
-
-      this.input.addEventListener('focus', () => {
-        this.blur()
-        this.searchSheet.open()
-        this.searchSheetInput.value = ''
-        this.searchSheetInput.dispatchEvent(new Event('input'))
-        setTimeout(() => {
-          this.searchSheetInput.focus()
-        }, 410)
-      })
-
-    }
-  }
-
-  setSearchSheetList() {
-    this.searchSheetList = document.createElement('ul')
-    this.searchSheetList.classList.add('mn-list')
-    this.searchSheet.querySelector('.mn-card').appendChild(this.searchSheetList)
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        const addedNode = mutation.addedNodes[0]
-        const removedNode = mutation.removedNodes[0]
-        const addOption = addedNode && addedNode.tagName === 'OPTION'
-        const removeOption = removedNode && removedNode.tagName === 'OPTION'
-
-        if (addOption) {
-          const item = document.createElement('div')
-          item.classList.add('mn-item')
-          item.textContent = addedNode.textContent
-          item.setAttribute('value', addedNode.getAttribute('value') || addedNode.textContent)
-          this.searchSheetList.appendChild(item)
-
-          item.addEventListener('touchend', (event) => {
-            this.searchSheet.close()
-            this.value = event.target.getAttribute('value')
-          })
-        }
-
-        if (removeOption) {
-          const value = removedNode.getAttribute('value')
-          const item = this.searchSheet.querySelector(`.mn-item[value="${value}"]`)
-          item.parentNode.removeChild(item)
-        }
-      })
-    })
-
-    observer.observe(this, {
-      attributes: false,
-      childList: true,
-      characterData: false,
-    })
-  }
-
-  _setInput() {
-    super._setInput()
-
-    this.input.addEventListener('input', () => {
-      const event = new Event('search')
-      event.query = this.input.value
-      this.dispatchEvent(event)
-    })
-  }
-
-  fetch(request) {
-    const requestType = typeof request
-    const loader = requestType === 'function'
-      ? request
-      : () => fetch(request)
-
-    this.classList.add('loading')
-
-    return loader()
-      .then(res => {
-        this.cleanOptions()
-        this.classList.remove('loading')
-        this.dispatchEvent(new Event('loading'))
-
-        return res
-      })
-  }
-}
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-search')) {
-    window.customElements.define('mn-search', __webpack_require__(36))
-  }
-
-  return window.customElements.get('mn-search')
-}
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSelectCustomElement()
-
-function MnSelectCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(6))
-  }
-
-  return window.customElements.get('mn-select')
-}
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-const {HTMLElement} = window
-
-module.exports = class MnSidenav extends HTMLElement {
-  constructor(self) {
-    self = super(self)
-    return self
-  }
-
-  connectedCallback() {
-    this._setStyle()
-    this._setOpenEvents()
-    this._setToggleEvents()
-    this._setCloseEvents()
-  }
-
-  _setStyle() {
-    this.classList.add('mn-sidenav')
-    this.classList.add('mn-card')
-    document.body.classList.add('mn-backdrop')
-  }
-
-  _setOpenEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[open-sidenav="${this.id}"]`)) {
-        this.open()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  _setToggleEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches(`[toggle-sidenav="${this.id}"]`)) {
-        this.toggle()
-        event.stopPropagation()
-      }
-    })
-  }
-
-  _setCloseEvents() {
-    document.addEventListener('click', event => {
-      if (event.target.matches('[close-sidenav]')) {
-        this.close()
-        event.stopPropagation()
-      }
-    })
-
-    document.addEventListener('click', event => {
-      const clickOutside = !event.target.matches('[open-sidenav]')
-        && !event.target.matches('[close-sidenav]')
-        && !event.target.matches('[toggle-sidenav]')
-        && !event.target.closest('mn-sidenav')
-      const sidebarVisible = this.classList.contains('visible')
-
-      if (clickOutside && sidebarVisible) {
-        this.close()
-      }
-    })
-
-    document.addEventListener('keyup', event => {
-      const esc = event.key === 'Escape'
-      const isOpened = this.classList.contains('visible')
-
-      if (esc && isOpened) {
-        this.close()
-      }
-    })
-  }
-
-  open() {
-    const fontSizeHTML = parseInt(window.getComputedStyle(document.body, null).getPropertyValue('font-size'))
-    const activeElement = this.querySelector('.active')
-    this.scrollTop = activeElement
-      ? activeElement.offsetTop - fontSizeHTML * 1.5
-      : 0
-    this.classList.add('visible')
-    document.body.classList.add('mn-sidenav-visible')
-    document.body.classList.add('mn-backdrop-visible')
-  }
-
-  close() {
-    document.body.classList.remove('mn-sidenav-visible')
-    this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
-  }
-
-  toggle() {
-    this.classList.toggle('visible')
-      ? this.open()
-      : this.close()
-  }
-}
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = MnSidenavCustomElement()
-
-function MnSidenavCustomElement() {
-  const supportsCustomElements = 'customElements' in window
-
-  if (!supportsCustomElements) {
-    __webpack_require__(0)
-  }
-
-  if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(39))
-  }
-
-  return window.customElements.get('mn-sidenav')
-}
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = function atoa (a, n) { return Array.prototype.slice.call(a, n); }
 
 
 /***/ }),
-/* 43 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ticky = __webpack_require__(52);
+var ticky = __webpack_require__(21);
 
 module.exports = function debounce (fn, args, ctx) {
   if (!fn) { return; }
@@ -3413,14 +1550,14 @@ module.exports = function debounce (fn, args, ctx) {
 
 
 /***/ }),
-/* 44 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var atoa = __webpack_require__(42);
-var debounce = __webpack_require__(43);
+var atoa = __webpack_require__(11);
+var debounce = __webpack_require__(12);
 
 module.exports = function emitter (thing, options) {
   var opts = options || {};
@@ -3474,7 +1611,7 @@ module.exports = function emitter (thing, options) {
 
 
 /***/ }),
-/* 45 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -3526,17 +1663,17 @@ function CustomEvent (type, params) {
   return e;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 46 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var customEvent = __webpack_require__(45);
-var eventmap = __webpack_require__(47);
+var customEvent = __webpack_require__(14);
+var eventmap = __webpack_require__(16);
 var doc = global.document;
 var addEvent = addEventEasy;
 var removeEvent = removeEventEasy;
@@ -3635,10 +1772,10 @@ function find (el, type, fn) {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 47 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3656,10 +1793,10 @@ for (eventname in global) {
 
 module.exports = eventmap;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 48 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3699,15 +1836,15 @@ module.exports = {
 
 
 /***/ }),
-/* 49 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var emitter = __webpack_require__(44);
-var crossvent = __webpack_require__(46);
-var classes = __webpack_require__(48);
+var emitter = __webpack_require__(13);
+var crossvent = __webpack_require__(15);
+var classes = __webpack_require__(17);
 var doc = document;
 var documentElement = doc.documentElement;
 
@@ -4312,10 +2449,10 @@ function getCoord (coord, e) {
 
 module.exports = dragula;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 50 */
+/* 19 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -4505,7 +2642,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 51 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -4695,10 +2832,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41), __webpack_require__(50)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(19)))
 
 /***/ }),
-/* 52 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var si = typeof setImmediate === 'function', tick;
@@ -4709,10 +2846,10 @@ if (si) {
 }
 
 module.exports = tick;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(53).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22).setImmediate))
 
 /***/ }),
-/* 53 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -4765,9 +2902,1940 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(51);
+__webpack_require__(20);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnActionSheet extends HTMLElement {
+  constructor() {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setMenu()
+    this._setCancel()
+  }
+
+  static get observedAttributes() {
+    return []
+  }
+
+  attributeChangedCallback(name, old, value) {
+    if (this.parentNode) {
+      this[name] = value
+    }
+  }
+
+  _setStyle() {
+    this.classList.add('mn-action-sheet')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  _setMenu() {
+    const menu = document.createElement('menu')
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.querySelectorAll('option'))
+      .forEach(child => {
+        const option = document.createElement('div')
+        option.classList.add('option')
+        option.innerHTML = child.textContent
+
+        Array
+          .from(child.attributes)
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
+
+        child.parentNode.removeChild(child)
+        menu.appendChild(option)
+      })
+
+    document.addEventListener('click', event => {
+      const isOption = event.target.classList.contains('option') && event.target.closest('.mn-action-sheet')
+      const index = Array.prototype.indexOf.call(this.menu.querySelectorAll('.option'), event.target)
+
+      if (isOption && index >= 0) {
+        const changeEvent = new Event('change')
+        changeEvent.data = {index}
+        this.dispatchEvent(changeEvent)
+      }
+    })
+
+    this.appendChild(menu)
+    this.menu = menu
+  }
+
+  _setCancel() {
+    const button = document.createElement('button')
+
+    button.addEventListener('click', () => {
+      this.hide()
+    })
+
+    document.addEventListener('touchmove', () => {
+      const clickOutside = event.target === this
+      this.touchmove = true
+      if (clickOutside) {
+        event.preventDefault()
+      }
+    })
+
+    document.addEventListener('touchend', (event) => {
+      const clickOutside = event.target === this && !this.touchmove
+      if (clickOutside) {
+        this.hide()
+      }
+      delete this.touchmove
+    })
+
+    this.button = button
+    this.appendChild(this.button)
+  }
+
+  show() {
+    this.menu.scrollTop = 0
+    this.classList.add('visible')
+    document.body.classList.add('mn-backdrop-visible')
+    document.body.classList.add('mn-action-sheet-visible')
+  }
+
+  hide() {
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+    document.body.classList.remove('mn-action-sheet-visible')
+  }
+}
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnButton extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setButton()
+  }
+
+  setStyle() {
+    this.classList.add('mn-button')
+  }
+
+  setButton() {
+    this.setAttribute('tabindex', '0')
+    this.addEventListener('click', () => this.blur())
+
+    document.addEventListener('keyup', (event) => {
+      if (event.target === this && event.key === 'Enter') {
+        this.click()
+      }
+    })
+  }
+}
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSidenavCustomElement()
+
+function MnSidenavCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-button')) {
+    window.customElements.define('mn-button', __webpack_require__(24))
+  }
+
+  return window.customElements.get('mn-button')
+}
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnCheckboxCustomElement()
+
+function MnCheckboxCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-checkbox')) {
+    window.customElements.define('mn-checkbox', __webpack_require__(5))
+  }
+
+  return window.customElements.get('mn-checkbox')
+}
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnDate extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super.setChangeEvents()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-date')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'date')
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate) {
+      this.input.setAttribute('type', 'text')
+      this.input.setAttribute('maxlength', 10)
+      this._setMask()
+    }
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.value === undefined
+    this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
+    this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
+    delete this.validations.pattern
+  }
+
+  _setMask() {
+    this.input.addEventListener('keydown', (event) => {
+      const isInputEditing = event.key === 'Backspace'
+        || this.input.selectionStart !== this.input.value.length
+
+      this.inputEditing = isInputEditing
+    })
+
+    this.input.addEventListener('input', () => {
+      if (!this.inputEditing) {
+        this.updateMask()
+      }
+
+      this.inputEditing = undefined
+    })
+
+    this.input.addEventListener('blur', () => {
+      this.updateMask()
+      const dateString = this.input.value
+        .split('/')
+        .reverse()
+        .join('-')
+
+      isValidDate(dateString)
+        ? this.updateMask()
+        : this.value = ''
+    })
+  }
+
+  updateMask() {
+    this.input.value = this.input.value
+      .replace(/[^\d\/]/, '') // disallow invalid chars
+      .replace(/[a-z]/ig, '') // disallow letters
+      .replace(/(?:^00|^(\d{2})\/00)/g, '$101') // disallow repeated 0
+      .replace(/000(\d)$/g, '190$1') // disallow year 0
+      .replace(/00(\d{2})$/g, '19$1') // disallow year 0
+      .replace(/\/{2}/g, '/') // disallow repeated /
+      .replace(/(^\/)/, '') // disallow / as first char
+      .replace(/(\d+\/\d+\/)\//, '$1') // disallow third /
+      .replace(/^(\d)\//, '0$1/') // leading 0 day
+      .replace(/^(\d{2})(\d{1})/, '$1/$2') // add first /
+      .replace(/^(\d{2}\/)(\d{1})\//, '$10$2/') // leading 0 month
+      .replace(/^(\d{2}\/\d{2})(\d{1})/, '$1/$2') // add second /
+  }
+
+  get value() {
+    let date
+    try {
+      const isDateString = this.input.type === 'date'
+      const value = isDateString
+        ? this.input.value
+        : this.input.value
+          .split('/')
+          .reverse()
+          .join('-')
+
+      date = isValidDate(value)
+        ? newDate(value).toISOString()
+        : undefined
+    } catch (e) {}
+
+    return date
+      ? date
+      : undefined
+  }
+
+  set value(value = '') {
+    const validDate = typeof value === 'string'
+      && isValidDate(value)
+
+    value = value instanceof Date
+      ? value.toISOString().substring(0, 10)
+      : validDate
+        ? newDate(value)
+          .toISOString()
+          .substring(0, 10)
+        : ''
+
+    const supportsInputDate = this.input.type === 'date'
+
+    if (!supportsInputDate && validDate) {
+      const dateString = value.split('-')
+      value = new Date(dateString[0], dateString[1] - 1, dateString[2], 0, 0)
+        .toLocaleString('pt-BR')
+        .substring(0, 10)
+    }
+
+    this.input.value = value
+    this.input.dispatchEvent(new Event('change'))
+  }
+}
+
+function isValidDate(dateString) {
+  const year = +dateString.split('-')[0]
+  const month = +dateString.split('-')[1]
+  const date = newDate(dateString)
+
+  return date.getFullYear() >= 1900
+    && date.getFullYear() === year
+    && date.getMonth() + 1 === month
+}
+
+function newDate(dateString) {
+  dateString = dateString || ''
+  const isString = typeof dateString === 'string'
+  dateString = dateString.replace(/T.+/, '')
+  dateString = isString && dateString.includes('/')
+    ? dateString
+      .split('/')
+      .reverse()
+      .join('-')
+    : dateString
+
+  dateString = dateString.split('-')
+
+  const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
+  return date
+}
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDateCustomElement()
+
+function MnDateCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-date')) {
+    window.customElements.define('mn-date', __webpack_require__(27))
+  }
+
+  return window.customElements.get('mn-date')
+}
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnDialog extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setCard()
+    this.setButtonClose()
+    this.setOpenEvents()
+    this.setToggleEvents()
+    this.setCloseEvents()
+  }
+
+  setStyle() {
+    this.classList.add('mn-dialog')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  setCard() {
+    const card = document.createElement('div')
+    card.classList.add('mn-card')
+    card.innerHTML = this.innerHTML
+    this.innerHTML = ''
+    this.appendChild(card)
+    this.card = card
+  }
+
+  setButtonClose() {
+    const button = document.createElement('button')
+    button.classList.add('mn-button')
+    button.classList.add('action')
+    button.setAttribute('close-dialog', '')
+    const dialog = this.querySelector('.mn-card')
+    dialog.insertBefore(button, dialog.firstChild)
+  }
+
+  setOpenEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[open-dialog="${this.id}"]`)) {
+        this.open()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  setToggleEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[toggle-dialog="${this.id}"]`)) {
+        this.toggle()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  setCloseEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches('[close-dialog]')) {
+        this.close()
+        event.stopPropagation()
+      }
+    })
+
+    document.addEventListener('mousedown', event => {
+      const dialogVisible = this.classList.contains('visible')
+      const clickOutside = event.target.matches('.mn-dialog')
+
+      if (dialogVisible && clickOutside) {
+        this.close()
+      }
+    })
+
+    document.addEventListener('keyup', event => {
+      const esc = event.key === 'Escape'
+      const isOpened = this.classList.contains('visible')
+
+      if (esc && isOpened) {
+        this.close()
+      }
+    })
+  }
+
+  open() {
+    const previousDialog = document.querySelector('.mn-dialog.visible')
+    if (previousDialog) {
+      previousDialog.classList.remove('visible')
+    }
+
+    this.classList.add('visible')
+    this.scrollTop = 0
+    document.body.classList.add('mn-dialog-visible')
+    document.body.classList.add('mn-backdrop-visible')
+    this.dispatchEvent(new Event('open'))
+  }
+
+  close() {
+    document.body.classList.remove('mn-dialog-visible')
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+    this.dispatchEvent(new Event('close'))
+  }
+
+  toggle() {
+    this.classList.toggle('visible')
+      ? this.open()
+      : this.close()
+  }
+}
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDialogCustomElement()
+
+function MnDialogCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-dialog')) {
+    window.customElements.define('mn-dialog', __webpack_require__(29))
+  }
+
+  return window.customElements.get('mn-dialog')
+}
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnEmail extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.classList.add('mn-email')
+    this.input.setAttribute('type', 'email')
+    const regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*'
+    this.setAttribute('pattern', this.getAttribute('pattern') || regex)
+  }
+}
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnEmailCustomElement()
+
+function MnEmailCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-email')) {
+    window.customElements.define('mn-email', __webpack_require__(31))
+  }
+
+  return window.customElements.get('mn-email')
+}
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnForm extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setSubmit()
+    this.setReset()
+    this.setEmpty()
+    this.setAttributeDisabled()
+    this.setAttributeReadonly()
+  }
+
+  static get observedAttributes() {
+    return [
+      'name',
+      'disabled',
+      'readonly',
+    ]
+  }
+
+  attributeChangedCallback(name, old, value) {
+    this[name] = value
+  }
+
+  setStyle() {
+    this.classList.add('mn-form')
+  }
+
+  setSubmit() {
+    document.addEventListener('keydown', (event) => {
+      const enter = event.key === 'Enter'
+      const srcElementInsideForm = event.target.closest('mn-form')
+      if (enter && srcElementInsideForm) {
+        this.submit()
+      }
+    })
+
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="submit"]')
+        || event.target.matches('mn-button[submit]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.submit()
+      }
+    })
+  }
+
+  setReset() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="reset"]')
+        || event.target.matches('mn-button[reset]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.reset()
+      }
+    })
+  }
+
+  setEmpty() {
+    document.addEventListener('click', (event) => {
+      const isButtonSubmit = (event.target.matches('button[type="empty"]')
+        || event.target.matches('mn-button[empty]'))
+        && event.target.closest('mn-form') === this
+
+      if (isButtonSubmit) {
+        this.empty()
+      }
+    })
+  }
+
+  setAttributeDisabled() {
+    this.disabled = this.hasAttribute('disabled')
+  }
+
+  setAttributeReadonly() {
+    this.readonly = this.hasAttribute('readonly')
+  }
+
+  validate() {
+    this.dispatchEvent(new Event('validate'))
+    this.inputs
+      .filter(input => !input.hasAttribute('disabled') && !input.hasAttribute('readonly'))
+      .forEach(input => input.validate())
+
+    const isInvalid = !this.querySelector('.invalid')
+    return isInvalid
+  }
+
+  reset() {
+    this.classList.remove('submitted')
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        if (this[name]) {
+          this[name].value = this.defaults[name]
+
+          const validations = Object.keys(this[name].validations)
+          validations.push('invalid')
+          validations.forEach(validationClass => this[name].classList.remove(validationClass))
+        }
+      })
+  }
+
+  empty() {
+    this.classList.remove('submitted')
+    Object
+      .keys(this.data)
+      .forEach(name => {
+        this[name].value = undefined
+      })
+  }
+
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input, .mn-checkbox, .mn-radio'))
+  }
+
+  get defaults() {
+    const defaults = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          defaults[name] = input.default
+        }
+      })
+
+    return defaults
+  }
+
+  get data() {
+    const data = {}
+
+    this.inputs
+      .forEach(input => {
+        const name = input.getAttribute('name')
+
+        if (name) {
+          data[name] = input.value
+        }
+      })
+
+    return data
+  }
+
+  set name(name) {
+    if (name && typeof name === 'string') {
+      window[name] = this
+    }
+  }
+
+  set disabled(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('disabled')
+          ? input.setAttribute('disabled', 'true')
+          : input.removeAttribute('disabled')
+      })
+  }
+
+  set readonly(value) {
+    this.inputs
+      .forEach(input => {
+        this.hasAttribute('readonly')
+          ? input.setAttribute('readonly', 'true')
+          : input.removeAttribute('readonly')
+      })
+  }
+
+  submit() {
+    this.classList.add('submitted')
+    const isValid = this.validate()
+    const event = new Event('submit')
+    event.data = this.data
+
+    if (isValid) {
+      this.dispatchEvent(event)
+    }
+  }
+}
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnForm', MnFormDirective)
+
+function MnFormDirective() {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      element.bind('submit', () => {
+        scope.$eval(attributes.submit)
+      })
+    }
+  }
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnFormCustomElement()
+
+function MnFormCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-form')) {
+    window.customElements.define('mn-form', __webpack_require__(33))
+  }
+
+  return window.customElements.get('mn-form')
+}
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super.setChangeEvents()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'disabled',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-hidden')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'hidden')
+  }
+}
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnHiddenCustomElement()
+
+function MnHiddenCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-hidden')) {
+    window.customElements.define('mn-hidden', __webpack_require__(36))
+  }
+
+  return window.customElements.get('mn-hidden')
+}
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnInput', MnInputDirective)
+
+function MnInputDirective() {
+  return {
+    restrict: 'C',
+    require: 'ngModel',
+    link(scope, element, attributes, ngModel) {
+      const component = element[0]
+
+      if (!attributes.name) {
+        const name = attributes.ngModel.split('.')[attributes.ngModel.split('.').length - 1]
+        component.setAttribute('name', name)
+      }
+
+      ngModel.$validators = {}
+
+      element.ready(() => {
+        scope.$watch(attributes.ngModel, setComponentValue)
+        component.value = component.hasAttribute('value')
+          ? component.getAttribute('value')
+          : ngModel.$modelValue
+        component.default = component.value
+        component.addEventListener('change', setModelValue)
+        setModelValue()
+      })
+
+      scope.$on('$destroy', () => {
+        const keys = attributes.ngModel.split('.')
+        const prop = keys.pop()
+        if (scope.$parent[keys[0]]) {
+          const model = keys.reduce((obj, key) => obj[key], scope.$parent)
+          delete model[prop]
+        }
+        element.remove()
+      })
+
+      function setComponentValue(value, oldValue) {
+        if (component.hasAttribute('multiple')) {
+          if (!angular.equals(value, oldValue) && !angular.isArray(value)) {
+            component.value = value
+          }
+        } else if (angular.isDefined(value)) {
+          component.value = value
+        }
+      }
+
+      function setModelValue() {
+        const componentExists = component.parentNode
+        if (componentExists) {
+          const modelApplied = angular.equals(ngModel.$modelValue, component.value)
+
+          if (!modelApplied) {
+            ngModel.$setViewValue(component.value)
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnInputCustomElement()
+
+function MnInputCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-input')) {
+    window.customElements.define('mn-input', __webpack_require__(1))
+  }
+
+  return window.customElements.get('mn-input')
+}
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const {HTMLElement} = window
+
+module.exports = class MnList extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+    this.setCollapse()
+    this.setDraggable()
+  }
+
+  setStyle() {
+    this.classList.add('mn-list')
+  }
+
+  setCollapse() {
+    document.addEventListener('click', event => {
+      const isItemCollapse = event.target.matches('.mn-item[collapse]')
+      const nestedList = event.target.parentNode !== this
+
+      if (isItemCollapse && !nestedList) {
+        event.target.classList.contains('detail-visible')
+          ? event.target.classList.remove('detail-visible')
+          : event.target.classList.add('detail-visible')
+        event.stopPropagation()
+      }
+    })
+  }
+
+  setDraggable() {
+    const dragula = __webpack_require__(18)
+    let originIndex
+
+    const options = {
+      containers: [this],
+      moves(element) {
+        originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
+        // console.log('drag from', originIndex)
+        return element.matches('.mn-item[draggable]')
+      },
+      direction: 'vertical',
+      mirrorContainer: this,
+    }
+
+    dragula(options)
+    .on('drop', (element) => {
+      const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
+      const moveItemEvent = new Event('moveItem')
+      moveItemEvent.originIndex = originIndex
+      moveItemEvent.targetIndex = targetIndex
+      this.dispatchEvent(moveItemEvent)
+    })
+  }
+}
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnList', MnListDirective)
+
+function MnListDirective($parse) {
+  return {
+    restrict: 'C',
+    link(scope, element) {
+      let model
+      element.ready(() => {
+        const item = element[0].querySelector('.mn-item[ng-repeat]')
+        const expressionModel = item
+          .getAttribute('ng-repeat')
+          .match(/\sin\s([\w|\d|\.]+)/)[1]
+
+        model = $parse(expressionModel)(scope)
+        // console.log(model)
+        // scope.$apply(() => {
+        //   model.push('test')
+        // })
+        // console.log(model)
+      //   scope.$watch(attributes.ngModel, setComponentValue)
+      //   component.value = component.hasAttribute('value')
+      //     ? component.getAttribute('value')
+      //     : ngModel.$modelValue
+      //   component.default = component.value
+      //   component.addEventListener('change', setModelValue)
+      //   setModelValue()
+      })
+
+      element.on('moveItem', (event) => {
+        const {originIndex, targetIndex} = event
+        scope.$apply(reorderItems)
+
+        function reorderItems() {
+          const value = angular.copy(model[originIndex])
+          model[originIndex] = model[targetIndex]
+          model[targetIndex] = value
+          console.log(model)
+        }
+      })
+
+
+
+      // scope.$on('$destroy', () => {
+      //   const keys = attributes.ngModel.split('.')
+      //   const prop = keys.pop()
+      //   if (scope.$parent[keys[0]]) {
+      //     const model = keys.reduce((obj, key) => obj[key], scope.$parent)
+      //     delete model[prop]
+      //   }
+      //   element.remove()
+      // })
+    }
+  }
+}
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDialogCustomElement()
+
+function MnDialogCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-list')) {
+    window.customElements.define('mn-list', __webpack_require__(40))
+  }
+
+  return window.customElements.get('mn-list')
+}
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+const evaluate = __webpack_require__(2)
+
+module.exports = class MnNumber extends MnInput {
+  constructor(self) {
+    self = super(self)
+    this.delimeterKeys = ['Enter', 'Space']
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setInput()
+    this.setChangeEvents()
+    this._setMask()
+    this._setMobileKeyboard()
+    this._setInputTransforms()
+    this._setInputKeys()
+    super._setPlaceholder()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    this._setAttributeMax()
+    this._setAttributeMin()
+    this._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+      'max',
+      'min',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-number')
+  }
+
+  _setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.input.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
+  _setMobileKeyboard() {
+    this.input.setAttribute('pattern', '\\d*')
+  }
+
+  _setInputTransforms() {
+    this.input.addEventListener('change', () => {
+      const commaOrDot = !this.input.value.endsWith(',')
+        && !this.input.value.endsWith('.')
+
+      if (commaOrDot) {
+        try {
+          const value = eval(this.input.value.replace(/,/g, '.'))
+
+          value !== undefined
+            ? this.input.value = String(value).replace(/\./g, ',')
+            : null
+          const valueIsDefined = value !== undefined
+
+          if (valueIsDefined) {
+            const isCurrency = this.hasAttribute('currency')
+            const precision = this.getAttribute('precision') || 0
+
+            switch (true) {
+              case isCurrency:
+                this.input.value = value.toFixed(precision || 2).replace(/\./g, ',')
+                break
+
+              default:
+                this.input.value = precision
+                  ? value.toFixed(precision).replace(/\./g, ',')
+                  : String(value).replace(/\./g, ',')
+                break
+            }
+          }
+        } catch (e) {
+          this.value = undefined
+          this.input.value = ''
+        }
+
+        this.hasAttribute('percentage')
+          ? this.updateMask()
+          : null
+      }
+    })
+  }
+
+  setChangeEvents() {
+    this.input.addEventListener('blur', this.dispatchChangeEvent)
+  }
+
+  _setInputKeys() {
+    this.input.addEventListener('keydown', (event) => {
+      if (!this.hasAttribute('readonly')) {
+        const step = this.hasAttribute('percentage')
+          ? ((+this.getAttribute('step') * 100) / 10000) || 0.01
+          : +this.getAttribute('step') || 1
+        const value = this.value || 0
+
+        switch (event.key) {
+          case 'ArrowUp':
+            this.value = value + step
+            break
+          case 'ArrowDown':
+            this.value = value - step
+            break
+        }
+
+        event.key === 'ArrowUp' || event.key === 'ArrowDown'
+          ? event.preventDefault()
+          : null
+      }
+    })
+  }
+
+  _setAttributeMax() {
+    this.max = this.getAttribute('max')
+  }
+
+  _setAttributeMin() {
+    this.min = this.getAttribute('min')
+  }
+
+  _setValidations() {
+    super._setValidations()
+    this.validations.required = () => this.hasAttribute('multiple')
+      ? this.value.length === 0
+      : this.value === undefined
+    this.validations.min = () => this.value < this.getAttribute('min')
+    this.validations.max = () => this.value > this.getAttribute('max')
+    delete this.validations.pattern
+  }
+
+  get value() {
+    const isUndefined = this.input.value === '' && !this.hasAttribute('value')
+    const value = this.hasAttribute('value')
+      ? this.getAttribute('value')
+      : this.input.value
+    const numberString = value.replace(/,/g, '.')
+
+    const val = isUndefined
+      ? undefined
+      : this.hasAttribute('percentage')
+        ? (numberString * 100) / 10000
+        : parseFloat(numberString)
+
+    if (isUndefined) {
+      return undefined
+    } else {
+      if (this.hasAttribute('multiple')) {
+        return evaluate(this.getAttribute('value'))
+          ? evaluate(this.getAttribute('value')).map(item => +String(item).replace(',', '.'))
+          : []
+      } else {
+        return this.hasAttribute('percentage')
+          ? (numberString * 100) / 10000
+          : parseFloat(numberString)
+      }
+    }
+
+    return val
+  }
+
+  set value(value) {
+    const valueIsMultiple = this.hasAttribute('multiple')
+    const differentValue = this.getAttribute('value') !== value
+    const hasValue = value !== ''
+
+    if (this.input && hasValue && differentValue) {
+      if (valueIsMultiple) {
+        Array
+          .from(this.querySelectorAll('.value'))
+          .forEach(item => item.parentNode.removeChild(item))
+
+        const values = Array.isArray(value)
+          ? value.map(item => String(item))
+          : [value].filter(item => item !== undefined)
+
+        if (!values.length) {
+          this.removeAttribute('value')
+        }
+
+        values
+          .filter(item => item)
+          .forEach(val => {
+            // val = eval(String(val).replace(/,/g, '.'))
+
+            // if (val !== undefined && differentValue) {
+            //   val = this.hasAttribute('percentage')
+            //     ? +(val * 100).toFixed(this.getAttribute('precision') || 2)
+            //     : val
+            // }
+            this.push(val)
+          })
+      } else {
+        try {
+          value = eval(String(value).replace(/,/g, '.'))
+
+          if (value !== undefined && differentValue) {
+            value = this.hasAttribute('percentage')
+              ? +(value * 100).toFixed(this.getAttribute('precision') || 2)
+              : value
+            this.input.value = value
+          } else {
+            this.input.value = ''
+          }
+        } catch (e) {
+          this.input.value = ''
+        }
+      }
+
+      this.input.dispatchEvent(new Event('change'))
+      this.input.dispatchEvent(new Event('input'))
+    }
+  }
+
+  set max(value) {
+    if (this.label) {
+      this.hasAttribute('max')
+        ? this.label.setAttribute('max', value)
+        : this.label.removeAttribute('max')
+    }
+  }
+
+  set min(value) {
+    if (this.label) {
+      this.hasAttribute('min')
+        ? this.label.setAttribute('min', value)
+        : this.label.removeAttribute('min')
+    }
+  }
+
+  updateMask() {
+    const hasValue = this.input.value !== '' && !/^\s+$/.test(this.input.value)
+
+    if (this.mask && this.hasAttribute('percentage')) {
+      const text = hasValue
+        ? `${this.input.value} %`
+        : ''
+
+      this.mask.textContent = text
+    }
+  }
+}
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnNumberCustomElement()
+
+function MnNumberCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-number')) {
+    window.customElements.define('mn-number', __webpack_require__(43))
+  }
+
+  return window.customElements.get('mn-number')
+}
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnInput = __webpack_require__(1)
+
+module.exports = class MnPassword extends MnInput {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    this._setInput()
+    super.setChangeEvents()
+    super._setPlaceholder()
+    this._setVisibilityButton()
+    super._setAttributeValue()
+    super._setAttributeName()
+    super._setAttributeDisabled()
+    super._setAttributeReadonly()
+    super._setAttributeAutofocus()
+    super._setValidations()
+  }
+
+  static get observedAttributes() {
+    return [
+      'value',
+      'name',
+      'placeholder',
+      'disabled',
+      'readonly',
+      'autofocus',
+    ]
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-password')
+  }
+
+  _setInput() {
+    super._setInput()
+    this.input.setAttribute('type', 'password')
+  }
+
+  _setVisibilityButton() {
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
+    button.setAttribute('tabindex', '-1')
+
+    this.appendChild(button)
+    this.button = button
+    this.input.addEventListener('blur', () => {
+      this.input.setAttribute('type', 'password')
+      this.classList.remove('show-password')
+      this.input.dispatchEvent(new Event('change'))
+    })
+
+    button.addEventListener('mousedown', event => {
+      event.preventDefault()
+    })
+
+    button.addEventListener('click', () => {
+      const toggledType = this.input.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password'
+      this.input.setAttribute('type', toggledType)
+      this.classList.toggle('show-password')
+      this.input.focus()
+    })
+  }
+}
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnPasswordCustomElement()
+
+function MnPasswordCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-password')) {
+    window.customElements.define('mn-password', __webpack_require__(45))
+  }
+
+  return window.customElements.get('mn-password')
+}
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnCheckbox = __webpack_require__(5)
+const evaluate = __webpack_require__(2)
+
+module.exports = class MnRadio extends MnCheckbox {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.innerHTML = ''
+    this._setStyle()
+    super._setLabel()
+    this._setInput()
+    this._setCustomInput()
+    this._setForm()
+    // this.checked = this.hasAttribute('checked')
+    this.disabled = this.hasAttribute('disabled')
+    this.readonly = this.hasAttribute('readonly')
+    this.name = this.hasAttribute('name')
+    this._setValidations()
+  }
+
+  _setStyle() {
+    this.classList.add('mn-radio')
+    this.classList.add('mn-option')
+  }
+
+  _setInput() {
+    this.input = document.createElement('input')
+    this.input.setAttribute('type', 'radio')
+    this.label.appendChild(this.input)
+
+    this.input.addEventListener('change', (event) => {
+      this.checked
+        ? this.setAttribute('checked', '')
+        : this.removeAttribute('checked')
+
+      this.options.forEach(option => {
+        if (option !== event.target.closest('mn-radio')) {
+          option.removeAttribute('checked')
+          option.input.checked = false
+        }
+
+        option.form && option.form.classList && option.form.classList.contains('submitted')
+          ? option.validate()
+          : null
+      })
+    })
+  }
+
+  _setCustomInput() {
+    const input = document.createElement('div')
+    input.classList.add('input')
+
+    this.label.appendChild(input)
+  }
+
+  _setValidations() {
+    this.validations = {
+      required: () => !this.value,
+    }
+  }
+
+  get options() {
+    const name = this.getAttribute('name')
+      ? `[name="${this.getAttribute('name')}"]`
+      : ':not([name])'
+
+    return Array.from(this.form.querySelectorAll(`.mn-radio${name}`))
+  }
+
+  get value() {
+    const value = this
+      .options
+      .filter(option => option.checked)
+      .map(option => option.hasAttribute('value')
+        ? evaluate(option.getAttribute('value'))
+        : option.getAttribute('placeholder')
+      )
+
+    return value[0]
+  }
+
+  set value(value) {
+    this.options.forEach(option => {
+      option.checked = false
+    })
+
+    const option = this.options.find(option => evaluate(option.getAttribute('value')) === value)
+
+    if (option) {
+      option.checked = true
+    }
+  }
+}
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnRadio', MnRadioDirective)
+
+module.exports = MnRadioDirective
+
+function MnRadioDirective() {
+  const MnCheckboxDirective = __webpack_require__(6)
+  return MnCheckboxDirective()
+}
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnRadioCustomElement()
+
+function MnRadioCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-radio')) {
+    window.customElements.define('mn-radio', __webpack_require__(47))
+  }
+
+  return window.customElements.get('mn-radio')
+}
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const MnSelect = __webpack_require__(7)
+
+module.exports = class MnSearch extends MnSelect {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.setLoading()
+    this.setSearchSheet()
+  }
+
+  _setStyle() {
+    super._setStyle()
+    this.classList.add('mn-search')
+  }
+
+  setLoading() {
+    const loading = document.createElement('div')
+    loading.classList.add('loading')
+    this.appendChild(loading)
+  }
+
+  setSearchSheet() {
+    if (this.actionSheet) {
+      this.actionSheet = undefined
+
+      const dialog = document.createElement('mn-dialog')
+      this.searchSheet = dialog
+      this.searchSheet.classList.add('search-sheet')
+      const input = document.createElement('mn-input')
+      input.setAttribute('placeholder', 'Type to search')
+
+      this.searchSheet.appendChild(input)
+      document.body.appendChild(this.searchSheet)
+
+      this.searchSheetInput = this.searchSheet.querySelector('mn-input')
+      this.setSearchSheetList()
+
+      this.searchSheetInput.addEventListener('input', () => {
+        this.filter = event.target.value
+        const search = new Event('search')
+        search.query = event.target.value
+        this.dispatchEvent(search)
+      })
+
+      this.input.addEventListener('focus', () => {
+        this.blur()
+        this.searchSheet.open()
+        this.searchSheetInput.value = ''
+        this.searchSheetInput.dispatchEvent(new Event('input'))
+        setTimeout(() => {
+          this.searchSheetInput.focus()
+        }, 410)
+      })
+
+    }
+  }
+
+  setSearchSheetList() {
+    this.searchSheetList = document.createElement('ul')
+    this.searchSheetList.classList.add('mn-list')
+    this.searchSheet.querySelector('.mn-card').appendChild(this.searchSheetList)
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const addedNode = mutation.addedNodes[0]
+        const removedNode = mutation.removedNodes[0]
+        const addOption = addedNode && addedNode.tagName === 'OPTION'
+        const removeOption = removedNode && removedNode.tagName === 'OPTION'
+
+        if (addOption) {
+          const item = document.createElement('div')
+          item.classList.add('mn-item')
+          item.textContent = addedNode.textContent
+          item.setAttribute('value', addedNode.getAttribute('value') || addedNode.textContent)
+          this.searchSheetList.appendChild(item)
+
+          item.addEventListener('touchend', (event) => {
+            this.searchSheet.close()
+            this.value = event.target.getAttribute('value')
+          })
+        }
+
+        if (removeOption) {
+          const value = removedNode.getAttribute('value')
+          const item = this.searchSheet.querySelector(`.mn-item[value="${value}"]`)
+          item.parentNode.removeChild(item)
+        }
+      })
+    })
+
+    observer.observe(this, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+    })
+  }
+
+  _setInput() {
+    super._setInput()
+
+    this.input.addEventListener('input', () => {
+      const event = new Event('search')
+      event.query = this.input.value
+      this.dispatchEvent(event)
+    })
+  }
+
+  fetch(request) {
+    const requestType = typeof request
+    const loader = requestType === 'function'
+      ? request
+      : () => fetch(request)
+
+    this.classList.add('loading')
+
+    return loader()
+      .then(res => {
+        this.cleanOptions()
+        this.classList.remove('loading')
+        this.dispatchEvent(new Event('loading'))
+
+        return res
+      })
+  }
+}
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-search')) {
+    window.customElements.define('mn-search', __webpack_require__(50))
+  }
+
+  return window.customElements.get('mn-search')
+}
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSelectCustomElement()
+
+function MnSelectCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-select')) {
+    window.customElements.define('mn-select', __webpack_require__(7))
+  }
+
+  return window.customElements.get('mn-select')
+}
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+const {HTMLElement} = window
+
+module.exports = class MnSidenav extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this._setStyle()
+    this._setOpenEvents()
+    this._setToggleEvents()
+    this._setCloseEvents()
+  }
+
+  _setStyle() {
+    this.classList.add('mn-sidenav')
+    this.classList.add('mn-card')
+    document.body.classList.add('mn-backdrop')
+  }
+
+  _setOpenEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[open-sidenav="${this.id}"]`)) {
+        this.open()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  _setToggleEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches(`[toggle-sidenav="${this.id}"]`)) {
+        this.toggle()
+        event.stopPropagation()
+      }
+    })
+  }
+
+  _setCloseEvents() {
+    document.addEventListener('click', event => {
+      if (event.target.matches('[close-sidenav]')) {
+        this.close()
+        event.stopPropagation()
+      }
+    })
+
+    document.addEventListener('click', event => {
+      const clickOutside = !event.target.matches('[open-sidenav]')
+        && !event.target.matches('[close-sidenav]')
+        && !event.target.matches('[toggle-sidenav]')
+        && !event.target.closest('mn-sidenav')
+      const sidebarVisible = this.classList.contains('visible')
+
+      if (clickOutside && sidebarVisible) {
+        this.close()
+      }
+    })
+
+    document.addEventListener('keyup', event => {
+      const esc = event.key === 'Escape'
+      const isOpened = this.classList.contains('visible')
+
+      if (esc && isOpened) {
+        this.close()
+      }
+    })
+  }
+
+  open() {
+    const fontSizeHTML = parseInt(window.getComputedStyle(document.body, null).getPropertyValue('font-size'))
+    const activeElement = this.querySelector('.active')
+    this.scrollTop = activeElement
+      ? activeElement.offsetTop - fontSizeHTML * 1.5
+      : 0
+    this.classList.add('visible')
+    document.body.classList.add('mn-sidenav-visible')
+    document.body.classList.add('mn-backdrop-visible')
+  }
+
+  close() {
+    document.body.classList.remove('mn-sidenav-visible')
+    this.classList.remove('visible')
+    document.body.classList.remove('mn-backdrop-visible')
+  }
+
+  toggle() {
+    this.classList.toggle('visible')
+      ? this.open()
+      : this.close()
+  }
+}
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnSidenavCustomElement()
+
+function MnSidenavCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-sidenav')) {
+    window.customElements.define('mn-sidenav', __webpack_require__(53))
+  }
+
+  return window.customElements.get('mn-sidenav')
+}
 
 
 /***/ })

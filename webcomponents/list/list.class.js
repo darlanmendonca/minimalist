@@ -38,7 +38,7 @@ module.exports = class MnList extends HTMLElement {
       containers: [this],
       moves(element) {
         originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
-        console.log('drag from', originIndex)
+        // console.log('drag from', originIndex)
         return element.matches('.mn-item[draggable]')
       },
       direction: 'vertical',
@@ -48,7 +48,10 @@ module.exports = class MnList extends HTMLElement {
     dragula(options)
     .on('drop', (element) => {
       const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
-      console.log('dropped to', targetIndex)
+      const moveItemEvent = new Event('moveItem')
+      moveItemEvent.originIndex = originIndex
+      moveItemEvent.targetIndex = targetIndex
+      this.dispatchEvent(moveItemEvent)
     })
   }
 }
