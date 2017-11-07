@@ -9,6 +9,7 @@ module.exports = class MnList extends HTMLElement {
   connectedCallback() {
     this.setStyle()
     this.setCollapse()
+    this.setDraggable()
   }
 
   setStyle() {
@@ -27,5 +28,23 @@ module.exports = class MnList extends HTMLElement {
         event.stopPropagation()
       }
     })
+  }
+
+  setDraggable() {
+    const items = this.querySelectorAll('.mn-item')
+    const dragula = require('dragula')
+    const options = {
+      containers: [this],
+      moves(element, source, handle, sibling) {
+        return element.matches('.mn-item[draggable]')
+      },
+      direction: 'vertical',
+      mirrorContainer: this,
+    }
+
+    dragula(options)
+      // .on('drop', () => {
+      //   console.log('wow')
+      // })
   }
 }

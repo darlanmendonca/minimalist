@@ -8,7 +8,7 @@ html
 
     link(rel='stylesheet' href='/vendor.css')
 
-  body(ng-app='app')
+  body
     include pages/home
 
     //- section.tabs.mn-layout-container-full
@@ -31,14 +31,15 @@ html
       mn-radio(placeholder='mn-hidden' name='tab')
 
     //- include pages/button
+    section.mn-layout-container(style='margin-bottom: 2em')
+      h3(style='color: white') vanilla
+      mn-list.mn-card
+        .mn-item(draggable) item 1
+        .mn-item item 2
+        .mn-item(draggable) item 3
 
-    section.mn-layout-container(ng-controller='HomeController as home' style='margin-bottom: 2em')
-
-      h3 chips
-      .mn-card.padding.mn-layout-row
-        span.mn-chip hello
-        span.mn-chip hello
-
+    section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
+      h3(style='color: white') angular
       mn-list.mn-card
         .mn-item(draggable) lero 1
         .mn-item(collapse) lero 2

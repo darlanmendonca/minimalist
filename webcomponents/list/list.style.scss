@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0;
   display: block;
+  position: relative;
 
   .mn-item {
     padding: 1.6em 2em;
@@ -47,10 +48,6 @@
   .mn-list {transform: translateY(1em)}
 }
 
-.mn-list .mn-item[draggable] {
-  cursor: move;
-}
-
 .mn-list .mn-list {
   display: block !important;
   flex: 0 1 100%;
@@ -60,6 +57,37 @@
   transition: max-height .3s ease;
 
   p {margin-bottom: 0}
+}
+
+.mn-list .mn-item[draggable] {
+  cursor: move;
+  transition: all .2s ease;
+
+  &.gu-transit, &:active {
+    transform: scale(1.02);
+    // opacity: 0;
+    background: inherit;
+    box-shadow: rgba(0,0,0,.14902) 0 1px 1px;
+  }
+}
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0;
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  user-select: none !important;
+}
+
+.gu-transit {
+  opacity: 1;
 }
 
 
