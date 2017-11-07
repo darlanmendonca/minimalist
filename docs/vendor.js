@@ -1452,8 +1452,8 @@ angular
 
 function HomeController() {
   this.name = 'darlan'
-  // this.houses = ['stark', 'lannister', 'targaryen']
-  this.houses = 'stark'
+  this.houses = ['stark', 'lannister', 'targaryen']
+  // this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
 }
@@ -2494,11 +2494,14 @@ module.exports = class MnList extends HTMLElement {
   }
 
   setDraggable() {
-    const items = this.querySelectorAll('.mn-item')
     const dragula = __webpack_require__(49)
+    let originIndex
+
     const options = {
       containers: [this],
-      moves(element, source, handle, sibling) {
+      moves(element) {
+        originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
+        console.log('drag from', originIndex)
         return element.matches('.mn-item[draggable]')
       },
       direction: 'vertical',
@@ -2506,9 +2509,10 @@ module.exports = class MnList extends HTMLElement {
     }
 
     dragula(options)
-      // .on('drop', () => {
-      //   console.log('wow')
-      // })
+    .on('drop', (element) => {
+      const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
+      console.log('dropped to', targetIndex)
+    })
   }
 }
 
