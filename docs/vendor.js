@@ -3911,7 +3911,6 @@ module.exports = class MnList extends HTMLElement {
       containers: [this],
       moves(element) {
         originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
-        // console.log('drag from', originIndex)
         return element.matches('.mn-item[draggable]')
       },
       direction: 'vertical',
@@ -3921,10 +3920,13 @@ module.exports = class MnList extends HTMLElement {
     dragula(options)
     .on('drop', (element) => {
       const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
-      const moveItemEvent = new Event('moveItem')
-      moveItemEvent.originIndex = originIndex
-      moveItemEvent.targetIndex = targetIndex
-      this.dispatchEvent(moveItemEvent)
+
+      if (originIndex !== targetIndex) {
+        const moveItemEvent = new Event('moveItem')
+        moveItemEvent.originIndex = originIndex
+        moveItemEvent.targetIndex = targetIndex
+        this.dispatchEvent(moveItemEvent)
+      }
     })
   }
 }
@@ -3952,18 +3954,6 @@ function MnListDirective($parse) {
           .match(/\sin\s([\w|\d|\.]+)/)[1]
 
         model = $parse(expressionModel)(scope)
-        // console.log(model)
-        // scope.$apply(() => {
-        //   model.push('test')
-        // })
-        // console.log(model)
-      //   scope.$watch(attributes.ngModel, setComponentValue)
-      //   component.value = component.hasAttribute('value')
-      //     ? component.getAttribute('value')
-      //     : ngModel.$modelValue
-      //   component.default = component.value
-      //   component.addEventListener('change', setModelValue)
-      //   setModelValue()
       })
 
       element.on('moveItem', (event) => {
@@ -3974,21 +3964,8 @@ function MnListDirective($parse) {
           const value = angular.copy(model[originIndex])
           model[originIndex] = model[targetIndex]
           model[targetIndex] = value
-          console.log(model)
         }
       })
-
-
-
-      // scope.$on('$destroy', () => {
-      //   const keys = attributes.ngModel.split('.')
-      //   const prop = keys.pop()
-      //   if (scope.$parent[keys[0]]) {
-      //     const model = keys.reduce((obj, key) => obj[key], scope.$parent)
-      //     delete model[prop]
-      //   }
-      //   element.remove()
-      // })
     }
   }
 }
