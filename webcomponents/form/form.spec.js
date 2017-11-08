@@ -62,7 +62,7 @@ describe('mn-form (webcomponent)', () => {
 
     it('should contain initial values', () => {
       expect(component.defaults).to.have.property('username', 'johnsnow')
-      expect(component.defaults).to.have.property('password', '')
+      expect(component.defaults).to.have.property('password', undefined)
     })
   })
 
@@ -101,7 +101,7 @@ describe('mn-form (webcomponent)', () => {
       component.username.value = 'daenerys'
       component.reset()
       expect(component.username).to.have.value('johnsnow')
-      expect(component.password).to.have.value('')
+      expect(component.password).to.have.value(undefined)
     })
 
     it('should be called when click in button with type reset', () => {
