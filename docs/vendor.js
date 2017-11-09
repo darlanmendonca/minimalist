@@ -288,7 +288,7 @@ module.exports = class MnInput extends HTMLElement {
     this.validations = {
       required: () => this.hasAttribute('multiple')
         ? this.value.length === 0
-        : this.value === '',
+        : this.value === undefined,
       pattern: () => {
         const reg = new RegExp(this.getAttribute('pattern'))
 
@@ -304,7 +304,7 @@ module.exports = class MnInput extends HTMLElement {
       ? evaluate(this.getAttribute('value'))
         ? evaluate(this.getAttribute('value')).map(item => String(item))
         : []
-      : this.input.value
+      : this.input.value || undefined
   }
 
   set value(value = '') {
@@ -940,9 +940,8 @@ module.exports = class MnSelect extends MnInput {
 
           const isOptionSelected = addedNode.getAttribute('value') === this.getAttribute('value')
             || addedNode.textContent === this.getAttribute('value')
-            || isObjectValue && (this.value.id || this.value._id)
-              ? this.value.id === evaluate(this.getAttribute('value')).id ||
-                this.value._id === evaluate(this.getAttribute('value'))._id
+            || isObjectValue && this.value.id
+              ? this.value.id === evaluate(addedNode.getAttribute('value')).id
               : false
 
           if (isOptionSelected && !this.classList.contains('focus')) {
@@ -2481,8 +2480,8 @@ module.exports = class MnList extends HTMLElement {
 
   setCollapse() {
     document.addEventListener('click', event => {
-      const isItemCollapse = event.target.matches(`.mn-item[collapse]`)
-      const nestedList = event.target.parentNode !== this
+      const isItemCollapse = event.target.matches('.mn-item[collapse]')
+      const nestedList = event.target.closest('.mn-list') !== this
 
       if (isItemCollapse && !nestedList) {
         event.target.classList.contains('detail-visible')

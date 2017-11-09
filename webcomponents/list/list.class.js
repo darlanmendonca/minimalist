@@ -18,7 +18,7 @@ module.exports = class MnList extends HTMLElement {
   setCollapse() {
     document.addEventListener('click', event => {
       const isItemCollapse = event.target.matches('.mn-item[collapse]')
-      const nestedList = event.target.parentNode !== this
+      const nestedList = event.target.closest('.mn-list') !== this
 
       if (isItemCollapse && !nestedList) {
         event.target.classList.contains('detail-visible')
