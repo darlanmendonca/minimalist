@@ -2480,13 +2480,18 @@ module.exports = class MnList extends HTMLElement {
 
   setCollapse() {
     document.addEventListener('click', event => {
+      const item = event.target.closest('.mn-item[collapse]')
       const isItemCollapse = event.target.matches('.mn-item[collapse]')
-      const nestedList = event.target.closest('.mn-list') !== this
+        || item
+            && event.target.tagName !== 'A'
+            && event.target.tagName !== 'BUTTON'
+            && event.target.tagName !== 'MN-BUTTON'
+      const isListOwnerOfItem = event.target.closest('.mn-list') === this
 
-      if (isItemCollapse && !nestedList) {
-        event.target.classList.contains('detail-visible')
-          ? event.target.classList.remove('detail-visible')
-          : event.target.classList.add('detail-visible')
+      if (isItemCollapse && isListOwnerOfItem) {
+        item.classList.contains('detail-visible')
+          ? item.classList.remove('detail-visible')
+          : item.classList.add('detail-visible')
         event.stopPropagation()
       }
     })
