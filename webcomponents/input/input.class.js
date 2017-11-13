@@ -173,7 +173,7 @@ module.exports = class MnInput extends HTMLElement {
     this.validations = {
       required: () => this.hasAttribute('multiple')
         ? this.value.length === 0
-        : this.value === '',
+        : this.value === undefined,
       pattern: () => {
         const reg = new RegExp(this.getAttribute('pattern'))
 
@@ -189,7 +189,7 @@ module.exports = class MnInput extends HTMLElement {
       ? evaluate(this.getAttribute('value'))
         ? evaluate(this.getAttribute('value')).map(item => String(item))
         : []
-      : this.input.value
+      : this.input.value || undefined
   }
 
   set value(value = '') {

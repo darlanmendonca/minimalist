@@ -69,17 +69,17 @@ describe('mn-password (webcomponent)', () => {
 
   describe('property value', () => {
     it('should return empty string when it is undefined', () => {
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with undefined', () => {
+    it('should be undefined when it is setted with undefined', () => {
       password.setProperty('value', undefined)
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with null', () => {
+    it('should be undefined when it is setted with null', () => {
       password.setProperty('value', null)
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should setter and getter as string', () => {
@@ -96,7 +96,7 @@ describe('mn-password (webcomponent)', () => {
 
     it('should set property value when attribute is removed', () => {
       password.removeAttribute('value')
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
   })
 

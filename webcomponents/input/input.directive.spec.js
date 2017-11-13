@@ -37,15 +37,15 @@ describe('mn-input (directive)', () => {
     })
 
     it('should be empty string if it doesn\'t exist', () => {
-      expect(scope.username).to.be.equal('')
-      expect(component).to.have.value('')
+      expect(scope.username).to.be.undefined
+      expect(component).to.have.value(undefined)
     })
 
     it('should be undefined if applied undefined', () => {
       scope.username = undefined
       scope.$digest()
       expect(scope.username).to.be.undefined
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should be a string if applied a string to ngModel', () => {
@@ -91,15 +91,15 @@ describe('mn-input (directive)', () => {
     })
 
     it('should be empty string if it doesn\'t exist', () => {
-      expect(scope.password).to.be.equal('')
-      expect(component).to.have.value('')
+      expect(scope.password).to.be.undefined
+      expect(component).to.have.value(undefined)
     })
 
     it('should be undefined if applied undefined', () => {
       scope.password = undefined
       scope.$digest()
       expect(scope.password).to.be.undefined
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should be a string if applied a string to ngModel', () => {
@@ -145,15 +145,15 @@ describe('mn-input (directive)', () => {
     })
 
     it('should be empty string if it doesn\'t exist', () => {
-      expect(scope.hidden).to.be.equal('')
-      expect(component).to.have.value('')
+      expect(scope.hidden).to.be.undefined
+      expect(component).to.have.value(undefined)
     })
 
     it('should be undefined if applied undefined', () => {
       scope.hidden = undefined
       scope.$digest()
       expect(scope.hidden).to.be.undefined
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should be a string if applied a string to ngModel', () => {

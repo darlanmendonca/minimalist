@@ -67,18 +67,18 @@ describe('mn-hidden (webcomponent)', () => {
   })
 
   describe('property value', () => {
-    it('should return empty string when it is undefined', () => {
-      expect(component).to.have.value('')
+    it('should return undefined when it is undefined', () => {
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with undefined', () => {
+    it('should be undfined when it is setted with undefined', () => {
       hidden.setProperty('value', undefined)
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
-    it('should get empty string when it is setted with null', () => {
+    it('should be undfined when it is setted with null', () => {
       hidden.setProperty('value', null)
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
 
     it('should setter and getter as string', () => {
@@ -95,7 +95,7 @@ describe('mn-hidden (webcomponent)', () => {
 
     it('should set property value when attribute is removed', () => {
       hidden.removeAttribute('value')
-      expect(component).to.have.value('')
+      expect(component).to.have.value(undefined)
     })
   })
 
