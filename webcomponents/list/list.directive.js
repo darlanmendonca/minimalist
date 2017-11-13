@@ -4,6 +4,8 @@ angular
   .module('minimalist')
   .directive('mnList', MnListDirective)
 
+MnListDirective.$inject = ['$parse']
+
 function MnListDirective($parse) {
   return {
     restrict: 'C',
