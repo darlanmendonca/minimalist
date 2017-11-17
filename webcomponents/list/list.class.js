@@ -1,8 +1,13 @@
 const {HTMLElement} = window
 
+const dragula = require('dragula')
+let drake
+let dragulaContainers = []
+
 module.exports = class MnList extends HTMLElement {
   constructor(self) {
     self = super(self)
+    dragulaContainers.push(this)
     return self
   }
 
@@ -36,20 +41,37 @@ module.exports = class MnList extends HTMLElement {
   }
 
   setDraggable() {
-    const dragula = require('dragula')
     let originIndex
 
     const options = {
-      containers: [this],
+      containers: dragulaContainers,
       moves(element) {
-        originIndex = Array.prototype.indexOf.call(this.containers[0].querySelectorAll('.mn-item'), element)
+        originIndex = Array.prototype.indexOf.call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
         return element.matches('.mn-item[draggable]')
+      },
+      accepts(element, target) {
+        const parent = element.closest('.mn-list')
+        const parentName = parent.getAttribute('name')
+        const targetName = target.getAttribute('name')
+
+        const move = parent === target
+          || (parent.hasAttribute('name')
+            && target.hasAttribute('name')
+            && parentName === targetName
+          )
+        return move
       },
       direction: 'vertical',
       mirrorContainer: this,
     }
 
-    dragula(options)
+    if (drake) {
+      drake = drake.destroy()
+    }
+
+    drake = dragula(options)
+
+    drake
     .on('drop', (element) => {
       const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
 
