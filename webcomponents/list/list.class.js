@@ -72,16 +72,27 @@ module.exports = class MnList extends HTMLElement {
     drake = dragula(options)
 
     drake
-    .on('drop', (element) => {
-      const parentList = element.closest('.mn-list')
-      const targetIndex = Array.prototype.indexOf.call(parentList.querySelectorAll('.mn-item'), element)
+    .on('drop', (element, target, source) => {
+      const targetIndex = Array.prototype.indexOf.call(source.querySelectorAll('.mn-item'), element)
 
-      if (originIndex !== targetIndex) {
-        const moveItemEvent = new Event('moveItem')
-        moveItemEvent.originIndex = originIndex
-        moveItemEvent.targetIndex = targetIndex
-        moveItemEvent.targetElement = element
-        parentList.dispatchEvent(moveItemEvent)
+      const reorder = source === target
+      const rearrange = source !== target
+
+      if (reorder) { // reorder inside same list
+        if (originIndex !== targetIndex) {
+          const event = new Event('reorder')
+          event.originIndex = originIndex
+          event.targetIndex = targetIndex
+          source.dispatchEvent(event)
+        }
+      } else if (rearrange) { // rearrange between other list
+        const event = new Event('rearrange')
+        event.origin = source
+        event.element = element
+        event.targetList = target
+        event.originIndex = originIndex
+        event.targetIndex = targetIndex
+        source.dispatchEvent(event)
       }
     })
   }

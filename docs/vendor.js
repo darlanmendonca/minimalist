@@ -3946,16 +3946,27 @@ module.exports = class MnList extends HTMLElement {
     drake = dragula(options)
 
     drake
-    .on('drop', (element) => {
-      const parentList = element.closest('.mn-list')
-      const targetIndex = Array.prototype.indexOf.call(parentList.querySelectorAll('.mn-item'), element)
+    .on('drop', (element, target, source) => {
+      const targetIndex = Array.prototype.indexOf.call(source.querySelectorAll('.mn-item'), element)
 
-      if (originIndex !== targetIndex) {
-        const moveItemEvent = new Event('moveItem')
-        moveItemEvent.originIndex = originIndex
-        moveItemEvent.targetIndex = targetIndex
-        moveItemEvent.targetElement = element
-        parentList.dispatchEvent(moveItemEvent)
+      const reorder = source === target
+      const rearrange = source !== target
+
+      if (reorder) { // reorder inside same list
+        if (originIndex !== targetIndex) {
+          const event = new Event('reorder')
+          event.originIndex = originIndex
+          event.targetIndex = targetIndex
+          source.dispatchEvent(event)
+        }
+      } else if (rearrange) { // rearrange between other list
+        const event = new Event('rearrange')
+        event.origin = source
+        event.element = element
+        event.targetList = target
+        event.originIndex = originIndex
+        event.targetIndex = targetIndex
+        source.dispatchEvent(event)
       }
     })
   }
@@ -3982,27 +3993,52 @@ function MnListDirective($parse) {
 
       element.ready(() => {
         const item = element[0].querySelector('.mn-item[ng-repeat][draggable]')
+        let expressionModel
         if (item) {
-          const expressionModel = item
+          expressionModel = item
             .getAttribute('ng-repeat')
             .match(/\sin\s([\w|\d|\.]+)/)[1]
 
           model = $parse(expressionModel)(scope)
         }
 
-        element[0].addEventListener('moveItem', (event) => {
-          const {originIndex, targetIndex, targetElement} = event
-
-          const sameList = angular.equals(targetElement.closest('.mn-list'), element[0])
-
-          if (sameList) {
-            scope.$apply(reorderItems)
-          }
+        element.on('reorder', (event) => {
+          const {originIndex, targetIndex} = event
+          scope.$apply(reorderItems)
 
           function reorderItems() {
             const value = angular.copy(model[originIndex])
             model[originIndex] = model[targetIndex]
             model[targetIndex] = value
+          }
+        })
+
+        element.on('rearrange', (event) => {
+          const {origin, originIndex, targetList, targetIndex, element} = event
+          setTimeout(() => {
+            scope.$apply(rearrangeItems)
+          }, 0)
+
+          function rearrangeItems() {
+            const value = angular.copy(model[originIndex])
+            // model.splice(originIndex, 1)
+            const newNgRepeat = Array
+              .from(targetList.querySelectorAll('.mn-item'))
+              .filter(item => {
+                return item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
+                  && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
+              })[0].getAttribute('ng-repeat')
+
+            element.setAttribute('ng-repeat', newNgRepeat)
+
+            // if (someTargetItem.nextElementSibling && newNgRepeat) {
+            //   const expressionModel = someTargetItem
+            //     .getAttribute('ng-repeat')
+            //     .match(/\sin\s([\w|\d|\.]+)/)[1]
+
+            //   const targetModel = $parse(expressionModel)(scope)
+            //   console.log('to', targetModel)
+            // }
           }
         })
       })
