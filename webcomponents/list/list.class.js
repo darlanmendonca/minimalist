@@ -79,6 +79,7 @@ module.exports = class MnList extends HTMLElement {
         const moveItemEvent = new Event('moveItem')
         moveItemEvent.originIndex = originIndex
         moveItemEvent.targetIndex = targetIndex
+        moveItemEvent.targetElement = element
         this.dispatchEvent(moveItemEvent)
       }
     })

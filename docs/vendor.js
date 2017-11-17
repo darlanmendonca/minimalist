@@ -3952,6 +3952,7 @@ module.exports = class MnList extends HTMLElement {
         const moveItemEvent = new Event('moveItem')
         moveItemEvent.originIndex = originIndex
         moveItemEvent.targetIndex = targetIndex
+        moveItemEvent.targetElement = element
         this.dispatchEvent(moveItemEvent)
       }
     })
@@ -3976,6 +3977,7 @@ function MnListDirective($parse) {
     restrict: 'C',
     link(scope, element) {
       let model
+
       element.ready(() => {
         const item = element[0].querySelector('.mn-item[ng-repeat][draggable]')
         if (item) {
@@ -3987,9 +3989,13 @@ function MnListDirective($parse) {
         }
       })
 
+      // console.log(element[0])
       element.on('moveItem', (event) => {
-        const {originIndex, targetIndex} = event
-        scope.$apply(reorderItems)
+        const {originIndex, targetIndex, targetElement} = event
+
+        if (angular.equals(targetElement.closest('.mn-list'), element[0])) {
+          scope.$apply(reorderItems)
+        }
 
         function reorderItems() {
           const value = angular.copy(model[originIndex])

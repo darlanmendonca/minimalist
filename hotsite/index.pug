@@ -45,7 +45,10 @@ html
       h3(style='color: white') other vanilla list
       mn-list.mn-card(name='lero')
         .mn-item(draggable) other 1
-        .mn-item(draggable) other 2
+        .mn-item(draggable collapse) other 2
+          mn-list.mn-item-detail(name='lero')
+            .mn-item(draggable) lorem 1
+            .mn-item(draggable) lorem 2
 
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
       h3(style='color: white') angular
