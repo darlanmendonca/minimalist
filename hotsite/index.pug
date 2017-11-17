@@ -52,8 +52,12 @@ html
 
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
       h3(style='color: white') angular
-      mn-list.mn-card
+      mn-list.mn-card(name='angularGroup')
         .mn-item(ng-repeat='item in home.houses' draggable) {{ item }}
+
+      h3(style='color: white') other list angular
+      mn-list.mn-card(name='angularGroup')
+        .mn-item(ng-repeat='item in home.list' draggable) {{ item }}
         //- .mn-item(draggable) lero 1
         //- .mn-item lero 3
       //- .mn-card.padding

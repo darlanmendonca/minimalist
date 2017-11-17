@@ -73,14 +73,15 @@ module.exports = class MnList extends HTMLElement {
 
     drake
     .on('drop', (element) => {
-      const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
+      const parentList = element.closest('.mn-list')
+      const targetIndex = Array.prototype.indexOf.call(parentList.querySelectorAll('.mn-item'), element)
 
       if (originIndex !== targetIndex) {
         const moveItemEvent = new Event('moveItem')
         moveItemEvent.originIndex = originIndex
         moveItemEvent.targetIndex = targetIndex
         moveItemEvent.targetElement = element
-        this.dispatchEvent(moveItemEvent)
+        parentList.dispatchEvent(moveItemEvent)
       }
     })
   }

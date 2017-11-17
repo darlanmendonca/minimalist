@@ -21,22 +21,24 @@ function MnListDirective($parse) {
 
           model = $parse(expressionModel)(scope)
         }
+
+        element[0].addEventListener('moveItem', (event) => {
+          const {originIndex, targetIndex, targetElement} = event
+
+          const sameList = angular.equals(targetElement.closest('.mn-list'), element[0])
+
+          if (sameList) {
+            scope.$apply(reorderItems)
+          }
+
+          function reorderItems() {
+            const value = angular.copy(model[originIndex])
+            model[originIndex] = model[targetIndex]
+            model[targetIndex] = value
+          }
+        })
       })
 
-      // console.log(element[0])
-      element.on('moveItem', (event) => {
-        const {originIndex, targetIndex, targetElement} = event
-
-        if (angular.equals(targetElement.closest('.mn-list'), element[0])) {
-          scope.$apply(reorderItems)
-        }
-
-        function reorderItems() {
-          const value = angular.copy(model[originIndex])
-          model[originIndex] = model[targetIndex]
-          model[targetIndex] = value
-        }
-      })
     }
   }
 }

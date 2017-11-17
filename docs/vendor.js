@@ -1481,6 +1481,7 @@ angular
 function HomeController() {
   this.name = 'darlan'
   this.houses = ['stark', 'lannister', 'targaryen']
+  this.list = ['lorem 1', 'lorem 2', 'lorem 3']
   // this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
@@ -3946,14 +3947,15 @@ module.exports = class MnList extends HTMLElement {
 
     drake
     .on('drop', (element) => {
-      const targetIndex = Array.prototype.indexOf.call(this.querySelectorAll('.mn-item'), element)
+      const parentList = element.closest('.mn-list')
+      const targetIndex = Array.prototype.indexOf.call(parentList.querySelectorAll('.mn-item'), element)
 
       if (originIndex !== targetIndex) {
         const moveItemEvent = new Event('moveItem')
         moveItemEvent.originIndex = originIndex
         moveItemEvent.targetIndex = targetIndex
         moveItemEvent.targetElement = element
-        this.dispatchEvent(moveItemEvent)
+        parentList.dispatchEvent(moveItemEvent)
       }
     })
   }
@@ -3987,22 +3989,24 @@ function MnListDirective($parse) {
 
           model = $parse(expressionModel)(scope)
         }
+
+        element[0].addEventListener('moveItem', (event) => {
+          const {originIndex, targetIndex, targetElement} = event
+
+          const sameList = angular.equals(targetElement.closest('.mn-list'), element[0])
+
+          if (sameList) {
+            scope.$apply(reorderItems)
+          }
+
+          function reorderItems() {
+            const value = angular.copy(model[originIndex])
+            model[originIndex] = model[targetIndex]
+            model[targetIndex] = value
+          }
+        })
       })
 
-      // console.log(element[0])
-      element.on('moveItem', (event) => {
-        const {originIndex, targetIndex, targetElement} = event
-
-        if (angular.equals(targetElement.closest('.mn-list'), element[0])) {
-          scope.$apply(reorderItems)
-        }
-
-        function reorderItems() {
-          const value = angular.copy(model[originIndex])
-          model[originIndex] = model[targetIndex]
-          model[targetIndex] = value
-        }
-      })
     }
   }
 }
