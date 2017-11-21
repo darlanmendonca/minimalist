@@ -380,6 +380,22 @@ describe('mn-select (webcomponent)', () => {
       select.setAttribute('multiple')
       expect(component.value).to.be.an('array')
     })
+    it('should stay focused when user clicks in an option item', () => {
+      select.setAttribute('multiple')
+      component.focus()
+      select.clickOn('Stark')
+      expect(component).to.have.class('focus')
+      expect(component).to.have.class('visible')
+    })
+    it('should stay focused when user press enter key in an option item', () => {
+      const enter = new Event('keyup')
+      select.setAttribute('multiple')
+      component.focus()
+      enter.target = component
+      document.dispatchEvent(enter)
+      expect(component).to.have.class('focus')
+      expect(component).to.have.class('visible')
+    })
     // it('should set property value when attribute changed', () => {
     //   select.setAttribute('value', 'lannister')
     //   expect(component).to.have.value('lannister')
