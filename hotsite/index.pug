@@ -34,26 +34,30 @@ html
     section.mn-layout-container(style='margin-bottom: 2em')
       h3(style='color: white') vanilla
       mn-list.mn-card(name='lero')
-        .mn-item(draggable) item 1
-        .mn-item item 2
-        .mn-item(draggable) item 3
-        .mn-item(collapse draggable) collapsable
-          mn-list.mn-item-detail
-            .mn-item lorem 1
-            .mn-item lorem 2
+        .mn-item(draggable) restricao 1
+        .mn-item(draggable) restricao 2
+        .mn-item(draggable) restricao 5
+        .mn-item(collapse) folder
+          mn-list.mn-item-detail(name='lero')
+            //- .mn-item(draggable) restricao 3
+            .mn-item(collapse) folder 2
+              mn-list.mn-item-detail(name='lero')
+                .mn-item(draggable) restricao 6
+                .mn-item(draggable) restricao 7
+            //- .mn-item(draggable) restricao 4
 
       h3(style='color: white') other vanilla list
       mn-list.mn-card(name='lero')
-        .mn-item(draggable) other 1
-        .mn-item(draggable collapse) other 2
-          mn-list.mn-item-detail(name='lero')
-            .mn-item(draggable) lorem 1
-            .mn-item(draggable) lorem 2
+        .mn-item(draggable) rest 1
+        .mn-item(draggable collapse) folder 2
+          mn-list.mn-item-detail
+            .mn-item(draggable) rest 2
+            .mn-item(draggable) rest 3
 
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
       h3(style='color: white') angular
-      mn-list.mn-card(name='angularGroup')
-        .mn-item(ng-repeat='item in home.houses' draggable) {{ item }}
+      mn-list.mn-card(name='{{home.houses.nome}}')
+        .mn-item(ng-repeat='item in home.houses.restricoes' restricoes="item" tree="home.houses.nome" ng-class="{'canCollapse': item.restricoes.length > 0}")
 
       h3(style='color: white') other list angular
       mn-list.mn-card(name='angularGroup')
