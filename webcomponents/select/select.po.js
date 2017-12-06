@@ -16,4 +16,14 @@ module.exports = class SelectPageObject extends InputPageObject {
 
     this.component.menu.appendChild(option)
   }
+
+  clickOn(value) {
+    const option = Array
+      .from(this.component.querySelectorAll('.option'))
+      .filter(option => option.textContent === value)[0]
+
+    if (option) {
+      option.click()
+    }
+  }
 }
