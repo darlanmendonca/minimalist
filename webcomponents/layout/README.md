@@ -46,7 +46,22 @@ The three main classes are:
 
 ### Wrap
 
-If you need to wrap content when necessary, just use the class `.mn-layout-wrap`. The content only will wraped if content is bigger then space available.
+If you need to wrap content when necessary, just use the class `.mn-layout-wrap`. The content only will wraped if content is bigger then space available, e.g.
+
+```html
+<!-- display content in row, but wrap in small screens -->
+<div class="mn-layout-row mn-layout-wrap">
+  <div>Lorem 1</div>
+  <div>Lorem 2</div>
+  <div>Lorem 3</div>
+  <div>Lorem 4</div>
+  <div>Lorem 5</div>
+  <div>Lorem 6</div>
+  <div>Lorem 7</div>
+  <div>Lorem 8</div>
+  <div>Lorem 9</div>
+</div>
+```
 
 #### Sizes
 
