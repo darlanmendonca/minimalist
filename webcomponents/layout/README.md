@@ -44,6 +44,25 @@ The three main classes are:
 </div>
 ```
 
+### Wrap
+
+If you need to wrap content when necessary, just use the class `.mn-layout-wrap`. The content only will wraped if content is bigger then space available, e.g.
+
+```html
+<!-- display content in row, but wrap in small screens -->
+<div class="mn-layout-row mn-layout-wrap">
+  <div>Lorem 1</div>
+  <div>Lorem 2</div>
+  <div>Lorem 3</div>
+  <div>Lorem 4</div>
+  <div>Lorem 5</div>
+  <div>Lorem 6</div>
+  <div>Lorem 7</div>
+  <div>Lorem 8</div>
+  <div>Lorem 9</div>
+</div>
+```
+
 #### Sizes
 
 Suppose you want define a specific size to a element. You can define `.flex-*` where * is a size restricted to multiples of five (5, 10, 15, ...) going up to a maximum of 100. And you can too define 1/3 with `.flex-33` and 2/3 with `.flex-66`.

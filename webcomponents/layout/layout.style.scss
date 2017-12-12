@@ -41,6 +41,10 @@
   align-items: center;
 }
 
+.mn-layout-wrap {
+  flex-wrap: wrap;
+}
+
 .mn-layout-column,
 .mn-layout-centered {
   flex-direction: column;

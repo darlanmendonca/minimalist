@@ -973,11 +973,12 @@ module.exports = class MnSelect extends MnInput {
         const value = event.target.getAttribute('value') || event.target.textContent
         const text = event.target.textContent
 
-        this.hasAttribute('multiple')
-          ? this.push(value, text)
-          : this.value = value
-
-        this.input.blur()
+        if (this.hasAttribute('multiple')) {
+          this.push(value, text)
+        } else {
+          this.value = value
+          this.input.blur()
+        }
       }
     })
 
@@ -1195,10 +1196,10 @@ module.exports = class MnSelect extends MnInput {
 
         if (this.hasAttribute('multiple')) {
           this.input.value = ''
+        } else {
+          this.hide()
+          this.input.blur()
         }
-
-        this.hide()
-        this.input.blur()
       }
     })
 
