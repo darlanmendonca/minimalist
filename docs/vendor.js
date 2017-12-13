@@ -4360,7 +4360,6 @@ module.exports = class MnList extends HTMLElement {
 
   setDraggable() {
     let originIndex
-    // let hoverTime
 
     const options = {
       containers: dragulaContainers,
@@ -4392,22 +4391,6 @@ module.exports = class MnList extends HTMLElement {
     drake = dragula(options)
 
     drake
-    // .on('drag', (element) => {
-    //   const parentName = element.closest('.mn-list').getAttribute('name')
-    //   const list = document.querySelectorAll('.mn-list[name="'+ parentName +'"].mn-item-detail')
-
-    //   for (let listItem of list) {
-    //     listItem.classList.add('half-open');
-    //   }
-    // })
-    // .on('dragend', (element) => {
-    //   const parentName = element.closest('.mn-list').getAttribute('name')
-    //   const list = document.querySelectorAll('.mn-list[name="'+ parentName +'"].mn-item-detail')
-
-    //   for (let listItem of list) {
-    //     listItem.classList.remove('half-open');
-    //   }
-    // })
     .on('drop', (element, target, source) => {
       const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
@@ -4431,18 +4414,6 @@ module.exports = class MnList extends HTMLElement {
         source.dispatchEvent(event)
       }
     })
-    // .on('over', function (el, container) {
-    //   container.classList.add('mn-list-hover')
-    //   hoverTime = setTimeout(() => {
-    //     if (container.classList.contains('mn-item-detail')) {
-    //       container.parentElement.classList.add('detail-visible')
-    //     }
-    //   }, 1000);
-    // })
-    // .on('out', function (el, container) {
-    //   container.classList.remove('mn-list-hover')
-    //   clearInterval(hoverTime)
-    // })
   }
 }
 
