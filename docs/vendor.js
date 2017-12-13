@@ -4317,8 +4317,8 @@ function MnInputCustomElement() {
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
-
 const dragula = __webpack_require__(18)
+
 let drake
 
 module.exports = class MnList extends HTMLElement {
@@ -4357,60 +4357,58 @@ module.exports = class MnList extends HTMLElement {
   }
 
   setDraggable() {
-    let originIndex
-
-    const options = {
-      moves(element) {
-        originIndex = Array.prototype.indexOf.call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
-        return element.matches('.mn-item[draggable]')
-      },
-      accepts(element, target) {
-        const parent = element.closest('.mn-list')
-        const parentName = parent.getAttribute('name')
-        const targetName = target.getAttribute('name')
-
-        const move = parent === target
-          || (parent.hasAttribute('name')
-            && target.hasAttribute('name')
-            && parentName === targetName
-          )
-
-        return move
-      },
-      direction: 'vertical',
-      mirrorContainer: document.body,
-    }
-
     if (!drake) {
+      let originIndex
+      const options = {
+        moves(element) {
+          originIndex = Array.prototype.indexOf.call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
+          return element.matches('.mn-item[draggable]')
+        },
+        accepts(element, target) {
+          const parent = element.closest('.mn-list')
+          const parentName = parent.getAttribute('name')
+          const targetName = target.getAttribute('name')
+
+          const move = parent === target
+            || (parent.hasAttribute('name')
+              && target.hasAttribute('name')
+              && parentName === targetName
+            )
+
+          return move
+        },
+        direction: 'vertical',
+        mirrorContainer: document.body,
+      }
+
       drake = dragula(options)
-    }
 
-    drake.containers.push(this)
+      drake.on('drop', (element, target, source) => {
+        const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
-    drake
-    .on('drop', (element, target, source) => {
-      const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
+        const reorder = source === target
+        const rearrange = source !== target
 
-      const reorder = source === target
-      const rearrange = source !== target
-
-      if (reorder) { // reorder inside same list
-        if (originIndex !== targetIndex) {
-          const event = new Event('reorder')
+        if (reorder) { // reorder inside same list
+          if (originIndex !== targetIndex) {
+            const event = new Event('reorder')
+            event.originIndex = originIndex
+            event.targetIndex = targetIndex
+            source.dispatchEvent(event)
+          }
+        } else if (rearrange) { // rearrange to another list
+          const event = new Event('rearrange')
+          event.origin = source
+          event.element = element
+          event.targetList = target
           event.originIndex = originIndex
           event.targetIndex = targetIndex
           source.dispatchEvent(event)
         }
-      } else if (rearrange) { // rearrange to another list
-        const event = new Event('rearrange')
-        event.origin = source
-        event.element = element
-        event.targetList = target
-        event.originIndex = originIndex
-        event.targetIndex = targetIndex
-        source.dispatchEvent(event)
-      }
-    })
+      })
+    }
+
+    drake.containers.push(this)
   }
 }
 
