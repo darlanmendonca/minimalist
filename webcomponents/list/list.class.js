@@ -2,12 +2,10 @@ const {HTMLElement} = window
 
 const dragula = require('dragula')
 let drake
-let dragulaContainers = []
 
 module.exports = class MnList extends HTMLElement {
   constructor(self) {
     self = super(self)
-    dragulaContainers.push(this)
     return self
   }
 
@@ -44,7 +42,6 @@ module.exports = class MnList extends HTMLElement {
     let originIndex
 
     const options = {
-      containers: dragulaContainers,
       moves(element) {
         originIndex = Array.prototype.indexOf.call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
         return element.matches('.mn-item[draggable]')
@@ -66,11 +63,11 @@ module.exports = class MnList extends HTMLElement {
       mirrorContainer: document.body,
     }
 
-    if (drake) {
-      drake = drake.destroy()
+    if (!drake) {
+      drake = dragula(options)
     }
 
-    drake = dragula(options)
+    drake.containers.push(this)
 
     drake
     .on('drop', (element, target, source) => {
@@ -86,7 +83,7 @@ module.exports = class MnList extends HTMLElement {
           event.targetIndex = targetIndex
           source.dispatchEvent(event)
         }
-      } else if (rearrange) { // rearrange between other list
+      } else if (rearrange) { // rearrange to another list
         const event = new Event('rearrange')
         event.origin = source
         event.element = element
