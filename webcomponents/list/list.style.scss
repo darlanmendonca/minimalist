@@ -10,8 +10,7 @@
   .mn-item {
     padding: 1.6em 2em;
     box-sizing: border-box;
-    border: 0;
-    border-top: 1px solid var(--color);
+    box-shadow: inset 0 1px var(--color);
     color: inherit;
     text-decoration: none;
     outline: 0;
@@ -23,7 +22,7 @@
     flex-wrap: wrap;
     transition: background-color .2s ease;
 
-    &:first-child {border-top: 0}
+    &:first-child {box-shadow: none}
 
     &.detail-visible {
       cursor: default;
