@@ -36,6 +36,7 @@ function MnListDirective($parse) {
 
         element.on('rearrange', (event) => {
           const {origin, originIndex, targetList, targetIndex, element} = event
+
           setTimeout(() => {
             scope.$apply(rearrangeItems)
           }, 0)
@@ -50,7 +51,20 @@ function MnListDirective($parse) {
                   && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
               })[0].getAttribute('ng-repeat')
 
-            element.setAttribute('ng-repeat', newNgRepeat)
+
+            if (newNgRepeat) {
+              const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
+              element.setAttribute('ng-repeat', newNgRepeat)
+              // console.log('element =>', element)
+              // console.log('value =>', value)
+              // console.log('new ngRepeat =>', newNgRepeat)
+              newModel.splice(targetIndex, 0, value)
+              model.splice(originIndex, 1)
+              console.log('from =>', originIndex)
+              console.log('to =>', targetIndex)
+              // console.log('old model =>', model)
+              // console.log('new model =>', newModel)
+            }
 
             // if (someTargetItem.nextElementSibling && newNgRepeat) {
             //   const expressionModel = someTargetItem
@@ -62,6 +76,7 @@ function MnListDirective($parse) {
             // }
           }
         })
+        //
       })
 
     }

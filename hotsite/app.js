@@ -432,6 +432,7 @@ function HomeController() {
   }
   // this.houses = ['stark', 'lannister', 'targaryen']
   this.list = ['lorem 1', 'lorem 2', 'lorem 3']
+  this.list2 = ['stark', 'lannister', 'targaryen']
   // this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
@@ -448,7 +449,7 @@ function restricoes() {
       item: '=restricoes',
       treeName: '=tree'
     },
-    template: 
+    template:
       '{{item.tipoOperador}}' +
       '<mn-list class="mn-item-detail" name="{{treeName}}" ng-if="item.restricoes.length > 0">' +
           '<div class="mn-item" ng-repeat="item in item.restricoes" restricoes="item" tree="treeName" ng-class="{\'canCollapse\': item.restricoes.length > 0}"></div>' +

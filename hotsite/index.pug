@@ -37,14 +37,13 @@ html
         .mn-item(draggable) restricao 1
         .mn-item(draggable) restricao 2
         .mn-item(draggable) restricao 3
-        .mn-item(collapse) folder
+        .mn-item(collapse draggable) restricao 4 (folder)
           mn-list.mn-item-detail(name='lero')
-            //- .mn-item(draggable) restricao 3
-            .mn-item(collapse) folder 2
+            .mn-item(collapse draggable) sub restriction 1 (folder)
               mn-list.mn-item-detail(name='lero')
-                .mn-item(draggable) restricao 6
-                .mn-item(draggable) restricao 7
-            //- .mn-item(draggable) restricao 4
+                .mn-item(draggable) subsub restriction 1
+                .mn-item(draggable) subsub restriction 2
+            .mn-item(draggable) sub restriction 2
 
       h3(style='color: white') other vanilla list
       mn-list.mn-card(name='lero')
@@ -55,11 +54,12 @@ html
             .mn-item(draggable) rest 3
 
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
-      h3(style='color: white') angular
-      mn-list.mn-card(name='{{home.houses.nome}}')
-        .mn-item(ng-repeat='item in home.houses.restricoes' restricoes="item" tree="home.houses.nome" ng-class="{'canCollapse': item.restricoes.length > 0}")
+      h3(style='color: white') angular {{ home.list2 }}
+      mn-list.mn-card(name='angularGroup')
+        .mn-item(ng-repeat='item in home.list2' draggable) {{ item }}
+        //- .mn-item(ng-repeat='item in home.houses.restricoes' restricoes='item')
 
-      h3(style='color: white') other list angular
+      h3(style='color: white') other list angular {{ home.list }}
       mn-list.mn-card(name='angularGroup')
         .mn-item(ng-repeat='item in home.list' draggable) {{ item }}
         //- .mn-item(draggable) lero 1

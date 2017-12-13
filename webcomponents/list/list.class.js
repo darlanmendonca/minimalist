@@ -60,6 +60,7 @@ module.exports = class MnList extends HTMLElement {
             && target.hasAttribute('name')
             && parentName === targetName
           )
+
         return move
       },
       direction: 'vertical',
@@ -90,7 +91,7 @@ module.exports = class MnList extends HTMLElement {
     //   }
     // })
     .on('drop', (element, target, source) => {
-      const targetIndex = Array.prototype.indexOf.call(source.querySelectorAll('.mn-item'), element)
+      const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
       const reorder = source === target
       const rearrange = source !== target

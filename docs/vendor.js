@@ -1901,6 +1901,7 @@ function HomeController() {
   }
   // this.houses = ['stark', 'lannister', 'targaryen']
   this.list = ['lorem 1', 'lorem 2', 'lorem 3']
+  this.list2 = ['stark', 'lannister', 'targaryen']
   // this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
@@ -1917,7 +1918,7 @@ function restricoes() {
       item: '=restricoes',
       treeName: '=tree'
     },
-    template: 
+    template:
       '{{item.tipoOperador}}' +
       '<mn-list class="mn-item-detail" name="{{treeName}}" ng-if="item.restricoes.length > 0">' +
           '<div class="mn-item" ng-repeat="item in item.restricoes" restricoes="item" tree="treeName" ng-class="{\'canCollapse\': item.restricoes.length > 0}"></div>' +
@@ -4377,6 +4378,7 @@ module.exports = class MnList extends HTMLElement {
             && target.hasAttribute('name')
             && parentName === targetName
           )
+
         return move
       },
       direction: 'vertical',
@@ -4407,7 +4409,7 @@ module.exports = class MnList extends HTMLElement {
     //   }
     // })
     .on('drop', (element, target, source) => {
-      const targetIndex = Array.prototype.indexOf.call(source.querySelectorAll('.mn-item'), element)
+      const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
       const reorder = source === target
       const rearrange = source !== target
@@ -4487,6 +4489,7 @@ function MnListDirective($parse) {
 
         element.on('rearrange', (event) => {
           const {origin, originIndex, targetList, targetIndex, element} = event
+
           setTimeout(() => {
             scope.$apply(rearrangeItems)
           }, 0)
@@ -4501,7 +4504,20 @@ function MnListDirective($parse) {
                   && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
               })[0].getAttribute('ng-repeat')
 
-            element.setAttribute('ng-repeat', newNgRepeat)
+
+            if (newNgRepeat) {
+              const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
+              element.setAttribute('ng-repeat', newNgRepeat)
+              // console.log('element =>', element)
+              // console.log('value =>', value)
+              // console.log('new ngRepeat =>', newNgRepeat)
+              newModel.splice(targetIndex, 0, value)
+              model.splice(originIndex, 1)
+              console.log('from =>', originIndex)
+              console.log('to =>', targetIndex)
+              // console.log('old model =>', model)
+              // console.log('new model =>', newModel)
+            }
 
             // if (someTargetItem.nextElementSibling && newNgRepeat) {
             //   const expressionModel = someTargetItem
@@ -4513,6 +4529,7 @@ function MnListDirective($parse) {
             // }
           }
         })
+        //
       })
 
     }
