@@ -4319,8 +4319,6 @@ function MnInputCustomElement() {
 const {HTMLElement} = window
 const dragula = __webpack_require__(18)
 
-let drake
-
 module.exports = class MnList extends HTMLElement {
   constructor(self) {
     self = super(self)
@@ -4357,7 +4355,7 @@ module.exports = class MnList extends HTMLElement {
   }
 
   setDraggable() {
-    if (!drake) {
+    if (!MnList.draggableSettings) {
       let originIndex
       const options = {
         moves(element) {
@@ -4381,9 +4379,9 @@ module.exports = class MnList extends HTMLElement {
         mirrorContainer: document.body,
       }
 
-      drake = dragula(options)
+      MnList.draggableSettings = dragula(options)
 
-      drake.on('drop', (element, target, source) => {
+      MnList.draggableSettings.on('drop', (element, target, source) => {
         const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
         const reorder = source === target
@@ -4408,7 +4406,7 @@ module.exports = class MnList extends HTMLElement {
       })
     }
 
-    drake.containers.push(this)
+    MnList.draggableSettings.containers.push(this)
   }
 }
 
