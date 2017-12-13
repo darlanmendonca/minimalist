@@ -63,7 +63,8 @@ module.exports = class MnList extends HTMLElement {
 
       MnList.draggableSettings = dragula(options)
 
-      MnList.draggableSettings.on('drop', (element, target, source) => {
+      MnList.draggableSettings
+      .on('drop', (element, target, source) => {
         const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
 
         const reorder = source === target

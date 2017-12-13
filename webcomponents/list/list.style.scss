@@ -58,7 +58,7 @@
   .mn-list {transform: translateY(1em)}
 }
 
-.mn-list .mn-list {
+.mn-item .mn-list:not(.detail-visible) {
   display: block !important;
   flex: 0 1 100%;
   max-height: 0;
