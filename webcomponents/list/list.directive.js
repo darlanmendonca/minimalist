@@ -43,7 +43,6 @@ function MnListDirective($parse) {
 
           function rearrangeItems() {
             const value = angular.copy(model[originIndex])
-            // model.splice(originIndex, 1)
             const newNgRepeat = Array
               .from(targetList.querySelectorAll('.mn-item'))
               .filter(item => {
@@ -52,30 +51,16 @@ function MnListDirective($parse) {
               })[0].getAttribute('ng-repeat')
 
             if (newNgRepeat) {
-              const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
               element.setAttribute('ng-repeat', newNgRepeat)
-              // console.log('element =>', element)
-              // console.log('value =>', value)
-              // console.log('new ngRepeat =>', newNgRepeat)
-              newModel.splice(targetIndex, 0, value)
+              const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
+
+              if (newModel) {
+                newModel.splice(targetIndex, 0, value)
+              }
               model.splice(originIndex, 1)
-              console.log('from =>', originIndex)
-              console.log('to =>', targetIndex)
-              // console.log('old model =>', model)
-              // console.log('new model =>', newModel)
             }
-
-            // if (someTargetItem.nextElementSibling && newNgRepeat) {
-            //   const expressionModel = someTargetItem
-            //     .getAttribute('ng-repeat')
-            //     .match(/\sin\s([\w|\d|\.]+)/)[1]
-
-            //   const targetModel = $parse(expressionModel)(scope)
-            //   console.log('to', targetModel)
-            // }
           }
         })
-        //
       })
 
     }
