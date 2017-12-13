@@ -35,7 +35,7 @@ function MnListDirective($parse) {
         })
 
         element.on('rearrange', (event) => {
-          const {origin, originIndex, targetList, targetIndex, element} = event
+          const {originIndex, targetList, targetIndex, element} = event
 
           setTimeout(() => {
             scope.$apply(rearrangeItems)
@@ -50,7 +50,6 @@ function MnListDirective($parse) {
                 return item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
                   && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
               })[0].getAttribute('ng-repeat')
-
 
             if (newNgRepeat) {
               const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
