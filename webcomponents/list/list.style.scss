@@ -76,7 +76,7 @@
   cursor: move;
   transition: opacity .2s ease, background-color .2s ease;
 
-  &.gu-transit, &:active {
+  &.gu-transit {
     background-color: $oc-gray-1;
   }
 
