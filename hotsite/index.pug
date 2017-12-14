@@ -82,6 +82,17 @@ html
             mn-button(empty) empty
             mn-button.raised(submit) submit
 
+      h3(style='color: white') angular restrictions {{ home.restrictions | key: 'nome' }}
+      script(type='text/ng-template' id='restriction.template')
+        .mn-item(ng-repeat='restriction in home.restrictions' draggable) {{ restriction.nome }}
+
+
+      mn-list.mn-card(name='restrictions')
+        .mn-item(ng-repeat='restriction in home.restrictions' draggable ng-collapse='restriction.restricoes')
+          | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+          mn-list(name='restrictions' ng-if='restriction.restricoes')
+            .mn-item(ng-repeat='item in restriction.restricoes' draggable) {{ item.nome }}
+
     script(src='/vendor.js')
     script.
       const form = document.querySelector('mn-form')

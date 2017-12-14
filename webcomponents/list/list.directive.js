@@ -3,8 +3,11 @@
 angular
   .module('minimalist')
   .directive('mnList', MnListDirective)
+  .directive('ngCollapse', NgCollapseDirective)
+
 
 MnListDirective.$inject = ['$parse']
+NgCollapseDirective.$inject = ['$parse']
 
 function MnListDirective($parse) {
   return {
@@ -63,6 +66,32 @@ function MnListDirective($parse) {
         })
       })
 
+    }
+  }
+}
+
+function NgCollapseDirective($parse) {
+  return {
+    restrict: 'A',
+    link(scope, element, attributes) {
+      const conditional = $parse(attributes.ngCollapse)(scope)
+
+      conditional
+        ? element.attr('collapse', '')
+        : element.removeAttr('collapse')
+    }
+  }
+}
+
+function NgDraggableDirective($parse) {
+  return {
+    restrict: 'A',
+    link(scope, element, attributes) {
+      const conditional = $parse(attributes.ngCollapse)(scope)
+
+      conditional
+        ? element.attr('draggable', '')
+        : element.removeAttr('draggable')
     }
   }
 }
