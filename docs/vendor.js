@@ -4584,10 +4584,11 @@ angular
   .module('minimalist')
   .directive('mnList', MnListDirective)
   .directive('ngCollapse', NgCollapseDirective)
-
+  .directive('ngDraggable', NgCollapseDirective)
 
 MnListDirective.$inject = ['$parse']
 NgCollapseDirective.$inject = ['$parse']
+NgDraggableDirective.$inject = ['$parse']
 
 function MnListDirective($parse) {
   return {
