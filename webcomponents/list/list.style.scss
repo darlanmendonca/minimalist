@@ -57,6 +57,10 @@
   .mn-list {transform: translateY(1em)}
 }
 
+.mn-item.detail-visible > .mn-item-detail {
+  max-height: 1000px !important;
+}
+
 .mn-item .mn-list:not(.detail-visible) {
   display: block !important;
   flex: 0 1 100%;
