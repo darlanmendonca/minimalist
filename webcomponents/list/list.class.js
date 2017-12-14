@@ -28,9 +28,15 @@ module.exports = class MnList extends HTMLElement {
       const isListOwnerOfItem = event.target.closest('.mn-list') === this
 
       if (isItemCollapse && isListOwnerOfItem) {
-        item.classList.contains('detail-visible')
-          ? item.classList.remove('detail-visible')
-          : item.classList.add('detail-visible')
+        const detailVisible = item.classList.contains('detail-visible')
+        if (detailVisible) {
+          item.classList.remove('detail-visible')
+          Array
+            .from(item.querySelectorAll('.detail-visible'))
+            .forEach(item => item.classList.remove('detail-visible'))
+        } else {
+          item.classList.add('detail-visible')
+        }
         event.stopPropagation()
       }
     })
