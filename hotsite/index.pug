@@ -84,10 +84,13 @@ html
 
       h3(style='color: white') angular restrictions {{ home.restrictions | key: 'nome' }}
       script(type='text/ng-template' id='restriction.template')
-        .mn-item(ng-repeat='restriction in home.restrictions' draggable) {{ restriction.nome }}
+        .mn-item(ng-repeat='restriction in restrictions' draggable ng-collapse='restriction.restricoes')
+          | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+          mn-list(name='restrictions' ng-if='restriction.restricoes' ng-include='"restriction.template"')
 
+      mn-list.mn-card(name='restrictions' ng-init='restrictions = home.restrictions' ng-include='"restriction.template"')
 
-      mn-list.mn-card(name='restrictions')
+      //- mn-list.mn-card(name='restrictions')
         .mn-item(ng-repeat='restriction in home.restrictions' draggable ng-collapse='restriction.restricoes')
           | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
           mn-list(name='restrictions' ng-if='restriction.restricoes')
