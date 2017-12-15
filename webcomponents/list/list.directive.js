@@ -13,8 +13,9 @@ NgDraggableDirective.$inject = ['$parse']
 function MnListDirective($parse) {
   return {
     restrict: 'C',
-    link(scope, element) {
+    link(scope, element, attributes) {
       let model
+      scope.$mnListModel =  $parse(attributes.ngModel)(scope)
 
       element.ready(() => {
         const item = element[0].querySelector('.mn-item[ng-repeat][draggable]')
@@ -22,7 +23,7 @@ function MnListDirective($parse) {
         if (item) {
           expressionModel = item
             .getAttribute('ng-repeat')
-            .match(/\sin\s([\w|\d|\.]+)/)[1]
+            .match(/\sin\s(.+)/)[1]
 
           model = $parse(expressionModel)(scope)
         }
@@ -51,14 +52,14 @@ function MnListDirective($parse) {
               .from(targetList.children)
               .filter(item => {
                 return item.classList.contains('mn-item')
+                  && item !== element
                   && item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
                   // && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
               })[0].getAttribute('ng-repeat')
 
             if (newNgRepeat) {
               element.setAttribute('ng-repeat', newNgRepeat)
-              const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
-              console.log(newModel)
+              const newModel = $parse(newNgRepeat.match(/\sin\s(.+)/)[1])(angular.element(element.parentNode).scope())
 
               if (newModel) {
                 newModel.splice(targetIndex, 0, value)
