@@ -1772,7 +1772,7 @@ function HomeController() {
         {
           "id": null,
           "restricaoMaeId": null,
-          "nome": 'SIte CVC - Nac VHI',
+          "nome": 'LOREM',
           "valor": "OR",
           "tipoOperador": "DIFERENTE",
           "tipoRestricao": {
@@ -4442,15 +4442,17 @@ function MnListDirective($parse) {
           function rearrangeItems() {
             const value = angular.copy(model[originIndex])
             const newNgRepeat = Array
-              .from(targetList.querySelectorAll('.mn-item'))
+              .from(targetList.children)
               .filter(item => {
-                return item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
-                  && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
+                return item.classList.contains('mn-item')
+                  && item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
+                  // && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
               })[0].getAttribute('ng-repeat')
 
             if (newNgRepeat) {
               element.setAttribute('ng-repeat', newNgRepeat)
               const newModel = $parse(newNgRepeat.match(/\sin\s([\w|\d|\.]+)/)[1])(scope)
+              console.log(newModel)
 
               if (newModel) {
                 newModel.splice(targetIndex, 0, value)

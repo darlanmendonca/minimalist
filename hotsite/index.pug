@@ -87,7 +87,7 @@ html
       script(type='text/ng-template' id='restriction.template')
         .mn-item(ng-repeat='restriction in restrictions' draggable ng-collapse='restriction.restricoes')
           | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
-          mn-list(name='restrictions' ng-if='restriction.restricoes' ng-include='"restriction.template"')
+          mn-list(name='restrictions' ng-init='restrictions = restriction.restricoes' ng-if='restriction.restricoes' ng-include='"restriction.template"')
 
       mn-list.mn-card(name='restrictions'
         ng-init='restrictions = home.restrictions'

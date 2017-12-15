@@ -9,14 +9,14 @@
     "angular.js"
   ],
   "scripts": {
-    "prestart": "scripts/api",
-    "start": "scripts/start",
-    "lint": "scripts/lint",
-    "pretest": "scripts/lint",
-    "test": "scripts/test",
-    "sass": "scripts/sass",
-    "pug": "scripts/pug",
-    "javascript": "scripts/javascript"
+    "prestart": "scripts/api.sh",
+    "start": "scripts/start.sh",
+    "lint": "scripts/lint.sh",
+    "pretest": "scripts/lint.sh",
+    "test": "scripts/test.sh",
+    "sass": "scripts/sass.sh",
+    "pug": "scripts/pug.sh",
+    "javascript": "scripts/javascript.sh"
   },
   "repository": {
     "type": "git",

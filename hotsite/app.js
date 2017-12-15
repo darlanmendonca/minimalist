@@ -303,7 +303,7 @@ function HomeController() {
         {
           "id": null,
           "restricaoMaeId": null,
-          "nome": 'SIte CVC - Nac VHI',
+          "nome": 'LOREM',
           "valor": "OR",
           "tipoOperador": "DIFERENTE",
           "tipoRestricao": {
