@@ -4,5 +4,5 @@ set -e
 
 ./node_modules/.bin/pug hotsite/index.pug \
 --out docs/ \
---watch hotsite/index.pug \
---silent
+--silent \
+--watch hotsite/index.pug
