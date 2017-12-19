@@ -48,7 +48,7 @@ module.exports = class MnList extends HTMLElement {
       const options = {
         moves(element) {
           originIndex = Array.prototype.indexOf
-            .call(element.closest('.mn-list').children, element)
+            .call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
           return element.matches('.mn-item[draggable]')
         },
         accepts(element, target) {
