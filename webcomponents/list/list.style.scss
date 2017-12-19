@@ -96,6 +96,7 @@
   z-index: 9999;
   background: #dee2e6;
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .gu-hide {
@@ -106,6 +107,10 @@
   user-select: none !important;
 
   .gu-transit {pointer-events: none}
+  .mn-item:hover > .mn-list {
+    max-height: 1000px;
+    min-height: 3.5em;
+  }
 }
 
 .gu-transit {
