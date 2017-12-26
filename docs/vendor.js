@@ -4499,7 +4499,6 @@ function MnListDirective($parse) {
           }
         })
       })
-
     }
   }
 }

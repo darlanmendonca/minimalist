@@ -38,12 +38,13 @@ html
         .mn-item(draggable) restricao 2
         .mn-item(draggable) restricao 3
         .mn-item(collapse draggable) restricao 4 (folder)
-          mn-list.mn-item-detail(name='lero')
-            .mn-item(collapse draggable) sub restriction 1 (folder)
-              mn-list.mn-item-detail(name='lero')
-                .mn-item(draggable) subsub restriction 1
-                .mn-item(draggable) subsub restriction 2
-            .mn-item(draggable) sub restriction 2
+          .mn-layout-row
+            mn-list.mn-item-detail(name='lero')
+              .mn-item(collapse draggable) sub restriction 1 (folder)
+                mn-list.mn-item-detail(name='lero')
+                  .mn-item(draggable) subsub restriction 1
+                  .mn-item(draggable) subsub restriction 2
+              .mn-item(draggable) sub restriction 2
         .mn-item(collapse draggable) restricao 5 (empty folder)
           mn-list(name='lero')
 
