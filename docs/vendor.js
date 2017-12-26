@@ -4453,7 +4453,7 @@ function MnListDirective($parse) {
         if (item) {
           expressionModel = item
             .getAttribute('ng-repeat')
-            .match(/\sin\s(.+)/)[1]
+            .match(/\sin\s(.+)/)[1].split(' ')[0]
 
           model = $parse(expressionModel)(scope)
         }
@@ -4489,7 +4489,7 @@ function MnListDirective($parse) {
 
             if (newNgRepeat) {
               element.setAttribute('ng-repeat', newNgRepeat)
-              const newModel = $parse(newNgRepeat.match(/\sin\s(.+)/)[1])(angular.element(element.parentNode).scope())
+              const newModel = $parse(newNgRepeat.match(/\sin\s(.+)/)[1].split(' ')[0])(angular.element(element.parentNode).scope())
 
               if (newModel) {
                 newModel.splice(targetIndex, 0, value)

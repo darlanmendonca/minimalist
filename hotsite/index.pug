@@ -58,7 +58,7 @@ html
     section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
       h3(style='color: white') angular {{ home.list2 }}
       mn-list.mn-card(name='angularGroup')
-        .mn-item(ng-repeat='item in home.list2' draggable) {{ item }}
+        .mn-item(ng-repeat='item in home.list2 track by $index' draggable) {{ item }}
         //- .mn-item(ng-repeat='item in home.houses.restricoes' restricoes='item')
 
       h3(style='color: white') other list angular {{ home.list }}
