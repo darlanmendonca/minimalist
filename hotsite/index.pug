@@ -89,7 +89,9 @@ html
 
       script(type='text/ng-template' id='restriction.template')
         .mn-item(ng-repeat='restriction in $mnListModel' draggable ng-collapse='restriction.restricoes')
-          | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+          .mn-layout-row
+            .flex {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+            mn-button remove
           mn-list(name='restrictions' ng-model='restriction.restricoes' ng-if='restriction.restricoes' ng-include='"restriction.template"')
           //- ng-init='restrictions = restriction.restricoes'
 
