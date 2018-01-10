@@ -1,0 +1,7 @@
+.showcase {
+  font-size: 1.2em;
+
+  @media (min-width: 600px) {
+    padding: 0 100px;
+  }
+}
