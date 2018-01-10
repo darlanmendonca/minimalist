@@ -6,12 +6,28 @@ block content
     a input
 
 
-  .mn-layout-fullscreen.mn-layout-centered
-    .showcase.mn-layout-container
-      h2 mn-input
+  .showcase.mn-layout-fullscreen.mn-layout-centered
+    .demo.mn-layout-container
+      h1 mn-input
 
-      mn-form.mn-layout-column.mn-layout-sm-row
+      .mn-form.mn-layout-column.mn-layout-sm-row
         mn-input.flex(placeholder='username')
         mn-input.flex(placeholder='firstname')
         mn-input.flex(placeholder='lastname')
+
+  .mn-layout-container
+    section
+      h2 install
+      code.mn-card.padding(style='display: block').
+        npm install --save minimalist
+      p and bundle with your preferred tool.
+
+    section
+      h2 usage
+      p in your html, you can use the tag <code>mn-input</code>, e.g.
+
+      code.mn-card.padding(style='display: block').
+        &lt;mn-input placeholder="username"&gt;&lt;/mn-input&gt;
+
+
 
