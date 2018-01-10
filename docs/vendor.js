@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -532,6 +532,33 @@ function evaluateString(value) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnActionSheetCustomElement()
@@ -544,7 +571,7 @@ function MnActionSheetCustomElement() {
   }
 
   if (!window.customElements.get('mn-action-sheet')) {
-    window.customElements.define('mn-action-sheet', __webpack_require__(10))
+    window.customElements.define('mn-action-sheet', __webpack_require__(23))
   }
 
   return window.customElements.get('mn-action-sheet')
@@ -552,7 +579,7 @@ function MnActionSheetCustomElement() {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
@@ -791,7 +818,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -846,11 +873,11 @@ function MnCheckboxDirective() {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
-const MnActionSheet = __webpack_require__(3)
+const MnActionSheet = __webpack_require__(4)
 const evaluate = __webpack_require__(2)
 
 module.exports = class MnSelect extends MnInput {
@@ -1397,7 +1424,7 @@ module.exports = class MnSelect extends MnInput {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -1405,34 +1432,11 @@ module.exports = class MnSelect extends MnInput {
 angular.module('minimalist', [])
 
 module.exports = {
-  input: __webpack_require__(25),
-  form: __webpack_require__(21),
-  checkbox: __webpack_require__(5),
-  radio: __webpack_require__(34),
-}
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = {
-  input: __webpack_require__(26),
-  email: __webpack_require__(19),
-  password: __webpack_require__(32),
-  hidden: __webpack_require__(24),
-  number: __webpack_require__(30),
-  date: __webpack_require__(15),
-  select: __webpack_require__(38),
-  actionSheet: __webpack_require__(3),
-  form: __webpack_require__(22),
-  sidenav: __webpack_require__(40),
-  checkbox: __webpack_require__(13),
-  radio: __webpack_require__(35),
-  dialog: __webpack_require__(17),
-  button: __webpack_require__(12),
-  search: __webpack_require__(37),
-  list: __webpack_require__(28),
+  input: __webpack_require__(38),
+  form: __webpack_require__(34),
+  checkbox: __webpack_require__(6),
+  radio: __webpack_require__(48),
+  list: __webpack_require__(41),
 }
 
 
@@ -1440,8 +1444,32 @@ module.exports = {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(8) // main file of minimalist
-__webpack_require__(7) // directives
+module.exports = {
+  input: __webpack_require__(39),
+  email: __webpack_require__(32),
+  password: __webpack_require__(46),
+  hidden: __webpack_require__(37),
+  number: __webpack_require__(44),
+  date: __webpack_require__(28),
+  select: __webpack_require__(52),
+  actionSheet: __webpack_require__(4),
+  form: __webpack_require__(35),
+  sidenav: __webpack_require__(54),
+  checkbox: __webpack_require__(26),
+  radio: __webpack_require__(49),
+  dialog: __webpack_require__(30),
+  button: __webpack_require__(25),
+  search: __webpack_require__(51),
+  list: __webpack_require__(42),
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(9) // main file of minimalist
+__webpack_require__(8) // directives
 
 angular.module('app', [
   'minimalist',
@@ -1452,54 +1480,1886 @@ angular
   .controller('HomeController', HomeController)
 
 function HomeController() {
-  this.name = 'darlan'
+  this.restrictions = [
+    {
+      nome: 'Site CVC - Nac VHI',
+      restricoes: [
+        {
+          nome: 'Lorem',
+          restricoes: [
+            {
+              nome: 'birl'
+            },
+            {
+              nome: 'birl 2',
+              restricoes: [
+                {
+                  nome: 'wow 1',
+                  restricoes: [
+                    {
+                      nome: 'test 1',
+                    },
+                    {
+                      nome: 'test 2',
+                    },
+                  ]
+                }
+              ],
+            }
+          ]
+        }
+      ],
+    },
+    {
+      nome: 'Lero'
+    }
+  ]
+  // this.restrictions = [
+  //   {
+  //     "nome": "SIte CVC - Nac VHI",
+  //     "editavel": true,
+  //     "idOrigem": 346,
+  //     "versao": 8,
+  //     "ativo": true,
+  //     "id": 651,
+  //     "configuracaoOrigem": false,
+  //     "prioridade": 0,
+  //     "idConfigEditavel": 651,
+  //     "agrupaChamadaUnica": false,
+  //     "nacInt": "NAC",
+  //     "empresa": {
+  //       "id": 41,
+  //       "refencia": "WEB",
+  //       "nome": "SITE CVC TURISMO",
+  //       "perfil": "RESTRITO"
+  //     },
+  //     "statusPublicacao": "PUBLICADA",
+  //     "acordosComerciais": [
+  //       {
+  //         "id": 6743,
+  //         "credencial": {
+  //           "id": 32,
+  //           "nome": "Passaredo - Mercado CVC",
+  //           "sistEmis": "CIONS",
+  //           "usuario": "suporteaereo@cvc.com.br",
+  //           "senha": "pass2012ws",
+  //           "complemento": "2Z",
+  //           "protocolo": "http",
+  //           "host": "webservice.voepassaredo.com.br",
+  //           "porta": "80",
+  //           "caminho": "WSReservaWeb.asmx",
+  //           "codigoEmpresa": "2Z",
+  //           "ativo": true,
+  //           "endpointUrl": "http://webservice.voepassaredo.com.br:80/WSReservaWeb.asmx",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "2z",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "PASSAREDO TRANSPORTES",
+  //             "codigo": "2Z",
+  //             "id": 24
+  //           }
+  //         ],
+  //         "tipoAcordo": "ACCOUNT_CODE",
+  //         "officeIdEmissao": "2z",
+  //         "officeIdReserva": "2z",
+  //         "nome": "Passaredo CVC OTA",
+  //         "quebraChamadaPorPeriodo": false,
+  //         "codigoContrato": {
+  //           "id": 370,
+  //           "descricao": "Passaredo - OTACVC",
+  //           "codigo": "OTACVC",
+  //           "ativo": true
+  //         },
+  //         "tipoTarifaAcordo": "AMBAS"
+  //       },
+  //       {
+  //         "id": 6737,
+  //         "credencial": {
+  //           "id": 28,
+  //           "nome": "AZUL - CVC - 57524401WS",
+  //           "sistEmis": "AZUL",
+  //           "usuario": "57524401WS",
+  //           "senha": "05102017",
+  //           "complemento": "EXT",
+  //           "protocolo": "https",
+  //           "host": "webservices.voeazul.com.br",
+  //           "porta": "443",
+  //           "caminho": "AzulWS/AzulServices.svc",
+  //           "codigoEmpresa": "CVC",
+  //           "ativo": true,
+  //           "endpointUrl": "https://webservices.voeazul.com.br:443/AzulWS/AzulServices.svc",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "01200238",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "AZUL LINHAS AEREAS",
+  //             "codigo": "AD",
+  //             "id": 204
+  //           }
+  //         ],
+  //         "tipoAcordo": "ACCOUNT_CODE",
+  //         "officeIdEmissao": "01200238",
+  //         "officeIdReserva": "01200238",
+  //         "nome": "Azul Publica - Site CVC - OTA CVC2",
+  //         "quebraChamadaPorPeriodo": false,
+  //         "codigoContrato": {
+  //           "id": 369,
+  //           "descricao": "Azul - CVC OTA",
+  //           "codigo": "CVC2",
+  //           "identificador": "OTA",
+  //           "ativo": true
+  //         },
+  //         "tipoTarifaAcordo": "PUBLICA"
+  //       },
+  //       {
+  //         "id": 5416,
+  //         "credencial": {
+  //           "id": 30,
+  //           "nome": "GOL - CVC - 2SPP001486",
+  //           "sistEmis": "GOL",
+  //           "usuario": "2SPP001486",
+  //           "senha": "7458963251",
+  //           "complemento": "WW2",
+  //           "protocolo": "https",
+  //           "host": "bws34.voegol.com.br",
+  //           "porta": "443",
+  //           "caminho": "BWS",
+  //           "codigoEmpresa": "CVC",
+  //           "ativo": true,
+  //           "endpointUrl": "https://bws34.voegol.com.br:443/BWS",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "3SP0005141",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "GOL",
+  //             "codigo": "G3",
+  //             "id": 404
+  //           }
+  //         ],
+  //         "tipoAcordo": "NENHUM",
+  //         "officeIdEmissao": "3SP0005141",
+  //         "officeIdReserva": "3SP0005141",
+  //         "nome": "Site CVC - Publica Gol",
+  //         "quebraChamadaPorPeriodo": false,
+  //         "tipoTarifaAcordo": "AMBAS"
+  //       },
+  //       {
+  //         "id": 5409,
+  //         "credencial": {
+  //           "id": 27,
+  //           "nome": "AVIANCA (06) - CVC",
+  //           "sistEmis": "AVIANCA",
+  //           "usuario": "WSO6010372",
+  //           "senha": "QU1BREVVUzE=",
+  //           "complemento": "8",
+  //           "protocolo": "https",
+  //           "host": "nodeA1.production.webservices.amadeus.com",
+  //           "porta": "443",
+  //           "caminho": "O6-AIDL",
+  //           "codigoEmpresa": "",
+  //           "ativo": true,
+  //           "endpointUrl": "https://nodeA1.production.webservices.amadeus.com:443/O6-AIDL",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "SAOO631MR",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "AVIANCA NACIONAL",
+  //             "codigo": "O6",
+  //             "id": 670
+  //           }
+  //         ],
+  //         "tipoAcordo": "NENHUM",
+  //         "incentivo": 0.0000,
+  //         "officeIdEmissao": "SAOO631MR",
+  //         "officeIdReserva": "SAOO631MR",
+  //         "nome": "Site CVC Avianca (O6) - Publica",
+  //         "comissao": 0.0000,
+  //         "quebraChamadaPorPeriodo": false,
+  //         "tipoTarifaAcordo": "AMBAS"
+  //       },
+  //       {
+  //         "id": 5433,
+  //         "credencial": {
+  //           "id": 32,
+  //           "nome": "Passaredo - Mercado CVC",
+  //           "sistEmis": "CIONS",
+  //           "usuario": "suporteaereo@cvc.com.br",
+  //           "senha": "pass2012ws",
+  //           "complemento": "2Z",
+  //           "protocolo": "http",
+  //           "host": "webservice.voepassaredo.com.br",
+  //           "porta": "80",
+  //           "caminho": "WSReservaWeb.asmx",
+  //           "codigoEmpresa": "2Z",
+  //           "ativo": true,
+  //           "endpointUrl": "http://webservice.voepassaredo.com.br:80/WSReservaWeb.asmx",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "2z",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "PASSAREDO TRANSPORTES",
+  //             "codigo": "2Z",
+  //             "id": 24
+  //           }
+  //         ],
+  //         "tipoAcordo": "NENHUM",
+  //         "officeIdEmissao": "2z",
+  //         "officeIdReserva": "2z",
+  //         "nome": "Passaredo CVC PU",
+  //         "quebraChamadaPorPeriodo": false,
+  //         "codigoContrato": {
+  //           "id": 27,
+  //           "descricao": "Passaredo - RCVC07",
+  //           "codigo": "RCVC07",
+  //           "ativo": true
+  //         },
+  //         "tipoTarifaAcordo": "AMBAS"
+  //       },
+  //       {
+  //         "id": 5461,
+  //         "credencial": {
+  //           "id": 29,
+  //           "nome": "CVC - TAM",
+  //           "sistEmis": "TAM",
+  //           "usuario": "WJJ2127005",
+  //           "senha": "REEzRlFHTkg=",
+  //           "complemento": "UxUB67",
+  //           "protocolo": "https",
+  //           "host": "production.webservices.TAM.amadeus.com",
+  //           "porta": "443",
+  //           "caminho": "elews/services/EWSWebService",
+  //           "codigoEmpresa": "B2T-JJ2",
+  //           "ativo": true,
+  //           "endpointUrl": "https://production.webservices.TAM.amadeus.com:443/elews/services/EWSWebService",
+  //           "valid": true
+  //         },
+  //         "ativo": true,
+  //         "officeIdBusca": "QSBJJ2124",
+  //         "empresa": {
+  //           "id": 41
+  //         },
+  //         "ciasAereas": [
+  //           {
+  //             "ativo": true,
+  //             "nome": "TAM",
+  //             "codigo": "JJ",
+  //             "id": 514
+  //           }
+  //         ],
+  //         "tipoAcordo": "NENHUM",
+  //         "incentivo": 0.0000,
+  //         "officeIdEmissao": "QSBJJ2124",
+  //         "officeIdReserva": "QSBJJ2124",
+  //         "nome": "CVC (JJ) Mercado - Nacional",
+  //         "comissao": 0.0000,
+  //         "quebraChamadaPorPeriodo": false,
+  //         "codigoContrato": {
+  //           "id": 9,
+  //           "descricao": "TAM - 155392",
+  //           "codigo": "155392",
+  //           "ativo": true
+  //         },
+  //         "tipoTarifaAcordo": "AMBAS"
+  //       }
+  //     ],
+  //     "filiais": [],
+  //     "produtos": [
+  //       {
+  //         "id": 4,
+  //         "nome": "VHI",
+  //         "descricao": "VHI",
+  //         "ativo": true
+  //       }
+  //     ],
+  //     "ciasExcluidas": [],
+  //     "restricoes": [
+  //       {
+  //         "id": null,
+  //         "restricaoMaeId": null,
+  //         "nome": 'LOREM',
+  //         "valor": "OR",
+  //         "tipoOperador": "DIFERENTE",
+  //         "tipoRestricao": {
+  //           "tipo": "Tipo de Tarifa",
+  //           "campo": "agrupamento",
+  //           "periodo": false
+  //         },
+  //         "tipoAgrupamento": "OR",
+  //         "restricoes": [
+  //           {
+  //             "id": null,
+  //             "restricaoMaeId": null,
+  //             "nome": 'SIte CVC - Nac VHI',
+  //             "valor": "OR",
+  //             "tipoOperador": "TOP",
+  //             "tipoRestricao": {
+  //               "tipo": "Tipo de Tarifa",
+  //               "campo": "sei la",
+  //               "periodo": false
+  //             },
+  //             "tipoAgrupamento": "OR",
+  //             "restricoes": [{
+  //               "id": null,
+  //               "restricaoMaeId": null,
+  //               "nome": 'SIte CVC - Nac VHI',
+  //               "valor": "OR",
+  //               "tipoOperador": "MAUYR",
+  //               "tipoRestricao": {
+  //                 "tipo": "Tipo de Tarifa",
+  //                 "campo": "sei la",
+  //                 "periodo": false
+  //               },
+  //               "tipoAgrupamento": "OR",
+  //               "restricoes": [],
+  //               "valores": [
+  //                 {
+  //                   "nome": "PUBLICA",
+  //                   "valor": "PU"
+  //                 }
+  //               ]
+  //             },
+  //             {
+  //               "id": null,
+  //               "restricaoMaeId": null,
+  //               "nome": 'SIte CVC - Nac VHI',
+  //               "valor": "OR",
+  //               "tipoOperador": "VAI",
+  //               "tipoRestricao": {
+  //                 "tipo": "Tipo de Tarifa",
+  //                 "campo": "sei la",
+  //                 "periodo": false
+  //               },
+  //               "tipoAgrupamento": "OR",
+  //               "restricoes": [],
+  //               "valores": [
+  //                 {
+  //                   "nome": "PUBLICA",
+  //                   "valor": "PU"
+  //                 }
+  //               ]
+  //             }],
+  //             "valores": [
+  //               {
+  //                 "nome": "PUBLICA",
+  //                 "valor": "PU"
+  //               }
+  //             ]
+  //           }
+  //         ],
+  //         "valores": [
+  //           {
+  //             "nome": "PUBLICA",
+  //             "valor": "PU"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         "id": null,
+  //         "restricaoMaeId": null,
+  //         "nome": 'lero 1',
+  //         "valor": "OR",
+  //         "tipoOperador": "IGUAL",
+  //         "tipoRestricao": {
+  //           "tipo": "Pais Origem",
+  //           "campo": "autocompletar",
+  //           "periodo": false
+  //         },
+  //         "tipoAgrupamento": "OR",
+  //         "restricoes": [],
+  //         "valores": [
+  //           {
+  //             "nome": "US",
+  //             "valor": "US"
+  //           },
+  //           {
+  //             "nome": "ES",
+  //             "valor": "ES"
+  //           },
+  //           {
+  //             "nome": "BR",
+  //             "valor": "BR"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         "id": null,
+  //         "restricaoMaeId": null,
+  //         "nome": 'lero 2',
+  //         "valor": "OR",
+  //         "tipoOperador": "MAIOR_IGUAL",
+  //         "tipoRestricao": {
+  //           "tipo": "Online",
+  //           "campo": "numerico",
+  //           "periodo": false
+  //         },
+  //         "tipoAgrupamento": "OR",
+  //         "restricoes": [],
+  //         "valores": [
+  //           {
+  //             "nome": "50",
+  //             "valor": "50"
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  //   {
+  //         "id": null,
+  //         "restricaoMaeId": null,
+  //         "nome": 'Wow',
+  //         "valor": "OR",
+  //         "tipoOperador": "DIFERENTE",
+  //         "tipoRestricao": {
+  //           "tipo": "Tipo de Tarifa",
+  //           "campo": "agrupamento",
+  //           "periodo": false
+  //         },
+  //         "tipoAgrupamento": "OR",
+  //         "valores": [
+  //           {
+  //             "nome": "PUBLICA",
+  //             "valor": "PU"
+  //           }
+  //         ]
+  //   },
+  // ]
   // this.houses = ['stark', 'lannister', 'targaryen']
-  this.houses = 'stark'
+  this.list = ['lorem 1', 'lorem 2', 'lorem 3']
+  this.list2 = ['stark', 'lannister', 'targaryen']
+  // this.houses = 'stark'
   this.number = 10
   this.numbers = [10, 20, 30, .5]
 }
 
 angular
   .module('app')
-  .directive('houses', HousesSearchDirective)
+  .filter('key', KeyFilterDirective)
 
-function HousesSearchDirective() {
-  return {
-    restrict: 'C',
-    require: 'ngModel',
-    link(scope, element, attributes) {
+function KeyFilterDirective() {
+  return filter
 
-      element.bind('search', search)
-
-      function search(event) {
-        const params = new URLSearchParams()
-        params.append('query', event.query)
-        const houses = new Request(`http://localhost:4000/houses`)
-
-        event.target
-          .fetch(houses)
-          .then(response => response.json())
-          .then(setOptions)
-
-        function setOptions(response) {
-          const houses = response
-
-          houses.forEach(house => {
-            const option = document.createElement('option')
-            option.textContent = house
-            option.setAttribute('value', house.toLowerCase())
-
-            event.target.appendChild(option)
-          })
-        }
-      }
-    }
+  function filter(array, key) {
+    // console.log(array)
+    return array.map(item => item[key])
   }
 }
 
 
 /***/ }),
-/* 10 */
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = function atoa (a, n) { return Array.prototype.slice.call(a, n); }
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var ticky = __webpack_require__(21);
+
+module.exports = function debounce (fn, args, ctx) {
+  if (!fn) { return; }
+  ticky(function run () {
+    fn.apply(ctx || null, args || []);
+  });
+};
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var atoa = __webpack_require__(11);
+var debounce = __webpack_require__(12);
+
+module.exports = function emitter (thing, options) {
+  var opts = options || {};
+  var evt = {};
+  if (thing === undefined) { thing = {}; }
+  thing.on = function (type, fn) {
+    if (!evt[type]) {
+      evt[type] = [fn];
+    } else {
+      evt[type].push(fn);
+    }
+    return thing;
+  };
+  thing.once = function (type, fn) {
+    fn._once = true; // thing.off(fn) still works!
+    thing.on(type, fn);
+    return thing;
+  };
+  thing.off = function (type, fn) {
+    var c = arguments.length;
+    if (c === 1) {
+      delete evt[type];
+    } else if (c === 0) {
+      evt = {};
+    } else {
+      var et = evt[type];
+      if (!et) { return thing; }
+      et.splice(et.indexOf(fn), 1);
+    }
+    return thing;
+  };
+  thing.emit = function () {
+    var args = atoa(arguments);
+    return thing.emitterSnapshot(args.shift()).apply(this, args);
+  };
+  thing.emitterSnapshot = function (type) {
+    var et = (evt[type] || []).slice(0);
+    return function () {
+      var args = atoa(arguments);
+      var ctx = this || thing;
+      if (type === 'error' && opts.throws !== false && !et.length) { throw args.length === 1 ? args[0] : args; }
+      et.forEach(function emitter (listen) {
+        if (opts.async) { debounce(listen, args, ctx); } else { listen.apply(ctx, args); }
+        if (listen._once) { thing.off(type, listen); }
+      });
+      return thing;
+    };
+  };
+  return thing;
+};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+var customEvent = __webpack_require__(14);
+var eventmap = __webpack_require__(16);
+var doc = global.document;
+var addEvent = addEventEasy;
+var removeEvent = removeEventEasy;
+var hardCache = [];
+
+if (!global.addEventListener) {
+  addEvent = addEventHard;
+  removeEvent = removeEventHard;
+}
+
+module.exports = {
+  add: addEvent,
+  remove: removeEvent,
+  fabricate: fabricateEvent
+};
+
+function addEventEasy (el, type, fn, capturing) {
+  return el.addEventListener(type, fn, capturing);
+}
+
+function addEventHard (el, type, fn) {
+  return el.attachEvent('on' + type, wrap(el, type, fn));
+}
+
+function removeEventEasy (el, type, fn, capturing) {
+  return el.removeEventListener(type, fn, capturing);
+}
+
+function removeEventHard (el, type, fn) {
+  var listener = unwrap(el, type, fn);
+  if (listener) {
+    return el.detachEvent('on' + type, listener);
+  }
+}
+
+function fabricateEvent (el, type, model) {
+  var e = eventmap.indexOf(type) === -1 ? makeCustomEvent() : makeClassicEvent();
+  if (el.dispatchEvent) {
+    el.dispatchEvent(e);
+  } else {
+    el.fireEvent('on' + type, e);
+  }
+  function makeClassicEvent () {
+    var e;
+    if (doc.createEvent) {
+      e = doc.createEvent('Event');
+      e.initEvent(type, true, true);
+    } else if (doc.createEventObject) {
+      e = doc.createEventObject();
+    }
+    return e;
+  }
+  function makeCustomEvent () {
+    return new customEvent(type, { detail: model });
+  }
+}
+
+function wrapperFactory (el, type, fn) {
+  return function wrapper (originalEvent) {
+    var e = originalEvent || global.event;
+    e.target = e.target || e.srcElement;
+    e.preventDefault = e.preventDefault || function preventDefault () { e.returnValue = false; };
+    e.stopPropagation = e.stopPropagation || function stopPropagation () { e.cancelBubble = true; };
+    e.which = e.which || e.keyCode;
+    fn.call(el, e);
+  };
+}
+
+function wrap (el, type, fn) {
+  var wrapper = unwrap(el, type, fn) || wrapperFactory(el, type, fn);
+  hardCache.push({
+    wrapper: wrapper,
+    element: el,
+    type: type,
+    fn: fn
+  });
+  return wrapper;
+}
+
+function unwrap (el, type, fn) {
+  var i = find(el, type, fn);
+  if (i) {
+    var wrapper = hardCache[i].wrapper;
+    hardCache.splice(i, 1); // free up a tad of memory
+    return wrapper;
+  }
+}
+
+function find (el, type, fn) {
+  var i, item;
+  for (i = 0; i < hardCache.length; i++) {
+    item = hardCache[i];
+    if (item.element === el && item.type === type && item.fn === fn) {
+      return i;
+    }
+  }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+var eventmap = [];
+var eventname = '';
+var ron = /^on/;
+
+for (eventname in global) {
+  if (ron.test(eventname)) {
+    eventmap.push(eventname.slice(2));
+  }
+}
+
+module.exports = eventmap;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var cache = {};
+var start = '(?:^|\\s)';
+var end = '(?:\\s|$)';
+
+function lookupClass (className) {
+  var cached = cache[className];
+  if (cached) {
+    cached.lastIndex = 0;
+  } else {
+    cache[className] = cached = new RegExp(start + className + end, 'g');
+  }
+  return cached;
+}
+
+function addClass (el, className) {
+  var current = el.className;
+  if (!current.length) {
+    el.className = className;
+  } else if (!lookupClass(className).test(current)) {
+    el.className += ' ' + className;
+  }
+}
+
+function rmClass (el, className) {
+  el.className = el.className.replace(lookupClass(className), ' ').trim();
+}
+
+module.exports = {
+  add: addClass,
+  rm: rmClass
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+var emitter = __webpack_require__(13);
+var crossvent = __webpack_require__(15);
+var classes = __webpack_require__(17);
+var doc = document;
+var documentElement = doc.documentElement;
+
+function dragula (initialContainers, options) {
+  var len = arguments.length;
+  if (len === 1 && Array.isArray(initialContainers) === false) {
+    options = initialContainers;
+    initialContainers = [];
+  }
+  var _mirror; // mirror image
+  var _source; // source container
+  var _item; // item being dragged
+  var _offsetX; // reference x
+  var _offsetY; // reference y
+  var _moveX; // reference move x
+  var _moveY; // reference move y
+  var _initialSibling; // reference sibling when grabbed
+  var _currentSibling; // reference sibling now
+  var _copy; // item used for copying
+  var _renderTimer; // timer for setTimeout renderMirrorImage
+  var _lastDropTarget = null; // last container item was over
+  var _grabbed; // holds mousedown context until first mousemove
+
+  var o = options || {};
+  if (o.moves === void 0) { o.moves = always; }
+  if (o.accepts === void 0) { o.accepts = always; }
+  if (o.invalid === void 0) { o.invalid = invalidTarget; }
+  if (o.containers === void 0) { o.containers = initialContainers || []; }
+  if (o.isContainer === void 0) { o.isContainer = never; }
+  if (o.copy === void 0) { o.copy = false; }
+  if (o.copySortSource === void 0) { o.copySortSource = false; }
+  if (o.revertOnSpill === void 0) { o.revertOnSpill = false; }
+  if (o.removeOnSpill === void 0) { o.removeOnSpill = false; }
+  if (o.direction === void 0) { o.direction = 'vertical'; }
+  if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
+  if (o.mirrorContainer === void 0) { o.mirrorContainer = doc.body; }
+
+  var drake = emitter({
+    containers: o.containers,
+    start: manualStart,
+    end: end,
+    cancel: cancel,
+    remove: remove,
+    destroy: destroy,
+    canMove: canMove,
+    dragging: false
+  });
+
+  if (o.removeOnSpill === true) {
+    drake.on('over', spillOver).on('out', spillOut);
+  }
+
+  events();
+
+  return drake;
+
+  function isContainer (el) {
+    return drake.containers.indexOf(el) !== -1 || o.isContainer(el);
+  }
+
+  function events (remove) {
+    var op = remove ? 'remove' : 'add';
+    touchy(documentElement, op, 'mousedown', grab);
+    touchy(documentElement, op, 'mouseup', release);
+  }
+
+  function eventualMovements (remove) {
+    var op = remove ? 'remove' : 'add';
+    touchy(documentElement, op, 'mousemove', startBecauseMouseMoved);
+  }
+
+  function movements (remove) {
+    var op = remove ? 'remove' : 'add';
+    crossvent[op](documentElement, 'selectstart', preventGrabbed); // IE8
+    crossvent[op](documentElement, 'click', preventGrabbed);
+  }
+
+  function destroy () {
+    events(true);
+    release({});
+  }
+
+  function preventGrabbed (e) {
+    if (_grabbed) {
+      e.preventDefault();
+    }
+  }
+
+  function grab (e) {
+    _moveX = e.clientX;
+    _moveY = e.clientY;
+
+    var ignore = whichMouseButton(e) !== 1 || e.metaKey || e.ctrlKey;
+    if (ignore) {
+      return; // we only care about honest-to-god left clicks and touch events
+    }
+    var item = e.target;
+    var context = canStart(item);
+    if (!context) {
+      return;
+    }
+    _grabbed = context;
+    eventualMovements();
+    if (e.type === 'mousedown') {
+      if (isInput(item)) { // see also: https://github.com/bevacqua/dragula/issues/208
+        item.focus(); // fixes https://github.com/bevacqua/dragula/issues/176
+      } else {
+        e.preventDefault(); // fixes https://github.com/bevacqua/dragula/issues/155
+      }
+    }
+  }
+
+  function startBecauseMouseMoved (e) {
+    if (!_grabbed) {
+      return;
+    }
+    if (whichMouseButton(e) === 0) {
+      release({});
+      return; // when text is selected on an input and then dragged, mouseup doesn't fire. this is our only hope
+    }
+    // truthy check fixes #239, equality fixes #207
+    if (e.clientX !== void 0 && e.clientX === _moveX && e.clientY !== void 0 && e.clientY === _moveY) {
+      return;
+    }
+    if (o.ignoreInputTextSelection) {
+      var clientX = getCoord('clientX', e);
+      var clientY = getCoord('clientY', e);
+      var elementBehindCursor = doc.elementFromPoint(clientX, clientY);
+      if (isInput(elementBehindCursor)) {
+        return;
+      }
+    }
+
+    var grabbed = _grabbed; // call to end() unsets _grabbed
+    eventualMovements(true);
+    movements();
+    end();
+    start(grabbed);
+
+    var offset = getOffset(_item);
+    _offsetX = getCoord('pageX', e) - offset.left;
+    _offsetY = getCoord('pageY', e) - offset.top;
+
+    classes.add(_copy || _item, 'gu-transit');
+    renderMirrorImage();
+    drag(e);
+  }
+
+  function canStart (item) {
+    if (drake.dragging && _mirror) {
+      return;
+    }
+    if (isContainer(item)) {
+      return; // don't drag container itself
+    }
+    var handle = item;
+    while (getParent(item) && isContainer(getParent(item)) === false) {
+      if (o.invalid(item, handle)) {
+        return;
+      }
+      item = getParent(item); // drag target should be a top element
+      if (!item) {
+        return;
+      }
+    }
+    var source = getParent(item);
+    if (!source) {
+      return;
+    }
+    if (o.invalid(item, handle)) {
+      return;
+    }
+
+    var movable = o.moves(item, source, handle, nextEl(item));
+    if (!movable) {
+      return;
+    }
+
+    return {
+      item: item,
+      source: source
+    };
+  }
+
+  function canMove (item) {
+    return !!canStart(item);
+  }
+
+  function manualStart (item) {
+    var context = canStart(item);
+    if (context) {
+      start(context);
+    }
+  }
+
+  function start (context) {
+    if (isCopy(context.item, context.source)) {
+      _copy = context.item.cloneNode(true);
+      drake.emit('cloned', _copy, context.item, 'copy');
+    }
+
+    _source = context.source;
+    _item = context.item;
+    _initialSibling = _currentSibling = nextEl(context.item);
+
+    drake.dragging = true;
+    drake.emit('drag', _item, _source);
+  }
+
+  function invalidTarget () {
+    return false;
+  }
+
+  function end () {
+    if (!drake.dragging) {
+      return;
+    }
+    var item = _copy || _item;
+    drop(item, getParent(item));
+  }
+
+  function ungrab () {
+    _grabbed = false;
+    eventualMovements(true);
+    movements(true);
+  }
+
+  function release (e) {
+    ungrab();
+
+    if (!drake.dragging) {
+      return;
+    }
+    var item = _copy || _item;
+    var clientX = getCoord('clientX', e);
+    var clientY = getCoord('clientY', e);
+    var elementBehindCursor = getElementBehindPoint(_mirror, clientX, clientY);
+    var dropTarget = findDropTarget(elementBehindCursor, clientX, clientY);
+    if (dropTarget && ((_copy && o.copySortSource) || (!_copy || dropTarget !== _source))) {
+      drop(item, dropTarget);
+    } else if (o.removeOnSpill) {
+      remove();
+    } else {
+      cancel();
+    }
+  }
+
+  function drop (item, target) {
+    var parent = getParent(item);
+    if (_copy && o.copySortSource && target === _source) {
+      parent.removeChild(_item);
+    }
+    if (isInitialPlacement(target)) {
+      drake.emit('cancel', item, _source, _source);
+    } else {
+      drake.emit('drop', item, target, _source, _currentSibling);
+    }
+    cleanup();
+  }
+
+  function remove () {
+    if (!drake.dragging) {
+      return;
+    }
+    var item = _copy || _item;
+    var parent = getParent(item);
+    if (parent) {
+      parent.removeChild(item);
+    }
+    drake.emit(_copy ? 'cancel' : 'remove', item, parent, _source);
+    cleanup();
+  }
+
+  function cancel (revert) {
+    if (!drake.dragging) {
+      return;
+    }
+    var reverts = arguments.length > 0 ? revert : o.revertOnSpill;
+    var item = _copy || _item;
+    var parent = getParent(item);
+    var initial = isInitialPlacement(parent);
+    if (initial === false && reverts) {
+      if (_copy) {
+        if (parent) {
+          parent.removeChild(_copy);
+        }
+      } else {
+        _source.insertBefore(item, _initialSibling);
+      }
+    }
+    if (initial || reverts) {
+      drake.emit('cancel', item, _source, _source);
+    } else {
+      drake.emit('drop', item, parent, _source, _currentSibling);
+    }
+    cleanup();
+  }
+
+  function cleanup () {
+    var item = _copy || _item;
+    ungrab();
+    removeMirrorImage();
+    if (item) {
+      classes.rm(item, 'gu-transit');
+    }
+    if (_renderTimer) {
+      clearTimeout(_renderTimer);
+    }
+    drake.dragging = false;
+    if (_lastDropTarget) {
+      drake.emit('out', item, _lastDropTarget, _source);
+    }
+    drake.emit('dragend', item);
+    _source = _item = _copy = _initialSibling = _currentSibling = _renderTimer = _lastDropTarget = null;
+  }
+
+  function isInitialPlacement (target, s) {
+    var sibling;
+    if (s !== void 0) {
+      sibling = s;
+    } else if (_mirror) {
+      sibling = _currentSibling;
+    } else {
+      sibling = nextEl(_copy || _item);
+    }
+    return target === _source && sibling === _initialSibling;
+  }
+
+  function findDropTarget (elementBehindCursor, clientX, clientY) {
+    var target = elementBehindCursor;
+    while (target && !accepted()) {
+      target = getParent(target);
+    }
+    return target;
+
+    function accepted () {
+      var droppable = isContainer(target);
+      if (droppable === false) {
+        return false;
+      }
+
+      var immediate = getImmediateChild(target, elementBehindCursor);
+      var reference = getReference(target, immediate, clientX, clientY);
+      var initial = isInitialPlacement(target, reference);
+      if (initial) {
+        return true; // should always be able to drop it right back where it was
+      }
+      return o.accepts(_item, target, _source, reference);
+    }
+  }
+
+  function drag (e) {
+    if (!_mirror) {
+      return;
+    }
+    e.preventDefault();
+
+    var clientX = getCoord('clientX', e);
+    var clientY = getCoord('clientY', e);
+    var x = clientX - _offsetX;
+    var y = clientY - _offsetY;
+
+    _mirror.style.left = x + 'px';
+    _mirror.style.top = y + 'px';
+
+    var item = _copy || _item;
+    var elementBehindCursor = getElementBehindPoint(_mirror, clientX, clientY);
+    var dropTarget = findDropTarget(elementBehindCursor, clientX, clientY);
+    var changed = dropTarget !== null && dropTarget !== _lastDropTarget;
+    if (changed || dropTarget === null) {
+      out();
+      _lastDropTarget = dropTarget;
+      over();
+    }
+    var parent = getParent(item);
+    if (dropTarget === _source && _copy && !o.copySortSource) {
+      if (parent) {
+        parent.removeChild(item);
+      }
+      return;
+    }
+    var reference;
+    var immediate = getImmediateChild(dropTarget, elementBehindCursor);
+    if (immediate !== null) {
+      reference = getReference(dropTarget, immediate, clientX, clientY);
+    } else if (o.revertOnSpill === true && !_copy) {
+      reference = _initialSibling;
+      dropTarget = _source;
+    } else {
+      if (_copy && parent) {
+        parent.removeChild(item);
+      }
+      return;
+    }
+    if (
+      (reference === null && changed) ||
+      reference !== item &&
+      reference !== nextEl(item)
+    ) {
+      _currentSibling = reference;
+      dropTarget.insertBefore(item, reference);
+      drake.emit('shadow', item, dropTarget, _source);
+    }
+    function moved (type) { drake.emit(type, item, _lastDropTarget, _source); }
+    function over () { if (changed) { moved('over'); } }
+    function out () { if (_lastDropTarget) { moved('out'); } }
+  }
+
+  function spillOver (el) {
+    classes.rm(el, 'gu-hide');
+  }
+
+  function spillOut (el) {
+    if (drake.dragging) { classes.add(el, 'gu-hide'); }
+  }
+
+  function renderMirrorImage () {
+    if (_mirror) {
+      return;
+    }
+    var rect = _item.getBoundingClientRect();
+    _mirror = _item.cloneNode(true);
+    _mirror.style.width = getRectWidth(rect) + 'px';
+    _mirror.style.height = getRectHeight(rect) + 'px';
+    classes.rm(_mirror, 'gu-transit');
+    classes.add(_mirror, 'gu-mirror');
+    o.mirrorContainer.appendChild(_mirror);
+    touchy(documentElement, 'add', 'mousemove', drag);
+    classes.add(o.mirrorContainer, 'gu-unselectable');
+    drake.emit('cloned', _mirror, _item, 'mirror');
+  }
+
+  function removeMirrorImage () {
+    if (_mirror) {
+      classes.rm(o.mirrorContainer, 'gu-unselectable');
+      touchy(documentElement, 'remove', 'mousemove', drag);
+      getParent(_mirror).removeChild(_mirror);
+      _mirror = null;
+    }
+  }
+
+  function getImmediateChild (dropTarget, target) {
+    var immediate = target;
+    while (immediate !== dropTarget && getParent(immediate) !== dropTarget) {
+      immediate = getParent(immediate);
+    }
+    if (immediate === documentElement) {
+      return null;
+    }
+    return immediate;
+  }
+
+  function getReference (dropTarget, target, x, y) {
+    var horizontal = o.direction === 'horizontal';
+    var reference = target !== dropTarget ? inside() : outside();
+    return reference;
+
+    function outside () { // slower, but able to figure out any position
+      var len = dropTarget.children.length;
+      var i;
+      var el;
+      var rect;
+      for (i = 0; i < len; i++) {
+        el = dropTarget.children[i];
+        rect = el.getBoundingClientRect();
+        if (horizontal && (rect.left + rect.width / 2) > x) { return el; }
+        if (!horizontal && (rect.top + rect.height / 2) > y) { return el; }
+      }
+      return null;
+    }
+
+    function inside () { // faster, but only available if dropped inside a child element
+      var rect = target.getBoundingClientRect();
+      if (horizontal) {
+        return resolve(x > rect.left + getRectWidth(rect) / 2);
+      }
+      return resolve(y > rect.top + getRectHeight(rect) / 2);
+    }
+
+    function resolve (after) {
+      return after ? nextEl(target) : target;
+    }
+  }
+
+  function isCopy (item, container) {
+    return typeof o.copy === 'boolean' ? o.copy : o.copy(item, container);
+  }
+}
+
+function touchy (el, op, type, fn) {
+  var touch = {
+    mouseup: 'touchend',
+    mousedown: 'touchstart',
+    mousemove: 'touchmove'
+  };
+  var pointers = {
+    mouseup: 'pointerup',
+    mousedown: 'pointerdown',
+    mousemove: 'pointermove'
+  };
+  var microsoft = {
+    mouseup: 'MSPointerUp',
+    mousedown: 'MSPointerDown',
+    mousemove: 'MSPointerMove'
+  };
+  if (global.navigator.pointerEnabled) {
+    crossvent[op](el, pointers[type], fn);
+  } else if (global.navigator.msPointerEnabled) {
+    crossvent[op](el, microsoft[type], fn);
+  } else {
+    crossvent[op](el, touch[type], fn);
+    crossvent[op](el, type, fn);
+  }
+}
+
+function whichMouseButton (e) {
+  if (e.touches !== void 0) { return e.touches.length; }
+  if (e.which !== void 0 && e.which !== 0) { return e.which; } // see https://github.com/bevacqua/dragula/issues/261
+  if (e.buttons !== void 0) { return e.buttons; }
+  var button = e.button;
+  if (button !== void 0) { // see https://github.com/jquery/jquery/blob/99e8ff1baa7ae341e94bb89c3e84570c7c3ad9ea/src/event.js#L573-L575
+    return button & 1 ? 1 : button & 2 ? 3 : (button & 4 ? 2 : 0);
+  }
+}
+
+function getOffset (el) {
+  var rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + getScroll('scrollLeft', 'pageXOffset'),
+    top: rect.top + getScroll('scrollTop', 'pageYOffset')
+  };
+}
+
+function getScroll (scrollProp, offsetProp) {
+  if (typeof global[offsetProp] !== 'undefined') {
+    return global[offsetProp];
+  }
+  if (documentElement.clientHeight) {
+    return documentElement[scrollProp];
+  }
+  return doc.body[scrollProp];
+}
+
+function getElementBehindPoint (point, x, y) {
+  var p = point || {};
+  var state = p.className;
+  var el;
+  p.className += ' gu-hide';
+  el = doc.elementFromPoint(x, y);
+  p.className = state;
+  return el;
+}
+
+function never () { return false; }
+function always () { return true; }
+function getRectWidth (rect) { return rect.width || (rect.right - rect.left); }
+function getRectHeight (rect) { return rect.height || (rect.bottom - rect.top); }
+function getParent (el) { return el.parentNode === doc ? null : el.parentNode; }
+function isInput (el) { return el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || isEditable(el); }
+function isEditable (el) {
+  if (!el) { return false; } // no parents were editable
+  if (el.contentEditable === 'false') { return false; } // stop the lookup
+  if (el.contentEditable === 'true') { return true; } // found a contentEditable element in the chain
+  return isEditable(getParent(el)); // contentEditable is set to 'inherit'
+}
+
+function nextEl (el) {
+  return el.nextElementSibling || manually();
+  function manually () {
+    var sibling = el;
+    do {
+      sibling = sibling.nextSibling;
+    } while (sibling && sibling.nodeType !== 1);
+    return sibling;
+  }
+}
+
+function getEventHost (e) {
+  // on touchend event, we have to use `e.changedTouches`
+  // see http://stackoverflow.com/questions/7192563/touchend-event-properties
+  // see https://github.com/bevacqua/dragula/issues/34
+  if (e.targetTouches && e.targetTouches.length) {
+    return e.targetTouches[0];
+  }
+  if (e.changedTouches && e.changedTouches.length) {
+    return e.changedTouches[0];
+  }
+  return e;
+}
+
+function getCoord (coord, e) {
+  var host = getEventHost(e);
+  var missMap = {
+    pageX: 'clientX', // IE8
+    pageY: 'clientY' // IE8
+  };
+  if (coord in missMap && !(coord in host) && missMap[coord] in host) {
+    coord = missMap[coord];
+  }
+  return host[coord];
+}
+
+module.exports = dragula;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+      // Callback can either be a function or a string
+      if (typeof callback !== "function") {
+        callback = new Function("" + callback);
+      }
+      // Copy function arguments
+      var args = new Array(arguments.length - 1);
+      for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i + 1];
+      }
+      // Store and register the task
+      var task = { callback: callback, args: args };
+      tasksByHandle[nextHandle] = task;
+      registerImmediate(nextHandle);
+      return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+        case 0:
+            callback();
+            break;
+        case 1:
+            callback(args[0]);
+            break;
+        case 2:
+            callback(args[0], args[1]);
+            break;
+        case 3:
+            callback(args[0], args[1], args[2]);
+            break;
+        default:
+            callback.apply(undefined, args);
+            break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function(handle) {
+            process.nextTick(function () { runIfPresent(handle); });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function() {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(19)))
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(setImmediate) {var si = typeof setImmediate === 'function', tick;
+if (si) {
+  tick = function (fn) { setImmediate(fn); };
+} else {
+  tick = function (fn) { setTimeout(fn, 0); };
+}
+
+module.exports = tick;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22).setImmediate))
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(20);
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1608,7 +3468,7 @@ module.exports = class MnActionSheet extends HTMLElement {
 
 
 /***/ }),
-/* 11 */
+/* 24 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1642,7 +3502,7 @@ module.exports = class MnButton extends HTMLElement {
 
 
 /***/ }),
-/* 12 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -1655,7 +3515,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-button')) {
-    window.customElements.define('mn-button', __webpack_require__(11))
+    window.customElements.define('mn-button', __webpack_require__(24))
   }
 
   return window.customElements.get('mn-button')
@@ -1663,7 +3523,7 @@ function MnSidenavCustomElement() {
 
 
 /***/ }),
-/* 13 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnCheckboxCustomElement()
@@ -1676,7 +3536,7 @@ function MnCheckboxCustomElement() {
   }
 
   if (!window.customElements.get('mn-checkbox')) {
-    window.customElements.define('mn-checkbox', __webpack_require__(4))
+    window.customElements.define('mn-checkbox', __webpack_require__(5))
   }
 
   return window.customElements.get('mn-checkbox')
@@ -1684,7 +3544,7 @@ function MnCheckboxCustomElement() {
 
 
 /***/ }),
-/* 14 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1867,7 +3727,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 15 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -1880,7 +3740,7 @@ function MnDateCustomElement() {
   }
 
   if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(14))
+    window.customElements.define('mn-date', __webpack_require__(27))
   }
 
   return window.customElements.get('mn-date')
@@ -1888,7 +3748,7 @@ function MnDateCustomElement() {
 
 
 /***/ }),
-/* 16 */
+/* 29 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2005,7 +3865,7 @@ module.exports = class MnDialog extends HTMLElement {
 
 
 /***/ }),
-/* 17 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -2018,7 +3878,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(16))
+    window.customElements.define('mn-dialog', __webpack_require__(29))
   }
 
   return window.customElements.get('mn-dialog')
@@ -2026,7 +3886,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 18 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2048,7 +3908,7 @@ module.exports = class MnEmail extends MnInput {
 
 
 /***/ }),
-/* 19 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnEmailCustomElement()
@@ -2061,7 +3921,7 @@ function MnEmailCustomElement() {
   }
 
   if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(18))
+    window.customElements.define('mn-email', __webpack_require__(31))
   }
 
   return window.customElements.get('mn-email')
@@ -2069,7 +3929,7 @@ function MnEmailCustomElement() {
 
 
 /***/ }),
-/* 20 */
+/* 33 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2263,7 +4123,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 21 */
+/* 34 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -2285,7 +4145,7 @@ function MnFormDirective() {
 
 
 /***/ }),
-/* 22 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -2298,7 +4158,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(20))
+    window.customElements.define('mn-form', __webpack_require__(33))
   }
 
   return window.customElements.get('mn-form')
@@ -2306,7 +4166,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 23 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2348,7 +4208,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 24 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnHiddenCustomElement()
@@ -2361,7 +4221,7 @@ function MnHiddenCustomElement() {
   }
 
   if (!window.customElements.get('mn-hidden')) {
-    window.customElements.define('mn-hidden', __webpack_require__(23))
+    window.customElements.define('mn-hidden', __webpack_require__(36))
   }
 
   return window.customElements.get('mn-hidden')
@@ -2369,7 +4229,7 @@ function MnHiddenCustomElement() {
 
 
 /***/ }),
-/* 25 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /* global angular */
@@ -2438,7 +4298,7 @@ function MnInputDirective() {
 
 
 /***/ }),
-/* 26 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -2459,10 +4319,11 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports) {
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
+const dragula = __webpack_require__(18)
 
 module.exports = class MnList extends HTMLElement {
   constructor(self) {
@@ -2473,6 +4334,7 @@ module.exports = class MnList extends HTMLElement {
   connectedCallback() {
     this.setStyle()
     this.setCollapse()
+    this.setDraggable()
   }
 
   setStyle() {
@@ -2490,18 +4352,187 @@ module.exports = class MnList extends HTMLElement {
       const isListOwnerOfItem = event.target.closest('.mn-list') === this
 
       if (isItemCollapse && isListOwnerOfItem) {
-        item.classList.contains('detail-visible')
-          ? item.classList.remove('detail-visible')
-          : item.classList.add('detail-visible')
+        const detailVisible = item.classList.contains('detail-visible')
+        if (detailVisible) {
+          item.classList.remove('detail-visible')
+          Array
+            .from(item.querySelectorAll('.detail-visible'))
+            .forEach(item => item.classList.remove('detail-visible'))
+        } else {
+          item.classList.add('detail-visible')
+        }
         event.stopPropagation()
       }
     })
+  }
+
+  setDraggable() {
+    if (!MnList.draggableSettings) {
+      let originIndex
+      const options = {
+        moves(element) {
+          originIndex = Array.prototype.indexOf
+            .call(element.closest('.mn-list').querySelectorAll('.mn-item'), element)
+          return element.matches('.mn-item[draggable]')
+        },
+        accepts(element, target) {
+          const parent = element.closest('.mn-list')
+          const parentName = parent.getAttribute('name')
+          const targetName = target.getAttribute('name')
+
+          const move = parent === target
+            || (parent.hasAttribute('name')
+              && target.hasAttribute('name')
+              && parentName === targetName
+            )
+
+          return move
+        },
+        direction: 'vertical',
+        mirrorContainer: document.body,
+      }
+
+      MnList.draggableSettings = dragula(options)
+
+      MnList.draggableSettings
+      .on('drop', (element, target, source) => {
+        const targetIndex = Array.prototype.indexOf.call(target.querySelectorAll('.mn-item'), element)
+
+        const reorder = source === target
+        const rearrange = source !== target
+
+        if (reorder) { // reorder inside same list
+          if (originIndex !== targetIndex) {
+            const event = new Event('reorder')
+            event.originIndex = originIndex
+            event.targetIndex = targetIndex
+            source.dispatchEvent(event)
+          }
+        } else if (rearrange) { // rearrange to another list
+          const event = new Event('rearrange')
+          event.origin = source
+          event.element = element
+          event.targetList = target
+          event.originIndex = originIndex
+          event.targetIndex = targetIndex
+          source.dispatchEvent(event)
+        }
+      })
+    }
+
+    MnList.draggableSettings.containers.push(this)
   }
 }
 
 
 /***/ }),
-/* 28 */
+/* 41 */
+/***/ (function(module, exports) {
+
+/* global angular */
+
+angular
+  .module('minimalist')
+  .directive('mnList', MnListDirective)
+  .directive('ngCollapse', NgCollapseDirective)
+  .directive('ngDraggable', NgCollapseDirective)
+
+MnListDirective.$inject = ['$parse']
+NgCollapseDirective.$inject = ['$parse']
+NgDraggableDirective.$inject = ['$parse']
+
+function MnListDirective($parse) {
+  return {
+    restrict: 'C',
+    link(scope, element, attributes) {
+      let model
+      scope.$mnListModel =  $parse(attributes.ngModel)(scope)
+
+      element.ready(() => {
+        const item = element[0].querySelector('.mn-item[ng-repeat][draggable]')
+        let expressionModel
+        if (item) {
+          expressionModel = item
+            .getAttribute('ng-repeat')
+            .match(/\sin\s(.+)/)[1].split(' ')[0]
+
+          model = $parse(expressionModel)(scope)
+        }
+
+        element.on('reorder', (event) => {
+          const {originIndex, targetIndex} = event
+          scope.$apply(reorderItems)
+
+          function reorderItems() {
+            const value = angular.copy(model[originIndex])
+            model[originIndex] = model[targetIndex]
+            model[targetIndex] = value
+          }
+        })
+
+        element.on('rearrange', (event) => {
+          const {originIndex, targetList, targetIndex, element} = event
+
+          setTimeout(() => {
+            scope.$apply(rearrangeItems)
+          }, 0)
+
+          function rearrangeItems() {
+            const value = angular.copy(model[originIndex])
+            const newNgRepeat = Array
+              .from(targetList.children)
+              .filter(item => {
+                return item.classList.contains('mn-item')
+                  && item !== element
+                  && item.hasAttribute('ng-repeat') && element.hasAttribute('ng-repeat')
+                  // && item.getAttribute('ng-repeat') !== element.getAttribute('ng-repeat')
+              })[0].getAttribute('ng-repeat')
+
+            if (newNgRepeat) {
+              element.setAttribute('ng-repeat', newNgRepeat)
+              const newModel = $parse(newNgRepeat.match(/\sin\s(.+)/)[1].split(' ')[0])(angular.element(element.parentNode).scope())
+
+              if (newModel) {
+                newModel.splice(targetIndex, 0, value)
+              }
+              model.splice(originIndex, 1)
+            }
+          }
+        })
+      })
+    }
+  }
+}
+
+function NgCollapseDirective($parse) {
+  return {
+    restrict: 'A',
+    link(scope, element, attributes) {
+      const conditional = $parse(attributes.ngCollapse)(scope)
+
+      conditional
+        ? element.attr('collapse', '')
+        : element.removeAttr('collapse')
+    }
+  }
+}
+
+function NgDraggableDirective($parse) {
+  return {
+    restrict: 'A',
+    link(scope, element, attributes) {
+      const conditional = $parse(attributes.ngCollapse)(scope)
+
+      conditional
+        ? element.attr('draggable', '')
+        : element.removeAttr('draggable')
+    }
+  }
+}
+
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -2514,7 +4545,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-list')) {
-    window.customElements.define('mn-list', __webpack_require__(27))
+    window.customElements.define('mn-list', __webpack_require__(40))
   }
 
   return window.customElements.get('mn-list')
@@ -2522,7 +4553,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 29 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2789,7 +4820,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 30 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -2802,7 +4833,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(29))
+    window.customElements.define('mn-number', __webpack_require__(43))
   }
 
   return window.customElements.get('mn-number')
@@ -2810,7 +4841,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 31 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2887,7 +4918,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 32 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -2900,7 +4931,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(31))
+    window.customElements.define('mn-password', __webpack_require__(45))
   }
 
   return window.customElements.get('mn-password')
@@ -2908,10 +4939,10 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 33 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnCheckbox = __webpack_require__(4)
+const MnCheckbox = __webpack_require__(5)
 const evaluate = __webpack_require__(2)
 
 module.exports = class MnRadio extends MnCheckbox {
@@ -3010,7 +5041,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 34 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global angular */
@@ -3022,13 +5053,13 @@ angular
 module.exports = MnRadioDirective
 
 function MnRadioDirective() {
-  const MnCheckboxDirective = __webpack_require__(5)
+  const MnCheckboxDirective = __webpack_require__(6)
   return MnCheckboxDirective()
 }
 
 
 /***/ }),
-/* 35 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -3041,7 +5072,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(33))
+    window.customElements.define('mn-radio', __webpack_require__(47))
   }
 
   return window.customElements.get('mn-radio')
@@ -3049,10 +5080,10 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 36 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const MnSelect = __webpack_require__(6)
+const MnSelect = __webpack_require__(7)
 
 module.exports = class MnSearch extends MnSelect {
   constructor(self) {
@@ -3184,7 +5215,7 @@ module.exports = class MnSearch extends MnSelect {
 
 
 /***/ }),
-/* 37 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -3197,7 +5228,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-search')) {
-    window.customElements.define('mn-search', __webpack_require__(36))
+    window.customElements.define('mn-search', __webpack_require__(50))
   }
 
   return window.customElements.get('mn-search')
@@ -3205,7 +5236,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 38 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -3218,7 +5249,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-select')) {
-    window.customElements.define('mn-select', __webpack_require__(6))
+    window.customElements.define('mn-select', __webpack_require__(7))
   }
 
   return window.customElements.get('mn-select')
@@ -3226,7 +5257,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 39 */
+/* 53 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -3324,7 +5355,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 40 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -3337,7 +5368,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(39))
+    window.customElements.define('mn-sidenav', __webpack_require__(53))
   }
 
   return window.customElements.get('mn-sidenav')

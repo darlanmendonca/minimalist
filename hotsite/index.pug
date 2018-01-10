@@ -8,7 +8,7 @@ html
 
     link(rel='stylesheet' href='/vendor.css')
 
-  body(ng-app='app')
+  body
     include pages/home
 
     //- section.tabs.mn-layout-container-full
@@ -31,33 +31,43 @@ html
       mn-radio(placeholder='mn-hidden' name='tab')
 
     //- include pages/button
+    section.mn-layout-container(style='margin-bottom: 2em')
+      h3(style='color: white') vanilla
+      mn-list.mn-card(name='lero')
+        .mn-item(draggable) restricao 1
+        .mn-item(draggable) restricao 2
+        .mn-item(draggable) restricao 3
+        .mn-item(collapse draggable) restricao 4 (folder)
+          .mn-layout-row
+            mn-list.mn-item-detail(name='lero')
+              .mn-item(collapse draggable) sub restriction 1 (folder)
+                mn-list.mn-item-detail(name='lero')
+                  .mn-item(draggable) subsub restriction 1
+                  .mn-item(draggable) subsub restriction 2
+              .mn-item(draggable) sub restriction 2
+        .mn-item(collapse draggable) restricao 5 (empty folder)
+          mn-list(name='lero')
 
-    section.mn-layout-container(ng-controller='HomeController as home' style='margin-bottom: 2em')
+      h3(style='color: white') other vanilla list
+      mn-list.mn-card(name='lero')
+        .mn-item(draggable) rest 1
+        .mn-item(draggable collapse) folder 2
+          mn-list.mn-item-detail
+            .mn-item(draggable) rest 2
+            .mn-item(draggable) rest 3
 
-      h3 chips
-      .mn-card.padding.mn-layout-row
-        span.mn-chip hello
-        span.mn-chip hello
+    section.mn-layout-container(ng-app='app' ng-controller='HomeController as home' style='margin-bottom: 2em')
+      h3(style='color: white') angular {{ home.list2 }}
+      mn-list.mn-card(name='angularGroup')
+        .mn-item(ng-repeat='item in home.list2 track by $index' draggable) {{ item }}
+        //- .mn-item(ng-repeat='item in home.houses.restricoes' restricoes='item')
 
-      .mn-card.mn-layout-row.mn-layout-wrap
-        mn-checkbox(placeholder='Lero' value='lero')
-        mn-checkbox(placeholder='Lero 1' value='lero 1')
-        mn-checkbox(placeholder='Lero 2' value='lero 2')
-        mn-checkbox(placeholder='Lero 3' value='lero 3')
-        mn-checkbox(placeholder='Lero 4' value='lero 4')
-        mn-checkbox(placeholder='Lero 5' value='lero 5')
-        mn-checkbox(placeholder='Lero 6' value='lero 6')
-        mn-checkbox(placeholder='Lero 7' value='lero 7')
+      h3(style='color: white') other list angular {{ home.list }}
+      mn-list.mn-card(name='angularGroup')
+        .mn-item(ng-repeat='item in home.list' draggable) {{ item }}
+        //- .mn-item(draggable) lero 1
+        //- .mn-item lero 3
 
-      mn-list.mn-card
-        .test-to-nested-items
-          .mn-item lero 1
-          .mn-item(collapse)
-            span lero 2
-            mn-list.mn-item-detail
-              .mn-item lorem 1
-              .mn-item lorem 2
-          .mn-item lero 3
       //- .mn-card.padding
         mn-form(submit='home.submit()')
           .mn-layout-column
@@ -75,6 +85,26 @@ html
             mn-button(reset) reset
             mn-button(empty) empty
             mn-button.raised(submit) submit
+
+      h3(style='color: white') angular restrictions {{ home.restrictions | key: 'nome' }}
+
+      script(type='text/ng-template' id='restriction.template')
+        .mn-item(ng-repeat='restriction in $mnListModel' draggable ng-collapse='restriction.restricoes')
+          .mn-layout-row
+            .flex {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+            mn-button remove
+          mn-list(name='restrictions' ng-model='restriction.restricoes' ng-if='restriction.restricoes' ng-include='"restriction.template"')
+          //- ng-init='restrictions = restriction.restricoes'
+
+      mn-list.mn-card(name='restrictions'
+        ng-model='home.restrictions'
+        ng-include='"restriction.template"')
+
+      //- mn-list.mn-card(name='restrictions')
+        .mn-item(ng-repeat='restriction in home.restrictions' draggable ng-collapse='restriction.restricoes')
+          | {{ restriction.nome }} {{ (restriction.restricoes ? '(folder)' : '') }}
+          mn-list(name='restrictions' ng-if='restriction.restricoes')
+            .mn-item(ng-repeat='item in restriction.restricoes' draggable) {{ item.nome }}
 
     script(src='/vendor.js')
     script.

@@ -4,9 +4,9 @@ set -e
 
 port=3000
 
-npm run pug $1 &
-npm run sass $1 &
-npm run javascript $1 & \
+./scripts/pug.sh $1 &
+./scripts/sass.sh $1 &
+./scripts/javascript.sh $1 & \
 
 ./node_modules/.bin/browser-sync start \
 --server 'docs' \

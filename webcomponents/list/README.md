@@ -67,3 +67,28 @@ If you need minimize and expand a nested list, you can use the attribute `collap
   <div class="mn-item"><!-- content here --></div>
 </mn-list>
 ```
+
+### Draggable
+
+If you need drag items to reorder, jsut add attribute `draggable` to `.mn-item`, e.g.
+
+```html
+<mn-list>
+  <div class="mn-item" draggable>lorem 1</div>
+  <div class="mn-item" draggable>lorem 2</div>
+</mn-list>
+```
+
+Finally, if you need drag items between two lists, define the same name to they, using attribute `name`, e.g.
+
+```html
+<mn-list name="groupName">
+  <div class="mn-item" draggable>lorem 1</div>
+  <div class="mn-item" draggable>lorem 2</div>
+</mn-list>
+
+<mn-list name="groupName">
+  <div class="mn-item" draggable>ipsum 1</div>
+  <div class="mn-item" draggable>ipsum 2</div>
+</mn-list>
+```
