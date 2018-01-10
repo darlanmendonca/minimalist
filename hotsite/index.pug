@@ -2,19 +2,18 @@ html
   head
     title minimalist
     meta(name='viewport' content='width=device-width, user-scalable=no')
-
-    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js')
-
     link(rel='stylesheet' href='/vendor.css')
 
+    //- script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js')
+
+
   body
-    include pages/home
+    section.home.mn-layout.mn-layout-fullscreen.mn-layout-centered
+      h2.logotype minimalist
+      include assets/github-corner
+
     include pages/components
     include pages/about
 
     script(src='/vendor.js')
-    script.
-      const form = document.querySelector('mn-form')
-      const number = document.querySelector('mn-number[placeholder="Number"]')
-      const numbers = document.querySelector('mn-number[placeholder="Numbers"]')

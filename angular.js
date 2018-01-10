@@ -3,9 +3,9 @@
 angular.module('minimalist', [])
 
 module.exports = {
-  input: require('./webcomponents/input/input.directive.js'),
-  form: require('./webcomponents/form/form.directive.js'),
-  checkbox: require('./webcomponents/checkbox/checkbox.directive.js'),
-  radio: require('./webcomponents/radio/radio.directive.js'),
-  list: require('./webcomponents/list/list.directive.js'),
+  input: require('./components/input/input.directive.js'),
+  form: require('./components/form/form.directive.js'),
+  checkbox: require('./components/checkbox/checkbox.directive.js'),
+  radio: require('./components/radio/radio.directive.js'),
+  list: require('./components/list/list.directive.js'),
 }

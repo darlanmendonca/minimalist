@@ -7,7 +7,7 @@
 This project is a UI Kit, with focus in usability, performance, and scalability.
 Feel free to use and change identity.
 
-You found docs about each style or webcomponent, in [webcomponents/COMPONENT-NAME-HERE](https://github.com/reserva-facil/minimalist/tree/master/webcomponents).
+You found docs about each style or webcomponent, in [components/COMPONENT-NAME-HERE](https://github.com/reserva-facil/minimalist/tree/master/components).
 
 
 ### Contributions

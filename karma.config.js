@@ -31,17 +31,17 @@ function KarmaConfig(config) {
       'node_modules/angular/index.js',
       'index.js',
       'angular.js',
-      'webcomponents/**/*.directive.js',
-      'webcomponents/**/*.scss',
+      'components/**/*.directive.js',
+      'components/**/*.scss',
       'index.spec.js',
       'angular.spec.js',
-      'webcomponents/**/*.spec.js',
-      'webcomponents/**/*.directive.spec.js',
+      'components/**/*.spec.js',
+      'components/**/*.directive.spec.js',
     ],
 
     preprocessors: {
       '**/*.js': ['webpack', 'sourcemap'],
-      'webcomponents/**/*.scss': ['scss'],
+      'components/**/*.scss': ['scss'],
     },
 
     webpack: {

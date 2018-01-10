@@ -59,7 +59,7 @@ const {input} = require('@reservafacil/minimalist')
 <mn-input placeholder="lorem ipsum" />
 ```
 
-Using a framework? Check the directory [webcomponents/COMPONENT-NAME-HERE](https://github.com/reserva-facil/minimalist/tree/master/webcomponents) to see the entire documentation of component.
+Using a framework? Check the directory [components/COMPONENT-NAME-HERE](https://github.com/reserva-facil/minimalist/tree/master/components) to see the entire documentation of component.
 
 
 ### Tests

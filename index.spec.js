@@ -8,9 +8,9 @@ describe('minimalist', () => {
     expect(packageJSON).to.have.property('main', 'index.js')
   })
 
-  it('should have webcomponents in package.json files', () => {
+  it('should have components in package.json files', () => {
     expect(packageJSON.files).to.have.members([
-      'webcomponents',
+      'components',
       'angular.js'
     ])
   })
