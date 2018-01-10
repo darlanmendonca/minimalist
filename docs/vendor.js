@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 36);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1373,22 +1373,23 @@ module.exports = class MnSelect extends MnInput {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  input: __webpack_require__(22),
-  email: __webpack_require__(17),
-  password: __webpack_require__(28),
-  hidden: __webpack_require__(21),
-  number: __webpack_require__(26),
-  date: __webpack_require__(13),
-  select: __webpack_require__(33),
+  input: __webpack_require__(24),
+  email: __webpack_require__(19),
+  password: __webpack_require__(30),
+  hidden: __webpack_require__(23),
+  number: __webpack_require__(28),
+  date: __webpack_require__(15),
+  select: __webpack_require__(35),
   actionSheet: __webpack_require__(4),
-  form: __webpack_require__(19),
-  sidenav: __webpack_require__(35),
+  form: __webpack_require__(21),
+  sidenav: __webpack_require__(37),
   checkbox: __webpack_require__(11),
-  radio: __webpack_require__(30),
-  dialog: __webpack_require__(15),
+  radio: __webpack_require__(32),
+  dialog: __webpack_require__(17),
   button: __webpack_require__(10),
-  search: __webpack_require__(32),
-  list: __webpack_require__(24),
+  search: __webpack_require__(34),
+  list: __webpack_require__(26),
+  code: __webpack_require__(13),
 }
 
 
@@ -1579,6 +1580,47 @@ function MnCheckboxCustomElement() {
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+module.exports = class MnCode extends HTMLElement {
+  constructor(self) {
+    self = super(self)
+    return self
+  }
+
+  connectedCallback() {
+    this.setStyle()
+  }
+
+  setStyle() {
+    this.classList.add('mn-code')
+  }
+}
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = MnDialogCustomElement()
+
+function MnDialogCustomElement() {
+  const supportsCustomElements = 'customElements' in window
+
+  if (!supportsCustomElements) {
+    __webpack_require__(0)
+  }
+
+  if (!window.customElements.get('mn-code')) {
+    window.customElements.define('mn-code', __webpack_require__(12))
+  }
+
+  return window.customElements.get('mn-code')
+}
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1761,7 +1803,7 @@ function newDate(dateString) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDateCustomElement()
@@ -1774,7 +1816,7 @@ function MnDateCustomElement() {
   }
 
   if (!window.customElements.get('mn-date')) {
-    window.customElements.define('mn-date', __webpack_require__(12))
+    window.customElements.define('mn-date', __webpack_require__(14))
   }
 
   return window.customElements.get('mn-date')
@@ -1782,7 +1824,7 @@ function MnDateCustomElement() {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -1899,7 +1941,7 @@ module.exports = class MnDialog extends HTMLElement {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -1912,7 +1954,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-dialog')) {
-    window.customElements.define('mn-dialog', __webpack_require__(14))
+    window.customElements.define('mn-dialog', __webpack_require__(16))
   }
 
   return window.customElements.get('mn-dialog')
@@ -1920,7 +1962,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -1942,7 +1984,7 @@ module.exports = class MnEmail extends MnInput {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnEmailCustomElement()
@@ -1955,7 +1997,7 @@ function MnEmailCustomElement() {
   }
 
   if (!window.customElements.get('mn-email')) {
-    window.customElements.define('mn-email', __webpack_require__(16))
+    window.customElements.define('mn-email', __webpack_require__(18))
   }
 
   return window.customElements.get('mn-email')
@@ -1963,7 +2005,7 @@ function MnEmailCustomElement() {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -2157,7 +2199,7 @@ module.exports = class MnForm extends HTMLElement {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnFormCustomElement()
@@ -2170,7 +2212,7 @@ function MnFormCustomElement() {
   }
 
   if (!window.customElements.get('mn-form')) {
-    window.customElements.define('mn-form', __webpack_require__(18))
+    window.customElements.define('mn-form', __webpack_require__(20))
   }
 
   return window.customElements.get('mn-form')
@@ -2178,7 +2220,7 @@ function MnFormCustomElement() {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2220,7 +2262,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnHiddenCustomElement()
@@ -2233,7 +2275,7 @@ function MnHiddenCustomElement() {
   }
 
   if (!window.customElements.get('mn-hidden')) {
-    window.customElements.define('mn-hidden', __webpack_require__(20))
+    window.customElements.define('mn-hidden', __webpack_require__(22))
   }
 
   return window.customElements.get('mn-hidden')
@@ -2241,7 +2283,7 @@ function MnHiddenCustomElement() {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnInputCustomElement()
@@ -2262,11 +2304,11 @@ function MnInputCustomElement() {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const {HTMLElement} = window
-const dragula = __webpack_require__(44)
+const dragula = __webpack_require__(46)
 
 module.exports = class MnList extends HTMLElement {
   constructor(self) {
@@ -2369,7 +2411,7 @@ module.exports = class MnList extends HTMLElement {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnDialogCustomElement()
@@ -2382,7 +2424,7 @@ function MnDialogCustomElement() {
   }
 
   if (!window.customElements.get('mn-list')) {
-    window.customElements.define('mn-list', __webpack_require__(23))
+    window.customElements.define('mn-list', __webpack_require__(25))
   }
 
   return window.customElements.get('mn-list')
@@ -2390,7 +2432,7 @@ function MnDialogCustomElement() {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2657,7 +2699,7 @@ module.exports = class MnNumber extends MnInput {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnNumberCustomElement()
@@ -2670,7 +2712,7 @@ function MnNumberCustomElement() {
   }
 
   if (!window.customElements.get('mn-number')) {
-    window.customElements.define('mn-number', __webpack_require__(25))
+    window.customElements.define('mn-number', __webpack_require__(27))
   }
 
   return window.customElements.get('mn-number')
@@ -2678,7 +2720,7 @@ function MnNumberCustomElement() {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnInput = __webpack_require__(1)
@@ -2755,7 +2797,7 @@ module.exports = class MnPassword extends MnInput {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnPasswordCustomElement()
@@ -2768,7 +2810,7 @@ function MnPasswordCustomElement() {
   }
 
   if (!window.customElements.get('mn-password')) {
-    window.customElements.define('mn-password', __webpack_require__(27))
+    window.customElements.define('mn-password', __webpack_require__(29))
   }
 
   return window.customElements.get('mn-password')
@@ -2776,7 +2818,7 @@ function MnPasswordCustomElement() {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnCheckbox = __webpack_require__(5)
@@ -2878,7 +2920,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnRadioCustomElement()
@@ -2891,7 +2933,7 @@ function MnRadioCustomElement() {
   }
 
   if (!window.customElements.get('mn-radio')) {
-    window.customElements.define('mn-radio', __webpack_require__(29))
+    window.customElements.define('mn-radio', __webpack_require__(31))
   }
 
   return window.customElements.get('mn-radio')
@@ -2899,7 +2941,7 @@ function MnRadioCustomElement() {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const MnSelect = __webpack_require__(6)
@@ -3034,7 +3076,7 @@ module.exports = class MnSearch extends MnSelect {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -3047,7 +3089,7 @@ function MnSelectCustomElement() {
   }
 
   if (!window.customElements.get('mn-search')) {
-    window.customElements.define('mn-search', __webpack_require__(31))
+    window.customElements.define('mn-search', __webpack_require__(33))
   }
 
   return window.customElements.get('mn-search')
@@ -3055,7 +3097,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSelectCustomElement()
@@ -3076,7 +3118,7 @@ function MnSelectCustomElement() {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 const {HTMLElement} = window
@@ -3174,7 +3216,7 @@ module.exports = class MnSidenav extends HTMLElement {
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = MnSidenavCustomElement()
@@ -3187,7 +3229,7 @@ function MnSidenavCustomElement() {
   }
 
   if (!window.customElements.get('mn-sidenav')) {
-    window.customElements.define('mn-sidenav', __webpack_require__(34))
+    window.customElements.define('mn-sidenav', __webpack_require__(36))
   }
 
   return window.customElements.get('mn-sidenav')
@@ -3195,7 +3237,7 @@ function MnSidenavCustomElement() {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(7) // main file of minimalist
@@ -3203,20 +3245,20 @@ __webpack_require__(7) // main file of minimalist
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = function atoa (a, n) { return Array.prototype.slice.call(a, n); }
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ticky = __webpack_require__(47);
+var ticky = __webpack_require__(49);
 
 module.exports = function debounce (fn, args, ctx) {
   if (!fn) { return; }
@@ -3227,14 +3269,14 @@ module.exports = function debounce (fn, args, ctx) {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var atoa = __webpack_require__(37);
-var debounce = __webpack_require__(38);
+var atoa = __webpack_require__(39);
+var debounce = __webpack_require__(40);
 
 module.exports = function emitter (thing, options) {
   var opts = options || {};
@@ -3288,7 +3330,7 @@ module.exports = function emitter (thing, options) {
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -3343,14 +3385,14 @@ function CustomEvent (type, params) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var customEvent = __webpack_require__(40);
-var eventmap = __webpack_require__(42);
+var customEvent = __webpack_require__(42);
+var eventmap = __webpack_require__(44);
 var doc = global.document;
 var addEvent = addEventEasy;
 var removeEvent = removeEventEasy;
@@ -3452,7 +3494,7 @@ function find (el, type, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3473,7 +3515,7 @@ module.exports = eventmap;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3513,15 +3555,15 @@ module.exports = {
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var emitter = __webpack_require__(39);
-var crossvent = __webpack_require__(41);
-var classes = __webpack_require__(43);
+var emitter = __webpack_require__(41);
+var crossvent = __webpack_require__(43);
+var classes = __webpack_require__(45);
 var doc = document;
 var documentElement = doc.documentElement;
 
@@ -4129,7 +4171,7 @@ module.exports = dragula;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -4319,7 +4361,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -4509,10 +4551,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(45)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(47)))
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var si = typeof setImmediate === 'function', tick;
@@ -4523,10 +4565,10 @@ if (si) {
 }
 
 module.exports = tick;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50).setImmediate))
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -4579,7 +4621,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(46);
+__webpack_require__(48);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 

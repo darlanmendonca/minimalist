@@ -1,4 +1,4 @@
-module.exports = class SidenavPageObject {
+module.exports = class DialogPageObject {
   constructor(component) {
     this.component = component
     this.buttonOpen = document.createElement('button')

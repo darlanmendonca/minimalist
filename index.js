@@ -15,4 +15,5 @@ module.exports = {
   button: require('./components/button/button.webcomponent.js'),
   search: require('./components/search/search.webcomponent.js'),
   list: require('./components/list/list.webcomponent.js'),
+  code: require('./components/code/code.webcomponent.js'),
 }
