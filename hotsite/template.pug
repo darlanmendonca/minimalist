@@ -1,11 +1,16 @@
 html
   head
     title minimalist
-    //- base(href='/')
-    base(href='https://darlanmendonca.github.io/minimalist/')
     meta(name='viewport' content='width=device-width, user-scalable=no')
-    link(rel='stylesheet' href='vendor.css')
+    base(href='https://darlanmendonca.github.io/minimalist/')
+    script.
+      const base = document.querySelector('base')
+      const isLocalhost = location.hostname === 'localhost'
 
+      if (isLocalhost)
+        base.href = '/'
+
+    link(rel='stylesheet' href='vendor.css')
     //- script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js')
     //- script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js')
 
@@ -14,5 +19,5 @@ html
     include assets/github-corner
 
     block content
-
     script(src='vendor.js')
+
