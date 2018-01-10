@@ -1,0 +1,31 @@
+@import '../../node_modules/open-color/open-color.scss';
+
+.mn-code {
+  display: block;
+  background-color: $oc-gray-8;
+  color: $oc-gray-2;
+  padding: 1rem 1.5rem;
+  overflow: hidden;
+
+  pre {margin: 0}
+
+  @media (orientation: landscape) and (max-device-width: 599px) {
+    font-size: .5em
+  }
+
+  code {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // .hljs {
+  //   -webkit-user-select: none
+  // }
+
+  // .hljs > * {
+  //   -webkit-user-select: all
+  // }
+
+  // .hljs > *::selection * {
+  //   -webkit-user-select: none
+  // }
+}
