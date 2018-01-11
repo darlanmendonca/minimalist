@@ -92,7 +92,17 @@ block content
       mn-code.
         &lt;mn-input autocapitalize='on'&gt;&lt;/mn-input&gt;
       .mn-card.padding
-        mn-input(placeholder='firstname')
+        mn-input(autocapitalize placeholder='try edit it on mobile device')
+
+    section
+      h3 maxlength
+      p Useful to limit characters on input, e.g.
+
+      mn-code.
+        &lt;mn-input maxlength='3'&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(maxlength='3' value='abc' placeholder='try type anything')
+
     //- section
       h3 attribute name
       p description
