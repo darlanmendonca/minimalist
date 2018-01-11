@@ -7,4 +7,9 @@
   .mn-card + .mn-code {
     margin-top: -1em;
   }
+
+  a[name][href] {
+    text-decoration: none;
+    color: inherit;
+  }
 }

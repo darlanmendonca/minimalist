@@ -34,7 +34,7 @@ block content
       p The complete list of attributes supported is the following:
 
     section
-      h3 placeholder
+      h3: a(name='placeholder' href='#placeholder') placeholder
       p The title of input, indicate what content the user needs write.
 
       mn-code.
@@ -43,7 +43,7 @@ block content
         mn-input(placeholder='firstname')
 
     section
-      h3 name
+      h3: a(name='name' href='#name') name
       p The name is the identifier of input, used to interact with input in javascript
 
       mn-code.
@@ -65,7 +65,7 @@ block content
         mn-form#test: mn-input(placeholder='firstname' value='John' name='firstname')
 
     section
-      h3 value
+      h3: a(name='value' href='#value') value
       p Used to set the initial value of mn-input, e.g.
       mn-code.
         &lt;mn-input value="John"&gt;&lt;/mn-input&gt;
@@ -79,7 +79,7 @@ block content
         console.log(input.value)
 
     section
-      h3 multiple
+      h3: a(name='multiple' href='#multiple') multiple
       p Allow to user type multiple content on input.
       mn-code.
         &lt;mn-input multiple&gt;&lt;/mn-input&gt;
@@ -90,14 +90,14 @@ block content
         console.log(input.value) // the value of input multiple always be an array
 
     section
-      h3 autofocus
+      h3: a(name='autofocus' href='#autofocus') autofocus
       p Used to automatically focus on input once time page opens.
 
       mn-code.
         &lt;mn-input autofocus&gt;&lt;/mn-input&gt;
 
     section
-      h3 autocapitalize
+      h3: a(name='autocapitalize' href='#autocapitalize') autocapitalize
       p Only for mobile, by default is off, but you can turn on like below
 
       mn-code.
@@ -106,7 +106,7 @@ block content
         mn-input(autocapitalize placeholder='try edit it on mobile device')
 
     section
-      h3 maxlength
+      h3: a(name='maxlength' href='#maxlength') maxlength
       p Useful to limit characters on input, e.g.
 
       mn-code.
@@ -115,7 +115,7 @@ block content
         mn-input(maxlength='3' value='abc' placeholder='try type anything')
 
     section
-      h3 required
+      h3: a(name='required' href='#required') required
       p Set input as required, so user cannot submit form without fill it correctly
 
       mn-code.
@@ -124,7 +124,7 @@ block content
         mn-form.submitted: mn-input.invalid.required(placeholder='firstname')
 
     section
-      h3 pattern
+      h3: a(name='pattern' href='#pattern') pattern
       p Allow to you validate content using regular expression, in example below, we validate firstname has only letters
 
       mn-code.
@@ -133,7 +133,7 @@ block content
         mn-form.submitted: mn-input.invalid(placeholder='firstname' pattern="^[a-zA-Z]+$" value='john snow')
 
     section
-      h3 readonly
+      h3: a(name='readonly' href='#readonly') readonly
       p Sets input as read only, so user cannot change the value, but can navigate to them using keyboard and copy.
 
       mn-code.
@@ -142,7 +142,7 @@ block content
         mn-input(placeholder='firstname' value='john' readonly)
 
     section
-      h3 disabled
+      h3: a(name='disabled' href='#disabled') disabled
       p Sets input as disabled, so user cannot navigate to them, but can copy.
 
       mn-code.
