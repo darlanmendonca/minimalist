@@ -34,16 +34,17 @@ In your html, you can use the tag `mn-input` i.e.
 
 The following attributes are supported in this component
 
-- [value](http://www.w3schools.com/tags/att_input_value.asp)
-- [name](http://www.w3schools.com/tags/att_input_name.asp)
-- [placeholder](http://www.w3schools.com/tags/att_input_placeholder.asp)
-- [autofocus](http://www.w3schools.com/tags/att_input_autofocus.asp)
-- [autocapitalize](https://developers.google.com/web/updates/2015/04/autocapitalize)
-- [maxlength](http://www.w3schools.com/tags/att_input_maxlength.asp)
-- [pattern](http://www.w3schools.com/tags/att_input_pattern.asp)
-- [readonly](http://www.w3schools.com/tags/att_input_readonly.asp)
-- [required](http://www.w3schools.com/tags/att_input_required.asp)
-- [disabled](http://www.w3schools.com/tags/att_input_disabled.asp)
+- [placeholder](https://darlanmendonca.github.io/minimalist/input.html#placeholder)
+- [name](https://darlanmendonca.github.io/minimalist/input.html#name)
+- [value](https://darlanmendonca.github.io/minimalist/input.html#value)
+- [multiple](https://darlanmendonca.github.io/minimalist/input.html#multiple)
+- [autofocus](https://darlanmendonca.github.io/minimalist/input.html#autofocus)
+- [autocapitalize](https://darlanmendonca.github.io/minimalist/input.html#autocapitalize)
+- [maxlength](https://darlanmendonca.github.io/minimalist/input.html#maxlength)
+- [required](https://darlanmendonca.github.io/minimalist/input.html#required)
+- [pattern](https://darlanmendonca.github.io/minimalist/input.html#pattern)
+- [readonly](https://darlanmendonca.github.io/minimalist/input.html#readonly)
+- [disabled](https://darlanmendonca.github.io/minimalist/input.html#disabled)
 
 ### Style
 
