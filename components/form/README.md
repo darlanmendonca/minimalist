@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/reserva-facil/minimalist.svg?branch=master)](https://travis-ci.org/reserva-facil/minimalist)
+[![Build Status](https://travis-ci.org/darlanmendonca/minimalist.svg?branch=master)](https://travis-ci.org/darlanmendonca/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 # mn-form
@@ -9,12 +9,12 @@ A form component, with minimalist design
 
 ```sh
 # working in progress, not available yet
-npm install @reservafacil/minimalist
+npm install minimalist
 ```
 
 ```js
 // In your scripts, just import the module and bundle using a tool like webpack or browserify as below
-const {form} = require('@reservafacil/minimalist')
+const {form} = require('minimalist')
 ```
 
 
@@ -75,8 +75,8 @@ The following attributes are supported in this component
 ### Angular
 
 ```js
-const {form} = require('@reservafacil/minimalist')
-require('@reservafacil/minimalist/angular') // import minimalist module
+const {form} = require('minimalist')
+require('minimalist/angular') // import minimalist module
 
 // and in your module, add the module 'minimalist', like below
 angular.module('app', ['minimalist'])

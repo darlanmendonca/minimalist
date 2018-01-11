@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/reserva-facil/minimalist.svg?branch=master)](https://travis-ci.org/reserva-facil/minimalist)
+[![Build Status](https://travis-ci.org/darlanmendonca/minimalist.svg?branch=master)](https://travis-ci.org/darlanmendonca/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 # mn-number
@@ -9,19 +9,19 @@ A number component with minimalist design
 
 ```sh
 # working in progress, not available yet
-npm install @reservafacil/minimalist
+npm install minimalist
 ```
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {number} = require('@reservafacil/minimalist')
+const {number} = require('minimalist')
 ```
 
 
 ```sass
 // Dont forget the .scss file, to style component
-@import 'path/to/node_modules/@reservafacil/minimalist/components/input/input.scss';
-@import 'path/to/node_modules/@reservafacil/minimalist/components/number/number.scss';
+@import 'path/to/node_modules/minimalist/components/input/input.scss';
+@import 'path/to/node_modules/minimalist/components/number/number.scss';
 ```
 
 
@@ -95,8 +95,8 @@ If you need to change identity of element (and you will), we offer the following
 ### Angular
 
 ```js
-const {number} = require('@reservafacil/minimalist')
-require('@reservafacil/minimalist/angular') // import minimalist module
+const {number} = require('minimalist')
+require('minimalist/angular') // import minimalist module
 
 // and in your module, add the module 'minimalist', like below
 angular.module('app', ['minimalist'])

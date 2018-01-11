@@ -46,12 +46,12 @@ You can see all components in our site [minimalist/components](http://reservafac
 
 ```sh
 # working in progress, not available yet
-npm install @reservafacil/minimalist
+npm install minimalist
 ```
 
 ```js
 // In your scripts, just import the module and bundle using a tool like webpack or browserify
-const {input} = require('@reservafacil/minimalist')
+const {input} = require('minimalist')
 ```
 
 ```html
@@ -59,7 +59,7 @@ const {input} = require('@reservafacil/minimalist')
 <mn-input placeholder="lorem ipsum" />
 ```
 
-Using a framework? Check the directory [components/COMPONENT-NAME-HERE](https://github.com/reserva-facil/minimalist/tree/master/components) to see the entire documentation of component.
+Using a framework? Check the directory [components/COMPONENT-NAME-HERE](https://github.com/darlanmendonca/minimalist/tree/master/components) to see the entire documentation of component.
 
 
 ### Tests

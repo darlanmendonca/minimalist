@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/reserva-facil/minimalist.svg?branch=master)](https://travis-ci.org/reserva-facil/minimalist)
+[![Build Status](https://travis-ci.org/darlanmendonca/minimalist.svg?branch=master)](https://travis-ci.org/darlanmendonca/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 # mn-button
@@ -9,17 +9,17 @@ A button component with minimalist design
 
 ```sh
 # working in progress, not available yet
-npm install @reservafacil/minimalist
+npm install minimalist
 ```
 
 ```js
 // In your scripts, just import the module, and bundle using a tool like webpack, or browserify
-const {button} = require('@reservafacil/minimalist')
+const {button} = require('minimalist')
 ```
 
 ```sass
 // Dont forget the .scss file, to style component
-@import 'path/to/node_modules/@reservafacil/minimalist/components/button/button.scss';
+@import 'path/to/node_modules/minimalist/components/button/button.scss';
 ```
 
 
