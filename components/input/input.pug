@@ -123,20 +123,21 @@ block content
 
     section
       h3 readonly
-      p Sets input as read only, so user cannot change the value, but can select and copy.
+      p Sets input as read only, so user cannot change the value, but can navigate to them using keyboard and copy.
 
       mn-code.
         &lt;mn-input readonly'&gt;&lt;/mn-input&gt;
       .mn-card.padding
         mn-input(placeholder='firstname' value='john' readonly)
-    //- section
-      h3 attribute name
-      p description
+
+    section
+      h3 disabled
+      p Sets input as disabled, so user cannot navigate to them, but can copy.
 
       mn-code.
+        &lt;mn-input disabled'&gt;&lt;/mn-input&gt;
       .mn-card.padding
-
-      //- h3 disabled
+        mn-input(placeholder='firstname' value='john' disabled)
 
 
 
