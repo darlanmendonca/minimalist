@@ -27,28 +27,37 @@ block content
       p in your html, you can use the tag <code>&lt;mn-input&gt;</code>, e.g.
 
       mn-code.
-        &lt;mn-input placeholder="username"&gt;&lt;/mn-input&gt;
+        &lt;mn-input&gt;&lt;/mn-input&gt;
 
     section
       h2 Attributes
       p The complete list of attributes supported is the following
 
     section
+      h3 placeholder
+      p The title of input, indicate the content that user needs write.
+
+      mn-code.
+        &lt;mn-input placeholder="firstname"&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(placeholder='firstname')
+
+    section
       h3 value
       p Used to set the initial value of mn-input, e.g.
       mn-code.
-        &lt;mn-input placeholder="name" value="John"&gt;&lt;/mn-input&gt;
+        &lt;mn-input value="John"&gt;&lt;/mn-input&gt;
       .mn-card.padding
-        mn-input(placeholder='name' value='John')
+        mn-input(value='John')
 
     section
       h3 name
-      p The name is the identifier of input
+      p The name is the identifier of input, used to interact of input in javascript
 
       mn-code.
         // html
         &lt;form id="test"&gt;
-          &lt;mn-input placeholder="name" value="John" name="firstname"&gt;&lt;/mn-input&gt;
+          &lt;mn-input placeholder="firstname" value="John" name="firstname"&gt;&lt;/mn-input&gt;
         &lt;/form&gt;
 
         // js
@@ -61,9 +70,8 @@ block content
           firstname: 'John',
         }
       .mn-card.padding
-        mn-form#test: mn-input(placeholder='name' value='John' name='firstname')
-      //- h3 name
-      //- h3 placeholder
+        mn-form#test: mn-input(placeholder='firstname' value='John' name='firstname')
+
       //- h3 autofocus
       //- h3 autocapitalize
       //- h3 maxlength
