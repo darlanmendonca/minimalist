@@ -9,7 +9,7 @@ const component = location.pathname
 
 if (component)
   link.href += `/tree/master/components/${component}`</script><nav class="header"><a class="logotype" href="/">minimalist</a><a>input</a></nav><div class="showcase mn-layout-fullscreen mn-layout-centered"><div class="demo mn-layout-container"><h1>mn-input</h1><div class="mn-form mn-layout-column mn-layout-sm-row"><mn-input class="flex" placeholder="username"></mn-input><mn-input class="flex" placeholder="firstname"></mn-input><mn-input class="flex" placeholder="lastname"></mn-input></div></div></div><div class="docs mn-layout-container"><section><h2>install</h2><mn-code>npm install --save minimalist</mn-code><p>and bundle it with your preferred tool.</p></section><section><h2>usage</h2><p>in your html, you can use the tag <code>&lt;mn-input&gt;</code>, e.g.</p><mn-code>&lt;mn-input&gt;&lt;/mn-input&gt;
-</mn-code></section><section><h2>Attributes</h2><p>The complete list of attributes supported is the following</p></section><section><h3>placeholder</h3><p>The title of input, indicate what content the user needs write.</p><mn-code>&lt;mn-input placeholder="firstname"&gt;&lt;/mn-input&gt;</mn-code><div class="mn-card padding"><mn-input placeholder="firstname"></mn-input></div></section><section><h3>name</h3><p>The name is the identifier of input, used to interact with input in javascript</p><mn-code>// html
+</mn-code></section><section><h2>Attributes</h2><p>The complete list of attributes supported is the following:</p></section><section><h3>placeholder</h3><p>The title of input, indicate what content the user needs write.</p><mn-code>&lt;mn-input placeholder="firstname"&gt;&lt;/mn-input&gt;</mn-code><div class="mn-card padding"><mn-input placeholder="firstname"></mn-input></div></section><section><h3>name</h3><p>The name is the identifier of input, used to interact with input in javascript</p><mn-code>// html
 &lt;form id="test"&gt;
   &lt;mn-input placeholder="firstname" value="John" name="firstname"&gt;&lt;/mn-input&gt;
 &lt;/form&gt;
@@ -27,4 +27,4 @@ const input = document.querySelector('mn-input')
 input.value = 'John'
 console.log(input.value)
 </mn-code></section><section><h3>autofocus</h3><p>Used to automatically focus on input once time page opens.</p><mn-code>&lt;mn-input autofocus&gt;&lt;/mn-input&gt;
-</mn-code></section></div><script src="vendor.js"></script></body></html>
+</mn-code></section><section><h3>autocapitalize</h3><p>Only for mobile, by default is off, but you can turn on like below</p><mn-code>&lt;mn-input autocapitalize='on'&gt;&lt;/mn-input&gt;</mn-code><div class="mn-card padding"><mn-input placeholder="firstname"></mn-input></div></section></div><script src="vendor.js"></script></body></html>

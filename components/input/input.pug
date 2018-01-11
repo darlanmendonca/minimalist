@@ -31,7 +31,7 @@ block content
 
     section
       h2 Attributes
-      p The complete list of attributes supported is the following
+      p The complete list of attributes supported is the following:
 
     section
       h3 placeholder
@@ -85,6 +85,14 @@ block content
       mn-code.
         &lt;mn-input autofocus&gt;&lt;/mn-input&gt;
 
+    section
+      h3 autocapitalize
+      p Only for mobile, by default is off, but you can turn on like below
+
+      mn-code.
+        &lt;mn-input autocapitalize='on'&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(placeholder='firstname')
     //- section
       h3 attribute name
       p description
@@ -92,8 +100,6 @@ block content
       mn-code.
       .mn-card.padding
 
-      //- h3 autofocus
-      //- h3 autocapitalize
       //- h3 maxlength
       //- h3 pattern
       //- h3 readonly
