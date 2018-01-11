@@ -12,7 +12,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.innerHTML = ''
     this.setStyle()
     this._setLabel()
-    this._setInput()
+    this.setInput()
     this._setCustomInput()
     this._setForm()
     this.checked = this.hasAttribute('checked')
@@ -62,7 +62,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     })
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)

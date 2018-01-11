@@ -9,7 +9,7 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super.setChangeEvents()
     super._setAttributeValue()
     super._setAttributeName()
@@ -29,8 +29,8 @@ module.exports = class MnPassword extends MnInput {
     this.classList.add('mn-hidden')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
     this.input.setAttribute('type', 'hidden')
   }
 }

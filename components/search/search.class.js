@@ -99,8 +99,8 @@ module.exports = class MnSearch extends MnSelect {
     })
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
 
     this.input.addEventListener('input', () => {
       const event = new Event('search')

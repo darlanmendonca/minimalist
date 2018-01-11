@@ -12,7 +12,7 @@ module.exports = class MnInput extends HTMLElement {
     this.innerHTML = ''
     this.trimValue = true
     this.setStyle()
-    this._setInput()
+    this.setInput()
     this.setChangeEvents()
     this._setPlaceholder()
     this._setAttributeValue()
@@ -48,7 +48,7 @@ module.exports = class MnInput extends HTMLElement {
     this.classList.add('mn-input')
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.classList.add('input')
 

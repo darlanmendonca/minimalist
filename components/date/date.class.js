@@ -9,7 +9,7 @@ module.exports = class MnDate extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super.setChangeEvents()
     super._setPlaceholder()
     super._setAttributeValue()
@@ -37,8 +37,8 @@ module.exports = class MnDate extends MnInput {
     this.classList.add('mn-date')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 

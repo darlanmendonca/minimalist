@@ -127,7 +127,7 @@ module.exports = class MnInput extends HTMLElement {
     this.innerHTML = ''
     this.trimValue = true
     this.setStyle()
-    this._setInput()
+    this.setInput()
     this.setChangeEvents()
     this._setPlaceholder()
     this._setAttributeValue()
@@ -163,7 +163,7 @@ module.exports = class MnInput extends HTMLElement {
     this.classList.add('mn-input')
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.classList.add('input')
 
@@ -597,7 +597,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.innerHTML = ''
     this.setStyle()
     this._setLabel()
-    this._setInput()
+    this.setInput()
     this._setCustomInput()
     this._setForm()
     this.checked = this.hasAttribute('checked')
@@ -647,7 +647,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     })
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'checkbox')
     this.label.appendChild(this.input)
@@ -836,7 +836,7 @@ module.exports = class MnSelect extends MnInput {
   connectedCallback() {
     this.empty()
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super._setPlaceholder()
     this._setMenu()
     this._setActionSheet()
@@ -1027,8 +1027,8 @@ module.exports = class MnSelect extends MnInput {
     this.classList.add('mn-select')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -1649,7 +1649,7 @@ module.exports = class MnDate extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super.setChangeEvents()
     super._setPlaceholder()
     super._setAttributeValue()
@@ -1677,8 +1677,8 @@ module.exports = class MnDate extends MnInput {
     this.classList.add('mn-date')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
     this.input.setAttribute('type', 'date')
     const supportsInputDate = this.input.type === 'date'
 
@@ -2249,7 +2249,7 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super.setChangeEvents()
     super._setAttributeValue()
     super._setAttributeName()
@@ -2269,8 +2269,8 @@ module.exports = class MnPassword extends MnInput {
     this.classList.add('mn-hidden')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
     this.input.setAttribute('type', 'hidden')
   }
 }
@@ -2463,12 +2463,12 @@ module.exports = class MnNumber extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    super._setInput()
+    super.setInput()
     this.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
-    this._setInputTransforms()
-    this._setInputKeys()
+    this.setInputTransforms()
+    this.setInputKeys()
     super._setPlaceholder()
     super._setAttributeValue()
     super._setAttributeName()
@@ -2512,7 +2512,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.setAttribute('pattern', '\\d*')
   }
 
-  _setInputTransforms() {
+  setInputTransforms() {
     this.input.addEventListener('change', () => {
       const commaOrDot = !this.input.value.endsWith(',')
         && !this.input.value.endsWith('.')
@@ -2558,7 +2558,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
-  _setInputKeys() {
+  setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
       if (!this.hasAttribute('readonly')) {
         const step = this.hasAttribute('percentage')
@@ -2749,7 +2749,7 @@ module.exports = class MnPassword extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super.setChangeEvents()
     super._setPlaceholder()
     this._setVisibilityButton()
@@ -2777,8 +2777,8 @@ module.exports = class MnPassword extends MnInput {
     this.classList.add('mn-password')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
     this.input.setAttribute('type', 'password')
   }
 
@@ -2849,7 +2849,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.innerHTML = ''
     this.setStyle()
     super._setLabel()
-    this._setInput()
+    this.setInput()
     this._setCustomInput()
     this._setForm()
     // this.checked = this.hasAttribute('checked')
@@ -2864,7 +2864,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.classList.add('mn-option')
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'radio')
     this.label.appendChild(this.input)
@@ -3060,8 +3060,8 @@ module.exports = class MnSearch extends MnSelect {
     })
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
 
     this.input.addEventListener('input', () => {
       const event = new Event('search')

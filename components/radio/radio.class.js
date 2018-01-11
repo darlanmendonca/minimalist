@@ -11,7 +11,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.innerHTML = ''
     this.setStyle()
     super._setLabel()
-    this._setInput()
+    this.setInput()
     this._setCustomInput()
     this._setForm()
     // this.checked = this.hasAttribute('checked')
@@ -26,7 +26,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.classList.add('mn-option')
   }
 
-  _setInput() {
+  setInput() {
     this.input = document.createElement('input')
     this.input.setAttribute('type', 'radio')
     this.label.appendChild(this.input)

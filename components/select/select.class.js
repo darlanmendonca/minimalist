@@ -12,7 +12,7 @@ module.exports = class MnSelect extends MnInput {
   connectedCallback() {
     this.empty()
     this.setStyle()
-    this._setInput()
+    this.setInput()
     super._setPlaceholder()
     this._setMenu()
     this._setActionSheet()
@@ -203,8 +203,8 @@ module.exports = class MnSelect extends MnInput {
     this.classList.add('mn-select')
   }
 
-  _setInput() {
-    super._setInput()
+  setInput() {
+    super.setInput()
 
     this.input.addEventListener('focus', () => {
       this.input.select()

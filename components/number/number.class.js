@@ -11,12 +11,12 @@ module.exports = class MnNumber extends MnInput {
   connectedCallback() {
     this.innerHTML = ''
     this.setStyle()
-    super._setInput()
+    super.setInput()
     this.setChangeEvents()
     this._setMask()
     this._setMobileKeyboard()
-    this._setInputTransforms()
-    this._setInputKeys()
+    this.setInputTransforms()
+    this.setInputKeys()
     super._setPlaceholder()
     super._setAttributeValue()
     super._setAttributeName()
@@ -60,7 +60,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.setAttribute('pattern', '\\d*')
   }
 
-  _setInputTransforms() {
+  setInputTransforms() {
     this.input.addEventListener('change', () => {
       const commaOrDot = !this.input.value.endsWith(',')
         && !this.input.value.endsWith('.')
@@ -106,7 +106,7 @@ module.exports = class MnNumber extends MnInput {
     this.input.addEventListener('blur', this.dispatchChangeEvent)
   }
 
-  _setInputKeys() {
+  setInputKeys() {
     this.input.addEventListener('keydown', (event) => {
       if (!this.hasAttribute('readonly')) {
         const step = this.hasAttribute('percentage')
