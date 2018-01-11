@@ -92,7 +92,7 @@ module.exports = class MnInput extends HTMLElement {
     }
 
     this.input.addEventListener('keyup', validate)
-    this.input.addEventListener('change', validate)
+    // this.input.addEventListener('change', validate)
     this.input.addEventListener('input', validate)
 
     this.input.addEventListener('focus', () => {

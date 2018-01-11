@@ -104,6 +104,15 @@ block content
         mn-input(maxlength='3' value='abc' placeholder='try type anything')
 
     section
+      h3 required
+      p Set input as required, so user cannot submit form without fill it correctly
+
+      mn-code.
+        &lt;mn-input required'&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-form.submitted: mn-input.invalid.required(placeholder='firstname')
+
+    section
       h3 pattern
       p Allow to you validate content using regular expression, in example below, we validate firstname has only letters
 
@@ -111,6 +120,7 @@ block content
         &lt;mn-input pattern='^[a-zA-Z]+$'&gt;&lt;/mn-input&gt;
       .mn-card.padding
         mn-form.submitted: mn-input.invalid(placeholder='firstname' pattern="^[a-zA-Z]+$" value='john snow')
+
     //- section
       h3 attribute name
       p description
@@ -118,7 +128,6 @@ block content
       mn-code.
       .mn-card.padding
 
-      //- h3 pattern
       //- h3 readonly
       //- h3 required
       //- h3 disabled
