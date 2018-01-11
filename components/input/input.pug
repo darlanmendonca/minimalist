@@ -29,5 +29,48 @@ block content
       mn-code.
         &lt;mn-input placeholder="username"&gt;&lt;/mn-input&gt;
 
+    section
+      h2 Attributes
+      p The complete list of attributes supported is the following
+
+    section
+      h3 value
+      p Used to set the initial value of mn-input, e.g.
+      mn-code.
+        &lt;mn-input placeholder="name" value="John"&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(placeholder='name' value='John')
+
+    section
+      h3 name
+      p The name is the identifier of input
+
+      mn-code.
+        // html
+        &lt;form id="test"&gt;
+          &lt;mn-input placeholder="name" value="John" name="firstname"&gt;&lt;/mn-input&gt;
+        &lt;/form&gt;
+
+        // js
+        console.log(test.firstname) // return the reference to input
+        console.log(test.firstname.value) // return the value on input
+
+        console.log(test.data) // will return
+
+        {
+          firstname: 'John',
+        }
+      .mn-card.padding
+        mn-form#test: mn-input(placeholder='name' value='John' name='firstname')
+      //- h3 name
+      //- h3 placeholder
+      //- h3 autofocus
+      //- h3 autocapitalize
+      //- h3 maxlength
+      //- h3 pattern
+      //- h3 readonly
+      //- h3 required
+      //- h3 disabled
+
 
 

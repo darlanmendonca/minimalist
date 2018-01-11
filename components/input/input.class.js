@@ -54,11 +54,7 @@ module.exports = class MnInput extends HTMLElement {
 
     this.appendChild(this.input)
 
-    this.input.addEventListener('input', () => {
-      this.hasAttribute('value') || this.input.value
-        ? this.classList.add('has-value')
-        : this.classList.remove('has-value')
-    })
+    this.input.addEventListener('input', () => this.setValue)
 
     this.input.addEventListener('change', () => { // set class .has-value
       if (this.trimValue && document.activeElement !== this.input) {
@@ -66,10 +62,7 @@ module.exports = class MnInput extends HTMLElement {
       }
 
       this.dispatchChangeEvent()
-
-      this.hasAttribute('value') || this.input.value
-        ? this.classList.add('has-value')
-        : this.classList.remove('has-value')
+      this.setValue()
     })
 
     this.input.addEventListener('keydown', (event) => {
@@ -88,9 +81,7 @@ module.exports = class MnInput extends HTMLElement {
         this.input.value = ''
       }
 
-      this.hasAttribute('value') || this.input.value
-        ? this.classList.add('has-value')
-        : this.classList.remove('has-value')
+      this.setValue()
     })
 
     const validate = () => { // validate
@@ -111,6 +102,16 @@ module.exports = class MnInput extends HTMLElement {
     })
 
     this.input.addEventListener('blur', () => this.classList.remove('focus'))
+    if (this.hasAttribute('value')) {
+      this.input.value = this.getAttribute('value')
+    }
+    this.setValue()
+  }
+
+  setValue() {
+    this.input.value
+      ? this.classList.add('has-value')
+      : this.classList.remove('has-value')
   }
 
   setChangeEvents() {

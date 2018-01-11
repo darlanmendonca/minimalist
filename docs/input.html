@@ -8,4 +8,18 @@ const component = location.pathname
   .replace('.html', '')
 
 if (component)
-  link.href += `/tree/master/components/${component}`</script><nav class="header"><a class="logotype" href="/">minimalist</a><a>input</a></nav><div class="showcase mn-layout-fullscreen mn-layout-centered"><div class="demo mn-layout-container"><h1>mn-input</h1><div class="mn-form mn-layout-column mn-layout-sm-row"><mn-input class="flex" placeholder="username"></mn-input><mn-input class="flex" placeholder="firstname"></mn-input><mn-input class="flex" placeholder="lastname"></mn-input></div></div></div><div class="mn-layout-container"><section><h2>install</h2><mn-code>npm install --save minimalist</mn-code><p>and bundle it with your preferred tool.</p></section><section><h2>usage</h2><p>in your html, you can use the tag <code>&lt;mn-input&gt;</code>, e.g.</p><mn-code>&lt;mn-input placeholder="username"&gt;&lt;/mn-input&gt;</mn-code></section></div><script src="vendor.js"></script></body></html>
+  link.href += `/tree/master/components/${component}`</script><nav class="header"><a class="logotype" href="/">minimalist</a><a>input</a></nav><div class="showcase mn-layout-fullscreen mn-layout-centered"><div class="demo mn-layout-container"><h1>mn-input</h1><div class="mn-form mn-layout-column mn-layout-sm-row"><mn-input class="flex" placeholder="username"></mn-input><mn-input class="flex" placeholder="firstname"></mn-input><mn-input class="flex" placeholder="lastname"></mn-input></div></div></div><div class="mn-layout-container"><section><h2>install</h2><mn-code>npm install --save minimalist</mn-code><p>and bundle it with your preferred tool.</p></section><section><h2>usage</h2><p>in your html, you can use the tag <code>&lt;mn-input&gt;</code>, e.g.</p><mn-code>&lt;mn-input placeholder="username"&gt;&lt;/mn-input&gt;
+</mn-code></section><section><h2>Attributes</h2><p>The complete list of attributes supported is the following</p></section><section><h3>value</h3><p>Used to set the initial value of mn-input, e.g.</p><mn-code>&lt;mn-input placeholder="name" value="John"&gt;&lt;/mn-input&gt;</mn-code><div class="mn-card padding"><mn-input placeholder="name" value="John"></mn-input></div></section><section><h3>name</h3><p>The name is the identifier of input</p><mn-code>// html
+&lt;form id="test"&gt;
+  &lt;mn-input placeholder="name" value="John" name="firstname"&gt;&lt;/mn-input&gt;
+&lt;/form&gt;
+
+// js
+console.log(test.firstname) // return the reference to input
+console.log(test.firstname.value) // return the value on input
+
+console.log(test.data) // will return
+
+{
+  firstname: 'John',
+}</mn-code><div class="mn-card padding"><mn-form id="test"><mn-input placeholder="name" value="John" name="firstname"></mn-input></mn-form></div></section></div><script src="vendor.js"></script></body></html>
