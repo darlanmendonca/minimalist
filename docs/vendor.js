@@ -131,7 +131,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setChangeEvents()
     this.setPlaceholder()
     this.setAttributeValue()
-    this._setAttributeName()
+    this.setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -250,7 +250,7 @@ module.exports = class MnInput extends HTMLElement {
     this.default = this.value
   }
 
-  _setAttributeName() {
+  setAttributeName() {
     const name = this.getAttribute('name')
     if (name) {
       this.name = name
@@ -843,7 +843,7 @@ module.exports = class MnSelect extends MnInput {
     this._setOptions()
     this._setKeyboardNavigation()
     this.setAttributeValue()
-    super._setAttributeName()
+    super.setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -2252,7 +2252,7 @@ module.exports = class MnPassword extends MnInput {
     this.setInput()
     super.setChangeEvents()
     super.setAttributeValue()
-    super._setAttributeName()
+    super.setAttributeName()
     super._setAttributeDisabled()
   }
 
@@ -2471,7 +2471,7 @@ module.exports = class MnNumber extends MnInput {
     this.setInputKeys()
     super.setPlaceholder()
     super.setAttributeValue()
-    super._setAttributeName()
+    super.setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -2754,7 +2754,7 @@ module.exports = class MnPassword extends MnInput {
     super.setPlaceholder()
     this._setVisibilityButton()
     super.setAttributeValue()
-    super._setAttributeName()
+    super.setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()

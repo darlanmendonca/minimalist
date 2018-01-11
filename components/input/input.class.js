@@ -16,7 +16,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setChangeEvents()
     this.setPlaceholder()
     this.setAttributeValue()
-    this._setAttributeName()
+    this.setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
@@ -135,7 +135,7 @@ module.exports = class MnInput extends HTMLElement {
     this.default = this.value
   }
 
-  _setAttributeName() {
+  setAttributeName() {
     const name = this.getAttribute('name')
     if (name) {
       this.name = name

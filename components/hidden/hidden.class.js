@@ -12,7 +12,7 @@ module.exports = class MnPassword extends MnInput {
     this.setInput()
     super.setChangeEvents()
     super.setAttributeValue()
-    super._setAttributeName()
+    super.setAttributeName()
     super._setAttributeDisabled()
   }
 
