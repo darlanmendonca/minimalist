@@ -17,7 +17,7 @@ module.exports = class MnNumber extends MnInput {
     this._setMobileKeyboard()
     this.setInputTransforms()
     this.setInputKeys()
-    super._setPlaceholder()
+    super.setPlaceholder()
     super._setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()

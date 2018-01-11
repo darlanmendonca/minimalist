@@ -11,7 +11,7 @@ module.exports = class MnDate extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setPlaceholder()
+    super.setPlaceholder()
     super._setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()

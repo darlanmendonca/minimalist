@@ -13,7 +13,7 @@ module.exports = class MnSelect extends MnInput {
     this.empty()
     this.setStyle()
     this.setInput()
-    super._setPlaceholder()
+    super.setPlaceholder()
     this._setMenu()
     this._setActionSheet()
     this._setOptions()

@@ -129,7 +129,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setStyle()
     this.setInput()
     this.setChangeEvents()
-    this._setPlaceholder()
+    this.setPlaceholder()
     this._setAttributeValue()
     this._setAttributeName()
     this._setAttributeDisabled()
@@ -238,7 +238,7 @@ module.exports = class MnInput extends HTMLElement {
     this.dispatchEvent(new Event('change'))
   }
 
-  _setPlaceholder() {
+  setPlaceholder() {
     this.label = document.createElement('label')
     this.label.classList.add('placeholder')
     this.appendChild(this.label)
@@ -837,7 +837,7 @@ module.exports = class MnSelect extends MnInput {
     this.empty()
     this.setStyle()
     this.setInput()
-    super._setPlaceholder()
+    super.setPlaceholder()
     this._setMenu()
     this._setActionSheet()
     this._setOptions()
@@ -1651,7 +1651,7 @@ module.exports = class MnDate extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setPlaceholder()
+    super.setPlaceholder()
     super._setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
@@ -2469,7 +2469,7 @@ module.exports = class MnNumber extends MnInput {
     this._setMobileKeyboard()
     this.setInputTransforms()
     this.setInputKeys()
-    super._setPlaceholder()
+    super.setPlaceholder()
     super._setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
@@ -2751,7 +2751,7 @@ module.exports = class MnPassword extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setPlaceholder()
+    super.setPlaceholder()
     this._setVisibilityButton()
     super._setAttributeValue()
     super._setAttributeName()

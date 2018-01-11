@@ -14,7 +14,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setStyle()
     this.setInput()
     this.setChangeEvents()
-    this._setPlaceholder()
+    this.setPlaceholder()
     this._setAttributeValue()
     this._setAttributeName()
     this._setAttributeDisabled()
@@ -123,7 +123,7 @@ module.exports = class MnInput extends HTMLElement {
     this.dispatchEvent(new Event('change'))
   }
 
-  _setPlaceholder() {
+  setPlaceholder() {
     this.label = document.createElement('label')
     this.label.classList.add('placeholder')
     this.appendChild(this.label)

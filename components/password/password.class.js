@@ -11,7 +11,7 @@ module.exports = class MnPassword extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setPlaceholder()
+    super.setPlaceholder()
     this._setVisibilityButton()
     super._setAttributeValue()
     super._setAttributeName()
