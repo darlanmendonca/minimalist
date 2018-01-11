@@ -7,7 +7,7 @@ module.exports = class MnActionSheet extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
+    this.setStyle()
     this._setMenu()
     this._setCancel()
   }
@@ -22,7 +22,7 @@ module.exports = class MnActionSheet extends HTMLElement {
     }
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-action-sheet')
     document.body.classList.add('mn-backdrop')
   }

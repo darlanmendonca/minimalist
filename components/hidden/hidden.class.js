@@ -8,7 +8,7 @@ module.exports = class MnPassword extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super.setChangeEvents()
     super._setAttributeValue()
@@ -24,8 +24,8 @@ module.exports = class MnPassword extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-hidden')
   }
 

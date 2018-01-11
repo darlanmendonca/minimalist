@@ -12,8 +12,8 @@ module.exports = class MnSearch extends MnSelect {
     this.setSearchSheet()
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-search')
   }
 

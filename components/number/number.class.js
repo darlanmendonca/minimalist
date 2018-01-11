@@ -10,7 +10,7 @@ module.exports = class MnNumber extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     super._setInput()
     this.setChangeEvents()
     this._setMask()
@@ -41,8 +41,8 @@ module.exports = class MnNumber extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-number')
   }
 

@@ -8,7 +8,7 @@ module.exports = class MnDate extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super.setChangeEvents()
     super._setPlaceholder()
@@ -32,8 +32,8 @@ module.exports = class MnDate extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-date')
   }
 

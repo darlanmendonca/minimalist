@@ -7,13 +7,13 @@ module.exports = class MnSidenav extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
+    this.setStyle()
     this._setOpenEvents()
     this._setToggleEvents()
     this._setCloseEvents()
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-sidenav')
     this.classList.add('mn-card')
     document.body.classList.add('mn-backdrop')

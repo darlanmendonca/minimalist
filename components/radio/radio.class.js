@@ -9,7 +9,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     super._setLabel()
     this._setInput()
     this._setCustomInput()
@@ -21,7 +21,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this._setValidations()
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-radio')
     this.classList.add('mn-option')
   }

@@ -11,7 +11,7 @@ module.exports = class MnSelect extends MnInput {
 
   connectedCallback() {
     this.empty()
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
@@ -198,8 +198,8 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-select')
   }
 

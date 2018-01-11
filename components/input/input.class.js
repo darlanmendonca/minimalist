@@ -11,7 +11,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     this.setChangeEvents()
     this._setPlaceholder()
@@ -44,7 +44,7 @@ module.exports = class MnInput extends HTMLElement {
     this[name] = value
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-input')
   }
 

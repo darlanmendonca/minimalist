@@ -10,7 +10,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setLabel()
     this._setInput()
     this._setCustomInput()
@@ -38,7 +38,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     }
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-checkbox')
     this.classList.add('mn-option')
   }

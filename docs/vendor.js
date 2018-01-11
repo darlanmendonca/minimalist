@@ -126,7 +126,7 @@ module.exports = class MnInput extends HTMLElement {
   connectedCallback() {
     this.innerHTML = ''
     this.trimValue = true
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     this.setChangeEvents()
     this._setPlaceholder()
@@ -159,7 +159,7 @@ module.exports = class MnInput extends HTMLElement {
     this[name] = value
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-input')
   }
 
@@ -595,7 +595,7 @@ module.exports = class MnCheckbox extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setLabel()
     this._setInput()
     this._setCustomInput()
@@ -623,7 +623,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     }
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-checkbox')
     this.classList.add('mn-option')
   }
@@ -835,7 +835,7 @@ module.exports = class MnSelect extends MnInput {
 
   connectedCallback() {
     this.empty()
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super._setPlaceholder()
     this._setMenu()
@@ -1022,8 +1022,8 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-select')
   }
 
@@ -1407,7 +1407,7 @@ module.exports = class MnActionSheet extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
+    this.setStyle()
     this._setMenu()
     this._setCancel()
   }
@@ -1422,7 +1422,7 @@ module.exports = class MnActionSheet extends HTMLElement {
     }
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-action-sheet')
     document.body.classList.add('mn-backdrop')
   }
@@ -1648,7 +1648,7 @@ module.exports = class MnDate extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super.setChangeEvents()
     super._setPlaceholder()
@@ -1672,8 +1672,8 @@ module.exports = class MnDate extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-date')
   }
 
@@ -2248,7 +2248,7 @@ module.exports = class MnPassword extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super.setChangeEvents()
     super._setAttributeValue()
@@ -2264,8 +2264,8 @@ module.exports = class MnPassword extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-hidden')
   }
 
@@ -2462,7 +2462,7 @@ module.exports = class MnNumber extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     super._setInput()
     this.setChangeEvents()
     this._setMask()
@@ -2493,8 +2493,8 @@ module.exports = class MnNumber extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-number')
   }
 
@@ -2748,7 +2748,7 @@ module.exports = class MnPassword extends MnInput {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     this._setInput()
     super.setChangeEvents()
     super._setPlaceholder()
@@ -2772,8 +2772,8 @@ module.exports = class MnPassword extends MnInput {
     ]
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-password')
   }
 
@@ -2847,7 +2847,7 @@ module.exports = class MnRadio extends MnCheckbox {
 
   connectedCallback() {
     this.innerHTML = ''
-    this._setStyle()
+    this.setStyle()
     super._setLabel()
     this._setInput()
     this._setCustomInput()
@@ -2859,7 +2859,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this._setValidations()
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-radio')
     this.classList.add('mn-option')
   }
@@ -2973,8 +2973,8 @@ module.exports = class MnSearch extends MnSelect {
     this.setSearchSheet()
   }
 
-  _setStyle() {
-    super._setStyle()
+  setStyle() {
+    super.setStyle()
     this.classList.add('mn-search')
   }
 
@@ -3145,13 +3145,13 @@ module.exports = class MnSidenav extends HTMLElement {
   }
 
   connectedCallback() {
-    this._setStyle()
+    this.setStyle()
     this._setOpenEvents()
     this._setToggleEvents()
     this._setCloseEvents()
   }
 
-  _setStyle() {
+  setStyle() {
     this.classList.add('mn-sidenav')
     this.classList.add('mn-card')
     document.body.classList.add('mn-backdrop')
