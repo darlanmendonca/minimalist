@@ -15,7 +15,7 @@ module.exports = class MnPassword extends MnInput {
     this._setVisibilityButton()
     super.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     super._setValidations()

@@ -17,7 +17,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setPlaceholder()
     this.setAttributeValue()
     this.setAttributeName()
-    this._setAttributeDisabled()
+    this.setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
     this._setAttributeAutocapitalize()
@@ -142,7 +142,7 @@ module.exports = class MnInput extends HTMLElement {
     }
   }
 
-  _setAttributeDisabled() {
+  setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
 

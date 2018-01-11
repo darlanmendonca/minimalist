@@ -132,7 +132,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setPlaceholder()
     this.setAttributeValue()
     this.setAttributeName()
-    this._setAttributeDisabled()
+    this.setAttributeDisabled()
     this._setAttributeReadonly()
     this._setAttributeMaxlength()
     this._setAttributeAutocapitalize()
@@ -257,7 +257,7 @@ module.exports = class MnInput extends HTMLElement {
     }
   }
 
-  _setAttributeDisabled() {
+  setAttributeDisabled() {
     this.disabled = this.hasAttribute('disabled')
   }
 
@@ -844,7 +844,7 @@ module.exports = class MnSelect extends MnInput {
     this._setKeyboardNavigation()
     this.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     super._setAttributeAutocomplete()
@@ -1653,7 +1653,7 @@ module.exports = class MnDate extends MnInput {
     super.setChangeEvents()
     super.setPlaceholder()
     super.setAttributeValue()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     this._setValidations()
@@ -2253,7 +2253,7 @@ module.exports = class MnPassword extends MnInput {
     super.setChangeEvents()
     super.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
   }
 
   static get observedAttributes() {
@@ -2472,7 +2472,7 @@ module.exports = class MnNumber extends MnInput {
     super.setPlaceholder()
     super.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     this._setAttributeMax()
@@ -2755,7 +2755,7 @@ module.exports = class MnPassword extends MnInput {
     this._setVisibilityButton()
     super.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     super._setValidations()

@@ -13,7 +13,7 @@ module.exports = class MnDate extends MnInput {
     super.setChangeEvents()
     super.setPlaceholder()
     super.setAttributeValue()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
     this._setValidations()

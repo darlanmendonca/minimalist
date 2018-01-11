@@ -13,7 +13,7 @@ module.exports = class MnPassword extends MnInput {
     super.setChangeEvents()
     super.setAttributeValue()
     super.setAttributeName()
-    super._setAttributeDisabled()
+    super.setAttributeDisabled()
   }
 
   static get observedAttributes() {
