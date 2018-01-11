@@ -79,6 +79,17 @@ block content
         console.log(input.value)
 
     section
+      h3 multiple
+      p Allow to user type multiple content on input.
+      mn-code.
+        &lt;mn-input multiple&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(placeholder='names' multiple)
+      mn-code.
+        const input = document.querySelector('mn-input')
+        console.log(input.value) // the value of input multiple always be an array
+
+    section
       h3 autofocus
       p Used to automatically focus on input once time page opens.
 

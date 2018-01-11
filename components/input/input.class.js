@@ -92,7 +92,7 @@ module.exports = class MnInput extends HTMLElement {
     }
 
     this.input.addEventListener('keyup', validate)
-    // this.input.addEventListener('change', validate)
+    this.input.addEventListener('change', validate)
     this.input.addEventListener('input', validate)
 
     this.input.addEventListener('focus', () => {
@@ -109,7 +109,7 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   setValue() {
-    this.input.value
+    this.input.value || this.hasAttribute('value')
       ? this.classList.add('has-value')
       : this.classList.remove('has-value')
   }
