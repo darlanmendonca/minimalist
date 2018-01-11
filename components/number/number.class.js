@@ -21,11 +21,11 @@ module.exports = class MnNumber extends MnInput {
     super.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
     this._setAttributeMax()
     this._setAttributeMin()
-    this._setValidations()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -138,8 +138,8 @@ module.exports = class MnNumber extends MnInput {
     this.min = this.getAttribute('min')
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => this.hasAttribute('multiple')
       ? this.value.length === 0
       : this.value === undefined

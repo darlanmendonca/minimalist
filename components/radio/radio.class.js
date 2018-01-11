@@ -18,7 +18,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
-    this._setValidations()
+    this.setValidations()
   }
 
   setStyle() {
@@ -56,7 +56,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.label.appendChild(input)
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => !this.value,
     }

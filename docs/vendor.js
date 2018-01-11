@@ -133,13 +133,13 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttributeValue()
     this.setAttributeName()
     this.setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeMaxlength()
-    this._setAttributeAutocapitalize()
-    this._setAttributeAutocomplete()
-    this._setAttributeSpellcheck()
-    this._setAttributeAutofocus()
-    this._setValidations()
+    this.setAttributeReadonly()
+    this.setAttributeMaxlength()
+    this.setAttributeAutocapitalize()
+    this.setAttributeAutocomplete()
+    this.setAttributeSpellcheck()
+    this.setAttributeAutofocus()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -261,31 +261,31 @@ module.exports = class MnInput extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
   }
 
-  _setAttributeReadonly() {
+  setAttributeReadonly() {
     this.readonly = this.hasAttribute('readonly')
   }
 
-  _setAttributeMaxlength() {
+  setAttributeMaxlength() {
     this.maxlength = this.getAttribute('maxlength')
   }
 
-  _setAttributeAutocapitalize() {
+  setAttributeAutocapitalize() {
     this.autocapitalize = this.getAttribute('autocapitalize') || 'off'
   }
 
-  _setAttributeAutocomplete() {
+  setAttributeAutocomplete() {
     this.input.setAttribute('autocomplete', 'off')
   }
 
-  _setAttributeSpellcheck() {
+  setAttributeSpellcheck() {
     this.input.setAttribute('spellcheck', 'off')
   }
 
-  _setAttributeAutofocus() {
+  setAttributeAutofocus() {
     this.autofocus = this.hasAttribute('autofocus')
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => this.hasAttribute('multiple')
         ? this.value.length === 0
@@ -604,7 +604,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
-    this._setValidations()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -699,7 +699,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.form = this.closest('form') || this.closest('mn-form') || document
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => {
         return Array.isArray(this.value)
@@ -845,11 +845,11 @@ module.exports = class MnSelect extends MnInput {
     this.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setAttributeAutocomplete()
-    super._setAttributeSpellcheck()
-    this._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    super.setAttributeAutocomplete()
+    super.setAttributeSpellcheck()
+    this.setValidations()
   }
 
   disconnectedCallback() {
@@ -1187,8 +1187,8 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => {
       return this.hasAttribute('multiple')
         ? this.value.length === 0
@@ -1654,9 +1654,9 @@ module.exports = class MnDate extends MnInput {
     super.setPlaceholder()
     super.setAttributeValue()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -1689,8 +1689,8 @@ module.exports = class MnDate extends MnInput {
     }
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => this.value === undefined
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))
@@ -2473,11 +2473,11 @@ module.exports = class MnNumber extends MnInput {
     super.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
     this._setAttributeMax()
     this._setAttributeMin()
-    this._setValidations()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -2590,8 +2590,8 @@ module.exports = class MnNumber extends MnInput {
     this.min = this.getAttribute('min')
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => this.hasAttribute('multiple')
       ? this.value.length === 0
       : this.value === undefined
@@ -2756,9 +2756,9 @@ module.exports = class MnPassword extends MnInput {
     super.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    super.setValidations()
   }
 
   static get observedAttributes() {
@@ -2856,7 +2856,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
-    this._setValidations()
+    this.setValidations()
   }
 
   setStyle() {
@@ -2894,7 +2894,7 @@ module.exports = class MnRadio extends MnCheckbox {
     this.label.appendChild(input)
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => !this.value,
     }

@@ -18,13 +18,13 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttributeValue()
     this.setAttributeName()
     this.setAttributeDisabled()
-    this._setAttributeReadonly()
-    this._setAttributeMaxlength()
-    this._setAttributeAutocapitalize()
-    this._setAttributeAutocomplete()
-    this._setAttributeSpellcheck()
-    this._setAttributeAutofocus()
-    this._setValidations()
+    this.setAttributeReadonly()
+    this.setAttributeMaxlength()
+    this.setAttributeAutocapitalize()
+    this.setAttributeAutocomplete()
+    this.setAttributeSpellcheck()
+    this.setAttributeAutofocus()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -146,31 +146,31 @@ module.exports = class MnInput extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
   }
 
-  _setAttributeReadonly() {
+  setAttributeReadonly() {
     this.readonly = this.hasAttribute('readonly')
   }
 
-  _setAttributeMaxlength() {
+  setAttributeMaxlength() {
     this.maxlength = this.getAttribute('maxlength')
   }
 
-  _setAttributeAutocapitalize() {
+  setAttributeAutocapitalize() {
     this.autocapitalize = this.getAttribute('autocapitalize') || 'off'
   }
 
-  _setAttributeAutocomplete() {
+  setAttributeAutocomplete() {
     this.input.setAttribute('autocomplete', 'off')
   }
 
-  _setAttributeSpellcheck() {
+  setAttributeSpellcheck() {
     this.input.setAttribute('spellcheck', 'off')
   }
 
-  _setAttributeAutofocus() {
+  setAttributeAutofocus() {
     this.autofocus = this.hasAttribute('autofocus')
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => this.hasAttribute('multiple')
         ? this.value.length === 0

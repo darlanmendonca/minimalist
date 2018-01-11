@@ -14,9 +14,9 @@ module.exports = class MnDate extends MnInput {
     super.setPlaceholder()
     super.setAttributeValue()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    this._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -49,8 +49,8 @@ module.exports = class MnDate extends MnInput {
     }
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => this.value === undefined
     this.validations.min = () => newDate(this.value) < newDate(this.getAttribute('min'))
     this.validations.max = () => newDate(this.value) > newDate(this.getAttribute('max'))

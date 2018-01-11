@@ -21,11 +21,11 @@ module.exports = class MnSelect extends MnInput {
     this.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setAttributeAutocomplete()
-    super._setAttributeSpellcheck()
-    this._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    super.setAttributeAutocomplete()
+    super.setAttributeSpellcheck()
+    this.setValidations()
   }
 
   disconnectedCallback() {
@@ -363,8 +363,8 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
-  _setValidations() {
-    super._setValidations()
+  setValidations() {
+    super.setValidations()
     this.validations.required = () => {
       return this.hasAttribute('multiple')
         ? this.value.length === 0

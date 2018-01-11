@@ -19,7 +19,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.disabled = this.hasAttribute('disabled')
     this.readonly = this.hasAttribute('readonly')
     this.name = this.hasAttribute('name')
-    this._setValidations()
+    this.setValidations()
   }
 
   static get observedAttributes() {
@@ -114,7 +114,7 @@ module.exports = class MnCheckbox extends HTMLElement {
     this.form = this.closest('form') || this.closest('mn-form') || document
   }
 
-  _setValidations() {
+  setValidations() {
     this.validations = {
       required: () => {
         return Array.isArray(this.value)

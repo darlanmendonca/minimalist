@@ -16,9 +16,9 @@ module.exports = class MnPassword extends MnInput {
     super.setAttributeValue()
     super.setAttributeName()
     super.setAttributeDisabled()
-    super._setAttributeReadonly()
-    super._setAttributeAutofocus()
-    super._setValidations()
+    super.setAttributeReadonly()
+    super.setAttributeAutofocus()
+    super.setValidations()
   }
 
   static get observedAttributes() {
