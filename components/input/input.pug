@@ -15,7 +15,7 @@ block content
         mn-input.flex(placeholder='firstname')
         mn-input.flex(placeholder='lastname')
 
-  .mn-layout-container
+  .docs.mn-layout-container
     section
       h2 install
       mn-code.
@@ -35,7 +35,7 @@ block content
 
     section
       h3 placeholder
-      p The title of input, indicate the content that user needs write.
+      p The title of input, indicate what content the user needs write.
 
       mn-code.
         &lt;mn-input placeholder="firstname"&gt;&lt;/mn-input&gt;
@@ -43,16 +43,8 @@ block content
         mn-input(placeholder='firstname')
 
     section
-      h3 value
-      p Used to set the initial value of mn-input, e.g.
-      mn-code.
-        &lt;mn-input value="John"&gt;&lt;/mn-input&gt;
-      .mn-card.padding
-        mn-input(value='John')
-
-    section
       h3 name
-      p The name is the identifier of input, used to interact of input in javascript
+      p The name is the identifier of input, used to interact with input in javascript
 
       mn-code.
         // html
@@ -71,6 +63,27 @@ block content
         }
       .mn-card.padding
         mn-form#test: mn-input(placeholder='firstname' value='John' name='firstname')
+
+    section
+      h3 value
+      p Used to set the initial value of mn-input, e.g.
+      mn-code.
+        &lt;mn-input value="John"&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(value='John')
+
+      mn-code.
+        // you can use value as property in javascript, e.g.
+        const input = document.querySelector('mn-input')
+        input.value = 'John'
+        console.log(input.value)
+
+    //- section
+      h3 attribute name
+      p description
+
+      mn-code.
+      .mn-card.padding
 
       //- h3 autofocus
       //- h3 autocapitalize
