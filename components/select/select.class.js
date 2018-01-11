@@ -18,7 +18,7 @@ module.exports = class MnSelect extends MnInput {
     this._setActionSheet()
     this._setOptions()
     this._setKeyboardNavigation()
-    this._setAttributeValue()
+    this.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
@@ -249,7 +249,7 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
-  _setAttributeValue() {
+  setAttributeValue() {
     Array
       .from(this.querySelectorAll('.option[selected]'))
       .forEach(option => {

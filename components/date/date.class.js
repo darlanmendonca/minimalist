@@ -12,7 +12,7 @@ module.exports = class MnDate extends MnInput {
     this.setInput()
     super.setChangeEvents()
     super.setPlaceholder()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()

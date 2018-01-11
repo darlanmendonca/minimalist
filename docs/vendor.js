@@ -130,7 +130,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setInput()
     this.setChangeEvents()
     this.setPlaceholder()
-    this._setAttributeValue()
+    this.setAttributeValue()
     this._setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
@@ -245,7 +245,7 @@ module.exports = class MnInput extends HTMLElement {
     this.placeholder = this.getAttribute('placeholder')
   }
 
-  _setAttributeValue() {
+  setAttributeValue() {
     this.value = evaluate(this.getAttribute('value') || '')
     this.default = this.value
   }
@@ -842,7 +842,7 @@ module.exports = class MnSelect extends MnInput {
     this._setActionSheet()
     this._setOptions()
     this._setKeyboardNavigation()
-    this._setAttributeValue()
+    this.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
@@ -1073,7 +1073,7 @@ module.exports = class MnSelect extends MnInput {
     })
   }
 
-  _setAttributeValue() {
+  setAttributeValue() {
     Array
       .from(this.querySelectorAll('.option[selected]'))
       .forEach(option => {
@@ -1652,7 +1652,7 @@ module.exports = class MnDate extends MnInput {
     this.setInput()
     super.setChangeEvents()
     super.setPlaceholder()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
     super._setAttributeAutofocus()
@@ -2251,7 +2251,7 @@ module.exports = class MnPassword extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
   }
@@ -2470,7 +2470,7 @@ module.exports = class MnNumber extends MnInput {
     this.setInputTransforms()
     this.setInputKeys()
     super.setPlaceholder()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
@@ -2753,7 +2753,7 @@ module.exports = class MnPassword extends MnInput {
     super.setChangeEvents()
     super.setPlaceholder()
     this._setVisibilityButton()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()

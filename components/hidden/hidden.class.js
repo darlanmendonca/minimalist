@@ -11,7 +11,7 @@ module.exports = class MnPassword extends MnInput {
     this.setStyle()
     this.setInput()
     super.setChangeEvents()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
   }

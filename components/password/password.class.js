@@ -13,7 +13,7 @@ module.exports = class MnPassword extends MnInput {
     super.setChangeEvents()
     super.setPlaceholder()
     this._setVisibilityButton()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()

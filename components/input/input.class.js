@@ -15,7 +15,7 @@ module.exports = class MnInput extends HTMLElement {
     this.setInput()
     this.setChangeEvents()
     this.setPlaceholder()
-    this._setAttributeValue()
+    this.setAttributeValue()
     this._setAttributeName()
     this._setAttributeDisabled()
     this._setAttributeReadonly()
@@ -130,7 +130,7 @@ module.exports = class MnInput extends HTMLElement {
     this.placeholder = this.getAttribute('placeholder')
   }
 
-  _setAttributeValue() {
+  setAttributeValue() {
     this.value = evaluate(this.getAttribute('value') || '')
     this.default = this.value
   }

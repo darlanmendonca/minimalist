@@ -18,7 +18,7 @@ module.exports = class MnNumber extends MnInput {
     this.setInputTransforms()
     this.setInputKeys()
     super.setPlaceholder()
-    super._setAttributeValue()
+    super.setAttributeValue()
     super._setAttributeName()
     super._setAttributeDisabled()
     super._setAttributeReadonly()
