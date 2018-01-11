@@ -121,6 +121,14 @@ block content
       .mn-card.padding
         mn-form.submitted: mn-input.invalid(placeholder='firstname' pattern="^[a-zA-Z]+$" value='john snow')
 
+    section
+      h3 readonly
+      p Sets input as read only, so user cannot change the value, but can select and copy.
+
+      mn-code.
+        &lt;mn-input readonly'&gt;&lt;/mn-input&gt;
+      .mn-card.padding
+        mn-input(placeholder='firstname' value='john' readonly)
     //- section
       h3 attribute name
       p description
@@ -128,8 +136,6 @@ block content
       mn-code.
       .mn-card.padding
 
-      //- h3 readonly
-      //- h3 required
       //- h3 disabled
 
 
