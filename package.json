@@ -71,9 +71,7 @@
     "@webcomponents/custom-elements": "^1.0.0",
     "dragula": "^3.7.2",
     "evaluate-string": "^1.0.0",
-    "open-color": "^1.5.1"
-  },
-  "peerDependencies": {
+    "open-color": "^1.5.1",
     "angular": "^1.6.6"
   }
 }
