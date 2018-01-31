@@ -127,6 +127,7 @@ module.exports = class MnInput extends HTMLElement {
     this.innerHTML = ''
     this.trimValue = true
     this.setStyle()
+    this.setValidations()
     this.setInput()
     this.setChangeEvents()
     this.setPlaceholder()
@@ -139,7 +140,6 @@ module.exports = class MnInput extends HTMLElement {
     this.setAttributeAutocomplete()
     this.setAttributeSpellcheck()
     this.setAttributeAutofocus()
-    this.setValidations()
   }
 
   static get observedAttributes() {
