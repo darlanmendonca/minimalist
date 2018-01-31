@@ -215,6 +215,7 @@ module.exports = class MnInput extends HTMLElement {
           values
             .filter(item => item)
             .forEach(val => this.push(val))
+          this.input.value = ''
         } else {
           this.input.value = value
 
