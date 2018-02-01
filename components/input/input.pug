@@ -1,12 +1,16 @@
 extends ../../hotsite/template
 
 block content
-  nav.header
+  mn-button(open-dialog='test') test
+
+  mn-dialog#test
+    p wow
+  //- nav.header
     a.logotype(href='/') minimalist
     a input
 
 
-  .showcase.mn-layout-fullscreen.mn-layout-centered
+  //- .showcase.mn-layout-fullscreen.mn-layout-centered
     .demo.mn-layout-container
       h1 mn-input
 
@@ -15,7 +19,7 @@ block content
         mn-input.flex(placeholder='firstname')
         mn-input.flex(placeholder='lastname')
 
-  .docs.mn-layout-container
+  //- .docs.mn-layout-container
     section
       h2 install
       mn-code.

@@ -2,6 +2,7 @@ const style = document.querySelector('style#minimalist')
 style.appendChild(document.createTextNode(require('./dialog.style.scss')))
 
 const {HTMLElement} = window
+const MnBackdrop = require('../backdrop/backdrop.class.js')
 
 module.exports = class MnDialog extends HTMLElement {
   constructor(self) {
@@ -95,14 +96,14 @@ module.exports = class MnDialog extends HTMLElement {
     this.classList.add('visible')
     this.scrollTop = 0
     document.body.classList.add('mn-dialog-visible')
-    document.body.classList.add('mn-backdrop-visible')
+    MnBackdrop.show()
     this.dispatchEvent(new Event('open'))
   }
 
   close() {
     document.body.classList.remove('mn-dialog-visible')
     this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
+    MnBackdrop.hide()
     this.dispatchEvent(new Event('close'))
   }
 

@@ -1,7 +1,7 @@
-const {HTMLElement} = window
-
 const style = document.querySelector('style#minimalist')
 style.appendChild(document.createTextNode(require('./action-sheet.style.scss')))
+
+const {HTMLElement} = window
 
 module.exports = class MnActionSheet extends HTMLElement {
   constructor() {
@@ -94,13 +94,13 @@ module.exports = class MnActionSheet extends HTMLElement {
   show() {
     this.menu.scrollTop = 0
     this.classList.add('visible')
-    document.body.classList.add('mn-backdrop-visible')
+    MnBackdrop.show()
     document.body.classList.add('mn-action-sheet-visible')
   }
 
   hide() {
     this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
+    MnBackdrop.hide()
     document.body.classList.remove('mn-action-sheet-visible')
   }
 }

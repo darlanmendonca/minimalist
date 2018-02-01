@@ -9,6 +9,7 @@ module.exports = {
   hidden: require('./components/hidden/hidden.webcomponent.js'),
   number: require('./components/number/number.webcomponent.js'),
   date: require('./components/date/date.webcomponent.js'),
+  backdrop: require('./components/backdrop/backdrop.class.js'),
   select: require('./components/select/select.webcomponent.js'),
   actionSheet: require('./components/action-sheet/action-sheet.webcomponent.js'),
   form: require('./components/form/form.webcomponent.js'),

@@ -78,13 +78,13 @@ module.exports = class MnSidenav extends HTMLElement {
       : 0
     this.classList.add('visible')
     document.body.classList.add('mn-sidenav-visible')
-    document.body.classList.add('mn-backdrop-visible')
+    MnBackdrop.show()
   }
 
   close() {
     document.body.classList.remove('mn-sidenav-visible')
     this.classList.remove('visible')
-    document.body.classList.remove('mn-backdrop-visible')
+    MnBackdrop.hide()
   }
 
   toggle() {
