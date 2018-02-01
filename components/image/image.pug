@@ -26,14 +26,22 @@ block content
       p in your html, you can use the tag <code>&lt;mn-image&gt;</code> with src attribute, e.g.
 
       mn-code.
-         &lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
+        &lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
+
+      p If you want a 3d perspective on mouse over, or focus (but only for desktop) just put the component inside a tag
+
+      mn-code.
+        &lt;a&gt;
+        &lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
+        &lt;/a&gt;
+      a: mn-image(src='https://switchtactics.com/wp-content/uploads/2017/12/Adventure-Time-Pirates-of-the-Enchiridion-box-art-Switch-1-600x400.jpg')
 
     section
       h2 Attributes
       p The complete list of attributes supported is the following:
 
     style.
-      mn-code + .mn-image {
+      mn-code + .mn-image, mn-code + a {
         max-width: 410px;
         width: 100%;
         margin: 1em 0;
