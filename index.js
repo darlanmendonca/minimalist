@@ -2,6 +2,10 @@ const style = document.createElement('style')
 style.id = 'minimalist'
 document.head.appendChild(style)
 
+style.appendChild(document.createTextNode(require('./components/layout/layout.style.scss')))
+style.appendChild(document.createTextNode(require('./components/card/card.style.scss')))
+style.appendChild(document.createTextNode(require('./components/chip/chip.style.scss')))
+
 module.exports = {
   input: require('./components/input/input.webcomponent.js'),
   email: require('./components/email/email.webcomponent.js'),
