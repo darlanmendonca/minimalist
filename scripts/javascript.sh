@@ -2,10 +2,4 @@
 
 set -e
 
-./node_modules/.bin/webpack hotsite/app.js docs/vendor.js \
---devtool source-map \
---hide-modules true \
---watch \
-
-# https://www.npmjs.com/package/uglify-es
-# ./node_modules/.bin/uglifyjs docs/vendor.js -c -m -o docs/vendor.min.js
+./node_modules/.bin/webpack --config webpack.config.js

@@ -18,12 +18,6 @@ const {input} = require('minimalist')
 ```
 
 
-```sass
-// Dont forget the .scss file, to style component
-@import 'path/to/node_modules/minimalist/components/input/input.scss';
-```
-
-
 ### Usage
 
 In your html, you can use the tag `mn-input` i.e.

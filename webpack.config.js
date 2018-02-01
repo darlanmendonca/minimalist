@@ -1,11 +1,15 @@
-// module.exports = {
-//   // watch: true,
-//   devtool: 'source-map',
+const Uglify = require('uglifyjs-webpack-plugin')
 
-//   entry: './docs/sources/app.js',
-
-//   output: {
-//     filename: 'vendor.js',
-//     path: `${__dirname}/docs/`,
-//   },
-// }
+module.exports = {
+  entry: './hotsite/app.js',
+  output: {
+    path: require('path').resolve(__dirname, 'docs'),
+    filename: 'vendor.js',
+  },
+  watch: true,
+  devtool: 'sourcemap',
+  stats: 'errors-only',
+  plugins: [
+    new Uglify()
+  ],
+}
