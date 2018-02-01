@@ -1,3 +1,6 @@
+const style = document.querySelector('style#minimalist')
+style.appendChild(document.createTextNode(require('./sidenav.style.scss')))
+
 const {HTMLElement} = window
 
 module.exports = class MnSidenav extends HTMLElement {

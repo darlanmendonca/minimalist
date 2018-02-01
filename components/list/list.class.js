@@ -1,3 +1,6 @@
+const style = document.querySelector('style#minimalist')
+style.appendChild(document.createTextNode(require('./list.style.scss')))
+
 const {HTMLElement} = window
 const dragula = require('dragula')
 

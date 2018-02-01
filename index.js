@@ -1,3 +1,7 @@
+const style = document.createElement('style')
+style.id = 'minimalist'
+document.head.appendChild(style)
+
 module.exports = {
   input: require('./components/input/input.webcomponent.js'),
   email: require('./components/email/email.webcomponent.js'),

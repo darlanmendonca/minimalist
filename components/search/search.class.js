@@ -1,3 +1,6 @@
+const style = document.querySelector('style#minimalist')
+style.appendChild(document.createTextNode(require('./search.style.scss')))
+
 const MnSelect = require('../select/select.class.js')
 
 module.exports = class MnSearch extends MnSelect {

@@ -1,3 +1,6 @@
+const style = document.querySelector('style#minimalist')
+style.appendChild(document.createTextNode(require('./radio.style.scss')))
+
 const MnCheckbox = require('../checkbox/checkbox.class.js')
 const evaluate = require('evaluate-string')
 

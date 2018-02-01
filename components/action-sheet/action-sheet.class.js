@@ -1,5 +1,8 @@
 const {HTMLElement} = window
 
+const style = document.querySelector('style#minimalist')
+style.appendChild(document.createTextNode(require('./action-sheet.style.scss')))
+
 module.exports = class MnActionSheet extends HTMLElement {
   constructor() {
     self = super(self)
