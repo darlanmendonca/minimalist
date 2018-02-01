@@ -44,9 +44,7 @@ function KarmaConfig(config) {
       'components/**/*.scss': ['scss'],
     },
 
-    webpack: {
-      devtool: 'inline-source-map',
-    },
+    webpack: require('./webpack.config.js'),
 
     webpackServer: {
       noInfo: true,
