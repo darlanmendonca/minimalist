@@ -10,7 +10,7 @@ const component = location.pathname
 if (component)
   link.href += `/tree/master/components/${component}`</script><nav class="header"><a class="logotype" href="/">minimalist</a><a>image</a></nav><div class="showcase mn-layout-fullscreen mn-layout-centered"><div class="demo mn-layout-container"><h1>mn-image</h1><div class="mn-form mn-layout-column mn-layout-sm-row"><a><mn-image src="https://switchtactics.com/wp-content/uploads/2017/12/Adventure-Time-Pirates-of-the-Enchiridion-box-art-Switch-1-600x400.jpg"></mn-image></a><a><mn-image src="https://media0.giphy.com/media/OSWRJKmwUEOD6/giphy.gif"></mn-image></a></div></div></div><div class="docs mn-layout-container"><section><h2>install</h2><mn-code>npm install --save minimalist</mn-code><p>and bundle it with your preferred tool.</p></section><section><h2>usage</h2><p>in your html, you can use the tag <code>&lt;mn-image&gt;</code> with src attribute, e.g.</p><mn-code>&lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
 </mn-code><p>If you want a 3d perspective on mouse over, or focus (but only for desktop) just put the component inside a tag</p><mn-code>&lt;a&gt;
-&lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
+  &lt;mn-image src="path/to/image"&gt;&lt;/mn-image&gt;
 &lt;/a&gt;</mn-code><a><mn-image src="https://switchtactics.com/wp-content/uploads/2017/12/Adventure-Time-Pirates-of-the-Enchiridion-box-art-Switch-1-600x400.jpg"></mn-image></a></section><section><h2>Attributes</h2><p>The complete list of attributes supported is the following:</p></section><style>mn-code + .mn-image, mn-code + a {
   max-width: 410px;
   width: 100%;
