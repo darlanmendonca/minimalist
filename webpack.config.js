@@ -1,10 +1,13 @@
 const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  entry: './hotsite/app.js',
+  entry: {
+    app: './hotsite/app.js',
+    bundle: './index.js',
+  },
   output: {
     path: require('path').resolve(__dirname, 'docs'),
-    filename: 'vendor.js',
+    filename: '[name].js',
   },
   watch: true,
   devtool: 'sourcemap',
