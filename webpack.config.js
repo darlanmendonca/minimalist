@@ -3,7 +3,7 @@ const Uglify = require('uglifyjs-webpack-plugin')
 module.exports = {
   entry: {
     app: './hotsite/app.js',
-    bundle: './index.js',
+    index: './app.js',
   },
   output: {
     path: require('path').resolve(__dirname, 'docs'),
