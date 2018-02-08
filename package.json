@@ -5,6 +5,7 @@
   "description": "A minimalist UI framework, agnostic to framework, and easy to use and change identity",
   "main": "bundle.js",
   "files": [
+    "bundle.js",
     "components",
     "angular.js"
   ],
