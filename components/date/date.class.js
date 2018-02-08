@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./date.style.scss')))
-
 const MnInput = require('../input/input.class.js')
 
 module.exports = class MnDate extends MnInput {

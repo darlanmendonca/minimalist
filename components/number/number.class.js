@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./number.style.scss')))
-
 const MnInput = require('../input/input.class.js')
 const evaluate = require('evaluate-string')
 

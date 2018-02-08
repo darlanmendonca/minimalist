@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./select.style.scss')))
-
 const MnInput = require('../input/input.class.js')
 const MnActionSheet = require('../action-sheet/action-sheet.webcomponent.js')
 const evaluate = require('evaluate-string')

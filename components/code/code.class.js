@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./code.style.scss')))
-
 module.exports = class MnCode extends HTMLElement {
   constructor(self) {
     self = super(self)

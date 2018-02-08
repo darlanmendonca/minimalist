@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./dialog.style.scss')))
-
 const {HTMLElement} = window
 const MnBackdrop = require('../backdrop/backdrop.class.js')
 

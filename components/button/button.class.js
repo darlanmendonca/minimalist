@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./button.style.scss')))
-
 const {HTMLElement} = window
 
 module.exports = class MnButton extends HTMLElement {

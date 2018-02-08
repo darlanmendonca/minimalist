@@ -1,7 +1,5 @@
 const {HTMLElement} = window
 const evaluate = require('evaluate-string')
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./input.style.scss')))
 
 module.exports = class MnInput extends HTMLElement {
   constructor(self) {

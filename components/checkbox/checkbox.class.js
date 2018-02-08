@@ -1,6 +1,3 @@
-const style = document.querySelector('style#minimalist')
-style.appendChild(document.createTextNode(require('./checkbox.style.scss')))
-
 const {HTMLElement} = window
 const evaluate = require('evaluate-string')
 
