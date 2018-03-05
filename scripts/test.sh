@@ -18,5 +18,5 @@ if [ $BROWSER_STACK_ENV ]; then
   browser="browserstack:chrome,browserstack:safari,browserstack:firefox"
 fi
 
-./node_modules/.bin/require-self &&
-./node_modules/.bin/karma start karma.config.js --browsers $browser $@
+require-self &&
+karma start karma.config.js --browsers $browser $@

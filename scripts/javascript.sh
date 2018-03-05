@@ -2,4 +2,4 @@
 
 set -e
 
-./node_modules/.bin/webpack --config webpack.config.js
+webpack --config webpack.config.js
