@@ -114,18 +114,56 @@ block content
       p Sets input as read only, so user cannot change the value, but can navigate to them using keyboard and copy.
 
       mn-code.
-        &lt;mn-input readonly&gt;&lt;/mn-input&gt;
+        &lt;mn-number readonly&gt;&lt;/mn-number&gt;
       .mn-card.padding
-        mn-input(placeholder='firstname' value='john' readonly)
+        mn-number(placeholder='number' value='10' readonly)
 
     section
       h3: a(name='disabled' href='number.html#disabled') disabled
       p Sets input as disabled, so user cannot navigate to them, but can copy.
 
       mn-code.
-        &lt;mn-input disabled&gt;&lt;/mn-input&gt;
+        &lt;mn-number disabled&gt;&lt;/mn-number&gt;
       .mn-card.padding
-        mn-input(placeholder='firstname' value='john' disabled)
+        mn-number(placeholder='number' value='10' disabled)
 
+    section
+      h3: a(name='precision' href='number.html#precision') precision
+      p Set a mask to number, showing that with precision defined
+
+      mn-code.
+        &lt;mn-number precision='3' value='10'&gt;&lt;/mn-number&gt;
+      .mn-card.padding
+        mn-number(placeholder='number' value='10' precision='3')
+
+    section
+      h3: a(name='currency' href='number.html#currency') currency
+      p Set a currency mask to number, with precision 2 by default.
+
+      mn-code.
+        &lt;mn-number currency value='10'&gt;&lt;/mn-number&gt;
+      .mn-card.padding
+        mn-number(placeholder='number' value='10' currency)
+
+
+      mn-code.
+        //To change the currency symbol, just use a css variable, e.g.
+
+        .mn-number {
+          --currency-symbol: 'R$'
+        }
+      .mn-card.padding
+        style.
+          .mn-number.real {--currency-symbol: 'R$'}
+        mn-number.real(placeholder='number' value='10' currency)
+
+    section
+      h3: a(name='percentage' href='number.html#percentage') percentage
+      p Set a percentage mask to number, without precision by default.
+
+      mn-code.
+        &lt;mn-number percentage value='1'&gt;&lt;/mn-number&gt;
+      .mn-card.padding
+        mn-number(placeholder='number' value='1' percentage)
 
 
