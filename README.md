@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/darlanmendonca/minimalist.svg?branch=master)](https://travis-ci.org/darlanmendonca/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-[![Only 75 Kb](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)](https://github.com/darlanmendonca/minimalist/blob/master/docs/app.js)
+<!-- [![Only 75 Kb](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)](https://github.com/darlanmendonca/minimalist/blob/master/docs/app.js) -->
 
 <!-- [![Coverage Status](https://coveralls.io/repos/github/darlanmendonca/minimalist/badge.svg?branch=master)](https://coveralls.io/github/darlanmendonca/minimalist?branch=master) -->
 
