@@ -166,4 +166,22 @@ block content
       .mn-card.padding
         mn-number(placeholder='number' value='1' percentage)
 
+    section
+      h3: a(name='max' href='number.html#max') max
+      p Define a max value to input
+
+      mn-code.
+        &lt;mn-number max='5'&gt;&lt;/mn-number&gt;
+      .mn-card.padding
+        mn-form.submitted: mn-number.invalid.max(placeholder='number' required max='5')
+
+    section
+      h3: a(name='min' href='number.html#min') min
+      p Define a min value to input
+
+      mn-code.
+        &lt;mn-number min='5'&gt;&lt;/mn-number&gt;
+      .mn-card.padding
+        mn-form.submitted: mn-number.invalid.min(placeholder='number' required min='0')
+
 
