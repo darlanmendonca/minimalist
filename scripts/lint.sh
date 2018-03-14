@@ -2,4 +2,4 @@
 
 set -e
 
-./node_modules/eslint/bin/eslint.js *.js components/**/*.js --quiet
+./node_modules/.bin/eslint *.js components/**/*.js --quiet
