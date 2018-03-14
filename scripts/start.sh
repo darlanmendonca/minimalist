@@ -8,7 +8,7 @@ port=3000
 ./scripts/sass.sh &
 ./scripts/javascript.sh &
 
-./node_modules/.bin/browser-sync start \
+browser-sync start \
 --server 'docs' \
 --files 'docs/*.*' \
 --no-ui \

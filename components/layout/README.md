@@ -14,7 +14,7 @@ npm install minimalist
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/components/button/button.scss';
+@import 'path/to/node_modules/minimalist/components/layout/layout.scss';
 ```
 
 
