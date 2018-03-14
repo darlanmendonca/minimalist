@@ -1,7 +1,7 @@
 const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: './hotsite/app.js',
     index: './app.js',
