@@ -184,7 +184,7 @@ module.exports = class MnNumber extends MnInput {
     const hasValue = value !== ''
 
     if (this.input && hasValue && differentValue) {
-      if (valueIsMultiple) {
+      if (valueIsMultiple && value && Array.isArray(value)) {
         Array
           .from(this.querySelectorAll('.value'))
           .forEach(item => item.parentNode.removeChild(item))
