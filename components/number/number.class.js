@@ -98,6 +98,10 @@ module.exports = class MnNumber extends MnInput {
         this.hasAttribute('percentage')
           ? this.updateMask()
           : null
+
+        if (this.input.value === '') {
+          this.removeAttribute('value')
+        }
       }
     })
   }
@@ -184,7 +188,7 @@ module.exports = class MnNumber extends MnInput {
     const hasValue = value !== ''
 
     if (this.input && hasValue && differentValue) {
-      if (valueIsMultiple) {
+      if (valueIsMultiple && value && Array.isArray(value)) {
         Array
           .from(this.querySelectorAll('.value'))
           .forEach(item => item.parentNode.removeChild(item))
@@ -217,6 +221,9 @@ module.exports = class MnNumber extends MnInput {
             value = this.hasAttribute('percentage')
               ? +(value * 100).toFixed(this.getAttribute('precision') || 2)
               : value
+            hasValue
+              ? this.setAttribute('value', value)
+              : this.removeAttribute('value')
             this.input.value = value
           } else {
             this.input.value = ''

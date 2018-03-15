@@ -82,7 +82,7 @@ block content
         input.value = 27
         console.log(input.value) // the value always be a number, or undefined
 
-    //- section
+    section
       h3: a(name='multiple' href='number.html#multiple') multiple
       p Allow to user type multiple value on input.
       mn-code.
@@ -168,20 +168,20 @@ block content
 
     section
       h3: a(name='max' href='number.html#max') max
-      p Define a max value to input
+      p Define a max value to input.
 
       mn-code.
         &lt;mn-number max='5'&gt;&lt;/mn-number&gt;
       .mn-card.padding
-        mn-form.submitted: mn-number.invalid.max(placeholder='number' required max='5')
+        mn-form.submitted: mn-number.invalid.max(placeholder='number' max='5' value='6')
 
     section
       h3: a(name='min' href='number.html#min') min
-      p Define a min value to input
+      p Define a min value to input.
 
       mn-code.
         &lt;mn-number min='5'&gt;&lt;/mn-number&gt;
       .mn-card.padding
-        mn-form.submitted: mn-number.invalid.min(placeholder='number' required min='0')
+        mn-form.submitted: mn-number.invalid.min(placeholder='number' min='0' value='-1')
 
 

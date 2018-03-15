@@ -260,7 +260,9 @@ module.exports = class MnInput extends HTMLElement {
   }
 
   set readonly(value) {
-    this.input.readOnly = value || this.hasAttribute('readonly')
+    if (this.input) {
+      this.input.readOnly = value || this.hasAttribute('readonly')
+    }
   }
 
   set maxlength(value) {
