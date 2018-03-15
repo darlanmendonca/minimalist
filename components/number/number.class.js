@@ -217,6 +217,7 @@ module.exports = class MnNumber extends MnInput {
             value = this.hasAttribute('percentage')
               ? +(value * 100).toFixed(this.getAttribute('precision') || 2)
               : value
+            this.setAttribute('value', value)
             this.input.value = value
           } else {
             this.input.value = ''
