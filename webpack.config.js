@@ -15,4 +15,13 @@ module.exports = {
   plugins: [
     new Uglify()
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js(x)?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      }
+    ],
+  }
 }

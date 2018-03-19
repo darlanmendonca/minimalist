@@ -34,7 +34,10 @@
   },
   "devDependencies": {
     "angular-mocks": "^1.6.4",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-import-export": "^1.0.2",
+    "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.18.11",
     "chai": "^3.5.0",
     "chai-colors": "^1.0.1",
@@ -72,9 +75,11 @@
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
+    "angular": "^1.6.6",
     "dragula": "^3.7.2",
     "evaluate-string": "^1.0.0",
     "open-color": "^1.5.1",
-    "angular": "^1.6.6"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   }
 }
