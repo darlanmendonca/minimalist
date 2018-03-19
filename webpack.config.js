@@ -15,12 +15,4 @@ module.exports = {
   plugins: [
     new Uglify()
   ],
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        loaders: ['raw-loader', 'sass-loader'],
-      },
-    ],
-  },
 }
