@@ -1,7 +1,7 @@
-const MnInput = require('../input/input.class.js')
-const evaluate = require('evaluate-string')
+import MnInput from '../input/input.class.js'
+import evaluate from 'evaluate-string'
 
-module.exports = class MnNumber extends MnInput {
+export default class MnNumber extends MnInput {
   constructor(self) {
     self = super(self)
     this.delimeterKeys = ['Enter', 'Space']
@@ -266,3 +266,5 @@ module.exports = class MnNumber extends MnInput {
     }
   }
 }
+
+window.customElements.define('mn-number', MnNumber)

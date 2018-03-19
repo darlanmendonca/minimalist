@@ -1,6 +1,4 @@
-const {HTMLElement} = window
-
-module.exports = class MnImage extends HTMLElement {
+export default class MnImage extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     this.setStyle()

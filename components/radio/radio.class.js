@@ -1,7 +1,7 @@
-const MnCheckbox = require('../checkbox/checkbox.class.js')
-const evaluate = require('evaluate-string')
+import MnCheckbox from '../checkbox/checkbox.class.js'
+import evaluate from 'evaluate-string'
 
-module.exports = class MnRadio extends MnCheckbox {
+export default class MnRadio extends MnCheckbox {
   constructor(self) {
     self = super(self)
     return self
@@ -94,3 +94,5 @@ module.exports = class MnRadio extends MnCheckbox {
     }
   }
 }
+
+window.customElements.define('mn-radio', MnRadio)

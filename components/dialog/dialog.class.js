@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const MnBackdrop = require('../backdrop/backdrop.class.js')
+import MnBackdrop from '../backdrop/backdrop.class.js'
 
-module.exports = class MnDialog extends HTMLElement {
+export default class MnDialog extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -110,3 +109,5 @@ module.exports = class MnDialog extends HTMLElement {
       : this.close()
   }
 }
+
+window.customElements.define('mn-dialog', MnDialog)

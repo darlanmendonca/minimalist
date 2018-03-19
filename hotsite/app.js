@@ -1,2 +1,3 @@
-require('../index.js') // main file of minimalist
-// require('../angular.js') // directives
+import '@webcomponents/custom-elements'
+import minimalist from '../index.js'
+// import minimalistAngular from '../angular.js'

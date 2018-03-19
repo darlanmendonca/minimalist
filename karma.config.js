@@ -28,6 +28,7 @@ function KarmaConfig(config) {
     browsers,
 
     files: [
+      'node_modules/@webcomponents/custom-elements',
       'node_modules/angular/index.js',
       'index.js',
       'angular.js',

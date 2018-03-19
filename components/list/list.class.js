@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const dragula = require('dragula')
+import dragula from 'dragula'
 
-module.exports = class MnList extends HTMLElement {
+export default class MnList extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -99,3 +98,5 @@ module.exports = class MnList extends HTMLElement {
     MnList.draggableSettings.containers.push(this)
   }
 }
+
+window.customElements.define('mn-list', MnList)

@@ -1,6 +1,6 @@
-const MnInput = require('../input/input.class.js')
+import MnInput from '../input/input.class.js'
 
-module.exports = class MnDate extends MnInput {
+export default class MnDate extends MnInput {
   constructor(self) {
     self = super(self)
     return self
@@ -175,3 +175,5 @@ function newDate(dateString) {
   const date = new Date(dateString[0], dateString[1] - 1, dateString[2])
   return date
 }
+
+window.customElements.define('mn-date', MnDate)

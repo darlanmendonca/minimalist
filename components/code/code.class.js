@@ -1,4 +1,4 @@
-module.exports = class MnCode extends HTMLElement {
+export default class MnCode extends HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -26,3 +26,5 @@ module.exports = class MnCode extends HTMLElement {
     this.insertBefore(pre, this.firstChild)
   }
 }
+
+window.customElements.define('mn-code', MnCode)

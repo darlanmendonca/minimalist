@@ -1,6 +1,6 @@
-const MnInput = require('../input/input.class.js')
+import MnInput from '../input/input.class.js'
 
-module.exports = class MnPassword extends MnInput {
+export default class MnPassword extends MnInput {
   constructor(self) {
     self = super(self)
     return self
@@ -69,3 +69,5 @@ module.exports = class MnPassword extends MnInput {
     })
   }
 }
+
+window.customElements.define('mn-password', MnPassword)

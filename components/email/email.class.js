@@ -1,6 +1,6 @@
-const MnInput = require('../input/input.class.js')
+import MnInput from '../input/input.class.js'
 
-module.exports = class MnEmail extends MnInput {
+export default class MnEmail extends MnInput {
   constructor(self) {
     self = super(self)
     return self
@@ -14,3 +14,5 @@ module.exports = class MnEmail extends MnInput {
     this.setAttribute('pattern', this.getAttribute('pattern') || regex)
   }
 }
+
+window.customElements.define('mn-email', MnEmail)

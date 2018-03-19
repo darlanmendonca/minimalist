@@ -1,6 +1,4 @@
-const {HTMLElement} = window
-
-module.exports = class MnForm extends HTMLElement {
+export default class MnForm extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -186,3 +184,5 @@ module.exports = class MnForm extends HTMLElement {
     }
   }
 }
+
+window.customElements.define('mn-form', MnForm)

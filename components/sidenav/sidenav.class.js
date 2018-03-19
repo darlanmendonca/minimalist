@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const MnBackdrop = require('../backdrop/backdrop.class.js')
+import MnBackdrop from '../backdrop/backdrop.class.js'
 
-module.exports = class MnSidenav extends HTMLElement {
+export default class MnSidenav extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -91,3 +90,5 @@ module.exports = class MnSidenav extends HTMLElement {
       : this.close()
   }
 }
+
+window.customElements.define('mn-sidenav', MnSidenav)

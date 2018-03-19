@@ -1,6 +1,6 @@
-const MnSelect = require('../select/select.class.js')
+import MnSelect from '../select/select.class.js'
 
-module.exports = class MnSearch extends MnSelect {
+export default class MnSearch extends MnSelect {
   constructor(self) {
     self = super(self)
     return self
@@ -127,3 +127,5 @@ module.exports = class MnSearch extends MnSelect {
       })
   }
 }
+
+window.customElements.define('mn-search', MnSearch)

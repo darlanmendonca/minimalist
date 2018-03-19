@@ -1,8 +1,8 @@
-const MnInput = require('../input/input.class.js')
-const MnActionSheet = require('../action-sheet/action-sheet.webcomponent.js')
-const evaluate = require('evaluate-string')
+import MnInput from '../input/input.class.js'
+import MnActionSheet from '../action-sheet/action-sheet.class.js'
+import evaluate from 'evaluate-string'
 
-module.exports = class MnSelect extends MnInput {
+export default class MnSelect extends MnInput {
   constructor(self) {
     self = super(self)
     this.delimeterKeys = []
@@ -543,3 +543,5 @@ module.exports = class MnSelect extends MnInput {
     }
   }
 }
+
+window.customElements.define('mn-select', MnSelect)

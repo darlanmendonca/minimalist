@@ -1,6 +1,6 @@
-const MnInput = require('../input/input.class.js')
+import MnInput from '../input/input.class.js'
 
-module.exports = class MnPassword extends MnInput {
+export default class MnHidden extends MnInput {
   constructor(self) {
     self = super(self)
     return self
@@ -34,3 +34,5 @@ module.exports = class MnPassword extends MnInput {
     this.input.setAttribute('type', 'hidden')
   }
 }
+
+window.customElements.define('mn-hidden', MnHidden)

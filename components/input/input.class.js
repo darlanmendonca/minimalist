@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const evaluate = require('evaluate-string')
+import evaluate from 'evaluate-string'
 
-module.exports = class MnInput extends HTMLElement {
+export default class MnInput extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     this.delimeterKeys = ['Comma', 'Enter', 'Space']
@@ -383,3 +382,5 @@ module.exports = class MnInput extends HTMLElement {
     this.input.value = ''
   }
 }
+
+window.customElements.define('mn-input', MnInput)

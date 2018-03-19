@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const evaluate = require('evaluate-string')
+import evaluate from 'evaluate-string'
 
-module.exports = class MnCheckbox extends HTMLElement {
+export default class MnCheckbox extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     this.ready = false
@@ -231,3 +230,5 @@ module.exports = class MnCheckbox extends HTMLElement {
       : this.classList.remove('invalid')
   }
 }
+
+window.customElements.define('mn-checkbox', MnCheckbox)

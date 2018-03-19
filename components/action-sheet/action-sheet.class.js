@@ -1,7 +1,6 @@
-const {HTMLElement} = window
-const MnBackdrop = require('../backdrop/backdrop.class.js')
+import MnBackdrop from '../backdrop/backdrop.class.js'
 
-module.exports = class MnActionSheet extends HTMLElement {
+export default class MnActionSheet extends window.HTMLElement {
   constructor() {
     self = super(self)
     return self
@@ -102,3 +101,5 @@ module.exports = class MnActionSheet extends HTMLElement {
     document.body.classList.remove('mn-action-sheet-visible')
   }
 }
+
+window.customElements.define('mn-action-sheet', MnActionSheet)

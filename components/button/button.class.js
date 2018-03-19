@@ -1,6 +1,4 @@
-const {HTMLElement} = window
-
-module.exports = class MnButton extends HTMLElement {
+export default class MnButton extends window.HTMLElement {
   constructor(self) {
     self = super(self)
     return self
@@ -26,3 +24,5 @@ module.exports = class MnButton extends HTMLElement {
     })
   }
 }
+
+window.customElements.define('mn-button', MnButton)
