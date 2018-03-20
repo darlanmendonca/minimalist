@@ -6,7 +6,8 @@
   "main": "docs/index.js",
   "files": [
     "components",
-    "angular.js"
+    "angular.js",
+    "react.jsx"
   ],
   "scripts": {
     "prestart": "scripts/api.sh",
