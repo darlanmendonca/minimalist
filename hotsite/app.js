@@ -1,37 +1,40 @@
 import '@webcomponents/custom-elements'
 import minimalist from '../index.js'
+
+// angular
 // import minimalistAngular from '../angular.js'
-// import MnInput from '../components/input/input.react.jsx'
-import React, {Component} from 'react'
-import {MnInput} from '../react.jsx'
-import ReactDOM from 'react-dom'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+// react
+// import React, {Component} from 'react'
+// import {MnInput} from '../react.jsx'
+// import ReactDOM from 'react-dom'
 
-    this.state = {
-      placeholder: 'Lastname',
-      value: 'Mendonça',
-    }
-  }
+// class App extends Component {
+//   constructor(props) {
+//     super(props)
 
-  render() {
-    return (
-      <div>
-        <MnInput {...this.state} onInput={(e) => this.setValue(e.currentTarget.value)} />
-        <br />
-        <p>Nome: {this.state.value}</p>
-        <div>wow</div>
-      </div>
-    )
-  }
+//     this.state = {
+//       placeholder: 'Lastname',
+//       value: 'Mendonça',
+//     }
+//   }
 
-  setValue(value) {
-    this.setState({value})
-  }
-}
+//   render() {
+//     return (
+//       <div>
+//         <MnInput {...this.state} onInput={(e) => this.setValue(e.currentTarget.value)} />
+//         <br />
+//         <p>Nome: {this.state.value}</p>
+//         <div>wow</div>
+//       </div>
+//     )
+//   }
 
-ReactDOM.render(<App />, window.reactApp)
+//   setValue(value) {
+//     this.setState({value})
+//   }
+// }
+
+// ReactDOM.render(<App />, window.reactApp)
 
 
