@@ -1,0 +1,48 @@
+@import 'node_modules/open-color/open-color.scss';
+
+.mn-input {
+  position: relative;
+
+  --text-color: $oc-gray-9;
+  --selection-color: $oc-gray-4;
+  --border-width: 1px;
+  --border-color: $oc-gray-4;
+  --placeholder-color: $oc-gray-6;
+  --invalid-message: ' is invalid';
+
+  &::selection {
+    background: var(--selection-color);
+  }
+
+  &:after {
+    content: '';
+    height: var(--border-width);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--border-color);
+    transition: all .2s ease;
+  }
+
+  input {
+    border: 0;
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &.has-value label,
+  &.focus label {
+    transform: translate(0, -1.3em) scale(.8) translateZ(0);
+  }
+
+  &.has-value .input,
+  &.focus .input {
+    opacity: 1;
+    transition-delay: .15s;
+  }
+}
