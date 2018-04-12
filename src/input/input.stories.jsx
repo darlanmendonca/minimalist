@@ -11,9 +11,9 @@ storiesOf('minimalist', module)
         label={text('label')}
         placeholder={text('placeholder')}
         value={text('value')}
-        maxlength={number('maxlength', 10)}
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
       />
+        // maxlength={number('maxlength')}
     )
   })

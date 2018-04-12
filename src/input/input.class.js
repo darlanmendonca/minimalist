@@ -8,7 +8,19 @@ class MnInput extends window.HTMLElement {
     this.setStyle()
     this.setChildren('label')
     this.setChildren('input')
+    this.setInputEvents()
     this.setAttributes()
+  }
+
+  setInputEvents() {
+    this.inputChild.addEventListener('focus', () => {
+      this.classList.add('focus')
+    })
+
+    this.inputChild.addEventListener('blur', () => {
+      this.classList.remove('focus')
+      this.classList.toggle('has-value', this.hasValue)
+    })
   }
 
   static get observedAttributes() {
@@ -69,6 +81,13 @@ class MnInput extends window.HTMLElement {
 
   get value() {
     return this.inputChild.value
+  }
+
+  get hasValue() {
+    return !(this.value === undefined
+      || this.value === null
+      || this.value === ''
+      || Array.isArray(this.value) && this.value.length === 0)
   }
 
   set value(value = '') {

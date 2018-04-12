@@ -1,13 +1,15 @@
-@import 'node_modules/open-color/open-color.scss';
-
 .mn-input {
   position: relative;
+  display: inline-block;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  font-family: sans-serif;
 
-  --text-color: $oc-gray-9;
-  --selection-color: $oc-gray-4;
+  --text-color: #212529;
+  --selection-color: #ced4da;
   --border-width: 1px;
-  --border-color: $oc-gray-4;
-  --placeholder-color: $oc-gray-6;
+  --border-color: #ced4da;
+  --placeholder-color: #868e96;
   --invalid-message: ' is invalid';
 
   &::selection {
@@ -27,22 +29,61 @@
 
   input {
     border: 0;
+    outline: 0;
+    transition: opacity .2s ease;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    text-overflow: inherit;
+    background-color: transparent;
+    color: var(--text-color);
+    position: relative;
+    transition: opacity .2s ease;
+    opacity: 0;
+    box-shadow: none;
+    font-size: inherit;
+
+    &::placeholder {
+      color: transparent;
+      transition: color .2s ease;
+    }
+
+    &::selection {
+      background: var(--selection-color);
+    }
   }
 
   label {
+    color: var(--placeholder-color);
+    pointer-events: none;
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
+    transform-origin: left center;
+    transition: all .2s ease;
   }
 
-  &.has-value label,
-  &.focus label {
-    transform: translate(0, -1.3em) scale(.8) translateZ(0);
+  input, label {
+    height: 2em;
+    line-height: 2em;
   }
 
-  &.has-value .input,
-  &.focus .input {
-    opacity: 1;
-    transition-delay: .15s;
+  &.focus {
+    --border-width: 2px;
+    --border-color: #343a40;
+  }
+
+  &.has-value, &.focus {
+    label {
+      transform: translate(0, -1.3em) scale(.8) translateZ(0);
+    }
+
+    input {
+      opacity: 1;
+      transition-delay: .15s;
+      &::placeholder {color: var(--placeholder-color)}
+    }
   }
 }
