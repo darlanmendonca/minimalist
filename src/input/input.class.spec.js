@@ -148,6 +148,15 @@ describe('mn-input (webcomponent)', () => {
     input.setAttribute('autofocus', 'true')
     expect(input.autofocus).to.be.equal('true')
   })
+
+  test('should add/remove class focus while focus/blur element', () => {
+    expect(input).to.not.have.class('focus')
+    input.inputChild.focus()
+    expect(input).to.have.class('focus')
+
+    input.inputChild.blur()
+    expect(input).to.not.have.class('focus')
+  })
 })
 
 function createElement() {
