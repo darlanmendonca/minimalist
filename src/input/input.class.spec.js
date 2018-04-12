@@ -55,8 +55,8 @@ describe('mn-input (webcomponent)', () => {
     input.label = undefined
     expect(input.label).to.be.equal('')
 
-    // input.setAttribute('label', 'ipsum')
-    // expect(input.label).to.be.equal('ipsum')
+    input.setAttribute('label', 'ipsum')
+    expect(input.label).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to value', () => {
@@ -65,8 +65,8 @@ describe('mn-input (webcomponent)', () => {
     input.value = undefined
     expect(input.value).to.be.equal('')
 
-    // input.setAttribute('value', 'ipsum')
-    // expect(input.value).to.be.equal('ipsum')
+    input.setAttribute('value', 'ipsum')
+    expect(input.value).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to name', () => {
@@ -75,16 +75,16 @@ describe('mn-input (webcomponent)', () => {
     input.name = undefined
     expect(input.name).to.be.null
 
-    // input.setAttribute('name', 'ipsum')
-    // expect(input.name).to.be.equal('ipsum')
+    input.setAttribute('name', 'ipsum')
+    expect(input.name).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to placeholder', () => {
     input.placeholder = 'lorem'
     expect(input.placeholder).to.be.equal('lorem')
 
-    // input.setAttribute('placeholder', 'ipsum')
-    // expect(input.placeholder).to.be.equal('ipsum')
+    input.setAttribute('placeholder', 'ipsum')
+    expect(input.placeholder).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to disabled', () => {
@@ -93,11 +93,11 @@ describe('mn-input (webcomponent)', () => {
     input.disabled = false
     expect(input.disabled).to.be.false
 
-    // input.setAttribute('disabled', 'true')
-    // expect(input.disabled).to.be.true
+    input.setAttribute('disabled', 'true')
+    expect(input.disabled).to.be.true
 
-    // input.setAttribute('disabled', 'false')
-    // expect(input.disabled).to.be.false
+    input.setAttribute('disabled', 'false')
+    expect(input.disabled).to.be.false
   })
 
   test('should have a setter/getter to readonly', () => {
@@ -106,11 +106,11 @@ describe('mn-input (webcomponent)', () => {
     input.readonly = false
     expect(input.readonly).to.be.false
 
-    // input.setAttribute('readonly', 'true')
-    // expect(input.readonly).to.be.true
+    input.setAttribute('readonly', 'true')
+    expect(input.readonly).to.be.true
 
-    // input.setAttribute('readonly', 'false')
-    // expect(input.readonly).to.be.false
+    input.setAttribute('readonly', 'false')
+    expect(input.readonly).to.be.false
   })
 
   test('should have a setter/getter to maxlength', () => {
@@ -119,9 +119,8 @@ describe('mn-input (webcomponent)', () => {
     input.maxlength = undefined
     expect(input.maxlength).to.be.equal('undefined')
 
-
-    // input.setAttribute('maxlength', '10')
-    // expect(input.maxlength).to.be.equal('10')
+    input.setAttribute('maxlength', '10')
+    expect(input.maxlength).to.be.equal('10')
   })
 
   test('should have a setter/getter to autocapitalize', () => {
@@ -133,11 +132,11 @@ describe('mn-input (webcomponent)', () => {
     expect(input.autocapitalize).to.be.equal('undefined')
 
 
-    // input.setAttribute('autocapitalize', 'true')
-    // expect(input.autocapitalize).to.be.equal('true')
+    input.setAttribute('autocapitalize', 'true')
+    expect(input.autocapitalize).to.be.equal('true')
 
-    // input.setAttribute('autocapitalize', 'false')
-    // expect(input.autocapitalize).to.be.equal('false')
+    input.setAttribute('autocapitalize', 'false')
+    expect(input.autocapitalize).to.be.equal('false')
   })
 
   test('should have a setter/getter to autofocus', () => {
@@ -146,14 +145,21 @@ describe('mn-input (webcomponent)', () => {
     input.autofocus = undefined
     expect(input.autofocus).to.be.null
 
-
-    // input.setAttribute('autofocus', 'true')
-    // expect(input.autofocus).to.be.equal('true')
+    input.setAttribute('autofocus', 'true')
+    expect(input.autofocus).to.be.equal('true')
   })
 })
 
 function createElement() {
   input = document.createElement('mn-input')
   document.body.appendChild(input)
+
+  // fallback to connectedCallback
   input.connectedCallback()
+
+  // fallback to attributeChangedCallback
+  input.setAttribute = function(attribute, value) {
+    HTMLFormElement.prototype.setAttribute.apply(this, arguments)
+    this.attributeChangedCallback(attribute, this.label, value)
+  }
 }

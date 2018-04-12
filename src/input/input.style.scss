@@ -77,7 +77,7 @@
 
   &.has-value, &.focus {
     label {
-      transform: translate(0, -1.3em) scale(.8) translateZ(0);
+      transform: translate3d(0, -1.3em, 0) scale(.8) translateZ(0);
     }
 
     input {
