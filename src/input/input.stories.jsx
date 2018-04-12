@@ -5,15 +5,15 @@ import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs/r
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)
-  .addWithJSX('MnInput', () => {
+  .addWithJSX('input', () => {
     return (
       <MnInput
-        label={text('label')}
-        placeholder={text('placeholder')}
+        label={text('label', 'username')}
+        placeholder={text('placeholder', 'e.g. johnsnow')}
         value={text('value')}
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
+        maxlength={number('maxlength', 100)}
       />
-        // maxlength={number('maxlength')}
     )
   })

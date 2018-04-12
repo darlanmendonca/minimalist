@@ -92,6 +92,7 @@ class MnInput extends window.HTMLElement {
 
   set value(value = '') {
     this.inputChild.value = value
+    this.classList.toggle('has-value', this.hasValue)
   }
 
   get name() {
