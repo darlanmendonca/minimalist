@@ -169,6 +169,14 @@ describe('mn-input (webcomponent)', () => {
     input.inputChild.blur()
     expect(input).to.not.have.class('focus')
   })
+
+  test('should toggle class has-value on set value', () => {
+    expect(input).to.not.have.class('has-value')
+    input.value = 'lorem'
+    expect(input).to.have.class('has-value')
+    input.value = ''
+    expect(input).to.not.have.class('has-value')
+  })
 })
 
 function createElement() {
