@@ -149,6 +149,18 @@ describe('mn-input (webcomponent)', () => {
     expect(input.autofocus).to.be.equal('true')
   })
 
+  test('should setup attributes on add it to dom', () => {
+    input = document.createElement('mn-input')
+    input.setAttribute('label', 'lorem')
+    input.setAttribute('placeholder', 'ipsum')
+    input.setAttribute('value', 'dolor')
+    document.body.appendChild(input)
+
+    expect(input.label).to.be.equal('lorem')
+    expect(input.placeholder).to.be.equal('ipsum')
+    expect(input.value).to.be.equal('dolor')
+  })
+
   test('should toggle class focus on focus/blur element', () => {
     expect(input).to.not.have.class('focus')
     input.inputChild.focus()
@@ -164,7 +176,12 @@ function createElement() {
   document.body.appendChild(input)
 
   // fallback to connectedCallback
-  input.connectedCallback()
+  document.body.appendChild = function(element) {
+    HTMLFormElement.prototype.appendChild.apply(this, arguments)
+    if (element.connectedCallback) {
+      element.connectedCallback()
+    }
+  }
 
   // fallback to attributeChangedCallback
   input.setAttribute = function(attribute, value) {
