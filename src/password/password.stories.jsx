@@ -5,10 +5,10 @@ import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs/r
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)
-  .addWithJSX('MnPassword', () => {
+  .addWithJSX('password', () => {
     return (
       <MnPassword
-        label={text('label')}
+        label={text('label', 'password')}
         placeholder={text('placeholder')}
         value={text('value')}
         maxlength={number('maxlength', 10)}

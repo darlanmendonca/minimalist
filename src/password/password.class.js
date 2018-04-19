@@ -9,7 +9,8 @@ class MnPassword extends MnInput {
     super.setChildren('input')
     super.setChildren('button')
     this.setInput()
-    this.setButtonVisibility()
+    super.setInputEvents()
+    this.setVisibility()
     this.setAttributes()
   }
 
@@ -21,7 +22,7 @@ class MnPassword extends MnInput {
     this.inputChild.setAttribute('type', 'password')
   }
 
-  setButtonVisibility() {
+  setVisibility() {
     this.buttonChild.addEventListener('click', () => this.toggleVisibility())
   }
 
@@ -31,6 +32,7 @@ class MnPassword extends MnInput {
       ? 'text'
       : 'password'
 
+    this.classList.toggle('show-password', isPassword)
     this.inputChild.setAttribute('type', type)
   }
 }
