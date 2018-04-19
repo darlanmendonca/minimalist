@@ -10,7 +10,7 @@ storiesOf('minimalist', module)
       <MnNumber
         label={text('label', 'number')}
         placeholder={text('placeholder')}
-        value={text('value')}
+        value={number('value')}
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         currency={boolean('currency')}
