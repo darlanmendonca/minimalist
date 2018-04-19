@@ -1,0 +1,26 @@
+.mn-number {
+  --currency-symbol: '$';
+}
+
+.mn-number[currency]:not([currency="false"]) {
+  &:before {
+    content: var(--currency-symbol);
+    margin-right: .25em;
+    color: var(--text-color);
+  }
+}
+
+.mn-number[currency]:not([currency="false"]),
+.mn-number[percentage] {
+  &:before {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  &.has-value:before,
+  &.focus:before {
+    opacity: 1;
+    transition: opacity .2s ease;
+  }
+}
