@@ -38,7 +38,6 @@ class MnNumber extends MnInput {
         this.inputChild.dispatchEvent(new Event('change'))
       }
     }
-
   }
 
   setTransforms()  {
