@@ -1,15 +1,13 @@
-class MnInput extends window.HTMLElement {
-  constructor(self) {
-    super(self)
-  }
+import MnComponent from '../component/component.class.js'
 
+class MnInput extends MnComponent {
   connectedCallback() {
-    this.empty()
+    super.empty()
     this.setStyle()
-    this.setChildren('label')
-    this.setChildren('input')
+    super.setChildren('label')
+    super.setChildren('input')
     this.setInputEvents()
-    this.setAttributes()
+    super.setAttributes()
   }
 
   setInputEvents() {
@@ -35,36 +33,6 @@ class MnInput extends window.HTMLElement {
       'autocapitalize',
       'autofocus',
     ]
-  }
-
-  attributeChangedCallback(name, old, value) {
-    if(this.parentNode) {
-      this[name] = value
-    }
-  }
-
-  setAttributes() {
-    Array
-      .from(this.attributes)
-      .forEach(attr => {
-        const observedAttr = this.constructor
-          .observedAttributes
-          .find(observed => observed === attr.name)
-
-        if (observedAttr) {
-          this[attr.name] = attr.value
-        }
-      })
-  }
-
-  empty() {
-    this.innerHTML = ''
-  }
-
-  setChildren(name) {
-    const children = document.createElement(name)
-    this[`${name}Child`] = children
-    this.appendChild(children)
   }
 
   setStyle() {
