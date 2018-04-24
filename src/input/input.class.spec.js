@@ -163,10 +163,10 @@ describe('mn-input (webcomponent)', () => {
 
   test('should toggle class focus on focus/blur element', () => {
     expect(element).to.not.have.class('focus')
-    element.elementChild.focus()
+    element.inputChild.focus()
     expect(element).to.have.class('focus')
 
-    element.elementChild.blur()
+    element.inputChild.blur()
     expect(element).to.not.have.class('focus')
   })
 
