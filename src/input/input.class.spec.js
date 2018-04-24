@@ -4,7 +4,7 @@ import chaiDom from 'chai-dom'
 
 chai.use(chaiDom)
 
-let input
+let element
 
 describe('mn-input (webcomponent)', () => {
   beforeEach(createElement)
@@ -14,17 +14,17 @@ describe('mn-input (webcomponent)', () => {
   })
 
   test('should instanciate using a constructor', () => {
-    const input = new MnInput()
-    expect(input).to.be.instanceof(MnInput)
+    const element = new MnInput()
+    expect(element).to.be.instanceof(MnInput)
   })
 
   test('should create element using method document.createElement', () => {
-    const input = document.createElement('mn-input')
-    expect(input).to.be.instanceof(MnInput)
+    const element = document.createElement('mn-input')
+    expect(element).to.be.instanceof(MnInput)
   })
 
   test('should have css class .mn-input', () => {
-    expect(input).to.have.class('mn-input')
+    expect(element).to.have.class('mn-input')
   })
 
   test('should listen attribute changes', () => {
@@ -42,146 +42,146 @@ describe('mn-input (webcomponent)', () => {
   })
 
   test('should have a label child', () => {
-    expect(input).to.have.a.property('labelChild')
+    expect(element).to.have.a.property('labelChild')
   })
 
   test('should have a input child', () => {
-    expect(input).to.have.a.property('inputChild')
+    expect(element).to.have.a.property('inputChild')
   })
 
   test('should have a setter/getter to label', () => {
-    input.label = 'lorem'
-    expect(input.label).to.be.equal('lorem')
-    input.label = undefined
-    expect(input.label).to.be.equal('')
+    element.label = 'lorem'
+    expect(element.label).to.be.equal('lorem')
+    element.label = undefined
+    expect(element.label).to.be.equal('')
 
-    input.setAttribute('label', 'ipsum')
-    expect(input.label).to.be.equal('ipsum')
+    element.setAttribute('label', 'ipsum')
+    expect(element.label).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to value', () => {
-    input.value = 'lorem'
-    expect(input.value).to.be.equal('lorem')
-    input.value = undefined
-    expect(input.value).to.be.equal('')
+    element.value = 'lorem'
+    expect(element.value).to.be.equal('lorem')
+    element.value = undefined
+    expect(element.value).to.be.equal('')
 
-    input.setAttribute('value', 'ipsum')
-    expect(input.value).to.be.equal('ipsum')
+    element.setAttribute('value', 'ipsum')
+    expect(element.value).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to name', () => {
-    input.name = 'lorem'
-    expect(input.name).to.be.equal('lorem')
-    input.name = undefined
-    expect(input.name).to.be.null
+    element.name = 'lorem'
+    expect(element.name).to.be.equal('lorem')
+    element.name = undefined
+    expect(element.name).to.be.null
 
-    input.setAttribute('name', 'ipsum')
-    expect(input.name).to.be.equal('ipsum')
+    element.setAttribute('name', 'ipsum')
+    expect(element.name).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to placeholder', () => {
-    input.placeholder = 'lorem'
-    expect(input.placeholder).to.be.equal('lorem')
+    element.placeholder = 'lorem'
+    expect(element.placeholder).to.be.equal('lorem')
 
-    input.setAttribute('placeholder', 'ipsum')
-    expect(input.placeholder).to.be.equal('ipsum')
+    element.setAttribute('placeholder', 'ipsum')
+    expect(element.placeholder).to.be.equal('ipsum')
   })
 
   test('should have a setter/getter to disabled', () => {
-    input.disabled = true
-    expect(input.disabled).to.be.true
-    input.disabled = false
-    expect(input.disabled).to.be.false
+    element.disabled = true
+    expect(element.disabled).to.be.true
+    element.disabled = false
+    expect(element.disabled).to.be.false
 
-    input.setAttribute('disabled', 'true')
-    expect(input.disabled).to.be.true
+    element.setAttribute('disabled', 'true')
+    expect(element.disabled).to.be.true
 
-    input.setAttribute('disabled', 'false')
-    expect(input.disabled).to.be.false
+    element.setAttribute('disabled', 'false')
+    expect(element.disabled).to.be.false
   })
 
   test('should have a setter/getter to readonly', () => {
-    input.readonly = true
-    expect(input.readonly).to.be.true
-    input.readonly = false
-    expect(input.readonly).to.be.false
+    element.readonly = true
+    expect(element.readonly).to.be.true
+    element.readonly = false
+    expect(element.readonly).to.be.false
 
-    input.setAttribute('readonly', 'true')
-    expect(input.readonly).to.be.true
+    element.setAttribute('readonly', 'true')
+    expect(element.readonly).to.be.true
 
-    input.setAttribute('readonly', 'false')
-    expect(input.readonly).to.be.false
+    element.setAttribute('readonly', 'false')
+    expect(element.readonly).to.be.false
   })
 
   test('should have a setter/getter to maxlength', () => {
-    input.maxlength = 10
-    expect(input.maxlength).to.be.equal('10')
-    input.maxlength = undefined
-    expect(input.maxlength).to.be.equal('undefined')
+    element.maxlength = 10
+    expect(element.maxlength).to.be.equal('10')
+    element.maxlength = undefined
+    expect(element.maxlength).to.be.equal('undefined')
 
-    input.setAttribute('maxlength', '10')
-    expect(input.maxlength).to.be.equal('10')
+    element.setAttribute('maxlength', '10')
+    expect(element.maxlength).to.be.equal('10')
   })
 
   test('should have a setter/getter to autocapitalize', () => {
-    input.autocapitalize = true
-    expect(input.autocapitalize).to.be.equal('true')
-    input.autocapitalize = false
-    expect(input.autocapitalize).to.be.equal('false')
-    input.autocapitalize = undefined
-    expect(input.autocapitalize).to.be.equal('undefined')
+    element.autocapitalize = true
+    expect(element.autocapitalize).to.be.equal('true')
+    element.autocapitalize = false
+    expect(element.autocapitalize).to.be.equal('false')
+    element.autocapitalize = undefined
+    expect(element.autocapitalize).to.be.equal('undefined')
 
 
-    input.setAttribute('autocapitalize', 'true')
-    expect(input.autocapitalize).to.be.equal('true')
+    element.setAttribute('autocapitalize', 'true')
+    expect(element.autocapitalize).to.be.equal('true')
 
-    input.setAttribute('autocapitalize', 'false')
-    expect(input.autocapitalize).to.be.equal('false')
+    element.setAttribute('autocapitalize', 'false')
+    expect(element.autocapitalize).to.be.equal('false')
   })
 
   test('should have a setter/getter to autofocus', () => {
-    input.autofocus = true
-    expect(input.autofocus).to.be.equal('true')
-    input.autofocus = undefined
-    expect(input.autofocus).to.be.null
+    element.autofocus = true
+    expect(element.autofocus).to.be.equal('true')
+    element.autofocus = undefined
+    expect(element.autofocus).to.be.null
 
-    input.setAttribute('autofocus', 'true')
-    expect(input.autofocus).to.be.equal('true')
+    element.setAttribute('autofocus', 'true')
+    expect(element.autofocus).to.be.equal('true')
   })
 
   test('should setup attributes on add it to dom', () => {
-    input = document.createElement('mn-input')
-    input.setAttribute('label', 'lorem')
-    input.setAttribute('placeholder', 'ipsum')
-    input.setAttribute('value', 'dolor')
-    document.body.appendChild(input)
+    element = document.createElement('mn-input')
+    element.setAttribute('label', 'lorem')
+    element.setAttribute('placeholder', 'ipsum')
+    element.setAttribute('value', 'dolor')
+    document.body.appendChild(element)
 
-    expect(input.label).to.be.equal('lorem')
-    expect(input.placeholder).to.be.equal('ipsum')
-    expect(input.value).to.be.equal('dolor')
+    expect(element.label).to.be.equal('lorem')
+    expect(element.placeholder).to.be.equal('ipsum')
+    expect(element.value).to.be.equal('dolor')
   })
 
   test('should toggle class focus on focus/blur element', () => {
-    expect(input).to.not.have.class('focus')
-    input.inputChild.focus()
-    expect(input).to.have.class('focus')
+    expect(element).to.not.have.class('focus')
+    element.elementChild.focus()
+    expect(element).to.have.class('focus')
 
-    input.inputChild.blur()
-    expect(input).to.not.have.class('focus')
+    element.elementChild.blur()
+    expect(element).to.not.have.class('focus')
   })
 
   test('should toggle class has-value on set value', () => {
-    expect(input).to.not.have.class('has-value')
-    input.value = 'lorem'
-    expect(input).to.have.class('has-value')
-    input.value = ''
-    expect(input).to.not.have.class('has-value')
+    expect(element).to.not.have.class('has-value')
+    element.value = 'lorem'
+    expect(element).to.have.class('has-value')
+    element.value = ''
+    expect(element).to.not.have.class('has-value')
   })
 })
 
 function createElement() {
-  input = document.createElement('mn-input')
-  document.body.appendChild(input)
+  element = document.createElement('mn-input')
+  document.body.appendChild(element)
 
   // fallback to connectedCallback
   document.body.appendChild = function(element) {
@@ -192,7 +192,7 @@ function createElement() {
   }
 
   // fallback to attributeChangedCallback
-  input.setAttribute = function(attribute, value) {
+  element.setAttribute = function(attribute, value) {
     HTMLFormElement.prototype.setAttribute.apply(this, arguments)
     this.attributeChangedCallback(attribute, this.label, value)
   }
