@@ -1,34 +1,38 @@
 import chai, {expect} from 'chai'
-import MnInput from './input.class.js'
+import MnPassword from './password.class.js'
 import chaiDom from 'chai-dom'
 
 chai.use(chaiDom)
 
 let element
 
-describe('mn-input', () => {
+describe('mn-password', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnInput).to.be.a('function')
+    expect(MnPassword).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnInput()
-    expect(element).to.be.instanceof(MnInput)
+    const element = new MnPassword()
+    expect(element).to.be.instanceof(MnPassword)
   })
 
   test('should create element using method document.createElement', () => {
-    const element = document.createElement('mn-input')
-    expect(element).to.be.instanceof(MnInput)
+    const element = document.createElement('mn-password')
+    expect(element).to.be.instanceof(MnPassword)
   })
 
   test('should have css class .mn-input', () => {
     expect(element).to.have.class('mn-input')
   })
 
+  test('should have css class .mn-password', () => {
+    expect(element).to.have.class('mn-password')
+  })
+
   test('should listen attribute changes', () => {
-    expect(MnInput.observedAttributes).to.deep.equal([
+    expect(MnPassword.observedAttributes).to.deep.equal([
       'label',
       'value',
       'name',
@@ -47,6 +51,10 @@ describe('mn-input', () => {
 
   test('should have a input child', () => {
     expect(element).to.have.a.property('inputChild')
+  })
+
+  test('should have a button child', () => {
+    expect(element).to.have.a.property('buttonChild')
   })
 
   test('should have a setter/getter to label', () => {
@@ -150,7 +158,7 @@ describe('mn-input', () => {
   })
 
   test('should setup attributes on add it to dom', () => {
-    element = document.createElement('mn-input')
+    element = document.createElement('mn-password')
     element.setAttribute('label', 'lorem')
     element.setAttribute('placeholder', 'ipsum')
     element.setAttribute('value', 'dolor')
@@ -170,6 +178,14 @@ describe('mn-input', () => {
     expect(element).to.not.have.class('focus')
   })
 
+  test('should toggle type between text/password', () => {
+    expect(element.inputChild.type).to.be.equal('password')
+    element.buttonChild.click()
+    expect(element.inputChild.type).to.be.equal('text')
+    element.buttonChild.click()
+    expect(element.inputChild.type).to.be.equal('password')
+  })
+
   test('should toggle class has-value on set value', () => {
     expect(element).to.not.have.class('has-value')
     element.value = 'lorem'
@@ -180,7 +196,7 @@ describe('mn-input', () => {
 })
 
 function createElement() {
-  element = document.createElement('mn-input')
+  element = document.createElement('mn-password')
   document.body.appendChild(element)
 
   // fallback to connectedCallback

@@ -6,7 +6,7 @@ chai.use(chaiDom)
 
 let element
 
-describe('mn-number (webcomponent)', () => {
+describe('mn-number', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
