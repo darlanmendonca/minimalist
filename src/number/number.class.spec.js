@@ -123,6 +123,10 @@ describe('mn-number', () => {
     element.setAttribute('currency', 'false')
     expect(element.value).to.be.equal(20)
     expect(element.inputChild).to.have.value('20')
+
+    element.setAttribute('precision', '3')
+    expect(element.value).to.be.equal(20)
+    expect(element.inputChild).to.have.value('20,000')
   })
 
   test('should have a setter/getter to name', () => {
