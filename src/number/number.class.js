@@ -65,6 +65,7 @@ class MnNumber extends MnInput {
 
         const isCurrency = this.hasAttribute('currency')
           && this.getAttribute('currency') !== 'false'
+        const hasPrecision = this.hasAttribute('precision')
         const precision = this.getAttribute('precision') || 0
 
         switch (true) {
@@ -72,10 +73,8 @@ class MnNumber extends MnInput {
             this.inputChild.value = value.toFixed(precision || 2).replace(/\./g, ',')
             break
 
-          default:
-            // this.inputChild.value = precision
-            //   ? value.toFixed(precision).replace(/\./g, ',')
-            //   : String(value).replace(/\./g, ',')
+          case hasPrecision:
+            this.inputChild.value = value.toFixed(precision).replace(/\./g, ',')
             break
         }
       } catch (e) {

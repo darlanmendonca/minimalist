@@ -89,6 +89,34 @@ describe('mn-number', () => {
     expect(element.inputChild).to.have.value('10')
   })
 
+  test('should format precision value', () => {
+    element.value = 10
+    expect(element.value).to.be.equal(10)
+    expect(element.inputChild).to.have.value('10')
+
+    element.setAttribute('precision', '3')
+    expect(element.value).to.be.equal(10)
+    expect(element.inputChild).to.have.value('10,000')
+
+    element.value = 20
+    expect(element.value).to.be.equal(20)
+    expect(element.inputChild).to.have.value('20,000')
+  })
+
+  test('should format currency value', () => {
+    element.value = 10
+    expect(element.value).to.be.equal(10)
+    expect(element.inputChild).to.have.value('10')
+
+    element.setAttribute('currency', 'currency')
+    expect(element.value).to.be.equal(10)
+    expect(element.inputChild).to.have.value('10,00')
+
+    element.value = 20
+    expect(element.value).to.be.equal(20)
+    expect(element.inputChild).to.have.value('20,00')
+  })
+
   test('should have a setter/getter to name', () => {
     element.name = 'lorem'
     expect(element.name).to.be.equal('lorem')
