@@ -59,14 +59,34 @@ describe('mn-number', () => {
     expect(element.label).to.be.equal('ipsum')
   })
 
-  test.skip('should have a setter/getter to value', () => {
+  test('should have a setter/getter to value', () => {
     element.value = 'lorem'
     expect(element.value).to.be.undefined
+    expect(element.inputChild).to.have.value('')
+
     element.value = undefined
     expect(element.value).to.be.undefined
+    expect(element.inputChild).to.have.value('')
 
-    // element.setAttribute('value', 'ipsum')
-    // expect(element.value).to.be.equal('ipsum')
+    element.value = null
+    expect(element.value).to.be.undefined
+    expect(element.inputChild).to.have.value('')
+
+    element.value = 0
+    expect(element.value).to.be.equal(0)
+    expect(element.inputChild).to.have.value('0')
+
+    element.value = '1'
+    expect(element.value).to.be.equal(1)
+    expect(element.inputChild).to.have.value('1')
+
+    element.setAttribute('value', 'ipsum')
+    expect(element.value).to.be.undefined
+    expect(element.inputChild).to.have.value('')
+
+    element.setAttribute('value', 10)
+    expect(element.value).to.be.equal(10)
+    expect(element.inputChild).to.have.value('10')
   })
 
   test('should have a setter/getter to name', () => {
@@ -123,16 +143,16 @@ describe('mn-number', () => {
     expect(element.autofocus).to.be.equal('true')
   })
 
-  test.skip('should setup attributes on add it to dom', () => {
+  test('should setup attributes on add it to dom', () => {
     element = document.createElement('mn-number')
     element.setAttribute('label', 'lorem')
     element.setAttribute('placeholder', 'ipsum')
-    element.setAttribute('value', 'dolor')
+    element.setAttribute('value', '10')
     document.body.appendChild(element)
 
     expect(element.label).to.be.equal('lorem')
     expect(element.placeholder).to.be.equal('ipsum')
-    expect(element.value).to.be.equal('dolor')
+    expect(element.value).to.be.equal(10)
   })
 
   test('should toggle class focus on focus/blur element', () => {

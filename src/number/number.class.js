@@ -40,14 +40,28 @@ class MnNumber extends MnInput {
     }
   }
 
+  get value() {
+    const number = +this.inputChild.value.replace(/,/g, '.')
+    const isNumber = this.inputChild.value && !Number.isNaN(number)
+    return isNumber
+      ? number
+      : undefined
+  }
+
+  set value(value = '') {
+    this.inputChild.value = value
+    this.inputChild.dispatchEvent(new Event('change'))
+    this.classList.toggle('has-value', this.hasValue)
+  }
+
   setTransforms()  {
     const transform = () => {
       try {
-        const value = this.inputChild.value
-          ? eval(this.inputChild.value.replace(/,/g, '.'))
+        const value = eval(this.inputChild.value.replace(/,/g, '.'))
+        const isNumber = typeof value === 'number'
+        this.inputChild.value = isNumber
+          ? String(value).replace(/\./g, ',')
           : ''
-        this.inputChild.value = String(value).replace(/\./g, ',')
-        const valueIsDefined = value !== undefined
 
         const isCurrency = this.hasAttribute('currency')
           && this.getAttribute('currency') !== 'false'
@@ -59,9 +73,9 @@ class MnNumber extends MnInput {
             break
 
           default:
-            this.inputChild.value = precision
-              ? value.toFixed(precision).replace(/\./g, ',')
-              : String(value).replace(/\./g, ',')
+            // this.inputChild.value = precision
+            //   ? value.toFixed(precision).replace(/\./g, ',')
+            //   : String(value).replace(/\./g, ',')
             break
         }
       } catch (e) {

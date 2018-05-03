@@ -47,15 +47,15 @@ class MnInput extends MnComponent {
     this.labelChild.textContent = value
   }
 
-  get value() {
-    return this.inputChild.value
-  }
-
   get hasValue() {
     return !(this.value === undefined
       || this.value === null
       || this.value === ''
       || Array.isArray(this.value) && this.value.length === 0)
+  }
+  
+  get value() {
+    return this.inputChild.value
   }
 
   set value(value = '') {
