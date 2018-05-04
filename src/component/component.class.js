@@ -7,6 +7,10 @@ class MnComponent extends window.HTMLElement {
     if(this.parentNode) {
       this[name] = value
     }
+
+    if (this.inputChild) {
+      this.inputChild.dispatchEvent(new Event('change'))
+    }
   }
 
   setAttributes() {

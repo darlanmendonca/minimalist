@@ -30,16 +30,6 @@ class MnNumber extends MnInput {
     ]
   }
 
-  attributeChangedCallback(name, old, value) {
-    if(this.parentNode) {
-      this[name] = value
-      const attributeChangeTransform = ['currency', 'precision'].includes(name)
-      if (attributeChangeTransform) {
-        this.inputChild.dispatchEvent(new Event('change'))
-      }
-    }
-  }
-
   get value() {
     const number = +this.inputChild.value.replace(/,/g, '.')
     const isNumber = this.inputChild.value && !Number.isNaN(number)
