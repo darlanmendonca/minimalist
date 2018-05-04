@@ -17,11 +17,11 @@ class MnComponent extends window.HTMLElement {
     Array
       .from(this.attributes)
       .forEach(attr => {
-        const observedAttr = this.constructor
+        const isObservedAttr = this.constructor
           .observedAttributes
           .find(observed => observed === attr.name)
 
-        if (observedAttr) {
+        if (isObservedAttr) {
           this[attr.name] = attr.value
         }
       })
