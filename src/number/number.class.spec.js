@@ -204,12 +204,18 @@ describe('mn-number', () => {
     expect(element).to.not.have.class('focus')
   })
 
-  test.skip('should toggle class has-value on set value', () => {
+  test('should toggle class has-value on set value', () => {
     expect(element).to.not.have.class('has-value')
     element.value = 'lorem'
-    expect(element).to.have.class('has-value')
+    expect(element).to.not.have.class('has-value')
     element.value = ''
     expect(element).to.not.have.class('has-value')
+
+    element.value = 0
+    expect(element).to.have.class('has-value')
+
+    element.value = 10
+    expect(element).to.have.class('has-value')
   })
 })
 
