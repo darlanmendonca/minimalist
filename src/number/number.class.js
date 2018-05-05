@@ -80,7 +80,7 @@ class MnNumber extends MnInput {
     super.setInputEvents()
 
     const incrementOrDecrement = (event) => {
-      const isReadonly = this.hasAttribute('readonly')
+      const isReadonly = this.hasAttribute('readonly') && this.getAttribute('readonly') !== 'false'
       const stepValue = +this.getAttribute('step') || 1
       const isArrowUp = event.key === 'ArrowUp'
       const isArrowDown = event.key === 'ArrowDown'
