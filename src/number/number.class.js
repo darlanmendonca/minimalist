@@ -7,7 +7,7 @@ class MnNumber extends MnInput {
     this.setStyle()
     super.setChildren('label')
     super.setChildren('input')
-    super.setInputEvents()
+    this.setInputEvents()
     this.setTransforms()
     this.setAttributes()
   }
@@ -45,7 +45,7 @@ class MnNumber extends MnInput {
   }
 
   setTransforms()  {
-    const transform = () => {
+    const transform = (e) => {
       try {
         const value = eval(this.inputChild.value.replace(/,/g, '.'))
         const isNumber = typeof value === 'number'
@@ -74,6 +74,42 @@ class MnNumber extends MnInput {
 
     this.inputChild.addEventListener('change', transform)
     this.inputChild.addEventListener('blur', transform)
+  }
+
+  setInputEvents() {
+    super.setInputEvents()
+
+    const incrementOrDecrement = (event) => {
+      const isReadonly = this.hasAttribute('readonly')
+      const stepValue = +this.getAttribute('step') || 1
+      const isArrowUp = event.key === 'ArrowUp'
+      const isArrowDown = event.key === 'ArrowDown'
+
+      if (!isReadonly && isArrowUp || isArrowDown) {
+        const step = event.shiftKey
+          ? stepValue * 10
+          : event.altKey
+            ? stepValue / 10
+            : stepValue
+
+        const previousValue = this.value || 0
+        const precision = String(step).replace(/\d+\./, '').length
+        let value
+
+        switch (event.key) {
+          case 'ArrowUp':
+            value = previousValue + step
+            break
+          case 'ArrowDown':
+            value = previousValue - step
+            break
+        }
+
+        this.value = +(value).toFixed(precision)
+      }
+    }
+
+    this.inputChild.addEventListener('keydown', incrementOrDecrement)
   }
 }
 
