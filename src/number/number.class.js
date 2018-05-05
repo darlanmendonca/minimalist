@@ -86,6 +86,7 @@ class MnNumber extends MnInput {
       const isArrowDown = event.key === 'ArrowDown'
 
       if (!isReadonly && isArrowUp || isArrowDown) {
+        event.preventDefault()
         const step = event.shiftKey
           ? stepValue * 10
           : event.altKey
