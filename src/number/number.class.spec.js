@@ -217,6 +217,68 @@ describe('mn-number', () => {
     element.value = 10
     expect(element).to.have.class('has-value')
   })
+
+  test('should increment value on ArrowUp', () => {
+    const ArrowUp = new Event('keydown')
+    ArrowUp.key = 'ArrowUp'
+
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(1)
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(2)
+
+    ArrowUp.shiftKey = true
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(12)
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(22)
+
+    ArrowUp.shiftKey = false
+    ArrowUp.altKey = true
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(22.1)
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(22.2)
+
+    element.setAttribute('readonly', 'true')
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(22.2)
+
+    element.setAttribute('readonly', 'false')
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(22.3)
+  })
+
+  test('should decrement value on ArrowDown', () => {
+    const ArrowDown = new Event('keydown')
+    ArrowDown.key = 'ArrowDown'
+
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-1)
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-2)
+
+    ArrowDown.shiftKey = true
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-12)
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-22)
+
+    ArrowDown.shiftKey = false
+    ArrowDown.altKey = true
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-22.1)
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-22.2)
+
+    element.setAttribute('readonly', 'true')
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-22.2)
+
+    element.setAttribute('readonly', 'false')
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(-22.3)
+  })
 })
 
 function createElement() {
