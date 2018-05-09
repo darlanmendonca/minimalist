@@ -10,17 +10,6 @@ class MnInput extends MnComponent {
     super.setAttributes()
   }
 
-  setInputEvents() {
-    this.inputChild.addEventListener('focus', () => {
-      this.classList.add('focus')
-    })
-
-    this.inputChild.addEventListener('blur', () => {
-      this.classList.remove('focus')
-      this.classList.toggle('has-value', this.hasValue)
-    })
-  }
-
   static get observedAttributes() {
     return [
       'label',
@@ -37,6 +26,45 @@ class MnInput extends MnComponent {
 
   setStyle() {
     this.classList.add('mn-input')
+  }
+
+  setInputEvents() {
+    this.inputChild.addEventListener('focus', () => {
+      this.classList.add('focus')
+    })
+
+    this.inputChild.addEventListener('blur', () => {
+      this.classList.remove('focus')
+      this.classList.toggle('has-value', this.hasValue)
+    })
+  }
+
+  get validations() {
+    return {
+      required: () => !this.hasValue,
+    }
+  }
+
+  validate() {
+    const validations = {}
+
+    for (const attribute of Object.keys(this.validations)) {
+      const hasAttribute = this.hasAttribute(attribute)
+      const attributeIsInvalid = this.validations[attribute]()
+
+      if (hasAttribute && attributeIsInvalid) {
+        this.classList.add(attribute)
+        validations[attribute] = true
+      } else {
+        this.classList.remove(attribute)
+      }
+    }
+
+    const isInvalid = Object.values(validations).some(item => item === true)
+
+    isInvalid
+      ? this.classList.add('invalid')
+      : this.classList.remove('invalid')
   }
 
   get label() {

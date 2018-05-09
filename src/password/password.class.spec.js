@@ -193,6 +193,22 @@ describe('mn-password', () => {
     element.value = ''
     expect(element).to.not.have.class('has-value')
   })
+
+  test('should validate required', () => {
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('required')
+
+    element.setAttribute('required', 'true')
+    element.validate()
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('required')
+
+    element.value = 'lorem'
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('required')
+  })
 })
 
 function createElement() {

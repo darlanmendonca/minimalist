@@ -218,6 +218,22 @@ describe('mn-number', () => {
     expect(element).to.have.class('has-value')
   })
 
+  test('should validate required', () => {
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('required')
+
+    element.setAttribute('required', 'true')
+    element.validate()
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('required')
+
+    element.value = 0
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('required')
+  })
+
   test('should increment value on ArrowUp', () => {
     const ArrowUp = new Event('keydown')
     ArrowUp.key = 'ArrowUp'
