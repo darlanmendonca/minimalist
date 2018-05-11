@@ -1,6 +1,6 @@
 import MnComponent from '../component/component.class.js'
 
-class MnImage extends MnComponent {
+class Image extends MnComponent {
   connectedCallback() {
     super.empty()
     this.setStyle()
@@ -27,6 +27,6 @@ class MnImage extends MnComponent {
   }
 }
 
-window.customElements.define('mn-image', MnImage)
+window.customElements.define('mn-image', Image)
 
-export default MnImage
+export default Image

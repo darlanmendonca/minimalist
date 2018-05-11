@@ -1,5 +1,5 @@
 import chai, {expect} from 'chai'
-import MnImage from './image.class.js'
+import Image from './image.class.js'
 import chaiDom from 'chai-dom'
 
 chai.use(chaiDom)
@@ -10,17 +10,17 @@ describe('mn-image', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnImage).to.be.a('function')
+    expect(Image).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnImage()
-    expect(element).to.be.instanceof(MnImage)
+    const element = new Image()
+    expect(element).to.be.instanceof(Image)
   })
 
   test('should create element using method document.createElement', () => {
     const element = document.createElement('mn-image')
-    expect(element).to.be.instanceof(MnImage)
+    expect(element).to.be.instanceof(Image)
   })
 
   test('should have css class .mn-image', () => {
@@ -28,7 +28,7 @@ describe('mn-image', () => {
   })
 
   test('should listen attribute changes', () => {
-    expect(MnImage.observedAttributes).to.deep.equal([
+    expect(Image.observedAttributes).to.deep.equal([
       'src',
     ])
   })
