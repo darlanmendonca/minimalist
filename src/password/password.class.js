@@ -1,6 +1,6 @@
-import MnInput from '../input/input.class.js'
+import Input from '../input/input.class.js'
 
-class MnPassword extends MnInput {
+class MnPassword extends Input {
   connectedCallback() {
     super.empty()
     super.setStyle()

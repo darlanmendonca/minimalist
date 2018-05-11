@@ -1,6 +1,6 @@
-import MnInput from '../input/input.class.js'
+import Input from '../input/input.class.js'
 
-class MnNumber extends MnInput {
+class MnNumber extends Input {
   connectedCallback() {
     super.empty()
     super.setStyle()

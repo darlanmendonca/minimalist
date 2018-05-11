@@ -1,5 +1,5 @@
 import chai, {expect} from 'chai'
-import MnInput from './input.class.js'
+import Input from './input.class.js'
 import chaiDom from 'chai-dom'
 
 chai.use(chaiDom)
@@ -10,17 +10,17 @@ describe('mn-input', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnInput).to.be.a('function')
+    expect(Input).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnInput()
-    expect(element).to.be.instanceof(MnInput)
+    const element = new Input()
+    expect(element).to.be.instanceof(Input)
   })
 
   test('should create element using method document.createElement', () => {
     const element = document.createElement('mn-input')
-    expect(element).to.be.instanceof(MnInput)
+    expect(element).to.be.instanceof(Input)
   })
 
   test('should have css class .mn-input', () => {
@@ -28,7 +28,7 @@ describe('mn-input', () => {
   })
 
   test('should listen attribute changes', () => {
-    expect(MnInput.observedAttributes).to.deep.equal([
+    expect(Input.observedAttributes).to.deep.equal([
       'label',
       'value',
       'name',
