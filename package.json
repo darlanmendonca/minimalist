@@ -12,11 +12,11 @@
   "keywords": [],
   "author": "Darlan Mendonça",
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.0",
-    "@storybook/addon-knobs": "^3.3.15",
-    "@storybook/addon-links": "^3.4.0",
-    "@storybook/addons": "^3.4.0",
-    "@storybook/react": "^3.4.0",
+    "@storybook/addon-actions": "^4.0.0-alpha.6",
+    "@storybook/addon-knobs": "^4.0.0-alpha.6",
+    "@storybook/addon-links": "^4.0.0-alpha.6",
+    "@storybook/addons": "^4.0.0-alpha.6",
+    "@storybook/react": "^4.0.0-alpha.6",
     "babel-core": "^6.26.0",
     "babel-preset-import-export": "^1.0.2",
     "babel-preset-react": "^6.24.1",
@@ -36,7 +36,8 @@
     "node-sass": "^4.8.3",
     "sass-loader": "^6.0.7",
     "storybook-addon-jsx": "^5.3.0",
-    "style-loader": "^0.20.3"
+    "style-loader": "^0.20.3",
+    "webpack": "^4.8.3"
   },
   "dependencies": {
     "open-color": "^1.6.3",
