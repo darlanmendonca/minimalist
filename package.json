@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "start": "start-storybook -p 3000",
+    "storybook:react": "node ./node_modules/@storybook/react/bin/index.js -p 3000 -c .storybook/react # start-storybook",
+    "storybook:angular": "node ./node_modules/@storybook/angular/bin/index.js -p 3000 -c .storybook/angular",
     "build-storybook": "build-storybook"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "@storybook/addon-knobs": "^4.0.0-alpha.6",
     "@storybook/addon-links": "^4.0.0-alpha.6",
     "@storybook/addons": "^4.0.0-alpha.6",
+    "@storybook/angular": "^4.0.0-alpha.6",
     "@storybook/react": "^4.0.0-alpha.6",
     "babel-core": "^6.26.0",
     "babel-preset-import-export": "^1.0.2",
@@ -37,9 +39,17 @@
     "sass-loader": "^6.0.7",
     "storybook-addon-jsx": "^5.3.0",
     "style-loader": "^0.20.3",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
     "webpack": "^4.8.3"
   },
   "dependencies": {
+    "@angular/common": "^6.0.1",
+    "@angular/compiler": "^6.0.1",
+    "@angular/core": "^6.0.1",
+    "@angular/forms": "^6.0.1",
+    "@angular/platform-browser": "^6.0.1",
+    "@angular/platform-browser-dynamic": "^6.0.1",
     "open-color": "^1.6.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
