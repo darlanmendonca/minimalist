@@ -7,10 +7,24 @@ module.exports = (storybookBaseConfig, configType) => {
     include: path.resolve(__dirname, '../../'),
   })
 
+  // storybookBaseConfig.module.rules.push({
+  //   test: /\.ts$/,
+  //   loaders: ['ts-loader'],
+  //   include: path.resolve(__dirname, '../../'),
+  // })
+
   storybookBaseConfig.module.rules.push({
-    test: /\.ts$/,
-    loaders: ['ts-loader'],
-    include: path.resolve(__dirname, '../../'),
+    test: /.ts$/,
+    loaders: [
+      {
+        loader: require.resolve('@storybook/addon-storysource/loader'),
+        options: {
+          parser: 'typescript',
+        },
+      },
+    ],
+    include: [path.resolve(__dirname, '../../')],
+    enforce: 'pre',
   })
 
   return storybookBaseConfig
