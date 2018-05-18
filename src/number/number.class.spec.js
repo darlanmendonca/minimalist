@@ -234,6 +234,48 @@ describe('mn-number', () => {
     expect(element).to.not.have.class('required')
   })
 
+  test('should validate max', () => {
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('max')
+
+    element.setAttribute('max', '10')
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('max')
+
+    element.value = 20
+    element.validate()
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('max')
+
+    element.value = 5
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('max')
+  })
+
+  test('should validate min', () => {
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('min')
+
+    element.setAttribute('min', '0')
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('min')
+
+    element.value = -10
+    element.validate()
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('min')
+
+    element.value = 10
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('min')
+  })
+
   test('should increment value on ArrowUp', () => {
     const ArrowUp = new Event('keydown')
     ArrowUp.key = 'ArrowUp'

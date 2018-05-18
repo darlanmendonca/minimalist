@@ -44,6 +44,22 @@ class MnNumber extends MnInput {
     this.classList.toggle('has-value', this.hasValue)
   }
 
+  get validations() {
+    return {
+      required: super.validations.required,
+      max: () => {
+        return this.hasValue
+          ? this.value > +this.getAttribute('max')
+          : false
+      },
+      min: () => {
+        return this.hasValue
+          ? this.value < +this.getAttribute('min')
+          : false
+      },
+    }
+  }
+
   setTransforms()  {
     const transform = (e) => {
       try {
