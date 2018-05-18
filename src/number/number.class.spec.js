@@ -177,7 +177,7 @@ describe('mn-number', () => {
     element.autofocus = true
     expect(element.autofocus).to.be.equal('true')
     element.autofocus = undefined
-    expect(element.autofocus).to.be.null
+    expect(element.autofocus).to.be.undefined
 
     element.setAttribute('autofocus', 'true')
     expect(element.autofocus).to.be.equal('true')

@@ -21,6 +21,7 @@ class MnInput extends MnComponent {
       'maxlength',
       'autocapitalize',
       'autofocus',
+      'pattern',
     ]
   }
 
@@ -65,6 +66,16 @@ class MnInput extends MnComponent {
     isInvalid
       ? this.classList.add('invalid')
       : this.classList.remove('invalid')
+  }
+
+  get pattern() {
+    return this.inputChild.pattern || undefined
+  }
+
+  set pattern(value) {
+    value
+      ? this.inputChild.setAttribute('pattern', value)
+      : this.inputChild.removeAttribute('pattern')
   }
 
   get label() {
@@ -143,7 +154,7 @@ class MnInput extends MnComponent {
   }
 
   get autofocus() {
-    return this.inputChild.getAttribute('autofocus')
+    return this.inputChild.getAttribute('autofocus') || undefined
   }
 
   set autofocus(value) {

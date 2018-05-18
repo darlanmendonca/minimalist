@@ -42,6 +42,7 @@ describe('mn-password', () => {
       'maxlength',
       'autocapitalize',
       'autofocus',
+      'pattern',
     ])
   })
 
@@ -151,10 +152,20 @@ describe('mn-password', () => {
     element.autofocus = true
     expect(element.autofocus).to.be.equal('true')
     element.autofocus = undefined
-    expect(element.autofocus).to.be.null
+    expect(element.autofocus).to.be.undefined
 
     element.setAttribute('autofocus', 'true')
     expect(element.autofocus).to.be.equal('true')
+  })
+
+  test('should have a setter/getter to pattern', () => {
+    element.pattern = 'lorem'
+    expect(element.pattern).to.be.equal('lorem')
+    element.pattern = undefined
+    expect(element.pattern).to.be.undefined
+
+    element.setAttribute('pattern', 'ipsum')
+    expect(element.pattern).to.be.equal('ipsum')
   })
 
   test('should setup attributes on add it to dom', () => {
