@@ -43,6 +43,13 @@ class MnInput extends MnComponent {
   get validations() {
     return {
       required: () => !this.hasValue,
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
+
+        return this.hasValue
+          ? !reg.test(this.value)
+          : false
+      },
     }
   }
 

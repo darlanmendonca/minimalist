@@ -204,6 +204,27 @@ describe('mn-input', () => {
     expect(element).to.not.have.class('invalid')
     expect(element).to.not.have.class('required')
   })
+
+  test('should validate pattern', () => {
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('pattern')
+
+    element.setAttribute('pattern', 'o$')
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('pattern')
+
+    element.value = 'lorem'
+    element.validate()
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('pattern')
+
+    element.value = 'lero'
+    element.validate()
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('pattern')
+  })
 })
 
 function createElement() {
