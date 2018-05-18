@@ -96,8 +96,7 @@ class MnInput extends MnComponent {
   get hasValue() {
     return !(this.value === undefined
       || this.value === null
-      || this.value === ''
-      || Array.isArray(this.value) && this.value.length === 0)
+      || this.value === '')
   }
   
   get value() {
