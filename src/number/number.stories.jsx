@@ -14,7 +14,9 @@ storiesOf('minimalist', module)
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         currency={boolean('currency')}
-        precision={number('precision')}
+        precision={number('precision')} 
+        min={number('min')} 
+        max={number('max')}
       />
     )
   })

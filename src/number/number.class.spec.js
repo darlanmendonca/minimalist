@@ -38,6 +38,8 @@ describe('mn-number', () => {
       'autofocus',
       'currency',
       'precision',
+      'min',
+      'max',
     ])
   })
 
@@ -181,6 +183,26 @@ describe('mn-number', () => {
 
     element.setAttribute('autofocus', 'true')
     expect(element.autofocus).to.be.equal('true')
+  })
+
+  test('should have a setter/getter to min', () => {
+    element.min = 10
+    expect(element.min).to.be.equal(10)
+    element.min = undefined
+    expect(element.min).to.be.undefined
+
+    element.setAttribute('min', '20')
+    expect(element.min).to.be.equal(20)
+  })
+
+  test('should have a setter/getter to max', () => {
+    element.max = 10
+    expect(element.max).to.be.equal(10)
+    element.max = undefined
+    expect(element.max).to.be.undefined
+
+    element.setAttribute('max', '20')
+    expect(element.max).to.be.equal(20)
   })
 
   test('should setup attributes on add it to dom', () => {

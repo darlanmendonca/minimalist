@@ -1,5 +1,10 @@
 .mn-number {
   --currency-symbol: '$';
+
+  &.invalid {
+    &.min {--invalid-message: ' at least ' attr(min)}
+    &.max {--invalid-message: ' maximum ' attr(max)}
+  }
 }
 
 .mn-number[currency]:not([currency="false"]) {

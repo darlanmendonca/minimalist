@@ -27,6 +27,8 @@ class MnNumber extends MnInput {
       'autofocus',
       'currency',
       'precision',
+      'min',
+      'max',
     ]
   }
 
@@ -42,6 +44,30 @@ class MnNumber extends MnInput {
     this.inputChild.value = value
     this.inputChild.dispatchEvent(new Event('change'))
     this.classList.toggle('has-value', this.hasValue)
+  }
+
+  get min() {
+    return this.labelChild.hasAttribute('min')
+      ? +this.labelChild.getAttribute('min')
+      : undefined
+  }
+
+  set min(value) {
+    value
+      ? this.labelChild.setAttribute('min', value)
+      : this.labelChild.removeAttribute('min')
+  }
+
+  get max() {
+    return this.labelChild.hasAttribute('max')
+      ? +this.labelChild.getAttribute('max')
+      : undefined
+  }
+
+  set max(value) {
+    value
+      ? this.labelChild.setAttribute('max', value)
+      : this.labelChild.removeAttribute('max')
   }
 
   get validations() {
