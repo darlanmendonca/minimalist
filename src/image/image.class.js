@@ -20,30 +20,23 @@ class MnImage extends MnComponent {
   }
 
   setPerspective() {
-    this.addEventListener('mouseenter', setRotation3d)
-    this.addEventListener('mousemove', setRotation3d)
-    this.addEventListener('mouseleave', unsetRotate3d)
+    this.addEventListener('mouseenter', applyPerspective)
+    this.addEventListener('mousemove', applyPerspective)
+    this.addEventListener('mouseleave', removePerspective)
 
-    function setRotation3d(event) {
+    function applyPerspective(event) {
       const hasPerspective = this.getAttribute('perspective') === 'true'
 
       if (hasPerspective) {
-        let bounds = this.getBoundingClientRect()
-        let isTouchEvent = event.type.startsWith('touch')
+        const bounds = this.getBoundingClientRect()
+        const {clientX, clientY} = event
 
-        let clientX = isTouchEvent
-          ? event.touches[0].clientX
-          : event.clientX
+        const percentX = (clientX - bounds.left) / bounds.width
+        const percentY = (clientY - bounds.top) / bounds.height
+        const angles = 20
+        const rotateY = (angles * (-percentX * 2)) + angles
+        const rotateX = (angles * (percentY * 2)) - angles
 
-        let clientY = isTouchEvent
-          ? event.touches[0].clientY
-          : event.clientY
-
-        let percentX = (clientX - bounds.left) / bounds.width
-        let percentY = (clientY - bounds.top) / bounds.height
-        let angles = 20
-        let rotateY = (angles * (-percentX * 2)) + angles
-        let rotateX = (angles * (percentY * 2)) - angles
         this.style.transform = `
           scale(1.07)
           perspective(1000px)
@@ -53,7 +46,7 @@ class MnImage extends MnComponent {
       }
     }
 
-    function unsetRotate3d() {
+    function removePerspective() {
       this.style.transform = ''
     }
   }
