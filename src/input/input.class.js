@@ -38,6 +38,15 @@ class MnInput extends MnComponent {
       this.classList.remove('focus')
       this.classList.toggle('has-value', this.hasValue)
     })
+
+    this.inputChild.addEventListener('input', (event) => {
+      const element = event.currentTarget.parentNode
+      const closestForm = this.closest('mn-form') || this.closest('form')
+
+      if (closestForm && closestForm.classList.contains('submitted')) {
+        element.validate()
+      }
+    })
   }
 
   get validations() {

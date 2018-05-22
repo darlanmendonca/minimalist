@@ -1,8 +1,9 @@
-import chai, {expect} from 'chai'
+import chai, {expect, spy} from 'chai'
 import MnPassword from './password.class.js'
-import chaiDom from 'chai-dom'
 
-chai.use(chaiDom)
+chai
+  .use(require('chai-dom'))
+  .use(require('chai-spies'))
 
 let element
 
@@ -205,6 +206,22 @@ describe('mn-password', () => {
     expect(element).to.not.have.class('has-value')
   })
 
+  test('should validate on input event', () => {
+    document.body.innerHTL = ''
+    const form = document.createElement('form')
+    form.appendChild(element)
+    document.body.appendChild(form)
+    const validate = spy.on(element, 'validate')
+
+    element.inputChild.dispatchEvent(new Event('input'))
+    expect(validate).to.not.have.been.called()
+
+    form.classList.add('submitted')
+
+    element.inputChild.dispatchEvent(new Event('input'))
+    expect(validate).to.have.been.called()
+  })
+
   test('should validate required', () => {
     element.validate()
     expect(element).to.not.have.class('invalid')
@@ -246,6 +263,18 @@ describe('mn-password', () => {
 function createElement() {
   element = document.createElement('mn-password')
   document.body.appendChild(element)
+
+  // fallback to closest
+  Element.prototype.closest = function(s) {
+    let matches = (this.document || this.ownerDocument).querySelectorAll(s)
+    let i
+    let el = this
+    do {
+        i = matches.length
+        while (--i >= 0 && matches.item(i) !== el) {}
+    } while ((i < 0) && (el = el.parentElement));
+    return el
+  }
 
   // fallback to connectedCallback
   document.body.appendChild = function(element) {
