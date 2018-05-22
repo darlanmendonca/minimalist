@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import MnPassword from './password.react.jsx'
-import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs/react'
+import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)

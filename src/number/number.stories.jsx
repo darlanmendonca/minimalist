@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import MnNumber from './number.react.jsx'
-import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs/react'
+import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)
@@ -14,8 +14,8 @@ storiesOf('minimalist', module)
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         currency={boolean('currency')}
-        precision={number('precision')} 
-        min={number('min')} 
+        precision={number('precision')}
+        min={number('min')}
         max={number('max')}
       />
     )
