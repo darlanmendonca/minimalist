@@ -14,4 +14,20 @@
     position: relative;
     box-shadow: 0 0 3px 0 rgba(0,0,0,.2);
   }
+
+  // shadow
+  &:before {
+    content: '';
+    position: absolute;
+    top: 5%; left: 5%;
+    bottom: 5%; right: 5%;
+    box-shadow: 0 2px 30px rgba(14,21,47,0.6);
+    transition: box-shadow .2s ease-out;
+  }
+
+  &:hover {
+    &:before {
+      box-shadow: 0 45px 100px rgba(14,21,47,0.4), 0 16px 40px rgba(14,21,47,0.4);
+    }
+  }
 }
