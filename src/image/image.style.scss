@@ -25,7 +25,7 @@
     transition: box-shadow .2s ease-out;
   }
 
-  &:hover {
+  &[perspective]:not([perspective="false"]):hover {
     &:before {
       box-shadow: 0 45px 100px rgba(14,21,47,0.4), 0 16px 40px rgba(14,21,47,0.4);
     }

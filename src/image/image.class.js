@@ -25,7 +25,9 @@ class MnImage extends MnComponent {
     this.addEventListener('mouseleave', unsetRotate3d)
 
     function setRotation3d(event) {
-      if (true || this.parentElement.tagName === 'A') {
+      const hasPerspective = this.getAttribute('perspective') === 'true'
+
+      if (hasPerspective) {
         let bounds = this.getBoundingClientRect()
         let isTouchEvent = event.type.startsWith('touch')
 
