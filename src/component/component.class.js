@@ -17,8 +17,8 @@ class MnComponent extends window.HTMLElement {
     Array
       .from(this.attributes)
       .forEach(attr => {
-        const isObservedAttr = this.constructor
-          .observedAttributes
+        const {observedAttributes} = this.constructor
+        const isObservedAttr = observedAttributes && observedAttributes
           .find(observed => observed === attr.name)
 
         if (isObservedAttr) {
@@ -31,10 +31,16 @@ class MnComponent extends window.HTMLElement {
     this.innerHTML = ''
   }
 
-  setChildren(name) {
+  setChildren(name, attributes = {}) {
     const children = document.createElement(name)
     this[`${name}Child`] = children
     this.appendChild(children)
+
+    Object
+      .entries(attributes)
+      .forEach(([attribute, value]) => {
+        children.setAttribute(attribute, value)
+      })
   }
 }
 
