@@ -46,6 +46,20 @@ describe('mn-image', () => {
     element.setAttribute('src', 'ipsum')
     expect(element.src).to.be.equal('ipsum')
   })
+
+  test('should apply and remove perspective on mouse events', () => {
+    expect(element.style).to.not.have.property('transform')
+    element.setAttribute('perspective', 'true')
+
+    element.dispatchEvent(new Event('mouseenter'))
+    expect(element.style).to.have.property('transform')
+
+    element.dispatchEvent(new Event('mousemove'))
+    expect(element.style).to.have.property('transform')
+
+    element.dispatchEvent(new Event('mouseleave'))
+    expect(element.style).to.not.have.property('transform')
+  })
 })
 
 function createElement() {

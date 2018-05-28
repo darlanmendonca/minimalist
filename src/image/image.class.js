@@ -28,17 +28,16 @@ class MnImage extends MnComponent {
       const hasPerspective = this.getAttribute('perspective') === 'true'
 
       if (hasPerspective) {
-        const bounds = this.getBoundingClientRect()
+        const {width, height, left, top} = this.getBoundingClientRect()
         const {clientX, clientY} = event
 
-        const percentX = (clientX - bounds.left) / bounds.width
-        const percentY = (clientY - bounds.top) / bounds.height
+        const percentX = (clientX - left) / width
+        const percentY = (clientY - top) / height
         const angles = 20
         const rotateY = (angles * (-percentX * 2)) + angles
         const rotateX = (angles * (percentY * 2)) - angles
 
-        this.style.transform = `
-          scale(1.07)
+        this.style.transform = `scale(1.07)
           perspective(1000px)
           rotateY(${rotateY}deg)
           rotateX(${rotateX}deg)
@@ -47,7 +46,7 @@ class MnImage extends MnComponent {
     }
 
     function removePerspective() {
-      this.style.transform = ''
+      delete this.style.transform
     }
   }
 
