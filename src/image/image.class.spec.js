@@ -48,17 +48,21 @@ describe('mn-image', () => {
   })
 
   test('should apply and remove perspective on mouse events', () => {
-    expect(element.style).to.not.have.property('transform')
     element.setAttribute('perspective', 'true')
+    expect(element.style).to.not.have.property('RotateX')
+    expect(element.style).to.not.have.property('RotateY')
 
     element.dispatchEvent(new Event('mouseenter'))
-    expect(element.style).to.have.property('transform')
+    expect(element.style).to.have.property('RotateX')
+    expect(element.style).to.have.property('RotateY')
 
     element.dispatchEvent(new Event('mousemove'))
-    expect(element.style).to.have.property('transform')
+    expect(element.style).to.have.property('RotateX')
+    expect(element.style).to.have.property('RotateY')
 
     element.dispatchEvent(new Event('mouseleave'))
-    expect(element.style).to.not.have.property('transform')
+    expect(element.style).to.have.property('RotateX')
+    expect(element.style).to.have.property('RotateY')
   })
 })
 

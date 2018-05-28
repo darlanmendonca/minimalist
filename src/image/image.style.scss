@@ -26,6 +26,11 @@
   }
 
   &[perspective]:not([perspective="false"]):hover {
+    transform: scale(1.07)
+      perspective(1000px)
+      rotateX(var(--rotate-x, 0))
+      rotateY(var(--rotate-y, 0));
+
     &:before {
       box-shadow: 0 45px 100px rgba(14,21,47,0.4), 0 16px 40px rgba(14,21,47,0.4);
     }
