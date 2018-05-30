@@ -11,18 +11,18 @@
     position: absolute;
     top: 0;
     left: 0;
-    animation: rotate 2s linear infinite;
+    animation: rotate 1s linear infinite;
   }
 
   circle {
     fill: none;
-    stroke: #70c542;
-    stroke-width: 2px;
+    stroke: #343a40;
+    stroke-width: 3px;
 
     stroke-dasharray: 150, 200;
     stroke-dashoffset: -10;
     stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    animation: dash 1.5s ease-in-out infinite;
   }
 }
 
