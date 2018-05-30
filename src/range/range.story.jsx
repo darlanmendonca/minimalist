@@ -7,6 +7,10 @@ storiesOf('minimalist', module)
   .addDecorator(withKnobs)
   .addWithJSX('range', () => {
     return (
-      <MnRange />
+      <MnRange
+        value={number('value', 5)}
+        min={number('min', 0)}
+        max={number('max', 10)}
+      />
     )
   })
