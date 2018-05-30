@@ -3,18 +3,23 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
     "start": "start-storybook -p 3000",
+    "prepublish": "babel src --out-dir dist",
     "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "Darlan Mendonça",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@storybook/addon-knobs": "^4.0.0-alpha.6",
     "@storybook/addons": "^4.0.0-alpha.6",
     "@storybook/react": "^4.0.0-alpha.6",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-import-export": "^1.0.2",
     "babel-preset-react": "^6.24.1",
