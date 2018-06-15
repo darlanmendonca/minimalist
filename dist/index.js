@@ -24,7 +24,7 @@ var _rangeClass = require('./range/range.class.js');
 
 var _rangeClass2 = _interopRequireDefault(_rangeClass);
 
-var _loadingCircleClass = require('./loadingCircle/loadingCircle.class.js');
+var _loadingCircleClass = require('./loading-circle/loading-circle.class.js');
 
 var _loadingCircleClass2 = _interopRequireDefault(_loadingCircleClass);
 
