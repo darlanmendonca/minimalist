@@ -2,9 +2,12 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import MnInput from './input.react.jsx'
 import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
+import {withReadme}  from 'storybook-readme'
+import readme from './README.md'
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)
+  .addDecorator(withReadme(readme))
   .addWithJSX('input', () => {
     return (
       <MnInput
