@@ -9,7 +9,7 @@ module.exports = (storybookBaseConfig, configType) => {
 
   storybookBaseConfig.module.rules.push({
     test: /\.md$/,
-    loaders: ['html-loader', 'markdown-loader'],
+    loaders: ['markdown-loader'],
     include: path.resolve(__dirname, '../'),
   })
 
