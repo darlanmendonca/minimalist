@@ -8,7 +8,6 @@ class MnForm extends MnComponent {
 
   static get observedAttributes() {
     return [
-      'name',
       'disabled',
       'readonly',
     ]
@@ -18,16 +17,14 @@ class MnForm extends MnComponent {
     this.classList.add('mn-form')
   }
 
-  get name() {
-    return this.getAttribute('name') || undefined
+  get disabled() {
+    return Boolean(this.getAttribute('disabled'))
   }
 
-  set name(value) {
-    value && value !== this.name
-      ? this.setAttribute('name', value)
-      : !value
-        ? this.removeAttribute('name')
-        : null
+  set disabled(value) {
+    if (value !== this.disabled) {
+      this.setAttribute('disabled', value)
+    }
   }
 }
 
