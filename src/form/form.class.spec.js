@@ -35,8 +35,15 @@ describe('mn-form', () => {
     ])
   })
 
-  test('should have a form child', () => {
-    expect(element).to.have.a.property('formChild')
+  test('should have a setter/getter to name', () => {
+    expect(element.name).to.be.undefined
+    element.name = 'lorem'
+    expect(element.name).to.be.equal('lorem')
+    element.name = undefined
+    expect(element.name).to.be.undefined
+
+    element.setAttribute('name', 'ipsum')
+    expect(element.name).to.be.equal('ipsum')
   })
 })
 

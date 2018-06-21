@@ -2,6 +2,7 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import MnForm from './form.react.jsx'
 import MnInput from '../input/input.react.jsx'
+import MnNumber from '../number/number.react.jsx'
 import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 
 storiesOf('components', module)
@@ -10,6 +11,7 @@ storiesOf('components', module)
     return (
       <MnForm>
         <MnInput label='username' name='username' />
+        <MnNumber label='luck number' name='luckNumber' />
       </MnForm>
     )
   })

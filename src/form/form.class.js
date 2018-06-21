@@ -3,7 +3,6 @@ import MnComponent from '../component/component.class.js'
 class MnForm extends MnComponent {
   connectedCallback() {
     this.setStyle()
-    super.setChildren('form')
     super.setAttributes()
   }
 
@@ -17,6 +16,18 @@ class MnForm extends MnComponent {
 
   setStyle() {
     this.classList.add('mn-form')
+  }
+
+  get name() {
+    return this.getAttribute('name') || undefined
+  }
+
+  set name(value) {
+    value && value !== this.name
+      ? this.setAttribute('name', value)
+      : !value
+        ? this.removeAttribute('name')
+        : null
   }
 }
 
