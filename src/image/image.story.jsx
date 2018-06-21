@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import MnImage from './image.react.jsx'
 import {withKnobs, text, boolean} from '@storybook/addon-knobs'
 
-storiesOf('minimalist', module)
+storiesOf('components', module)
   .addDecorator(withKnobs)
   .addWithJSX('image', () => {
     return (

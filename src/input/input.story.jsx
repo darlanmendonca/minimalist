@@ -5,7 +5,7 @@ import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
 
-storiesOf('minimalist', module)
+storiesOf('components', module)
   .addDecorator(withKnobs)
   .addDecorator(withReadme(readme))
   .addWithJSX('input', () => {

@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import MnNumber from './number.react.jsx'
 import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 
-storiesOf('minimalist', module)
+storiesOf('components', module)
   .addDecorator(withKnobs)
   .addWithJSX('number', () => {
     return (
