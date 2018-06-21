@@ -36,9 +36,6 @@ describe('mn-form', () => {
   })
 
   test('should have a setter/getter to disabled', () => {
-    const input = document.createElement('mn-input')
-    element.appendChild(input)
-
     expect(element.disabled).to.be.false
     element.disabled = true
     expect(element.disabled).to.be.true
