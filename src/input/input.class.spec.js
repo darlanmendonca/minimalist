@@ -51,6 +51,10 @@ describe('mn-input', () => {
     expect(element).to.have.a.property('inputChild')
   })
 
+  test('should have by default autocomplete off on input child', () => {
+    expect(element.inputChild).to.have.attribute('autocomplete', 'off')
+  })
+
   test('should have a setter/getter to label', () => {
     element.label = 'lorem'
     expect(element.label).to.be.equal('lorem')

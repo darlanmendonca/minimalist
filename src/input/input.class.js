@@ -5,7 +5,7 @@ class MnInput extends MnComponent {
     super.empty()
     this.setStyle()
     super.setChildren('label')
-    super.setChildren('input')
+    super.setChildren('input', {autocomplete: 'off'})
     this.setInputEvents()
     super.setAttributes()
   }
@@ -107,7 +107,7 @@ class MnInput extends MnComponent {
       || this.value === null
       || this.value === '')
   }
-  
+
   get value() {
     return this.inputChild.value
   }
