@@ -141,20 +141,20 @@ class MnInput extends MnComponent {
   }
 
   set disabled(value) {
-    if (JSON.parse(value) !== this.disabled) {
+    if (JSON.parse(value) !== JSON.parse(this.getAttribute('disabled'))) {
       this.setAttribute('disabled', JSON.parse(value))
     }
     this.inputChild.disabled = JSON.parse(value)
   }
 
   get readonly() {
-    if (JSON.parse(value) !== this.readonly) {
-      this.setAttribute('readonly', JSON.parse(value))
-    }
     return this.inputChild.readOnly
   }
 
   set readonly(value) {
+    if (JSON.parse(value) !== JSON.parse(this.getAttribute('readonly'))) {
+      this.setAttribute('readonly', JSON.parse(value))
+    }
     this.inputChild.readOnly = JSON.parse(value)
   }
 
