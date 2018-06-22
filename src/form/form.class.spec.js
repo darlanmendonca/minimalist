@@ -40,6 +40,12 @@ describe('mn-form', () => {
     element.disabled = true
     expect(element.disabled).to.be.true
   })
+
+  test('should have a setter/getter to readonly', () => {
+    expect(element.readonly).to.be.false
+    element.readonly = true
+    expect(element.readonly).to.be.true
+  })
 })
 
 function createElement() {

@@ -26,6 +26,16 @@ class MnForm extends MnComponent {
       this.setAttribute('disabled', value)
     }
   }
+
+  get readonly() {
+    return Boolean(this.getAttribute('readonly'))
+  }
+
+  set readonly(value) {
+    if (value !== this.readonly) {
+      this.setAttribute('readonly', value)
+    }
+  }
 }
 
 window.customElements.define('mn-form', MnForm)
