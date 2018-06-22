@@ -25,6 +25,10 @@ class MnForm extends MnComponent {
     if (value !== this.disabled) {
       this.setAttribute('disabled', value)
     }
+
+    Array
+      .from(this.querySelectorAll('.mn-input'))
+      .forEach(input => input.disabled = value)
   }
 
   get readonly() {
@@ -35,6 +39,10 @@ class MnForm extends MnComponent {
     if (value !== this.readonly) {
       this.setAttribute('readonly', value)
     }
+
+    Array
+      .from(this.querySelectorAll('.mn-input'))
+      .forEach(input => input.readonly = value)
   }
 }
 

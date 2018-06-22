@@ -36,15 +36,27 @@ describe('mn-form', () => {
   })
 
   test('should have a setter/getter to disabled', () => {
+    const input = document.createElement('mn-input')
+    element.appendChild(input)
+    input.connectedCallback()
+
     expect(element.disabled).to.be.false
+    expect(input.disabled).to.be.false
     element.disabled = true
     expect(element.disabled).to.be.true
+    expect(input.disabled).to.be.true
   })
 
   test('should have a setter/getter to readonly', () => {
+    const input = document.createElement('mn-input')
+    element.appendChild(input)
+    input.connectedCallback()
+
     expect(element.readonly).to.be.false
+    expect(input.disabled).to.be.false
     element.readonly = true
     expect(element.readonly).to.be.true
+    expect(input.readonly).to.be.true
   })
 })
 
