@@ -88,12 +88,12 @@
     }
   }
 
-  &[disabled]:not([disabled="false"]) {
+  &[disabled=""], &[disabled="true"] {
     --text-color: #868e96;
     --border-color: #dee2e6;
     --label-color: #adb5bd;
     --placeholder-color: #adb5bd;
-    
+
     input:hover {cursor: not-allowed}
   }
 
