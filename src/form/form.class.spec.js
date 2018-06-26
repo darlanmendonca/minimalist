@@ -1,6 +1,7 @@
 import chai, {expect} from 'chai'
 import MnForm from './form.class.js'
 import '../input/input.class.js'
+import '../number/number.class.js'
 import chaiDom from 'chai-dom'
 
 chai.use(chaiDom)
@@ -35,6 +36,11 @@ describe('mn-form', () => {
     ])
   })
 
+  test('should have input property', () => {
+    expect(element).to.have.a.property('inputs')
+    expect(element.inputs).to.be.an('array')
+  })
+
   test('should have a setter/getter to disabled', () => {
     const input = document.createElement('mn-input')
     element.appendChild(input)
@@ -57,6 +63,23 @@ describe('mn-form', () => {
     element.readonly = true
     expect(element.readonly).to.be.true
     expect(input.readonly).to.be.true
+  })
+
+  test('should have a getter to data', () => {
+    const input = document.createElement('mn-input')
+    const number = document.createElement('mn-number')
+    element.appendChild(input)
+    element.appendChild(number)
+    input.connectedCallback()
+    number.connectedCallback()
+    input.name = 'username'
+    input.value = 'lorem'
+    number.name = 'number'
+
+    expect(element.data).to.deep.equal({username: 'lorem', number: undefined})
+
+    number.value = 10
+    expect(element.data).to.deep.equal({username: 'lorem', number: 10})
   })
 })
 
