@@ -30,12 +30,6 @@ Useful to disable all childrens, e.g.
 <mn-form disabled></mn-form>
 ```
 
-Works fine with boolean value, useful to change dinamically.
-
-```html
-<mn-form disabled="true"></mn-form>
-```
-
 And offer a getter/setter to javascript, e.g.
 
 ```js
@@ -49,12 +43,6 @@ Useful to set all childrens as readonly, e.g.
 
 ```html
 <mn-form readonly></mn-form>
-```
-
-Works fine with boolean value, useful to change dinamically.
-
-```html
-<mn-form readonly="true"></mn-form>
 ```
 
 And offer a getter/setter to javascript, e.g.
