@@ -81,6 +81,21 @@ describe('mn-form', () => {
     number.value = 10
     expect(element.data).to.deep.equal({username: 'lorem', number: 10})
   })
+
+  test('should validate all inputs', () => {
+    const input = document.createElement('mn-input')
+    const number = document.createElement('mn-number')
+    element.appendChild(input)
+    element.appendChild(number)
+    input.connectedCallback()
+    number.connectedCallback()
+
+    expect(element.validate()).to.be.true
+    input.setAttribute('required', true)
+    expect(element.validate()).to.be.false
+    input.value = 'lorem'
+    expect(element.validate()).to.be.true
+  })
 })
 
 function createElement() {

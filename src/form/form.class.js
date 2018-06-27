@@ -17,6 +17,16 @@ class MnForm extends MnComponent {
     this.classList.add('mn-form')
   }
 
+  validate() {
+    this.dispatchEvent(new Event('validate'))
+    this.inputs
+      .filter(input => !input.disabled && !input.readonly)
+      .forEach(input => input.validate())
+
+    const isInvalid = !this.querySelector('.invalid')
+    return isInvalid
+  }
+
   get disabled() {
     return Boolean(this.getAttribute('disabled'))
   }

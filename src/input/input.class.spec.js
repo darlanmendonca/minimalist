@@ -216,6 +216,7 @@ describe('mn-input', () => {
     expect(element).to.not.have.class('required')
 
     element.setAttribute('required', 'true')
+    element.required = true
     element.validate()
     expect(element).to.have.class('invalid')
     expect(element).to.have.class('required')
