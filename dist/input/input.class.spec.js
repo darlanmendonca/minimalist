@@ -47,6 +47,10 @@ describe('mn-input', () => {
     (0, _chai.expect)(element).to.have.a.property('inputChild');
   });
 
+  test('should have by default autocomplete off on input child', () => {
+    (0, _chai.expect)(element.inputChild).to.have.attribute('autocomplete', 'off');
+  });
+
   test('should have a setter/getter to label', () => {
     element.label = 'lorem';
     (0, _chai.expect)(element.label).to.be.equal('lorem');
@@ -207,6 +211,7 @@ describe('mn-input', () => {
     (0, _chai.expect)(element).to.not.have.class('required');
 
     element.setAttribute('required', 'true');
+    element.required = true;
     element.validate();
     (0, _chai.expect)(element).to.have.class('invalid');
     (0, _chai.expect)(element).to.have.class('required');

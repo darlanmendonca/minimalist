@@ -15,7 +15,7 @@ class MnInput extends _componentClass2.default {
     super.empty();
     this.setStyle();
     super.setChildren('label');
-    super.setChildren('input');
+    super.setChildren('input', { autocomplete: 'off' });
     this.setInputEvents();
     super.setAttributes();
   }
@@ -130,6 +130,9 @@ class MnInput extends _componentClass2.default {
   }
 
   set disabled(value) {
+    if (JSON.parse(value) !== JSON.parse(this.getAttribute('disabled'))) {
+      this.setAttribute('disabled', JSON.parse(value));
+    }
     this.inputChild.disabled = JSON.parse(value);
   }
 
@@ -138,6 +141,9 @@ class MnInput extends _componentClass2.default {
   }
 
   set readonly(value) {
+    if (JSON.parse(value) !== JSON.parse(this.getAttribute('readonly'))) {
+      this.setAttribute('readonly', JSON.parse(value));
+    }
     this.inputChild.readOnly = JSON.parse(value);
   }
 

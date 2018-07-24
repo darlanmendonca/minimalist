@@ -14,7 +14,7 @@ var _addonKnobs = require('@storybook/addon-knobs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _react3.storiesOf)('minimalist', module).addDecorator(_addonKnobs.withKnobs).addWithJSX('number', () => {
+(0, _react3.storiesOf)('components', module).addDecorator(_addonKnobs.withKnobs).addWithJSX('number', () => {
   return _react2.default.createElement(_numberReact2.default, {
     label: (0, _addonKnobs.text)('label', 'number'),
     placeholder: (0, _addonKnobs.text)('placeholder'),

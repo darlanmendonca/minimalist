@@ -1,6 +1,7 @@
 # mn-form
 
-A form component. Useful to retrieve data in json format, validate all inputs, and submit data. Can submit only modified data, instead all.
+A form component. Useful to retrieve data in json format, validate all inputs, and submit data. 
+<!-- Can submit only modified data, instead all. -->
 
 ### Usage
 
@@ -10,7 +11,7 @@ import {form} from '@darlanmendonca/minimalist'
 
 ```html
 <mn-form id="loginForm">
-  <!-- content here -->
+  <!-- inputs here -->
 </mn-form>
 ```
 
