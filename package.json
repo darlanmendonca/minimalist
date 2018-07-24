@@ -2,7 +2,7 @@
   "name": "minimalist",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "A lot of components ready to be used with or without any framework",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
