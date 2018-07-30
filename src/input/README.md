@@ -1,11 +1,3 @@
-### Usage
-
-In your html, you can use the tag `mn-input` i.e.
-
-```html
-<mn-input placeholder="Username"></mn-input>
-```
-
 # mn-input
 
 A input component. Useful to insert text, with some validation and other states like disabled, readonly, etc.
@@ -39,6 +31,7 @@ const input = form.username
 - [autocapitalize](#autocapitalize)
 - [autofocus](#autofocus)
 - [pattern](#pattern)
+- [required](#required)
 
 ### label
 
