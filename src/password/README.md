@@ -1,6 +1,6 @@
 # mn-password
 
-A input component, extending behaviors from `mn-input` but specific behaviors to password.
+A input component, extending behaviors from `mn-input` but specific behaviors to input a password.
 
 ## Usage
 
