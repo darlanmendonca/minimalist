@@ -10,7 +10,7 @@ In your html, you can use the tag `mn-input` i.e.
 
 A input component. Useful to insert text, with some validation and other states like disabled, readonly, etc.
 
-### Usage
+## Usage
 
 ```js
 import '@darlanmendonca/minimalist'
@@ -27,9 +27,56 @@ const form = window.someId
 const input = form.username
 ```
 
-### Disabled 
+## Attributes
 
-Accept true/false value to set up attrubute. Works with ommitted value, e.g.
+### label
+
+Describe to user what type on input.
+
+```html
+<mn-input label="Username"></mn-input>
+```
+
+```js
+input.label = 'Username'
+```
+
+### value
+
+Set initial value of input, e.g.
+
+```html
+<mn-input value="John Snow"></mn-input>
+```
+
+```js
+input.value = 'John Snow'
+```
+
+### name
+
+Identify input on form context.
+
+```html
+<mn-input name="username"></mn-input>
+```
+
+```js
+console.log(form.username)
+```
+
+### placeholder
+
+Useful to give a hint or describe content to be typed on input. Hide on type some value.
+
+```html
+<mn-input placeholder="Type your first name"></mn-input>
+```
+
+### disabled
+
+Disable all behaviors of input, like navigation, write and selection.
+Accept true/false value and works with ommitted value, e.g.
 
 ```html
 <mn-input disabled></mn-input>
@@ -37,25 +84,93 @@ Accept true/false value to set up attrubute. Works with ommitted value, e.g.
 <mn-input disabled="true"></mn-input>
 ```
 
-And offer a getter/setter to javascript, e.g.
-
 ```js
 usernameInput.disabled = true
-console.log(form.disabled)
 ```
 
-### Readonly
+### readonly
 
-Useful to set all childrens as readonly, e.g.
+Set input to read only mode, allowing only selection and navigation.
+Accept true/false value and works with ommitted value, e.g.
 
 ```html
 <mn-input readonly></mn-input>
 ```
 
-And offer a getter/setter to javascript, e.g.
-
 ```js
 input.readonly = true
-console.log(input.readonly)
 ```
 
+### maxlength
+
+Limit number of chars that user can type, e.g.
+
+```html
+<mn-input maxlength="4"></mn-input>
+``` 
+
+### autocapitalize
+
+Useful for mobile, turn keyboard as upper case on first letter, e.g.
+
+```html
+<mn-input autocapitalize="true">
+``` 
+
+```js
+input.autocapitaze = false
+console.log(input.autocapitalize)
+```
+
+### autofocus
+
+Useful to focus input automatically once time they are visible.
+
+```html
+<mn-input autofocus></mn-input>
+```
+
+### pattern
+
+Enable validation of string, using a regular expression, e.g.
+
+```html
+<mn-input pattern="^[\w\s]$"></mn-input><!-- only letters and space on input -->
+```
+
+```html
+input.pattern = /^[\w\s]$/
+console.log(input.pattern)
+```
+
+### required
+
+Set input as required as form validation.
+
+```html
+<mn-input required></mn-input>
+```
+
+```js
+input.required = true
+```
+
+## Properties
+
+### hasValue
+
+Useful to check if input has a value filled, e.g.
+
+```js
+console.log(input.hasValue) // return true or false
+```
+
+### Methods
+
+### validate()
+
+Check all validations on input, and return true if is valid. Is called by default on events `input` and `blur`, only if parent form already tried submit.
+
+```js
+input.validate()
+```

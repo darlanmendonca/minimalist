@@ -23,7 +23,7 @@ form.addEventListener('submit', (data) => console.log('submiting', data))
 Before submit event, `.validate()` method is called.
 Event submit only be called if form is valid.
 
-### Disabled 
+### disabled 
 
 Useful to disable all childrens, e.g.
 
@@ -31,22 +31,18 @@ Useful to disable all childrens, e.g.
 <mn-form disabled></mn-form>
 ```
 
-And offer a getter/setter to javascript, e.g.
-
 ```js
 form.disabled = true
 console.log(form.disabled)
 ```
 
-### Readonly
+### readonly
 
 Useful to set all childrens as readonly, e.g.
 
 ```html
 <mn-form readonly></mn-form>
 ```
-
-And offer a getter/setter to javascript, e.g.
 
 ```js
 form.readonly = true
