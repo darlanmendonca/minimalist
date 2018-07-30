@@ -29,6 +29,17 @@ const input = form.username
 
 ## Attributes
 
+- [label](#label)
+- [value](#value)
+- [name](#name)
+- [placeholder](#placeholder)
+- [disabled](#disabled)
+- [readonly](#readonly)
+- [maxlength](#maxlength)
+- [autocapitalize](#autocapitalize)
+- [autofocus](#autofocus)
+- [pattern](#pattern)
+
 ### label
 
 Describe to user what type on input.
