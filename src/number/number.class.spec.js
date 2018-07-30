@@ -41,6 +41,7 @@ describe('mn-number', () => {
       'precision',
       'min',
       'max',
+      'percentage',
     ])
   })
 
@@ -130,6 +131,32 @@ describe('mn-number', () => {
     element.setAttribute('precision', '3')
     expect(element.value).to.be.equal(20)
     expect(element.inputChild).to.have.value('20,000')
+  })
+
+  test('should format percentage value', () => {
+    element.value = 0.1
+    expect(element.value).to.be.equal(0.1)
+    expect(element.inputChild).to.have.value('0,1')
+
+    element.setAttribute('percentage', 'percentage')
+    expect(element.value).to.be.equal(0.1)
+    expect(element.inputChild).to.have.value('10')
+
+    element.value = 1
+    expect(element.value).to.be.equal(1)
+    expect(element.inputChild).to.have.value('100')
+
+    element.setAttribute('precision', 'true')
+    expect(element.value).to.be.equal(1)
+    expect(element.inputChild).to.have.value('100')
+
+    element.setAttribute('precision', '2')
+    expect(element.value).to.be.equal(1)
+    expect(element.inputChild).to.have.value('100,00')
+
+    element.removeAttribute('percentage')
+    expect(element.value).to.be.equal(100)
+    expect(element.inputChild).to.have.value('100,00')
   })
 
   test('should have a setter/getter to name', () => {

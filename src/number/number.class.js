@@ -29,19 +29,39 @@ class MnNumber extends MnInput {
       'precision',
       'min',
       'max',
+      'percentage',
     ]
+  }
+
+  set percentage(value) {
+    const isPercentage = this.hasAttribute('percentage')
+      && this.getAttribute('percentage') !== 'false'
+    const number = +this.inputChild.value.replace(/,/g, '.')
+    value = isPercentage
+      ? number * 100
+      : number / 100
+    this.inputChild.value = value
   }
 
   get value() {
     const number = +this.inputChild.value.replace(/,/g, '.')
     const isNumber = this.inputChild.value && !Number.isNaN(number)
+    const isPercentage = this.hasAttribute('percentage')
+      && this.getAttribute('percentage') !== 'false'
+
     return isNumber
-      ? number
+      ? isPercentage
+        ? number / 100
+        : number
       : undefined
   }
 
   set value(value = '') {
-    this.inputChild.value = value
+    const isPercentage = this.hasAttribute('percentage')
+      && this.getAttribute('percentage') !== 'false'
+    this.inputChild.value = isPercentage
+      ? value * 100
+      : value
     this.inputChild.dispatchEvent(new Event('change'))
     this.classList.toggle('has-value', this.hasValue)
   }
@@ -123,7 +143,12 @@ class MnNumber extends MnInput {
 
     const incrementOrDecrement = (event) => {
       const isReadonly = this.hasAttribute('readonly') && this.getAttribute('readonly') !== 'false'
-      const stepValue = +this.getAttribute('step') || 1
+      const isPercentage = this.hasAttribute('percentage')
+        && this.getAttribute('percentage') !== 'false'
+      const stepValue = isPercentage
+        ? +this.getAttribute('step') / 100 || 1 / 100
+        : +this.getAttribute('step') || 1
+
       const isArrowUp = event.key === 'ArrowUp'
       const isArrowDown = event.key === 'ArrowDown'
 

@@ -17,6 +17,7 @@ storiesOf('components', module)
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         currency={boolean('currency')}
+        percentage={boolean('percentage')}
         precision={number('precision')}
         min={number('min')}
         max={number('max')}
