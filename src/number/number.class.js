@@ -8,6 +8,7 @@ class MnNumber extends MnInput {
     super.setChildren('label')
     super.setChildren('input')
     this.setInputEvents()
+    this.setMask()
     this.setTransforms()
     this.setAttributes()
   }
@@ -40,7 +41,32 @@ class MnNumber extends MnInput {
     value = isPercentage
       ? number * 100
       : number / 100
-    this.inputChild.value = value
+    if (number) {
+      this.inputChild.value = value
+      this.updateMask()
+    }
+  }
+
+  setMask() {
+    this.mask = document.createElement('div')
+    this.mask.classList.add('mask')
+    this.appendChild(this.mask)
+
+    this.inputChild.addEventListener('input', () => {
+      this.updateMask()
+    })
+  }
+
+  updateMask() {
+    const isPercentage = this.hasAttribute('percentage')
+      && this.getAttribute('percentage') !== 'false'
+    const hasValue = this.inputChild.value !== '' && !/^\s+$/.test(this.inputChild.value)
+    if (this.mask && isPercentage) {
+      const text = hasValue
+        ? `${this.inputChild.value} %`
+        : ''
+      this.mask.textContent = text
+    }
   }
 
   get value() {
@@ -132,6 +158,8 @@ class MnNumber extends MnInput {
       } catch (e) {
         this.inputChild.value = ''
       }
+
+      this.updateMask()
     }
 
     this.inputChild.addEventListener('change', transform)
