@@ -17,7 +17,7 @@ import '@darlanmendonca/minimalist'
 
 ```js
 const form = window.loginForm
-form.addEventListener('submit', (data) => console.log('submiting', data))
+form.addEventListener('submit', (event) => console.log('submiting', event.data))
 ```
 
 Before submit event, `.validate()` method is called.
