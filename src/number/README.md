@@ -59,6 +59,19 @@ To change the prefix, change the css varible `currency-symbol`, like example bel
 }
 ```
 
+### percentage
+
+Format number as percentage value, e.g.
+
+```html
+<mn-number percentage></mn-number>
+```
+
+```js
+number.value = 1
+// display value as 100%
+```
+
 ### min
 
 Validate a minimum value, e.g.
@@ -73,4 +86,12 @@ Validate a maximum value, e.g.
 
 ```html
 <mn-number max="10"></mn-number>
+```
+
+### step
+
+User can increment or decrement value using arrow keys, Up and Down. By default, increment is by 1, if user hold Shift, the value is multiply by 10, and with Alt, divided by 10. To set a different increment, just use attribute, e.g.
+
+```html
+<mn-number step="100"></mn-number>
 ```
