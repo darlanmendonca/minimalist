@@ -169,7 +169,7 @@ Useful to check if input has a value filled, e.g.
 console.log(input.hasValue) // return true or false
 ```
 
-### Methods
+## Methods
 
 ### validate()
 
