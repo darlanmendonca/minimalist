@@ -1,4 +1,5 @@
 module.exports = {
+  testURL: 'http://localhost/',
   setupTestFrameworkScriptFile: '<rootDir>/bin/jest.js',
   moduleFileExtensions: ['js', 'jsx', 'scss', 'html'],
   moduleDirectories: ['node_modules'],
