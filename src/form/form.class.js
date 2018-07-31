@@ -28,7 +28,7 @@ class MnForm extends MnComponent {
   }
 
   get disabled() {
-    return Boolean(this.getAttribute('disabled'))
+    return this.is('disabled')
   }
 
   set disabled(value) {
@@ -40,7 +40,7 @@ class MnForm extends MnComponent {
   }
 
   get readonly() {
-    return Boolean(this.getAttribute('readonly'))
+    return this.is('readonly')
   }
 
   set readonly(value) {

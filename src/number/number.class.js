@@ -34,19 +34,6 @@ class MnNumber extends MnInput {
     ]
   }
 
-  set percentage(value) {
-    const isPercentage = this.hasAttribute('percentage')
-      && this.getAttribute('percentage') !== 'false'
-    const number = +this.inputChild.value.replace(/,/g, '.')
-    value = isPercentage
-      ? number * 100
-      : number / 100
-    if (number) {
-      this.inputChild.value = value
-      this.updateMask()
-    }
-  }
-
   setMask() {
     this.mask = document.createElement('div')
     this.mask.classList.add('mask')
@@ -57,35 +44,30 @@ class MnNumber extends MnInput {
     })
   }
 
-  updateMask() {
-    const isPercentage = this.hasAttribute('percentage')
-      && this.getAttribute('percentage') !== 'false'
-    const hasValue = this.inputChild.value !== '' && !/^\s+$/.test(this.inputChild.value)
-    if (this.mask && isPercentage) {
-      const text = hasValue
-        ? `${this.inputChild.value} %`
-        : ''
-      this.mask.textContent = text
+  set percentage(value) {
+    const number = +this.inputChild.value.replace(/,/g, '.')
+    value = this.is('percentage')
+      ? number * 100
+      : number / 100
+    if (number) {
+      this.inputChild.value = value
+      this.updateMask()
     }
   }
 
   get value() {
     const number = +this.inputChild.value.replace(/,/g, '.')
     const isNumber = this.inputChild.value && !Number.isNaN(number)
-    const isPercentage = this.hasAttribute('percentage')
-      && this.getAttribute('percentage') !== 'false'
 
     return isNumber
-      ? isPercentage
+      ? this.is('percentage')
         ? number / 100
         : number
       : undefined
   }
 
   set value(value = '') {
-    const isPercentage = this.hasAttribute('percentage')
-      && this.getAttribute('percentage') !== 'false'
-    this.inputChild.value = isPercentage
+    this.inputChild.value = this.is('percentage')
       ? value * 100
       : value
     this.inputChild.dispatchEvent(new Event('change'))
@@ -141,13 +123,11 @@ class MnNumber extends MnInput {
           ? String(value).replace(/\./g, ',')
           : ''
 
-        const isCurrency = this.hasAttribute('currency')
-          && this.getAttribute('currency') !== 'false'
         const hasPrecision = this.hasAttribute('precision')
         const precision = this.getAttribute('precision') || 0
 
         switch (true) {
-          case isCurrency:
+          case this.is('currency'):
             this.inputChild.value = value.toFixed(precision || 2).replace(/\./g, ',')
             break
 
@@ -166,21 +146,28 @@ class MnNumber extends MnInput {
     this.inputChild.addEventListener('blur', transform)
   }
 
+  updateMask() {
+    const hasValue = this.inputChild.value !== '' && !/^\s+$/.test(this.inputChild.value)
+    if (this.mask && this.is('percentage')) {
+      const text = hasValue
+        ? `${this.inputChild.value} %`
+        : ''
+      this.mask.textContent = text
+    }
+  }
+
   setInputEvents() {
     super.setInputEvents()
 
     const incrementOrDecrement = (event) => {
-      const isReadonly = this.hasAttribute('readonly') && this.getAttribute('readonly') !== 'false'
-      const isPercentage = this.hasAttribute('percentage')
-        && this.getAttribute('percentage') !== 'false'
-      const stepValue = isPercentage
+      const stepValue = this.is('percentage')
         ? +this.getAttribute('step') / 100 || 1 / 100
         : +this.getAttribute('step') || 1
 
       const isArrowUp = event.key === 'ArrowUp'
       const isArrowDown = event.key === 'ArrowDown'
 
-      if (!isReadonly && (isArrowUp || isArrowDown)) {
+      if (!this.is('readonly') && (isArrowUp || isArrowDown)) {
         event.preventDefault()
         const step = event.shiftKey
           ? stepValue * 10

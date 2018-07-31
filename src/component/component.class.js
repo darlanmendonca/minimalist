@@ -42,6 +42,11 @@ class MnComponent extends window.HTMLElement {
         children.setAttribute(attribute, value)
       })
   }
+
+  is(attribute) {
+    return this.hasAttribute(attribute)
+      && this.getAttribute(attribute) !== 'false'
+  }
 }
 
 export default MnComponent
