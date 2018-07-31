@@ -1,4 +1,4 @@
-# mn-input
+# mn-input-text
 
 A input component. Useful to insert text, with some validation and other states like disabled, readonly, etc.
 
@@ -10,7 +10,7 @@ import '@darlanmendonca/minimalist'
 
 ```html
 <mn-form id="someID">
-  <mn-input label="Type a name" name="username"></mn-input>
+  <mn-input-text label="Type a name" name="username"></mn-input-text>
 </mn-form>
 ```
 
@@ -38,7 +38,7 @@ const input = form.username
 Describe to user what type on input.
 
 ```html
-<mn-input label="Username"></mn-input>
+<mn-input-text label="Username"></mn-input-text>
 ```
 
 ```js
@@ -50,7 +50,7 @@ input.label = 'Username'
 Set initial value of input, e.g.
 
 ```html
-<mn-input value="John Snow"></mn-input>
+<mn-input-text value="John Snow"></mn-input-text>
 ```
 
 ```js
@@ -62,7 +62,7 @@ input.value = 'John Snow'
 Identify input on form context.
 
 ```html
-<mn-input name="username"></mn-input>
+<mn-input-text name="username"></mn-input-text>
 ```
 
 ```js
@@ -74,7 +74,7 @@ console.log(form.username)
 Useful to give a hint or describe content to be typed on input. Hide on type some value.
 
 ```html
-<mn-input placeholder="Type your first name"></mn-input>
+<mn-input-text placeholder="Type your first name"></mn-input-text>
 ```
 
 ### disabled
@@ -83,9 +83,9 @@ Disable all behaviors of input, like navigation, write and selection.
 Accept true/false value and works with ommitted value, e.g.
 
 ```html
-<mn-input disabled></mn-input>
+<mn-input-text disabled></mn-input-text>
 <!-- or -->
-<mn-input disabled="true"></mn-input>
+<mn-input-text disabled="true"></mn-input-text>
 ```
 
 ```js
@@ -98,7 +98,7 @@ Set input to read only mode, allowing only selection and navigation.
 Accept true/false value and works with ommitted value, e.g.
 
 ```html
-<mn-input readonly></mn-input>
+<mn-input-text readonly></mn-input-text>
 ```
 
 ```js
@@ -110,7 +110,7 @@ input.readonly = true
 Limit number of chars that user can type, e.g.
 
 ```html
-<mn-input maxlength="4"></mn-input>
+<mn-input-text maxlength="4"></mn-input-text>
 ``` 
 
 ### autocapitalize
@@ -118,7 +118,7 @@ Limit number of chars that user can type, e.g.
 Useful for mobile, turn keyboard as upper case on first letter, e.g.
 
 ```html
-<mn-input autocapitalize="true">
+<mn-input-text autocapitalize="true">
 ``` 
 
 ```js
@@ -131,7 +131,7 @@ console.log(input.autocapitalize)
 Useful to focus input automatically once time they are visible.
 
 ```html
-<mn-input autofocus></mn-input>
+<mn-input-text autofocus></mn-input-text>
 ```
 
 ### pattern
@@ -139,7 +139,7 @@ Useful to focus input automatically once time they are visible.
 Enable validation of string, using a regular expression, e.g.
 
 ```html
-<mn-input pattern="^[\w\s]$"></mn-input><!-- only letters and space on input -->
+<mn-input-text pattern="^[\w\s]$"></mn-input-text><!-- only letters and space on input -->
 ```
 
 ```html
@@ -152,7 +152,7 @@ console.log(input.pattern)
 Set input as required as form validation.
 
 ```html
-<mn-input required></mn-input>
+<mn-input-text required></mn-input-text>
 ```
 
 ```js

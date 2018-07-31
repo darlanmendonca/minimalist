@@ -1,4 +1,4 @@
-# mn-password
+# mn-input-password
 
 A input component, extending behaviors from `mn-input` but specific behaviors to input a password.
 
@@ -10,7 +10,7 @@ import '@darlanmendonca/minimalist'
 
 ```html
 <mn-form id="someID">
-  <mn-password label="Password" name="password"></mn-password>
+  <mn-input-password label="Password" name="password"></mn-input-password>
 </mn-form>
 ```
 

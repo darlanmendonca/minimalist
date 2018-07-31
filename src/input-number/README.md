@@ -1,6 +1,6 @@
-# mn-number
+# mn-input-number
 
-A input component, extending behaviors from `mn-input` but specific behaviors to input a number.
+A input component, extending behaviors from `mn-input-text` but specific behaviors to input a number.
 
 ## Usage
 
@@ -10,7 +10,7 @@ import '@darlanmendonca/minimalist'
 
 ```html
 <mn-form id="someID">
-  <mn-number label="Number" name="number"></mn-number>
+  <mn-input-number label="Number" name="number"></mn-input-number>
 </mn-form>
 ```
 
@@ -35,7 +35,7 @@ const number = form.number
 Format number with precision specified. By default, user is free to type integer or float values, using a comma instead dot.
 
 ```html
-<mn-number precision="2"></mn-number>
+<mn-input-number precision="2"></mn-input-number>
 ```
 
 ```js
@@ -48,13 +48,13 @@ console.log(number.value) // return 5, to user display 5,00
 Format number as currency value, like $ 5,00. Default precision is 2, but can be changed using `precision` attribute.
 
 ```html
-<mn-number currency></mn-number>
+<mn-input-number currency></mn-input-number>
 ```
 
 To change the prefix, change the css varible `currency-symbol`, like example below:
 
 ```css
-.mn-number {
+.mn-input-number {
   --currency-symbol: '€';
 }
 ```
@@ -64,7 +64,7 @@ To change the prefix, change the css varible `currency-symbol`, like example bel
 Format number as percentage value, e.g.
 
 ```html
-<mn-number percentage></mn-number>
+<mn-input-number percentage></mn-input-number>
 ```
 
 ```js
@@ -77,7 +77,7 @@ number.value = 1
 Validate a minimum value, e.g.
 
 ```html
-<mn-number min="0"></mn-value>
+<mn-input-number min="0"></mn-value>
 ```
 
 ### max
@@ -85,7 +85,7 @@ Validate a minimum value, e.g.
 Validate a maximum value, e.g.
 
 ```html
-<mn-number max="10"></mn-number>
+<mn-input-number max="10"></mn-input-number>
 ```
 
 ### step
@@ -93,5 +93,5 @@ Validate a maximum value, e.g.
 User can increment or decrement value using arrow keys, Up and Down. By default, increment is by 1, if user hold Shift, the value is multiply by 10, and with Alt, divided by 10. To set a different increment, just use attribute, e.g.
 
 ```html
-<mn-number step="100"></mn-number>
+<mn-input-number step="100"></mn-input-number>
 ```
