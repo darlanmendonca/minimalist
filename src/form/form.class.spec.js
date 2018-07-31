@@ -8,7 +8,7 @@ chai.use(chaiDom)
 
 let element
 
-describe('mn-form', () => {
+describe('form', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {

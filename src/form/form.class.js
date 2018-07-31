@@ -32,7 +32,7 @@ class MnForm extends MnComponent {
   }
 
   set disabled(value) {
-    if (value !== this.disabled) {
+    if (value && !this.hasAttribute('disabled')) {
       this.setAttribute('disabled', value)
     }
 
@@ -44,7 +44,7 @@ class MnForm extends MnComponent {
   }
 
   set readonly(value) {
-    if (value !== this.readonly) {
+    if (value && !this.hasAttribute('readonly')) {
       this.setAttribute('readonly', value)
     }
 
