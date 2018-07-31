@@ -5,10 +5,10 @@
 
 A lot of components ready to be used with or without any framework.
 
-- form
-- input-text
-- input-password
-- input-number
+- [form](./src/form)
+- [input-text](./src/input-text)
+- [input-password](./src/input-password)
+- [input-number](./src/input-number)
 
 ### How it works
 
