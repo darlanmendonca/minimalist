@@ -1,5 +1,5 @@
 import chai, {expect, spy} from 'chai'
-import MnPassword from './password.class.js'
+import MnInputPassword from './input-password.class.js'
 
 chai
   .use(require('chai-dom'))
@@ -7,33 +7,33 @@ chai
 
 let element
 
-describe('mn-password', () => {
+describe('input-password', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnPassword).to.be.a('function')
+    expect(MnInputPassword).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnPassword()
-    expect(element).to.be.instanceof(MnPassword)
+    const element = new MnInputPassword()
+    expect(element).to.be.instanceof(MnInputPassword)
   })
 
   test('should create element using method document.createElement', () => {
-    const element = document.createElement('mn-password')
-    expect(element).to.be.instanceof(MnPassword)
+    const element = document.createElement('mn-input-password')
+    expect(element).to.be.instanceof(MnInputPassword)
   })
 
-  test('should have css class .mn-input', () => {
-    expect(element).to.have.class('mn-input')
+  test('should have css class .mn-input-text', () => {
+    expect(element).to.have.class('mn-input-text')
   })
 
-  test('should have css class .mn-password', () => {
-    expect(element).to.have.class('mn-password')
+  test('should have css class .mn-input-password', () => {
+    expect(element).to.have.class('mn-input-password')
   })
 
   test('should listen attribute changes', () => {
-    expect(MnPassword.observedAttributes).to.deep.equal([
+    expect(MnInputPassword.observedAttributes).to.deep.equal([
       'label',
       'value',
       'name',
@@ -170,7 +170,7 @@ describe('mn-password', () => {
   })
 
   test('should setup attributes on add it to dom', () => {
-    element = document.createElement('mn-password')
+    element = document.createElement('mn-input-password')
     element.setAttribute('label', 'lorem')
     element.setAttribute('placeholder', 'ipsum')
     element.setAttribute('value', 'dolor')
@@ -261,7 +261,7 @@ describe('mn-password', () => {
 })
 
 function createElement() {
-  element = document.createElement('mn-password')
+  element = document.createElement('mn-input-password')
   document.body.appendChild(element)
 
   // fallback to closest

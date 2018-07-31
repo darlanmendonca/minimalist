@@ -1,6 +1,6 @@
-import MnInput from '../input/input.class.js'
+import MnInputText from '../input-text/input-text.class.js'
 
-class MnPassword extends MnInput {
+class MnInputPassword extends MnInputText {
   connectedCallback() {
     super.empty()
     super.setStyle()
@@ -15,7 +15,7 @@ class MnPassword extends MnInput {
   }
 
   setStyle() {
-    this.classList.add('mn-password')
+    this.classList.add('mn-input-password')
   }
 
   setInput() {
@@ -37,6 +37,6 @@ class MnPassword extends MnInput {
   }
 }
 
-window.customElements.define('mn-password', MnPassword)
+window.customElements.define('mn-input-password', MnInputPassword)
 
-export default MnPassword
+export default MnInputPassword

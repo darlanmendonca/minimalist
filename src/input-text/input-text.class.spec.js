@@ -1,5 +1,5 @@
 import chai, {expect, spy} from 'chai'
-import MnInput from './input.class.js'
+import MnInputText from './input-text.class.js'
 
 chai
   .use(require('chai-dom'))
@@ -7,29 +7,29 @@ chai
 
 let element
 
-describe('mn-input', () => {
+describe('input-text', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnInput).to.be.a('function')
+    expect(MnInputText).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnInput()
-    expect(element).to.be.instanceof(MnInput)
+    const element = new MnInputText()
+    expect(element).to.be.instanceof(MnInputText)
   })
 
   test('should create element using method document.createElement', () => {
-    const element = document.createElement('mn-input')
-    expect(element).to.be.instanceof(MnInput)
+    const element = document.createElement('mn-input-text')
+    expect(element).to.be.instanceof(MnInputText)
   })
 
-  test('should have css class .mn-input', () => {
-    expect(element).to.have.class('mn-input')
+  test('should have css class .mn-input-text', () => {
+    expect(element).to.have.class('mn-input-text')
   })
 
   test('should listen attribute changes', () => {
-    expect(MnInput.observedAttributes).to.deep.equal([
+    expect(MnInputText.observedAttributes).to.deep.equal([
       'label',
       'value',
       'name',
@@ -166,7 +166,7 @@ describe('mn-input', () => {
   })
 
   test('should setup attributes on add it to dom', () => {
-    element = document.createElement('mn-input')
+    element = document.createElement('mn-input-text')
     element.setAttribute('label', 'lorem')
     element.setAttribute('placeholder', 'ipsum')
     element.setAttribute('value', 'dolor')
@@ -250,7 +250,7 @@ describe('mn-input', () => {
 })
 
 function createElement() {
-  element = document.createElement('mn-input')
+  element = document.createElement('mn-input-text')
   document.body.appendChild(element)
 
   // fallback to closest

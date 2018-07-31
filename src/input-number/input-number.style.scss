@@ -1,4 +1,4 @@
-.mn-number {
+.mn-input-number {
   --currency-symbol: '$';
 
   &.invalid {
@@ -7,7 +7,7 @@
   }
 }
 
-.mn-number[currency]:not([currency="false"]) {
+.mn-input-number[currency]:not([currency="false"]) {
   &:before {
     content: var(--currency-symbol);
     margin-right: .25em;
@@ -15,8 +15,8 @@
   }
 }
 
-.mn-number[currency]:not([currency="false"]),
-.mn-number[percentage]:not([percentage="false"]) {
+.mn-input-number[currency]:not([currency="false"]),
+.mn-input-number[percentage]:not([percentage="false"]) {
   &:before {
     opacity: 0;
     pointer-events: none;
@@ -30,8 +30,8 @@
   }
 }
 
-.mn-number .mask {display: none}
-.mn-number[percentage]:not([percentage="false"]) {
+.mn-input-number .mask {display: none}
+.mn-input-number[percentage]:not([percentage="false"]) {
   .mask {
     display: block;
     position: absolute;

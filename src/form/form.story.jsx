@@ -1,8 +1,8 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import MnForm from './form.react.jsx'
-import MnInput from '../input/input.react.jsx'
-import MnNumber from '../number/number.react.jsx'
+import MnInputText from '../input-text/input-text.react.jsx'
+import MnInputNumber from '../input-number/input-number.react.jsx'
 import {withKnobs, boolean} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
@@ -13,8 +13,8 @@ storiesOf('components', module)
   .addWithJSX('form', () => {
     return (
       <MnForm disabled={boolean('disabled', false)} readonly={boolean('readonly', false)}>
-        <MnInput label='username' name='username' />
-        <MnNumber label='luck number' name='luckNumber' />
+        <MnInputText label='username' name='username' />
+        <MnInputNumber label='luck number' name='luckNumber' />
       </MnForm>
     )
   })

@@ -1,5 +1,5 @@
 import chai, {expect, spy} from 'chai'
-import MnNumber from './number.class.js'
+import MnInputNumber from './input-number.class.js'
 
 chai
   .use(require('chai-dom'))
@@ -7,29 +7,29 @@ chai
 
 let element
 
-describe('mn-number', () => {
+describe('input-number', () => {
   beforeEach(createElement)
 
   test('should export a class', () => {
-    expect(MnNumber).to.be.a('function')
+    expect(MnInputNumber).to.be.a('function')
   })
 
   test('should instanciate using a constructor', () => {
-    const element = new MnNumber()
-    expect(element).to.be.instanceof(MnNumber)
+    const element = new MnInputNumber()
+    expect(element).to.be.instanceof(MnInputNumber)
   })
 
   test('should create element using method document.createElement', () => {
-    const element = document.createElement('mn-number')
-    expect(element).to.be.instanceof(MnNumber)
+    const element = document.createElement('mn-input-number')
+    expect(element).to.be.instanceof(MnInputNumber)
   })
 
-  test('should have css class .mn-number', () => {
-    expect(element).to.have.class('mn-number')
+  test('should have css class .mn-input-number', () => {
+    expect(element).to.have.class('mn-input-number')
   })
 
   test('should listen attribute changes', () => {
-    expect(MnNumber.observedAttributes).to.deep.equal([
+    expect(MnInputNumber.observedAttributes).to.deep.equal([
       'label',
       'value',
       'name',
@@ -238,7 +238,7 @@ describe('mn-number', () => {
   })
 
   test('should setup attributes on add it to dom', () => {
-    element = document.createElement('mn-number')
+    element = document.createElement('mn-input-number')
     element.setAttribute('label', 'lorem')
     element.setAttribute('placeholder', 'ipsum')
     element.setAttribute('value', '10')
@@ -430,7 +430,7 @@ describe('mn-number', () => {
 })
 
 function createElement() {
-  element = document.createElement('mn-number')
+  element = document.createElement('mn-input-number')
   document.body.appendChild(element)
 
   // fallback to closest

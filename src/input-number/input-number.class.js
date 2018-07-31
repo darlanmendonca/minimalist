@@ -1,6 +1,6 @@
-import MnInput from '../input/input.class.js'
+import MnInputText from '../input-text/input-text.class.js'
 
-class MnNumber extends MnInput {
+class MnInputNumber extends MnInputText {
   connectedCallback() {
     super.empty()
     super.setStyle()
@@ -14,7 +14,7 @@ class MnNumber extends MnInput {
   }
 
   setStyle() {
-    this.classList.add('mn-number')
+    this.classList.add('mn-input-number')
   }
 
   static get observedAttributes() {
@@ -196,6 +196,6 @@ class MnNumber extends MnInput {
   }
 }
 
-window.customElements.define('mn-number', MnNumber)
+window.customElements.define('mn-input-number', MnInputNumber)
 
-export default MnNumber
+export default MnInputNumber

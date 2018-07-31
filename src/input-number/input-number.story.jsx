@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import MnNumber from './number.react.jsx'
+import MnInputNumber from './input-number.react.jsx'
 import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
@@ -8,9 +8,9 @@ import readme from './README.md'
 storiesOf('components', module)
   .addDecorator(withKnobs)
   .addDecorator(withReadme(readme))
-  .addWithJSX('number', () => {
+  .addWithJSX('input-number', () => {
     return (
-      <MnNumber
+      <MnInputNumber
         label={text('label', 'number')}
         placeholder={text('placeholder')}
         value={number('value')}

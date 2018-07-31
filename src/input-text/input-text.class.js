@@ -1,6 +1,6 @@
 import MnComponent from '../component/component.class.js'
 
-class MnInput extends MnComponent {
+class MnInputText extends MnComponent {
   connectedCallback() {
     super.empty()
     this.setStyle()
@@ -26,7 +26,7 @@ class MnInput extends MnComponent {
   }
 
   setStyle() {
-    this.classList.add('mn-input')
+    this.classList.add('mn-input-text')
   }
 
   setInputEvents() {
@@ -185,6 +185,6 @@ class MnInput extends MnComponent {
   }
 }
 
-window.customElements.define('mn-input', MnInput)
+window.customElements.define('mn-input-text', MnInputText)
 
-export default MnInput
+export default MnInputText

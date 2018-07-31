@@ -5,7 +5,10 @@
 
 A lot of components ready to be used with or without any framework.
 
-See the [components list](https://github.com/darlanmendonca/minimalist/tree/master/src).
+- form
+- input-text
+- input-password
+- input-number
 
 ### How it works
 

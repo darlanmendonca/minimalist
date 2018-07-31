@@ -52,7 +52,7 @@ class MnForm extends MnComponent {
   }
 
   get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input'))
+    return Array.from(this.querySelectorAll('.mn-input-text'))
   }
 
   get data() {

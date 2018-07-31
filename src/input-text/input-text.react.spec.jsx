@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai'
 import chaiEnzyme from 'chai-enzyme'
-import MnInput from './input.react.jsx'
+import MnInputText from './input-text.react.jsx'
 import React, {Component} from 'react'
 import Enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -10,11 +10,11 @@ Enzyme.configure({adapter: new Adapter()})
 
 let component
 
-describe('MnInput (React)', () => {
+describe('MnInputText (React)', () => {
   beforeEach(createComponent)
 
   test('should export a class', () => {
-    expect(MnInput).to.be.an('function')
+    expect(MnInputText).to.be.an('function')
   })
 
   test('should set attribute label', () => {
@@ -68,6 +68,6 @@ function createComponent() {
   const app = document.createElement('div')
   app.id = 'app'
   document.body.appendChild(app)
-  component = shallow(<MnInput />, {attachTo: window.app})
+  component = shallow(<MnInputText />, {attachTo: window.app})
 }
 
