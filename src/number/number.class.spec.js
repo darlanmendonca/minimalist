@@ -141,18 +141,22 @@ describe('mn-number', () => {
     element.setAttribute('percentage', 'percentage')
     expect(element.value).to.be.equal(0.1)
     expect(element.inputChild).to.have.value('10')
+    expect(element.mask).to.have.text('10 %')
 
     element.value = 1
     expect(element.value).to.be.equal(1)
     expect(element.inputChild).to.have.value('100')
+    expect(element.mask).to.have.text('100 %')
 
     element.setAttribute('precision', 'true')
     expect(element.value).to.be.equal(1)
     expect(element.inputChild).to.have.value('100')
+    expect(element.mask).to.have.text('100 %')
 
     element.setAttribute('precision', '2')
     expect(element.value).to.be.equal(1)
     expect(element.inputChild).to.have.value('100,00')
+    expect(element.mask).to.have.text('100,00 %')
 
     element.removeAttribute('percentage')
     expect(element.value).to.be.equal(100)
@@ -371,6 +375,16 @@ describe('mn-number', () => {
     element.setAttribute('readonly', 'false')
     element.inputChild.dispatchEvent(ArrowUp)
     expect(element).to.have.value(22.3)
+
+    element.value = 1
+    element.setAttribute('percentage', '')
+    ArrowUp.altKey = false
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(1.01)
+
+    ArrowUp.altKey = true
+    element.inputChild.dispatchEvent(ArrowUp)
+    expect(element).to.have.value(1.011)
   })
 
   test('should decrement value on ArrowDown', () => {
@@ -402,6 +416,16 @@ describe('mn-number', () => {
     element.setAttribute('readonly', 'false')
     element.inputChild.dispatchEvent(ArrowDown)
     expect(element).to.have.value(-22.3)
+
+    element.value = 2
+    element.setAttribute('percentage', '')
+    ArrowDown.altKey = false
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(1.99)
+
+    ArrowDown.altKey = true
+    element.inputChild.dispatchEvent(ArrowDown)
+    expect(element).to.have.value(1.989)
   })
 })
 
