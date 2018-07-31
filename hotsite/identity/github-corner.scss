@@ -1,0 +1,43 @@
+.github-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  zoom: 1.25;
+  z-index: 1;
+  outline: 0 !important;
+
+  path:not([class]) {
+    transition: fill .3s ease;
+  }
+
+  &:focus path:not([class]) {
+    fill: $oc-gray-8;
+  }
+
+  path {fill: $oc-gray-6}
+
+  .octo-body, .octo-arm {
+    fill: $oc-gray-1;
+  }
+
+  &:hover .octo-arm,
+  &:focus .octo-arm {
+    animation: octocat-wave 560ms .1s ease-in-out;
+  }
+
+  @media (max-width: 500px) {
+    &:hover .octo-arm {
+      animation: none;
+    }
+
+    .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
+    }
+  }
+}
+
+@keyframes octocat-wave{
+  0%,100%{transform: rotate(0)}
+  20%,60%{transform: rotate(-25deg)}
+  40%,80%{transform: rotate(10deg)}
+}

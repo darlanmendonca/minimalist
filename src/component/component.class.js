@@ -4,7 +4,7 @@ class MnComponent extends window.HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if(this.parentNode) {
+    if (this.parentNode) {
       this[name] = value
     }
 

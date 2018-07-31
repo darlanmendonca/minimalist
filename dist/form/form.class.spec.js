@@ -8,9 +8,9 @@ var _formClass = require('./form.class.js');
 
 var _formClass2 = _interopRequireDefault(_formClass);
 
-require('../input/input.class.js');
+require('../input-text/input-text.class.js');
 
-require('../number/number.class.js');
+require('../input-number/input-number.class.js');
 
 var _chaiDom = require('chai-dom');
 
@@ -22,7 +22,7 @@ _chai2.default.use(_chaiDom2.default);
 
 let element;
 
-describe('mn-form', () => {
+describe('form', () => {
   beforeEach(createElement);
 
   test('should export a class', () => {
@@ -53,7 +53,7 @@ describe('mn-form', () => {
   });
 
   test('should have a setter/getter to disabled', () => {
-    const input = document.createElement('mn-input');
+    const input = document.createElement('mn-input-text');
     element.appendChild(input);
     input.connectedCallback();
 
@@ -65,7 +65,7 @@ describe('mn-form', () => {
   });
 
   test('should have a setter/getter to readonly', () => {
-    const input = document.createElement('mn-input');
+    const input = document.createElement('mn-input-text');
     element.appendChild(input);
     input.connectedCallback();
 
@@ -77,8 +77,8 @@ describe('mn-form', () => {
   });
 
   test('should have a getter to data', () => {
-    const input = document.createElement('mn-input');
-    const number = document.createElement('mn-number');
+    const input = document.createElement('mn-input-text');
+    const number = document.createElement('mn-input-number');
     element.appendChild(input);
     element.appendChild(number);
     input.connectedCallback();
@@ -94,8 +94,8 @@ describe('mn-form', () => {
   });
 
   test('should validate all inputs', () => {
-    const input = document.createElement('mn-input');
-    const number = document.createElement('mn-number');
+    const input = document.createElement('mn-input-text');
+    const number = document.createElement('mn-input-number');
     element.appendChild(input);
     element.appendChild(number);
     input.connectedCallback();

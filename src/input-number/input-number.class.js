@@ -35,7 +35,7 @@ class MnInputNumber extends MnInputText {
   }
 
   setTransforms()  {
-    const transform = (e) => {
+    const transform = () => {
       try {
         const value = eval(this.inputChild.value.replace(/,/g, '.'))
         const isNumber = typeof value === 'number'

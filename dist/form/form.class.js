@@ -33,11 +33,11 @@ class MnForm extends _componentClass2.default {
   }
 
   get disabled() {
-    return Boolean(this.getAttribute('disabled'));
+    return this.is('disabled');
   }
 
   set disabled(value) {
-    if (value !== this.disabled) {
+    if (value && !this.hasAttribute('disabled')) {
       this.setAttribute('disabled', value);
     }
 
@@ -45,11 +45,11 @@ class MnForm extends _componentClass2.default {
   }
 
   get readonly() {
-    return Boolean(this.getAttribute('readonly'));
+    return this.is('readonly');
   }
 
   set readonly(value) {
-    if (value !== this.readonly) {
+    if (value && !this.hasAttribute('readonly')) {
       this.setAttribute('readonly', value);
     }
 
@@ -57,7 +57,7 @@ class MnForm extends _componentClass2.default {
   }
 
   get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input'));
+    return Array.from(this.querySelectorAll('.mn-input-text'));
   }
 
   get data() {

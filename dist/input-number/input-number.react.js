@@ -8,14 +8,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-require('./form.class.js');
+require('./input-number.class.js');
 
-require('./form.style.scss');
+require('./input-number.style.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const MnForm = props => {
-  return _react2.default.createElement('mn-form', props);
+const MnInputNumber = props => {
+  return _react2.default.createElement('mn-input-number', props);
 };
 
-exports.default = MnForm;
+exports.default = MnInputNumber;

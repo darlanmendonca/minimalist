@@ -10,13 +10,13 @@ var _formReact = require('./form.react.jsx');
 
 var _formReact2 = _interopRequireDefault(_formReact);
 
-var _inputReact = require('../input/input.react.jsx');
+var _inputTextReact = require('../input-text/input-text.react.jsx');
 
-var _inputReact2 = _interopRequireDefault(_inputReact);
+var _inputTextReact2 = _interopRequireDefault(_inputTextReact);
 
-var _numberReact = require('../number/number.react.jsx');
+var _inputNumberReact = require('../input-number/input-number.react.jsx');
 
-var _numberReact2 = _interopRequireDefault(_numberReact);
+var _inputNumberReact2 = _interopRequireDefault(_inputNumberReact);
 
 var _addonKnobs = require('@storybook/addon-knobs');
 
@@ -32,7 +32,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   return _react2.default.createElement(
     _formReact2.default,
     { disabled: (0, _addonKnobs.boolean)('disabled', false), readonly: (0, _addonKnobs.boolean)('readonly', false) },
-    _react2.default.createElement(_inputReact2.default, { label: 'username', name: 'username' }),
-    _react2.default.createElement(_numberReact2.default, { label: 'luck number', name: 'luckNumber' })
+    _react2.default.createElement(_inputTextReact2.default, { label: 'username', name: 'username' }),
+    _react2.default.createElement(_inputNumberReact2.default, { label: 'luck number', name: 'luckNumber' })
   );
 });

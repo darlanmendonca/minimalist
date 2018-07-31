@@ -1,0 +1,21 @@
+html
+  head
+    title minimalist
+    meta(name='viewport' content='width=device-width, user-scalable=no')
+    base(href='https://darlanmendonca.github.io/minimalist/')
+    script.
+      const base = document.querySelector('base')
+      const isLocalhost = location.hostname === 'localhost'
+
+      if (isLocalhost)
+        base.href = '/'
+
+    link(rel='stylesheet' href='vendor.css')
+    link(rel='stylesheet' href='app.css')
+
+  body
+    include assets/github-corner
+
+    block content
+    script(src='app.js')
+

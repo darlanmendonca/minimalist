@@ -1,0 +1,17 @@
+.showcase {
+  & + .mn-layout-container {
+    margin-top: -22vh;
+  }
+
+  .demo {
+    font-size: 1.2em;
+
+    @media (min-width: 600px) {
+      padding: 0 100px;
+    }
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+}

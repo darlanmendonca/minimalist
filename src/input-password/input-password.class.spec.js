@@ -141,7 +141,6 @@ describe('input-password', () => {
     element.autocapitalize = undefined
     expect(element.autocapitalize).to.be.equal('undefined')
 
-
     element.setAttribute('autocapitalize', 'true')
     expect(element.autocapitalize).to.be.equal('true')
 
@@ -272,7 +271,7 @@ function createElement() {
     do {
         i = matches.length
         while (--i >= 0 && matches.item(i) !== el) {}
-    } while ((i < 0) && (el = el.parentElement));
+    } while ((i < 0) && (el = el.parentElement))
     return el
   }
 
