@@ -32,7 +32,7 @@ class MnInputNumber extends _inputTextClass2.default {
   }
 
   setTransforms() {
-    const transform = e => {
+    const transform = () => {
       try {
         const value = eval(this.inputChild.value.replace(/,/g, '.'));
         const isNumber = typeof value === 'number';
