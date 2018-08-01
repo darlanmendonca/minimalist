@@ -1,5 +1,5 @@
-import React from 'react';
-import {storiesOf} from '@storybook/react';
+import React from 'react'
+import {storiesOf} from '@storybook/react'
 import MnInputNumber from './input-number.react.jsx'
 import {withKnobs, text, number, boolean, select} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'

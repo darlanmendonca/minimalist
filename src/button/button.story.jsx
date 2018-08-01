@@ -1,5 +1,5 @@
-import React from 'react';
-import {storiesOf} from '@storybook/react';
+import React from 'react'
+import {storiesOf} from '@storybook/react'
 import MnButton from './button.react.jsx'
 import {withKnobs} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
