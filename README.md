@@ -1,14 +1,20 @@
 [![Build Status](https://travis-ci.org/darlanmendonca/minimalist.svg?branch=master)](https://travis-ci.org/darlanmendonca/minimalist)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-## minimalist
+## minimalist-ui
 
-A lot of components ready to be used with or without any framework.
+A UI Kit for Web, based in web components (using Custom Elements), ready to be used with or without any framework.
+
+##### forms
 
 - [form](./src/form)
 - [input-text](./src/input-text)
 - [input-password](./src/input-password)
 - [input-number](./src/input-number)
+
+##### grid
+
+- [layout](./src/layout)
 
 ### How it works
 

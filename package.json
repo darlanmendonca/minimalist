@@ -1,8 +1,8 @@
 {
-  "name": "minimalist",
+  "name": "minimalist-ui",
   "private": true,
   "version": "1.0.0",
-  "description": "A lot of components ready to be used with or without any framework",
+  "description": "A UI Kit for Web, based in web components (using Custom Elements), ready to be used with or without any framework.",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",

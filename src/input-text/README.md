@@ -5,7 +5,7 @@ A input component. Useful to insert text, with some validation and other states 
 ## Usage
 
 ```js
-import '@darlanmendonca/minimalist'
+import 'minimalist-ui'
 ```
 
 ```html

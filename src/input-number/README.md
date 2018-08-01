@@ -5,7 +5,7 @@ A input component, extending behaviors from `mn-input-text` but specific behavio
 ## Usage
 
 ```js
-import '@darlanmendonca/minimalist'
+import 'minimalist-ui'
 ```
 
 ```html

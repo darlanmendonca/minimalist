@@ -5,7 +5,7 @@ Responsive and flexible (using css flexbox). Useful to define grid and dispositi
 ### Install
 
 ```js
-import '@darlanmendonca/minimalist'
+import 'minimalist-ui'
 ```
 
 ```sass
