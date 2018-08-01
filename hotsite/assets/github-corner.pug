@@ -6,8 +6,9 @@ a.github-corner(href='https://github.com/darlanmendonca/minimalist' aria-label='
 
 script.
   const link = document.querySelector('.github-corner')
+  const isHome = location.pathname.endsWith('/')
   const component = location.pathname
     .replace('.html', '')
 
-  if (component && location.pathname !== '/')
+  if (!isHome && component)
     link.href += `/tree/master/src/${component}`
