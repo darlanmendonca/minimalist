@@ -9,5 +9,5 @@ script.
   const component = location.pathname
     .replace('.html', '')
 
-  if (component)
-    link.href += `/tree/master/components/${component}`
+  if (component && location.pathname !== '/')
+    link.href += `/tree/master/src/${component}`

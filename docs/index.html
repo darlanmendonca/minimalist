@@ -7,5 +7,5 @@ if (isLocalhost)
 const component = location.pathname
   .replace('.html', '')
 
-if (component)
-  link.href += `/tree/master/components/${component}`</script><div class="home showcase mn-layout mn-layout-fullscreen mn-layout-centered"><h2 class="logotype">minimalist-ui</h2><div id="typed">web components to<div class="text"></div></div></div><script src="app.js"></script></body></html>
+if (component && location.pathname !== '/')
+  link.href += `/tree/master/src/${component}`</script><div class="home showcase mn-layout mn-layout-fullscreen mn-layout-centered"><h2 class="logotype">minimalist-ui</h2><div id="typed">web components to<div class="text"></div></div></div><script src="app.js"></script></body></html>
