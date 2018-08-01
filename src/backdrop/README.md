@@ -8,7 +8,7 @@ A black layer used to help user to focus a content. Commonly used to make a 'lig
 import {backdrop} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/backdrop/backdrop.scss';
 ```
 

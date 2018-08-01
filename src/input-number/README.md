@@ -8,7 +8,7 @@ A input component, extending behaviors from `mn-input-text` but specific behavio
 import {inputText} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
 @import 'path/to/node_modules/minimalist-ui/src/input-number/input-number.style.scss';
 ```

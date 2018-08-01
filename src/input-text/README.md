@@ -8,7 +8,7 @@ A input component. Useful to insert text, with some validation and other states 
 import {inputText} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
 ```
 

@@ -4,7 +4,7 @@ Responsive and flexible (using css flexbox). Useful to define grid and dispositi
 
 ### Usage
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/layout/layout.scss';
 ```
 

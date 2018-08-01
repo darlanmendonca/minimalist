@@ -9,7 +9,7 @@ A form component. Useful to retrieve data in json format, validate all inputs, a
 import {form} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/form/form.style.scss';
 ```
 

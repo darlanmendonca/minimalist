@@ -4,6 +4,7 @@ import inputPassword from './input-password/input-password.class.js'
 import inputNumber from './input-number/input-number.class.js'
 
 import button from './button/button.class.js'
+import sidenav from './sidenav/sidenav.class.js'
 
 export default {
   form,
@@ -11,4 +12,5 @@ export default {
   inputPassword,
   inputNumber,
   button,
+  sidenav,
 }

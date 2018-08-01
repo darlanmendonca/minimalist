@@ -5,10 +5,10 @@ A input component, extending behaviors from `mn-input` but specific behaviors to
 ## Usage
 
 ```js
-import {inputPassword} 'minimalist-ui'
+import {inputPassword} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
 @import 'path/to/node_modules/minimalist-ui/src/input-password/input-password.style.scss';
 ```

@@ -8,7 +8,7 @@ A button component with minimalist design.
 const {button} from 'minimalist-ui'
 ```
 
-```sass
+```scss
 @import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
 ```
 
