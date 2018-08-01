@@ -1,0 +1,28 @@
+.mn-backdrop {
+  --background-color: #212529;
+  --opacity: .6;
+}
+
+.mn-backdrop:before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  background-color: var(--background-color);
+  transition: opacity .4s .05s ease;
+  overflow: hidden;
+}
+
+.mn-backdrop-visible {
+  overflow: hidden;
+}
+
+.mn-backdrop-visible:before {
+  pointer-events: all;
+  opacity: var(--opacity);
+  transition: opacity .4s ease;
+}
