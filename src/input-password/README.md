@@ -8,6 +8,11 @@ A input component, extending behaviors from `mn-input` but specific behaviors to
 import 'minimalist-ui'
 ```
 
+```sass
+@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
+@import 'path/to/node_modules/minimalist/src/input-password/input-password.style.scss';
+```
+
 ```html
 <mn-form id="someID">
   <mn-input-password label="Password" name="password"></mn-input-password>

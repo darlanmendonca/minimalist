@@ -8,6 +8,11 @@ A input component. Useful to insert text, with some validation and other states 
 import 'minimalist-ui'
 ```
 
+```sass
+@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
+@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
+```
+
 ```html
 <mn-form id="someID">
   <mn-input-text label="Type a name" name="username"></mn-input-text>

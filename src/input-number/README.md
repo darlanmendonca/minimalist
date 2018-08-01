@@ -8,6 +8,11 @@ A input component, extending behaviors from `mn-input-text` but specific behavio
 import 'minimalist-ui'
 ```
 
+```sass
+@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
+@import 'path/to/node_modules/minimalist/src/input-number/input-number.style.scss';
+```
+
 ```html
 <mn-form id="someID">
   <mn-input-number label="Number" name="number"></mn-input-number>
