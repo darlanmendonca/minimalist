@@ -6,7 +6,7 @@ A form component. Useful to retrieve data in json format, validate all inputs, a
 ### Usage
 
 ```js
-import 'minimalist-ui'
+import {form} from 'minimalist-ui'
 ```
 
 ```sass

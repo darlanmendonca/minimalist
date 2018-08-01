@@ -2,7 +2,7 @@
 
 A black layer used to help user to focus a content. Commonly used to make a 'lightbox effect'.
 
-### Install
+## Usage
 
 ```js
 import {backdrop} from 'minimalist-ui'

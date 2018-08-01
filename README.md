@@ -5,6 +5,10 @@
 
 A UI Kit for Web, based in web components (using Custom Elements), ready to be used with or without any framework.
 
+```sh
+npm install minimalist-ui
+```
+
 ##### forms
 
 - [form](./src/form)
@@ -12,9 +16,10 @@ A UI Kit for Web, based in web components (using Custom Elements), ready to be u
 - [input-password](./src/input-password)
 - [input-number](./src/input-number)
 
-##### grid
+##### styles
 
 - [layout](./src/layout)
+- [backdrop](./src/backdrop)
 
 ### How it works
 

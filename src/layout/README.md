@@ -2,18 +2,11 @@
 
 Responsive and flexible (using css flexbox). Useful to define grid and disposition of elements in layout.
 
-### Install
-
-```js
-import 'minimalist-ui'
-```
+### Usage
 
 ```sass
 @import 'path/to/node_modules/minimalist/src/layout/layout.scss';
 ```
-
-
-### Usage
 
 The three main classes are:
 

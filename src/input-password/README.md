@@ -5,7 +5,7 @@ A input component, extending behaviors from `mn-input` but specific behaviors to
 ## Usage
 
 ```js
-import 'minimalist-ui'
+import {inputPassword} 'minimalist-ui'
 ```
 
 ```sass

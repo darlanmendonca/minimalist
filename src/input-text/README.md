@@ -5,11 +5,10 @@ A input component. Useful to insert text, with some validation and other states 
 ## Usage
 
 ```js
-import 'minimalist-ui'
+import {inputText} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
 @import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
 ```
 
