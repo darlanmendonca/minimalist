@@ -4,7 +4,6 @@ module.exports = {
   mode: 'development',
   entry: {
     app: './hotsite/app.js',
-    index: './index.js',
   },
   output: {
     path: require('path').resolve(__dirname, 'docs'),

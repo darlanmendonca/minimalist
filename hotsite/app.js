@@ -1,6 +1,6 @@
 import '@webcomponents/custom-elements'
 import { init as typed } from 'ityped'
-import minimalist from '../index.js'
+import minimalist from '../src/index.js'
 
 typed(document.querySelector('#typed .text'), {
   showCursor: true,
