@@ -5,7 +5,7 @@ Responsive and flexible (using css flexbox). Useful to define grid and dispositi
 ### Usage
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/layout/layout.scss';
+@import 'path/to/node_modules/minimalist-ui/src/layout/layout.scss';
 ```
 
 The three main classes are:

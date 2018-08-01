@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "storybook": "start-storybook -p 3000",
+    "storybook": "start-storybook -p 4000",
     "prepublish": "babel src --out-dir dist",
     "build-storybook": "build-storybook",
     "start": "npm run pug -- --watch hotsite/index.pug & npm run vendor-sass & npm run app-sass -- --watch & npm run javascript & npm run local-server",
@@ -32,6 +32,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-import-export": "^1.0.2",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "browser-sync": "^2.24.6",
     "chai": "^4.1.2",

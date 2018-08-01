@@ -1,3 +1,7 @@
 {
-  "presets": ["import-export", "react"]
+  "presets": [
+    "import-export",
+    "react",
+    "stage-0"
+  ]
 }

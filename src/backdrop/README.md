@@ -9,7 +9,7 @@ import {backdrop} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/backdrop/backdrop.scss';
+@import 'path/to/node_modules/minimalist-ui/src/backdrop/backdrop.scss';
 ```
 
 ```html

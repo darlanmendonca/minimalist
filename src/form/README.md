@@ -10,7 +10,7 @@ import {form} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/form/form.style.scss';
+@import 'path/to/node_modules/minimalist-ui/src/form/form.style.scss';
 ```
 
 ```html

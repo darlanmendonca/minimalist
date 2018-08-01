@@ -9,7 +9,7 @@ import {inputText} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
+@import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
 ```
 
 ```html

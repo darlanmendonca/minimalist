@@ -9,8 +9,8 @@ import {inputText} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/src/input-text/input-text.style.scss';
-@import 'path/to/node_modules/minimalist/src/input-number/input-number.style.scss';
+@import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
+@import 'path/to/node_modules/minimalist-ui/src/input-number/input-number.style.scss';
 ```
 
 ```html
