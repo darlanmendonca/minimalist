@@ -9,9 +9,9 @@ const {sidenav} from 'minimalist-ui'
 ```
 
 ```sass
-@import 'path/to/node_modules/minimalist/components/card/card.scss';
-@import 'path/to/node_modules/minimalist/components/backdrop/backdrop.scss';
-@import 'path/to/node_modules/minimalist/components/sidenav/sidenav.scss';
+@import 'path/to/node_modules/minimalist-ui/components/card/card.scss';
+@import 'path/to/node_modules/minimalist-ui/components/backdrop/backdrop.scss';
+@import 'path/to/node_modules/minimalist-ui/components/sidenav/sidenav.scss';
 ```
 
 ```html
