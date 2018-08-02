@@ -4,8 +4,8 @@ import MnBackdrop from '../backdrop/backdrop.class.js'
 export default class MnSidenav extends MnComponent {
   connectedCallback() {
     this.setStyle()
-    this.setOpenEvents()
-    this.setCloseEvents()
+    this.setShowEvents()
+    this.setHideEvents()
     this.setToggleEvents()
   }
 
@@ -15,11 +15,11 @@ export default class MnSidenav extends MnComponent {
     document.body.classList.add('mn-backdrop')
   }
 
-  setOpenEvents() {
+  setShowEvents() {
     document.addEventListener('click', event => {
-      if (event.target.matches(`[open-sidenav="${this.id}"]`)) {
+      if (event.target.matches(`[show-sidenav="${this.id}"]`)) {
         event.stopPropagation()
-        this.open()
+        this.show()
       }
     })
   }
@@ -33,37 +33,37 @@ export default class MnSidenav extends MnComponent {
     })
   }
 
-  setCloseEvents() {
+  setHideEvents() {
     document.addEventListener('click', event => {
-      if (event.target.matches('[close-sidenav]')) {
+      if (event.target.matches('[hide-sidenav]')) {
         event.stopPropagation()
-        this.close()
+        this.hide()
       }
     })
 
     document.addEventListener('click', event => {
-      const clickOutside = !event.target.matches('[open-sidenav]')
-        && !event.target.matches('[close-sidenav]')
+      const clickOutside = !event.target.matches('[show-sidenav]')
+        && !event.target.matches('[hide-sidenav]')
         && !event.target.matches('[toggle-sidenav]')
         && !event.target.closest('mn-sidenav')
       const sidebarVisible = this.classList.contains('visible')
 
       if (clickOutside && sidebarVisible) {
-        this.close()
+        this.hide()
       }
     })
 
     document.addEventListener('keyup', event => {
       const esc = event.key === 'Escape'
-      const isOpened = this.classList.contains('visible')
+      const isVisible = this.classList.contains('visible')
 
-      if (esc && isOpened) {
-        this.close()
+      if (esc && isVisible) {
+        this.hide()
       }
     })
   }
 
-  open() {
+  show() {
     const fontSizeHTML = parseInt(window.getComputedStyle(document.body, null).getPropertyValue('font-size'))
     const activeElement = this.querySelector('.active')
     this.scrollTop = activeElement
@@ -74,7 +74,7 @@ export default class MnSidenav extends MnComponent {
     MnBackdrop.show()
   }
 
-  close() {
+  hide() {
     document.body.classList.remove('mn-sidenav-visible')
     this.classList.remove('visible')
     MnBackdrop.hide()
@@ -82,8 +82,8 @@ export default class MnSidenav extends MnComponent {
 
   toggle() {
     this.classList.toggle('visible')
-      ? this.open()
-      : this.close()
+      ? this.show()
+      : this.hide()
   }
 }
 

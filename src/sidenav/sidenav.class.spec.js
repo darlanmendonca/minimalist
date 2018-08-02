@@ -33,17 +33,17 @@ describe('sidenav', () => {
     expect(element).to.have.class('mn-card')
   })
 
-  test('should open sidenav', () => {
-    element.open()
+  test('should show sidenav', () => {
+    element.show()
 
     expect(element).to.have.class('visible')
     expect(document.body).to.have.class('mn-sidenav-visible')
     expect(document.body).to.have.class('mn-backdrop-visible')
   })
 
-  test('should close sidenav', () => {
-    element.open()
-    element.close()
+  test('should hide sidenav', () => {
+    element.show()
+    element.hide()
 
     expect(element).to.not.have.class('visible')
     expect(document.body).to.not.have.class('mn-sidenav-visible')
@@ -64,24 +64,24 @@ describe('sidenav', () => {
     expect(document.body).to.not.have.class('mn-backdrop-visible')
   })
 
-  test('should open sidenav clicking in button', () => {
+  test('should show sidenav clicking in button', () => {
     const button = new MnButton()
-    button.setAttribute('open-sidenav', 'customId')
+    button.setAttribute('show-sidenav', 'customId')
     element.appendChild(button)
-    const open = spy.on(element, 'open')
+    const show = spy.on(element, 'show')
     button.click()
 
-    expect(open).to.have.been.called()
+    expect(show).to.have.been.called()
   })
 
-  test('should close sidenav clicking in button', () => {
+  test('should hide sidenav clicking in button', () => {
     const button = new MnButton()
-    button.setAttribute('close-sidenav', 'customId')
+    button.setAttribute('hide-sidenav', 'customId')
     element.appendChild(button)
-    const close = spy.on(element, 'close')
+    const hide = spy.on(element, 'hide')
     button.click()
 
-    expect(close).to.have.been.called()
+    expect(hide).to.have.been.called()
   })
 
   test('should toggle sidenav visibility clicking in button', () => {
@@ -94,15 +94,15 @@ describe('sidenav', () => {
     expect(toggle).to.have.been.called()
   })
 
-  test('should close sidenav when press Esc', () => {
+  test('should hide sidenav when press Esc', () => {
     const esc = new Event('keyup')
     esc.key = 'Escape'
 
-    const close = spy.on(element, 'close')
-    element.open()
+    const hide = spy.on(element, 'hide')
+    element.show()
     document.dispatchEvent(esc)
 
-    expect(close).to.have.been.called()
+    expect(hide).to.have.been.called()
   })
 })
 
