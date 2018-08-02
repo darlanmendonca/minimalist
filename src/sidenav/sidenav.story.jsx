@@ -12,18 +12,18 @@ storiesOf('components', module)
   .addWithJSX('sidenav', () => {
     return (
       <div>
-        <MnButton open-sidenav="left">show left sidenav</MnButton>
-        <MnButton open-sidenav="right">show right sidenav</MnButton>
+        <MnButton show-sidenav="left">show left sidenav</MnButton>
+        <MnButton show-sidenav="right">show right sidenav</MnButton>
 
         <MnSidenav id="left" class="padding">
           content left here
 
-          <MnButton close-sidenav>close</MnButton>
+          <MnButton hide-sidenav>hide</MnButton>
         </MnSidenav>
 
         <MnSidenav id="right" class="right padding">
           content right here
-          <MnButton close-sidenav>close</MnButton>
+          <MnButton hide-sidenav>hide</MnButton>
         </MnSidenav>
       </div>
     )
