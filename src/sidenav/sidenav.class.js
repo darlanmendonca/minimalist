@@ -18,8 +18,8 @@ export default class MnSidenav extends MnComponent {
   setOpenEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches(`[open-sidenav="${this.id}"]`)) {
-        this.open()
         event.stopPropagation()
+        this.open()
       }
     })
   }
@@ -27,8 +27,8 @@ export default class MnSidenav extends MnComponent {
   setToggleEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches(`[toggle-sidenav="${this.id}"]`)) {
-        this.toggle()
         event.stopPropagation()
+        this.toggle()
       }
     })
   }
@@ -36,8 +36,8 @@ export default class MnSidenav extends MnComponent {
   setCloseEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches('[close-sidenav]')) {
-        this.close()
         event.stopPropagation()
+        this.close()
       }
     })
 
