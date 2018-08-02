@@ -84,6 +84,23 @@ describe('sidenav', () => {
     expect(hide).to.have.been.called()
   })
 
+  test('should hide sidenav clicking outside', () => {
+    const button = new MnButton()
+    element.appendChild(button)
+
+    const hide = spy.on(element, 'hide')
+
+    element.show()
+    button.click()
+    element.click()
+
+    expect(hide).to.not.have.been.called()
+
+    document.body.click()
+
+    expect(hide).to.have.been.called()
+  })
+
   test('should toggle sidenav visibility clicking in button', () => {
     const button = new MnButton()
     button.setAttribute('toggle-sidenav', 'customId')
