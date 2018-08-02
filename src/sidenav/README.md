@@ -25,18 +25,6 @@ And to interact with sidenav, use `mn-button` with attribute `open-sidenav` or `
 <mn-button close-sidenav>close the visible sidenav</mn-button>
 ```
 
-### Auto scroll to active element
-
-Sometimes, sidenav will be used to navigation. In this case, to "current elements", use the class `.active`, so, when sidenav is opened, they will be scrolled to element with class `.active`. Example
-
-```html
-<mn-sidenav id="menu">
-  <!-- previous content here -->
-  <a href="#" class="active">current link</a><!-- on open sidenav, they automatically scroll to that element -->
-  <!-- next content here -->
-</mn-sidenav>
-```
-
 ### Positioning
 
 - `.left` - Default behavior, display sidenav on left

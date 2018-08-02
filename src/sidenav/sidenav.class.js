@@ -66,9 +66,6 @@ export default class MnSidenav extends MnComponent {
   show() {
     const fontSizeHTML = parseInt(window.getComputedStyle(document.body, null).getPropertyValue('font-size'))
     const activeElement = this.querySelector('.active')
-    this.scrollTop = activeElement
-      ? activeElement.offsetTop - fontSizeHTML * 1.5
-      : 0
     this.classList.add('visible')
     document.body.classList.add('mn-sidenav-visible')
     MnBackdrop.show()
