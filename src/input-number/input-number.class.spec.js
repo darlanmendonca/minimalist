@@ -134,11 +134,18 @@ describe('input-number', () => {
   })
 
   test('should format percentage value', () => {
+    element.setAttribute('percentage', 'true')
+    expect(element.value).to.be.undefined
+    expect(element.inputChild).to.have.value('')
+    expect(element.mask).to.have.text('')
+
+    element.removeAttribute('percentage')
+
     element.value = 0.1
     expect(element.value).to.be.equal(0.1)
     expect(element.inputChild).to.have.value('0,1')
 
-    element.setAttribute('percentage', 'percentage')
+    element.setAttribute('percentage', 'true')
     expect(element.value).to.be.equal(0.1)
     expect(element.inputChild).to.have.value('10')
     expect(element.mask).to.have.text('10 %')
