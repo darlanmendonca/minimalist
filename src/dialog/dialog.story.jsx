@@ -12,8 +12,8 @@ storiesOf('components', module)
   .addWithJSX('dialog', () => {
     return (
       <div>
-        <MnButton show-dialog="dialog1">show dialog</MnButton>
-        <MnDialog>
+        <MnButton open-dialog="dialog1">open dialog</MnButton>
+        <MnDialog id="dialog1">
           <p>lorem ipsum dolor sit amet</p>
         </MnDialog>
       </div>

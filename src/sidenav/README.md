@@ -18,11 +18,12 @@ const {sidenav} from 'minimalist-ui'
 <mn-sidenav id="menu"></mn-sidenav>
 ```
 
-And to interact with sidenav, use `mn-button` with attribute `open-sidenav` or `close-sidenav`, e.g.
+And to interact with sidenav, use `mn-button`, and target to sidenav id using attributes `show-sidenav`, `hide-sidenav`, or `toggle-sidenav`, e.g.
 
 ```html
-<mn-button open-sidenav="menu">open menu</mn-button>
-<mn-button close-sidenav>close the visible sidenav</mn-button>
+<mn-button show-sidenav="menu">show menu</mn-button>
+<mn-button hide-sidenav>hide the visible sidenav</mn-button>
+<mn-button toggle-sidenav="menu">toggle the visible sidenav</mn-button>
 ```
 
 ### Positioning
