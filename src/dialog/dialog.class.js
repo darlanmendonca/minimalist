@@ -37,8 +37,8 @@ class MnDialog extends MnComponent {
   setOpenEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches(`[open-dialog="${this.id}"]`)) {
-        this.open()
         event.stopPropagation()
+        this.open()
       }
     })
   }
@@ -46,8 +46,8 @@ class MnDialog extends MnComponent {
   setToggleEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches(`[toggle-dialog="${this.id}"]`)) {
-        this.toggle()
         event.stopPropagation()
+        this.toggle()
       }
     })
   }
@@ -55,8 +55,8 @@ class MnDialog extends MnComponent {
   setCloseEvents() {
     document.addEventListener('click', event => {
       if (event.target.matches('[close-dialog]')) {
-        this.close()
         event.stopPropagation()
+        this.close()
       }
     })
 
