@@ -20,6 +20,7 @@ npm install minimalist-ui
 ##### content
 
 - [sidenav](./src/sidenav)
+- [dialog](./src/dialog)
 
 ##### styles
 
