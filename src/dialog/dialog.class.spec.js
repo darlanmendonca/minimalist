@@ -60,6 +60,22 @@ describe('dialog', () => {
     expect(document.body).to.not.have.class('mn-backdrop-visible')
   })
 
+  test('should autofocus on event open after 200 milliseconds', () => {
+    const autofocus = spy.on(element, 'autofocus')
+    element.dispatchEvent(new Event('open'))
+
+    setTimeout(() => {
+      expect(autofocus).to.have.been.called()
+
+      const input = document.createElement('input')
+      input.setAttribute('autofocus', '')
+      element.appendChild(input)
+
+      element.autofocus()
+      expect(document.activeElement).to.be.equal(input)
+    }, 200)
+  })
+
   test('should open dialog clicking in button', () => {
     const button = new MnButton()
     button.setAttribute('open-dialog', 'customId')

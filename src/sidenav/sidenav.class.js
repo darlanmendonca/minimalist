@@ -22,6 +22,8 @@ export default class MnSidenav extends MnComponent {
         this.show()
       }
     })
+
+    this.addEventListener('show', () => this.autofocus())
   }
 
   setToggleEvents() {
@@ -67,12 +69,14 @@ export default class MnSidenav extends MnComponent {
     this.classList.add('visible')
     document.body.classList.add('mn-sidenav-visible')
     MnBackdrop.show()
+    this.dispatchEvent(new Event('show'))
   }
 
   hide() {
     document.body.classList.remove('mn-sidenav-visible')
     this.classList.remove('visible')
     MnBackdrop.hide()
+    this.dispatchEvent(new Event('hide'))
   }
 
   toggle() {

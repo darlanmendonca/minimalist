@@ -64,6 +64,20 @@ describe('sidenav', () => {
     expect(document.body).to.not.have.class('mn-backdrop-visible')
   })
 
+  test('should autofocus on event show', () => {
+    const autofocus = spy.on(element, 'autofocus')
+    element.dispatchEvent(new Event('show'))
+
+    expect(autofocus).to.have.been.called()
+    
+    const input = document.createElement('input')
+    input.setAttribute('autofocus', '')
+    element.appendChild(input)
+
+    element.autofocus()
+    expect(document.activeElement).to.be.equal(input)
+  })
+
   test('should show sidenav clicking in button', () => {
     const button = new MnButton()
     button.setAttribute('show-sidenav', 'customId')

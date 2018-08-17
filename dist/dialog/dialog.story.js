@@ -10,6 +10,10 @@ var _buttonReact = require('../button/button.react.jsx');
 
 var _buttonReact2 = _interopRequireDefault(_buttonReact);
 
+var _inputTextReact = require('../input-text/input-text.react.jsx');
+
+var _inputTextReact2 = _interopRequireDefault(_inputTextReact);
+
 var _dialogReact = require('./dialog.react.jsx');
 
 var _dialogReact2 = _interopRequireDefault(_dialogReact);
@@ -36,6 +40,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     _react2.default.createElement(
       _dialogReact2.default,
       { id: 'dialog1' },
+      _react2.default.createElement(_inputTextReact2.default, { autofocus: true }),
       _react2.default.createElement(
         'p',
         null,

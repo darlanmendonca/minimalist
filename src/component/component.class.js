@@ -47,6 +47,14 @@ class MnComponent extends window.HTMLElement {
     return this.hasAttribute(attribute)
       && this.getAttribute(attribute) !== 'false'
   }
+
+  autofocus() {
+    const inputAutofocus = this.querySelector('[autofocus]')
+
+    if (inputAutofocus) {
+      inputAutofocus.focus()
+    }
+  }
 }
 
 export default MnComponent

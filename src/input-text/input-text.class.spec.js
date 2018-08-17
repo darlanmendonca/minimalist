@@ -193,6 +193,25 @@ describe('input-text', () => {
     expect(element).to.not.have.class('has-value')
   })
 
+  test('should have a method focus', () => {
+    expect(element.focus).to.be.a('function')
+    expect(document.activeElement).to.not.be.equal(element.inputChild)
+    element.focus()
+    expect(document.activeElement).to.be.equal(element.inputChild)
+  })
+
+  test('should have a method blur', () => {
+    expect(element.blur).to.be.a('function')
+    element.focus()
+    expect(document.activeElement).to.be.equal(element.inputChild)
+    element.blur()
+    expect(document.activeElement).to.not.be.equal(element.inputChild)
+  })
+
+  test('should have a method validate', () => {
+    expect(element.validate).to.be.a('function')
+  })
+
   test('should validate on input event', () => {
     document.body.innerHTL = ''
     const form = document.createElement('form')

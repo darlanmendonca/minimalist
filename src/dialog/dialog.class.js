@@ -41,6 +41,10 @@ class MnDialog extends MnComponent {
         this.open()
       }
     })
+
+    this.addEventListener('open', () => {
+      setTimeout(() => this.autofocus(), 200)
+    })
   }
 
   setToggleEvents() {

@@ -84,6 +84,14 @@ class MnInputText extends MnComponent {
       : this.classList.remove('invalid')
   }
 
+  focus() {
+    this.inputChild.focus()
+  }
+
+  blur() {
+    this.inputChild.blur()
+  }
+
   get pattern() {
     return this.inputChild.pattern || undefined
   }

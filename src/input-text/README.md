@@ -182,3 +182,19 @@ Check all validations on input, and return true if is valid. Is called by defaul
 ```js
 input.validate()
 ```
+
+### focus()
+
+Focus on input
+
+```js
+input.focus()
+```
+
+### blur()
+
+Remove the focus from input
+
+```js
+input.blur()
+```

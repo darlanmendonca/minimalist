@@ -2,6 +2,7 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import MnButton from '../button/button.react.jsx'
 import MnSidenav from './sidenav.react.jsx'
+import MnInputText from '../input-text/input-text.react.jsx'
 import {withKnobs} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
@@ -17,6 +18,7 @@ storiesOf('components', module)
 
         <MnSidenav id="left" class="padding">
           content left here
+          <MnInputText autofocus />
 
           <MnButton hide-sidenav>hide</MnButton>
         </MnSidenav>

@@ -54,6 +54,14 @@ class MnDialog extends _componentClass2.default {
         this.open();
       }
     });
+
+    this.addEventListener('open', () => {
+      setTimeout(() => {
+        const inputAutofocus = this.querySelector('[autofocus]');
+
+        if (inputAutofocus) inputAutofocus.focus();
+      }, 200);
+    });
   }
 
   setToggleEvents() {
@@ -73,7 +81,7 @@ class MnDialog extends _componentClass2.default {
       }
     });
 
-    document.addEventListener('mousedown', event => {
+    document.addEventListener('click', event => {
       const dialogVisible = this.classList.contains('visible');
       const clickOutside = event.target.matches('.mn-dialog');
 

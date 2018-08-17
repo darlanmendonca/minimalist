@@ -90,20 +90,20 @@ describe('dialog', () => {
     (0, _chai.expect)(close).to.have.been.called();
   });
 
-  test.skip('should close dialog clicking outside', () => {
+  test('should close dialog clicking outside', () => {
     const button = new _buttonClass2.default();
     element.appendChild(button);
 
     const close = _chai.spy.on(element, 'close');
 
+    // click inside dialog
     element.open();
     button.click();
-    element.click();
-
+    element.querySelector('.mn-card').click();
     (0, _chai.expect)(close).to.not.have.been.called();
 
-    document.body.click();
-
+    // click outside, in mn-backrop
+    element.click();
     (0, _chai.expect)(close).to.have.been.called();
   });
 
@@ -130,6 +130,7 @@ describe('dialog', () => {
 });
 
 function createElement() {
+  document.body.innerHTML = '';
   element = document.createElement('mn-dialog');
   element.id = 'customId';
   document.body.appendChild(element);
