@@ -69,7 +69,7 @@ describe('sidenav', () => {
     element.dispatchEvent(new Event('show'))
 
     expect(autofocus).to.have.been.called()
-    
+
     const input = document.createElement('input')
     input.setAttribute('autofocus', '')
     element.appendChild(input)
