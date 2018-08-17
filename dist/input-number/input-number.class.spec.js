@@ -128,11 +128,18 @@ describe('input-number', () => {
   });
 
   test('should format percentage value', () => {
+    element.setAttribute('percentage', 'true');
+    (0, _chai.expect)(element.value).to.be.undefined;
+    (0, _chai.expect)(element.inputChild).to.have.value('');
+    (0, _chai.expect)(element.mask).to.have.text('');
+
+    element.removeAttribute('percentage');
+
     element.value = 0.1;
     (0, _chai.expect)(element.value).to.be.equal(0.1);
     (0, _chai.expect)(element.inputChild).to.have.value('0,1');
 
-    element.setAttribute('percentage', 'percentage');
+    element.setAttribute('percentage', 'true');
     (0, _chai.expect)(element.value).to.be.equal(0.1);
     (0, _chai.expect)(element.inputChild).to.have.value('10');
     (0, _chai.expect)(element.mask).to.have.text('10 %');
