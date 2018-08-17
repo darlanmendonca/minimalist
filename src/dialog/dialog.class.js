@@ -60,7 +60,7 @@ class MnDialog extends MnComponent {
       }
     })
 
-    document.addEventListener('mousedown', event => {
+    document.addEventListener('click', event => {
       const dialogVisible = this.classList.contains('visible')
       const clickOutside = event.target.matches('.mn-dialog')
 
