@@ -14,6 +14,7 @@ npm install minimalist-ui
 - [form](./src/form)
 - [input-text](./src/input-text)
 - [input-password](./src/input-password)
+- [input-email](./src/input-email)
 - [input-number](./src/input-number)
 - [button](./src/button)
 
