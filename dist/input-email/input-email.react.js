@@ -8,16 +8,12 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-require('./input-number.class.js');
+require('./input-email.class.js');
 
 require('../input-text/input-text.style.scss');
 
-require('./input-number.style.scss');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const MnInputNumber = props => {
-  return _react2.default.createElement('mn-input-number', props);
-};
+const MnInputEmail = props => _react2.default.createElement('mn-input-email', props);
 
-exports.default = MnInputNumber;
+exports.default = MnInputEmail;

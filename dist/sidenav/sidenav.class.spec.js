@@ -74,6 +74,20 @@ describe('sidenav', () => {
     (0, _chai.expect)(document.body).to.not.have.class('mn-backdrop-visible');
   });
 
+  test('should autofocus on event show', () => {
+    const autofocus = _chai.spy.on(element, 'autofocus');
+    element.dispatchEvent(new Event('show'));
+
+    (0, _chai.expect)(autofocus).to.have.been.called();
+
+    const input = document.createElement('input');
+    input.setAttribute('autofocus', '');
+    element.appendChild(input);
+
+    element.autofocus();
+    (0, _chai.expect)(document.activeElement).to.be.equal(input);
+  });
+
   test('should show sidenav clicking in button', () => {
     const button = new _buttonClass2.default();
     button.setAttribute('show-sidenav', 'customId');

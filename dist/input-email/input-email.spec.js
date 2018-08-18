@@ -4,9 +4,9 @@ var _chai = require('chai');
 
 var _chai2 = _interopRequireDefault(_chai);
 
-var _inputTextClass = require('./input-text.class.js');
+var _inputEmailClass = require('./input-email.class.js');
 
-var _inputTextClass2 = _interopRequireDefault(_inputTextClass);
+var _inputEmailClass2 = _interopRequireDefault(_inputEmailClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14,29 +14,33 @@ _chai2.default.use(require('chai-dom')).use(require('chai-spies'));
 
 let element;
 
-describe('input-text', () => {
+describe('input-email', () => {
   beforeEach(createElement);
 
   test('should export a class', () => {
-    (0, _chai.expect)(_inputTextClass2.default).to.be.a('function');
+    (0, _chai.expect)(_inputEmailClass2.default).to.be.a('function');
   });
 
   test('should instanciate using a constructor', () => {
-    const element = new _inputTextClass2.default();
-    (0, _chai.expect)(element).to.be.instanceof(_inputTextClass2.default);
+    const element = new _inputEmailClass2.default();
+    (0, _chai.expect)(element).to.be.instanceof(_inputEmailClass2.default);
   });
 
   test('should create element using method document.createElement', () => {
-    const element = document.createElement('mn-input-text');
-    (0, _chai.expect)(element).to.be.instanceof(_inputTextClass2.default);
+    const element = document.createElement('mn-input-email');
+    (0, _chai.expect)(element).to.be.instanceof(_inputEmailClass2.default);
   });
 
   test('should have css class .mn-input-text', () => {
     (0, _chai.expect)(element).to.have.class('mn-input-text');
   });
 
+  test('should have css class .mn-input-email', () => {
+    (0, _chai.expect)(element).to.have.class('mn-input-email');
+  });
+
   test('should listen attribute changes', () => {
-    (0, _chai.expect)(_inputTextClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
+    (0, _chai.expect)(_inputEmailClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
   });
 
   test('should have a label child', () => {
@@ -47,8 +51,12 @@ describe('input-text', () => {
     (0, _chai.expect)(element).to.have.a.property('inputChild');
   });
 
-  test('should have by default autocomplete off on input child', () => {
-    (0, _chai.expect)(element.inputChild).to.have.attribute('autocomplete', 'off');
+  test('should have a type email to input', () => {
+    (0, _chai.expect)(element.inputChild).to.have.attribute('type', 'email');
+  });
+
+  test('should have a default pattern', () => {
+    (0, _chai.expect)(element).to.have.attribute('pattern', '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*');
   });
 
   test('should have a setter/getter to label', () => {
@@ -161,7 +169,7 @@ describe('input-text', () => {
   });
 
   test('should setup attributes on add it to dom', () => {
-    element = document.createElement('mn-input-text');
+    element = document.createElement('mn-input-email');
     element.setAttribute('label', 'lorem');
     element.setAttribute('placeholder', 'ipsum');
     element.setAttribute('value', 'dolor');
@@ -179,33 +187,6 @@ describe('input-text', () => {
 
     element.inputChild.blur();
     (0, _chai.expect)(element).to.not.have.class('focus');
-  });
-
-  test('should toggle class has-value on set value', () => {
-    (0, _chai.expect)(element).to.not.have.class('has-value');
-    element.value = 'lorem';
-    (0, _chai.expect)(element).to.have.class('has-value');
-    element.value = '';
-    (0, _chai.expect)(element).to.not.have.class('has-value');
-  });
-
-  test('should have a method focus', () => {
-    (0, _chai.expect)(element.focus).to.be.a('function');
-    (0, _chai.expect)(document.activeElement).to.not.be.equal(element.inputChild);
-    element.focus();
-    (0, _chai.expect)(document.activeElement).to.be.equal(element.inputChild);
-  });
-
-  test('should have a method blur', () => {
-    (0, _chai.expect)(element.blur).to.be.a('function');
-    element.focus();
-    (0, _chai.expect)(document.activeElement).to.be.equal(element.inputChild);
-    element.blur();
-    (0, _chai.expect)(document.activeElement).to.not.be.equal(element.inputChild);
-  });
-
-  test('should have a method validate', () => {
-    (0, _chai.expect)(element.validate).to.be.a('function');
   });
 
   test('should validate on input event', () => {
@@ -230,12 +211,11 @@ describe('input-text', () => {
     (0, _chai.expect)(element).to.not.have.class('required');
 
     element.setAttribute('required', 'true');
-    element.required = true;
     element.validate();
     (0, _chai.expect)(element).to.have.class('invalid');
     (0, _chai.expect)(element).to.have.class('required');
 
-    element.value = 'lorem';
+    element.value = 'lorem@gmail.com';
     element.validate();
     (0, _chai.expect)(element).to.not.have.class('invalid');
     (0, _chai.expect)(element).to.not.have.class('required');
@@ -264,7 +244,7 @@ describe('input-text', () => {
 });
 
 function createElement() {
-  element = document.createElement('mn-input-text');
+  element = document.createElement('mn-input-email');
   document.body.appendChild(element);
 
   // fallback to closest

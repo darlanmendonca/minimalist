@@ -36,13 +36,7 @@ class MnSidenav extends _componentClass2.default {
       }
     });
 
-    this.addEventListener('show', () => {
-      setTimeout(() => {
-        const inputAutofocus = this.querySelector('[autofocus]');
-
-        if (inputAutofocus) inputAutofocus.focus();
-      }, 200);
-    });
+    this.addEventListener('show', () => this.autofocus());
   }
 
   setToggleEvents() {
@@ -85,14 +79,14 @@ class MnSidenav extends _componentClass2.default {
     this.classList.add('visible');
     document.body.classList.add('mn-sidenav-visible');
     _backdropClass2.default.show();
-    this.dispatchEvent('show');
+    this.dispatchEvent(new Event('show'));
   }
 
   hide() {
     document.body.classList.remove('mn-sidenav-visible');
     this.classList.remove('visible');
     _backdropClass2.default.hide();
-    this.dispatchEvent('hide');
+    this.dispatchEvent(new Event('hide'));
   }
 
   toggle() {

@@ -70,6 +70,22 @@ describe('dialog', () => {
     (0, _chai.expect)(document.body).to.not.have.class('mn-backdrop-visible');
   });
 
+  test('should autofocus on event open after 200 milliseconds', () => {
+    const autofocus = _chai.spy.on(element, 'autofocus');
+    element.dispatchEvent(new Event('open'));
+
+    setTimeout(() => {
+      (0, _chai.expect)(autofocus).to.have.been.called();
+
+      const input = document.createElement('input');
+      input.setAttribute('autofocus', '');
+      element.appendChild(input);
+
+      element.autofocus();
+      (0, _chai.expect)(document.activeElement).to.be.equal(input);
+    }, 200);
+  });
+
   test('should open dialog clicking in button', () => {
     const button = new _buttonClass2.default();
     button.setAttribute('open-dialog', 'customId');

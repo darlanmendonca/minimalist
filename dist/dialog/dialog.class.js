@@ -56,11 +56,7 @@ class MnDialog extends _componentClass2.default {
     });
 
     this.addEventListener('open', () => {
-      setTimeout(() => {
-        const inputAutofocus = this.querySelector('[autofocus]');
-
-        if (inputAutofocus) inputAutofocus.focus();
-      }, 200);
+      setTimeout(() => this.autofocus(), 200);
     });
   }
 

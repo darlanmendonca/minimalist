@@ -16,6 +16,10 @@ var _inputPasswordClass = require('./input-password/input-password.class.js');
 
 var _inputPasswordClass2 = _interopRequireDefault(_inputPasswordClass);
 
+var _inputEmailClass = require('./input-email/input-email.class.js');
+
+var _inputEmailClass2 = _interopRequireDefault(_inputEmailClass);
+
 var _inputNumberClass = require('./input-number/input-number.class.js');
 
 var _inputNumberClass2 = _interopRequireDefault(_inputNumberClass);
@@ -28,13 +32,19 @@ var _sidenavClass = require('./sidenav/sidenav.class.js');
 
 var _sidenavClass2 = _interopRequireDefault(_sidenavClass);
 
+var _dialogClass = require('./dialog/dialog.class.js');
+
+var _dialogClass2 = _interopRequireDefault(_dialogClass);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   form: _formClass2.default,
   inputText: _inputTextClass2.default,
   inputPassword: _inputPasswordClass2.default,
+  inputEmail: _inputEmailClass2.default,
   inputNumber: _inputNumberClass2.default,
   button: _buttonClass2.default,
-  sidenav: _sidenavClass2.default
+  sidenav: _sidenavClass2.default,
+  dialog: _dialogClass2.default
 };

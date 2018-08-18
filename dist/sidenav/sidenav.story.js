@@ -14,6 +14,10 @@ var _sidenavReact = require('./sidenav.react.jsx');
 
 var _sidenavReact2 = _interopRequireDefault(_sidenavReact);
 
+var _inputTextReact = require('../input-text/input-text.react.jsx');
+
+var _inputTextReact2 = _interopRequireDefault(_inputTextReact);
+
 var _addonKnobs = require('@storybook/addon-knobs');
 
 var _storybookReadme = require('storybook-readme');
@@ -42,6 +46,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       _sidenavReact2.default,
       { id: 'left', 'class': 'padding' },
       'content left here',
+      _react2.default.createElement(_inputTextReact2.default, { autofocus: true }),
       _react2.default.createElement(
         _buttonReact2.default,
         { 'hide-sidenav': true },
