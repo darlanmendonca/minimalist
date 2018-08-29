@@ -6,10 +6,18 @@ import './card.style.scss'
 import {withKnobs, array} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
+import styles from '@sambego/storybook-styles'
 
 storiesOf('styles', module)
   .addDecorator(withKnobs)
   .addDecorator(withReadme(readme))
+  .addDecorator(styles({
+    background: '#f1f3f5',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+  }))
   .addWithJSX('card', () => {
     const margin = '1em'
 
