@@ -6,10 +6,18 @@ import MnDialog from './dialog.react.jsx'
 import {withKnobs} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
+import styles from '@sambego/storybook-styles'
 
 storiesOf('components', module)
   .addDecorator(withKnobs)
   .addDecorator(withReadme(readme))
+  .addDecorator(styles({
+    background: '#f1f3f5',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+  }))
   .addWithJSX('dialog', () => {
     return (
       <div>
