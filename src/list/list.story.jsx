@@ -5,7 +5,7 @@ import {withKnobs, array} from '@storybook/addon-knobs'
 import {withReadme}  from 'storybook-readme'
 import readme from './README.md'
 
-storiesOf('components', module)
+storiesOf('styles', module)
   .addDecorator(withKnobs)
   .addDecorator(withReadme(readme))
   .addWithJSX('list', () => {
