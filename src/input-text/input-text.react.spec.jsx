@@ -37,16 +37,16 @@ describe('MnInputText (React)', () => {
     expect(component).to.have.attr('placeholder', 'lorem')
   })
 
-  test.skip('should set attribute disabled', () => {
+  test('should set attribute disabled', () => {
     component.setProps({disabled: true})
-    expect(component).to.have.attr('disabled', 'true')
+    expect(component).to.have.attr('disabled', 'disabled')
     component.setProps({disabled: false})
     expect(component).to.not.have.attr('disabled', 'false')
   })
 
-  test.skip('should set attribute readonly', () => {
+  test('should set attribute readonly', () => {
     component.setProps({readonly: true})
-    expect(component).to.have.attr('readonly', 'true')
+    expect(component).to.have.attr('readonly', 'readonly')
     component.setProps({readonly: false})
     expect(component).to.not.have.attr('readonly', 'false')
   })
@@ -56,11 +56,11 @@ describe('MnInputText (React)', () => {
     expect(component).to.have.attr('maxlength', '10')
   })
 
-  test.skip('should set attribute autocapitalize', () => {
+  test('should set attribute autocapitalize', () => {
     component.setProps({autocapitalize: true})
     expect(component).to.have.attr('autocapitalize', 'true')
     component.setProps({autocapitalize: false})
-    expect(component).to.not.have.attr('autocapitalize', 'false')
+    expect(component).to.have.attr('autocapitalize', 'false')
   })
 })
 
