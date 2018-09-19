@@ -58,16 +58,16 @@ describe('MnInputText (React)', () => {
     (0, _chai.expect)(component).to.have.attr('placeholder', 'lorem');
   });
 
-  test.skip('should set attribute disabled', () => {
+  test('should set attribute disabled', () => {
     component.setProps({ disabled: true });
-    (0, _chai.expect)(component).to.have.attr('disabled', 'true');
+    (0, _chai.expect)(component).to.have.attr('disabled', 'disabled');
     component.setProps({ disabled: false });
     (0, _chai.expect)(component).to.not.have.attr('disabled', 'false');
   });
 
-  test.skip('should set attribute readonly', () => {
+  test('should set attribute readonly', () => {
     component.setProps({ readonly: true });
-    (0, _chai.expect)(component).to.have.attr('readonly', 'true');
+    (0, _chai.expect)(component).to.have.attr('readonly', 'readonly');
     component.setProps({ readonly: false });
     (0, _chai.expect)(component).to.not.have.attr('readonly', 'false');
   });
@@ -77,11 +77,11 @@ describe('MnInputText (React)', () => {
     (0, _chai.expect)(component).to.have.attr('maxlength', '10');
   });
 
-  test.skip('should set attribute autocapitalize', () => {
+  test('should set attribute autocapitalize', () => {
     component.setProps({ autocapitalize: true });
     (0, _chai.expect)(component).to.have.attr('autocapitalize', 'true');
     component.setProps({ autocapitalize: false });
-    (0, _chai.expect)(component).to.not.have.attr('autocapitalize', 'false');
+    (0, _chai.expect)(component).to.have.attr('autocapitalize', 'false');
   });
 });
 

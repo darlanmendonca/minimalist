@@ -32,6 +32,7 @@ describe('input-text', () => {
     expect(MnInputText.observedAttributes).to.deep.equal([
       'label',
       'value',
+      'multiple',
       'name',
       'placeholder',
       'disabled',
@@ -73,6 +74,19 @@ describe('input-text', () => {
 
     element.setAttribute('value', 'ipsum')
     expect(element.value).to.be.equal('ipsum')
+  })
+
+  test('should have a setter/getter to multiple', () => {
+    element.multiple = true
+    expect(element.multiple).to.be.true
+    element.multiple = false
+    expect(element.multiple).to.be.false
+
+    element.setAttribute('multiple', 'true')
+    expect(element.multiple).to.be.true
+
+    element.setAttribute('multiple', 'false')
+    expect(element.multiple).to.be.false
   })
 
   test('should have a setter/getter to name', () => {

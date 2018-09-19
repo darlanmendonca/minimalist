@@ -36,6 +36,7 @@ describe('input-password', () => {
     expect(MnInputPassword.observedAttributes).to.deep.equal([
       'label',
       'value',
+      'multiple',
       'name',
       'placeholder',
       'disabled',

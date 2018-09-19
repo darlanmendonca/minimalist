@@ -36,6 +36,7 @@ describe('input-email', () => {
     expect(MnInputEmail.observedAttributes).to.deep.equal([
       'label',
       'value',
+      'multiple',
       'name',
       'placeholder',
       'disabled',

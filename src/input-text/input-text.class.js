@@ -14,6 +14,7 @@ class MnInputText extends MnComponent {
     return [
       'label',
       'value',
+      'multiple',
       'name',
       'placeholder',
       'disabled',
@@ -114,6 +115,17 @@ class MnInputText extends MnComponent {
     return !(this.value === undefined
       || this.value === null
       || this.value === '')
+  }
+
+  get multiple() {
+    return this.inputChild.multiple
+  }
+
+  set multiple(value) {
+    if (JSON.parse(value) !== this.is('multiple')) {
+      this.setAttribute('multiple', JSON.parse(value))
+    }
+    this.inputChild.multiple = JSON.parse(value)
   }
 
   get value() {
