@@ -114,7 +114,8 @@ class MnInputText extends MnComponent {
   get hasValue() {
     return !(this.value === undefined
       || this.value === null
-      || this.value === '')
+      || this.value === ''
+      || Array.isArray(this.value) && !this.value.length)
   }
 
   get multiple() {
@@ -129,11 +130,18 @@ class MnInputText extends MnComponent {
   }
 
   get value() {
-    return this.inputChild.value
+    return !this.is('multiple')
+      ? this.inputChild.value
+      : this.inputChild.value
+        .replace(/\s+/g, ' ')
+        .trim()
+        .split(/,\s?/)
   }
 
   set value(value = '') {
-    this.inputChild.value = value
+    this.inputChild.value = Array.isArray(value)
+      ? value.join(', ')
+      : value
     this.inputChild.dispatchEvent(new Event('change'))
     this.classList.toggle('has-value', this.hasValue)
   }

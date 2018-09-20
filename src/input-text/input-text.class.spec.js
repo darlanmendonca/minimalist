@@ -66,16 +66,6 @@ describe('input-text', () => {
     expect(element.label).to.be.equal('ipsum')
   })
 
-  test('should have a setter/getter to value', () => {
-    element.value = 'lorem'
-    expect(element.value).to.be.equal('lorem')
-    element.value = undefined
-    expect(element.value).to.be.equal('')
-
-    element.setAttribute('value', 'ipsum')
-    expect(element.value).to.be.equal('ipsum')
-  })
-
   test('should have a setter/getter to multiple', () => {
     element.multiple = true
     expect(element.multiple).to.be.true
@@ -87,6 +77,38 @@ describe('input-text', () => {
 
     element.setAttribute('multiple', 'false')
     expect(element.multiple).to.be.false
+  })
+
+  test('should have a setter/getter to value', () => {
+    element.value = 'lorem'
+    expect(element.value).to.be.equal('lorem')
+    element.value = undefined
+    expect(element.value).to.be.equal('')
+
+    element.setAttribute('value', 'ipsum')
+    expect(element.value).to.be.equal('ipsum')
+
+    element.multiple = true
+    expect(element.value).to.be.deep.equal(['ipsum'])
+
+    element.multiple = false
+    expect(element.inputChild).to.have.value('ipsum')
+    expect(element.value).to.be.equal('ipsum')
+
+    element.multiple = true
+
+    element.value = 'lorem, ipsum'
+    expect(element.value).to.be.deep.equal(['lorem', 'ipsum'])
+
+    element.value = 'lorem ipsum'
+    expect(element.value).to.be.deep.equal(['lorem ipsum'])
+
+    element.value = ' lorem,   ipsum,   dolor  '
+    expect(element.value).to.be.deep.equal(['lorem', 'ipsum', 'dolor'])
+
+    element.value = ['lorem', 'ipsum']
+    expect(element.inputChild).to.have.value('lorem, ipsum')
+    expect(element.value).to.be.deep.equal(['lorem', 'ipsum'])
   })
 
   test('should have a setter/getter to name', () => {

@@ -17,6 +17,7 @@ storiesOf('components', module)
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         maxlength={number('maxlength', 100)}
+        multiple={boolean('multiple')}
       />
     )
   })
