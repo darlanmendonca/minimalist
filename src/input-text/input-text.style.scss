@@ -1,6 +1,6 @@
 .mn-input-text {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   padding-top: 0.7em;
   font-family: sans-serif;
 
@@ -28,6 +28,7 @@
   }
 
   input {
+    order: 1;
     border: 0;
     outline: 0;
     transition: opacity .2s ease;
@@ -69,6 +70,26 @@
   input, label {
     height: 2em;
     line-height: 2em;
+  }
+
+  .value-item {
+    line-height: 2em;
+    --background-color: #495057;
+    --color: #e9ecef;
+
+    font-size: .7em;
+    color: var(--color);
+    background-color: var(--background-color);
+    padding: 0 1em;
+    margin: .1em;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    text-align: center;
+    border-radius: 1.2em;
+    text-align: center;
+    height: 2em;
+    transform: translate3d(0, 0.35em, 0);
+    margin-right: .5em;
   }
 
   &.focus:not([readonly=""]):not([readonly="true"]) {

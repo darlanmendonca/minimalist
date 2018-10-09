@@ -127,21 +127,36 @@ class MnInputText extends MnComponent {
       this.setAttribute('multiple', JSON.parse(value))
     }
     this.inputChild.multiple = JSON.parse(value)
+    this.value = this.value
+  }
+
+  get valueItems() {
+    return Array.from(this.querySelectorAll('.value-item'))
   }
 
   get value() {
     return !this.is('multiple')
       ? this.inputChild.value
-      : this.inputChild.value
-        .replace(/\s+/g, ' ')
-        .trim()
-        .split(/,\s?/)
+      : this.valueItems.map(value => value.textContent)
   }
 
   set value(value = '') {
-    this.inputChild.value = Array.isArray(value)
-      ? value.join(', ')
+    if (this.is('multiple')) {
+      this.value.forEach((value) => {
+        const span = document.createElement('span')
+        span.classList.add('value-item')
+        span.textContent = value
+        this.appendChild(span)
+      })
+    } else {
+      this.valueItems
+        .forEach(item => item.parentNode.removeChild(item))
+    }
+
+    this.inputChild.value = this.is('multiple')
+      ? ''
       : value
+
     this.inputChild.dispatchEvent(new Event('change'))
     this.classList.toggle('has-value', this.hasValue)
   }
