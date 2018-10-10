@@ -13,7 +13,7 @@ storiesOf('components', module)
       <MnInputText
         label={text('label', 'username')}
         placeholder={text('placeholder', 'e.g. johnsnow')}
-        value={text('value', 'darlan, mendonca')}
+        value={text('value', 'darlan')}
         disabled={boolean('disabled')}
         readonly={boolean('readonly')}
         maxlength={number('maxlength', 100)}

@@ -127,35 +127,49 @@ class MnInputText extends MnComponent {
       this.setAttribute('multiple', JSON.parse(value))
     }
     this.inputChild.multiple = JSON.parse(value)
-    this.value = this.value
+
+    if (this.is('multiple')) {
+      this.values = [this.inputChild.value].filter(Boolean)
+      this.inputChild.value = ''
+    } else {
+      this.inputChild.value = this.values
+        .map(item => item.textContent)
+        .join(', ')
+
+      this.values = []
+    }
   }
 
-  get valueItems() {
+  get values() {
     return Array.from(this.querySelectorAll('.value-item'))
+  }
+
+  set values(values) {
+    this.values
+      .forEach(item => item.parentNode.removeChild(item))
+
+    values.forEach(value => {
+      const span = document.createElement('span')
+      span.classList.add('value-item')
+      span.textContent = value
+      this.appendChild(span)
+    })
   }
 
   get value() {
     return !this.is('multiple')
       ? this.inputChild.value
-      : this.valueItems.map(value => value.textContent)
+      : this.values.map(value => value.textContent)
   }
 
   set value(value = '') {
-    if (this.is('multiple')) {
-      this.value.forEach((value) => {
-        const span = document.createElement('span')
-        span.classList.add('value-item')
-        span.textContent = value
-        this.appendChild(span)
-      })
-    } else {
-      this.valueItems
-        .forEach(item => item.parentNode.removeChild(item))
-    }
-
     this.inputChild.value = this.is('multiple')
       ? ''
       : value
+
+    if (this.is('multiple')) {
+      this.values = value
+    }
 
     this.inputChild.dispatchEvent(new Event('change'))
     this.classList.toggle('has-value', this.hasValue)
