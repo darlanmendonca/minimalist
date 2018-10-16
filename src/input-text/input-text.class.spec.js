@@ -92,22 +92,13 @@ describe('input-text', () => {
     expect(element.value).to.be.deep.equal(['ipsum'])
 
     element.multiple = false
-    expect(element.inputChild).to.have.value('ipsum')
     expect(element.value).to.be.equal('ipsum')
 
     element.multiple = true
-
-    element.value = 'lorem, ipsum'
-    expect(element.value).to.be.deep.equal(['lorem', 'ipsum'])
-
     element.value = 'lorem ipsum'
     expect(element.value).to.be.deep.equal(['lorem ipsum'])
 
-    element.value = ' lorem,   ipsum,   dolor  '
-    expect(element.value).to.be.deep.equal(['lorem', 'ipsum', 'dolor'])
-
     element.value = ['lorem', 'ipsum']
-    expect(element.inputChild).to.have.value('lorem, ipsum')
     expect(element.value).to.be.deep.equal(['lorem', 'ipsum'])
   })
 

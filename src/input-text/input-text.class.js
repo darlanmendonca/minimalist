@@ -119,14 +119,13 @@ class MnInputText extends MnComponent {
   }
 
   get multiple() {
-    return this.inputChild.multiple
+    return this.is('multiple')
   }
 
   set multiple(value) {
     if (JSON.parse(value) !== this.is('multiple')) {
       this.setAttribute('multiple', JSON.parse(value))
     }
-    this.inputChild.multiple = JSON.parse(value)
 
     if (this.is('multiple')) {
       this.values = [this.inputChild.value].filter(Boolean)
@@ -145,6 +144,10 @@ class MnInputText extends MnComponent {
   }
 
   set values(values) {
+    values = Array.isArray(values)
+      ? values
+      : [values]
+
     this.values
       .forEach(item => item.parentNode.removeChild(item))
 
