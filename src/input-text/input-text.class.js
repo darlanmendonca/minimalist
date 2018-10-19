@@ -1,8 +1,12 @@
 import MnComponent from '../component/component.class.js'
 
 class MnInputText extends MnComponent {
-  connectedCallback() {
+  constructor(self) {
+    super(self)
     this.delimeterKeys = ['Comma', 'Enter', 'Space']
+  }
+
+  connectedCallback() {
     super.empty()
     this.setStyle()
     super.setChildren('label')
