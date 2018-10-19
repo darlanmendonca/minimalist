@@ -11,6 +11,11 @@ var _componentClass2 = _interopRequireDefault(_componentClass);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class MnInputText extends _componentClass2.default {
+  constructor(self) {
+    super(self);
+    this.delimeterKeys = ['Comma', 'Enter', 'Space'];
+  }
+
   connectedCallback() {
     super.empty();
     this.setStyle();
@@ -21,7 +26,7 @@ class MnInputText extends _componentClass2.default {
   }
 
   static get observedAttributes() {
-    return ['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern'];
+    return ['label', 'value', 'multiple', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern'];
   }
 
   setStyle() {
@@ -34,6 +39,10 @@ class MnInputText extends _componentClass2.default {
     });
 
     this.inputChild.addEventListener('blur', () => {
+      if (this.inputChild.value && this.is('multiple')) {
+        this.value = Array.from(new Set(this.value.concat(this.inputChild.value)));
+      }
+
       this.classList.remove('focus');
       this.classList.toggle('has-value', this.hasValue);
     });
@@ -44,6 +53,14 @@ class MnInputText extends _componentClass2.default {
 
       if (closestForm && closestForm.classList.contains('submitted')) {
         element.validate();
+      }
+    });
+
+    this.inputChild.addEventListener('keydown', event => {
+      const isDelimeterKey = this.delimeterKeys.find(key => key === event.code);
+      if (this.is('multiple') && isDelimeterKey) {
+        this.inputChild.dispatchEvent(new Event('blur'));
+        event.preventDefault();
       }
     });
   }
@@ -104,15 +121,57 @@ class MnInputText extends _componentClass2.default {
   }
 
   get hasValue() {
-    return !(this.value === undefined || this.value === null || this.value === '');
+    return !(this.value === undefined || this.value === null || this.value === '' || Array.isArray(this.value) && !this.value.length);
+  }
+
+  get multiple() {
+    return this.is('multiple');
+  }
+
+  set multiple(value) {
+    if (JSON.parse(value) !== this.is('multiple')) {
+      this.setAttribute('multiple', JSON.parse(value));
+    }
+
+    if (this.is('multiple')) {
+      this.values = [this.inputChild.value].filter(Boolean);
+      this.inputChild.value = '';
+    } else {
+      this.inputChild.value = this.values.map(item => item.textContent).join(', ');
+
+      this.values = [];
+    }
+  }
+
+  get values() {
+    return Array.from(this.querySelectorAll('.value-item'));
+  }
+
+  set values(values) {
+    values = Array.isArray(values) ? values : [values];
+
+    this.values.forEach(item => item.parentNode.removeChild(item));
+
+    values.forEach(value => {
+      const button = document.createElement('button');
+      button.setAttribute('tabindex', '-1');
+      button.classList.add('value-item');
+      button.textContent = value;
+      this.appendChild(button);
+    });
   }
 
   get value() {
-    return this.inputChild.value;
+    return !this.is('multiple') ? this.inputChild.value : this.values.map(value => value.textContent);
   }
 
   set value(value = '') {
-    this.inputChild.value = value;
+    this.inputChild.value = this.is('multiple') ? '' : value;
+
+    if (this.is('multiple')) {
+      this.values = value;
+    }
+
     this.inputChild.dispatchEvent(new Event('change'));
     this.classList.toggle('has-value', this.hasValue);
   }

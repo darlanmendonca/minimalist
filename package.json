@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --coverage",
     "storybook": "start-storybook -p 4000",
-    "prepublish": "babel src --out-dir dist",
+    "prepublish": "babel src --out-dir dist --ignore '**/*.spec.js,**/*.story.js,**/*.react.js'",
     "build-storybook": "build-storybook",
     "start": "npm run pug -- --watch hotsite/index.pug & npm run vendor-sass & npm run app-sass -- --watch & npm run javascript & npm run local-server",
     "local-server": "browser-sync start --server 'docs' --files 'docs/*.*' --no-ui --no-notify",
