@@ -169,10 +169,11 @@ class MnInputText extends MnComponent {
       .forEach(item => item.parentNode.removeChild(item))
 
     values.forEach(value => {
-      const span = document.createElement('span')
-      span.classList.add('value-item')
-      span.textContent = value
-      this.appendChild(span)
+      const button = document.createElement('button')
+      button.setAttribute('tabindex', '-1')
+      button.classList.add('value-item')
+      button.textContent = value
+      this.appendChild(button)
     })
   }
 
