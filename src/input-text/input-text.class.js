@@ -2,6 +2,7 @@ import MnComponent from '../component/component.class.js'
 
 class MnInputText extends MnComponent {
   connectedCallback() {
+    this.delimeterKeys = ['Comma', 'Enter', 'Space']
     super.empty()
     this.setStyle()
     super.setChildren('label')
@@ -36,6 +37,10 @@ class MnInputText extends MnComponent {
     })
 
     this.inputChild.addEventListener('blur', () => {
+      if (this.inputChild.value && this.is('multiple')) {
+        this.value = Array.from(new Set(this.value.concat(this.inputChild.value)))
+      }
+
       this.classList.remove('focus')
       this.classList.toggle('has-value', this.hasValue)
     })
@@ -46,6 +51,15 @@ class MnInputText extends MnComponent {
 
       if (closestForm && closestForm.classList.contains('submitted')) {
         element.validate()
+      }
+    })
+
+    this.inputChild.addEventListener('keydown', (event) => {
+      console.log(event.key)
+      const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
+      if (this.is('multiple') && isDelimeterKey) {
+        this.inputChild.dispatchEvent(new Event('blur'))
+        event.preventDefault()
       }
     })
   }

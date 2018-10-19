@@ -88,10 +88,10 @@ describe('input-text', () => {
     element.setAttribute('value', 'ipsum')
     expect(element.value).to.be.equal('ipsum')
 
-    element.multiple = true
+    element.setAttribute('multiple', 'true')
     expect(element.value).to.be.deep.equal(['ipsum'])
 
-    element.multiple = false
+    element.setAttribute('multiple', 'false')
     expect(element.value).to.be.equal('ipsum')
 
     element.multiple = true
