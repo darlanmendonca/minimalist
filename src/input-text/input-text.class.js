@@ -55,7 +55,6 @@ class MnInputText extends MnComponent {
     })
 
     this.inputChild.addEventListener('keydown', (event) => {
-      console.log(event.key)
       const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
       if (this.is('multiple') && isDelimeterKey) {
         this.inputChild.dispatchEvent(new Event('blur'))
