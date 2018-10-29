@@ -1,0 +1,11 @@
+.mn-highlight {
+  .char {
+    transition: opacity .2s ease;
+  }
+
+  &.has-query {
+    .char:not(.match) {
+      opacity: .25;
+    }
+  }
+}

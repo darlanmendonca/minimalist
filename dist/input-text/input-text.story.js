@@ -27,6 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     value: (0, _addonKnobs.text)('value'),
     disabled: (0, _addonKnobs.boolean)('disabled'),
     readonly: (0, _addonKnobs.boolean)('readonly'),
-    maxlength: (0, _addonKnobs.number)('maxlength', 100)
+    maxlength: (0, _addonKnobs.number)('maxlength', 100),
+    multiple: (0, _addonKnobs.boolean)('multiple')
   });
 });
