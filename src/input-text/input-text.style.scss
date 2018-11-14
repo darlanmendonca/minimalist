@@ -101,19 +101,22 @@
       --color: 495057;
       padding-right: 2em;
 
-      &:after {
+      button {
         opacity: 1;
         transform: rotate(0deg);
       }
     }
 
-    &:after {
-      content: '×';
+    button {
+      &:before {content: '×'}
       color: var(--color);
       font-family: arial, sans-serif;
       font-size: 1.8em;
       position: absolute;
       right: .3em;
+      border: 0;
+      padding: 0;
+      background: none;
       opacity: 0;
       transform: rotate(-30deg);
       transition: opacity .2s ease, transform .2s .05s ease;
