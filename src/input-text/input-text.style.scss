@@ -100,6 +100,23 @@
       --background-color: transparent;//#f1f3f5;
       --color: 495057;
       padding-right: 2em;
+
+      &:after {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+    }
+
+    &:after {
+      content: '×';
+      color: var(--color);
+      font-family: arial, sans-serif;
+      font-size: 1.8em;
+      position: absolute;
+      right: .3em;
+      opacity: 0;
+      transform: rotate(-30deg);
+      transition: opacity .2s ease, transform .2s .05s ease;
     }
   }
 
