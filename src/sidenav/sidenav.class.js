@@ -11,7 +11,7 @@ export default class MnSidenav extends MnComponent {
 
   setStyle() {
     this.classList.add('mn-sidenav')
-    this.classList.add('mn-card')
+    this.classList.add('mn-section')
     document.body.classList.add('mn-backdrop')
   }
 

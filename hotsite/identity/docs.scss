@@ -1,10 +1,10 @@
 .docs {
-  .mn-code + .mn-card {
+  .mn-code + .mn-section {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
 
-  .mn-card + .mn-code {
+  .mn-section + .mn-code {
     margin-top: -1em;
   }
 

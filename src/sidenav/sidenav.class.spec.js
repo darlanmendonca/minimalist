@@ -29,8 +29,8 @@ describe('sidenav', () => {
     expect(element).to.have.class('mn-sidenav')
   })
 
-  test('should have css class .mn-card', () => {
-    expect(element).to.have.class('mn-card')
+  test('should have css class .mn-section', () => {
+    expect(element).to.have.class('mn-section')
   })
 
   test('should show sidenav', () => {

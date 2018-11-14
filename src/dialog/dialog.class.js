@@ -4,7 +4,6 @@ import MnBackdrop from '../backdrop/backdrop.class.js'
 class MnDialog extends MnComponent {
   connectedCallback() {
     this.setStyle()
-    this.setCard()
     this.setButtonClose()
     this.setOpenEvents()
     this.setToggleEvents()
@@ -14,15 +13,13 @@ class MnDialog extends MnComponent {
   setStyle() {
     this.classList.add('mn-dialog')
     document.body.classList.add('mn-backdrop')
-  }
 
-  setCard() {
-    const card = document.createElement('div')
-    card.classList.add('mn-card')
-    card.innerHTML = this.innerHTML
+    const section = document.createElement('div')
+    section.classList.add('mn-section')
+    section.innerHTML = this.innerHTML
     this.innerHTML = ''
-    this.appendChild(card)
-    this.card = card
+    this.appendChild(section)
+    this.section = section
   }
 
   setButtonClose() {
@@ -30,7 +27,7 @@ class MnDialog extends MnComponent {
     button.classList.add('mn-button')
     button.classList.add('action')
     button.setAttribute('close-dialog', '')
-    const dialog = this.querySelector('.mn-card')
+    const dialog = this.querySelector('.mn-section')
     dialog.insertBefore(button, dialog.firstChild)
   }
 

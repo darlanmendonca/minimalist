@@ -27,7 +27,7 @@ npm install minimalist-ui
 
 - [layout](./src/layout)
 - [backdrop](./src/backdrop)
-- [card](./src/card)
+- [section](./src/section)
 
 ### How it works
 
