@@ -12,26 +12,13 @@
 }
 
 .ityped-cursor {
-  font-size: inherit;
+  transform: translateY(-.17em);
+  font-size: 1.5em;
   opacity: 1;
-  animation: blink 0.3s infinite;
+  animation: blink .35s infinite;
   animation-direction: alternate;
 }
 
 @keyframes blink {
-    100% {
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes blink {
-    100% {
-        opacity: 0;
-    }
-}
-
-@-moz-keyframes blink {
-    100% {
-        opacity: 0;
-    }
+  to {opacity: 0}
 }
