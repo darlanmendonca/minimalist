@@ -63,9 +63,18 @@ class MnInputText extends MnComponent {
 
     this.inputChild.addEventListener('keydown', (event) => {
       const isDelimeterKey = this.delimeterKeys.find(key => key === event.code)
+
       if (this.is('multiple') && isDelimeterKey) {
         this.inputChild.dispatchEvent(new Event('blur'))
         event.preventDefault()
+      }
+
+      const isBackspace = event.key === 'Backspace'
+      const isArrowLeft = event.key === 'ArrowLeft'
+      const lastValue = this.values.pop()
+
+      if ((isBackspace || isArrowLeft) && !event.target.value && lastValue) {
+        lastValue.focus()
       }
     })
   }
@@ -179,6 +188,37 @@ class MnInputText extends MnComponent {
       valueItem.textContent = value
       valueItem.appendChild(button)
       this.appendChild(valueItem)
+
+      valueItem.addEventListener('focus', () => this.classList.add('focus'))
+      valueItem.addEventListener('blur', () => this.classList.remove('focus'))
+
+      valueItem.addEventListener('keydown', (event) => {
+        const currentIndex = this.values.findIndex(item => item === event.target)
+
+        if (event.code === 'Backspace' || event.code === 'Enter') {
+          event.target.querySelector('button').click()
+          this.focus()
+        }
+
+        if (event.code.startsWith('Arrow')) {
+          let index = currentIndex
+          switch(true) {
+            case event.code === 'ArrowLeft' && index > 0:
+              index--
+              break
+            case event.code === 'ArrowLeft' && index < this.values.length - 1:
+              index++
+              break
+            case event.code === 'ArrowRight':
+              this.focus()
+              break
+          }
+
+          if (currentIndex !== index) {
+            this.values[index].focus()
+          }
+        }
+      })
 
       button.addEventListener('click', () => {
         const value = event.target.parentNode.textContent
