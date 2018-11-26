@@ -206,7 +206,7 @@ class MnInputText extends MnComponent {
             case event.code === 'ArrowLeft' && index > 0:
               index--
               break
-            case event.code === 'ArrowLeft' && index < this.values.length - 1:
+            case event.code === 'ArrowRight' && index < this.values.length - 1:
               index++
               break
             case event.code === 'ArrowRight':
