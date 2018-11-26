@@ -4,7 +4,7 @@ class MnComponent extends window.HTMLElement {
   }
 
   attributeChangedCallback(name, old, value) {
-    if (this.parentNode) {
+    if (this.parentNode && this.ready) {
       this[name] = value
     }
 
@@ -14,6 +14,8 @@ class MnComponent extends window.HTMLElement {
   }
 
   setAttributes() {
+    this.ready = true
+
     Array
       .from(this.attributes)
       .forEach(attr => {

@@ -1,9 +1,12 @@
 import MnComponent from '../component/component.class.js'
 
 class MnInputText extends MnComponent {
-  constructor(self) {
-    super(self)
-    this.delimeterKeys = ['Comma', 'Enter', 'Space']
+  get delimeterKeys () {
+    return [
+      'Comma',
+      'Enter',
+      'Space',
+    ]
   }
 
   connectedCallback() {
