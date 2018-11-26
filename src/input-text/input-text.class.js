@@ -202,7 +202,7 @@ class MnInputText extends MnComponent {
 
         if (event.code.startsWith('Arrow')) {
           let index = currentIndex
-          switch(true) {
+          switch (true) {
             case event.code === 'ArrowLeft' && index > 0:
               index--
               break
