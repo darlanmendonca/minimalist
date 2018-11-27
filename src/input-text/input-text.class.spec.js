@@ -44,6 +44,14 @@ describe('input-text', () => {
     ])
   })
 
+  test('should have delimeterKeys property', () => {
+    expect(element.delimeterKeys).to.deep.equal([
+      'Comma',
+      'Enter',
+      'Space',
+    ])
+  })
+
   test('should have a label child', () => {
     expect(element).to.have.a.property('labelChild')
   })
