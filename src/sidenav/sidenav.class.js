@@ -67,6 +67,7 @@ export default class MnSidenav extends MnComponent {
 
   show() {
     this.classList.add('visible')
+    this.scrollTop = 0
     document.body.classList.add('mn-sidenav-visible')
     MnBackdrop.show()
     this.dispatchEvent(new Event('show'))
