@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const SassPlugin = require('sass-webpack-plugin')
 const Uglify = require('uglifyjs-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -28,6 +29,13 @@ module.exports = {
       autoprefixer: false,
     }),
     new Uglify(),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      server: {baseDir: ['docs']},
+      ui: false,
+      notify: false,
+    }),
   ],
   module: {
     rules: [
