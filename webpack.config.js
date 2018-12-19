@@ -4,9 +4,9 @@ const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: [
-    './hotsite/app.js',
-  ],
+  entry: {
+    app: './hotsite/app.js',
+  },
   output: {
     path: require('path').resolve(__dirname, 'docs'),
     filename: '[name].js',
