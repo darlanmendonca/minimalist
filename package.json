@@ -9,12 +9,10 @@
     "storybook": "start-storybook -p 4000",
     "prepublish": "babel src --out-dir dist",
     "build-storybook": "build-storybook",
-    "start": "npm run vendor-sass & npm run javascript & npm run local-server",
+    "start": "npm run build -- --watch & npm run local-server",
     "local-server": "browser-sync start --server 'docs' --files 'docs/*.*' --no-ui --no-notify",
     "pretest": "npm run lint",
     "lint": "eslint *.js src/**/*.js --quiet",
-    "vendor-sass": "cat src/**/*.scss | node-sass --output-style compressed > docs/vendor.css",
-    "javascript": "webpack-cli --config webpack.config.js",
     "build": "webpack-cli"
   },
   "keywords": [],

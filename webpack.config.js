@@ -22,6 +22,11 @@ module.exports = {
       sass: {outputStyle: 'compressed'},
       autoprefixer: false,
     }),
+    new SassPlugin({'./src/index.scss': 'vendor.css'}, {
+      sourceMap: true,
+      sass: {outputStyle: 'compressed'},
+      autoprefixer: false,
+    }),
     new Uglify(),
   ],
   module: {
