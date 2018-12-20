@@ -13,7 +13,7 @@
     "storybook": "start-storybook -p 4000",
     "prepublish": "npm run build:module",
     "pretest": "npm run lint",
-    "lint": "eslint *.js src/**/*.js --quiet",
+    "lint": "eslint *.js src/**/*.js --quiet"
   },
   "keywords": [],
   "author": "Darlan Mendonça",
