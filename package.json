@@ -3,11 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "A UI Kit using web components and simple styles",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "start": "npm run build:hotsite -- --watch",
     "build:hotsite": "webpack-cli",
-    "build:module": "babel src --out-dir dist",
+    "build:module": "babel src/index.js src/**/*.class.js --out-dir ./dist",
     "build:storybook": "build-storybook",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 4000",
