@@ -21,7 +21,7 @@ class MnInputText extends _componentClass2.default {
   }
 
   static get observedAttributes() {
-    return ['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern'];
+    return ['label', 'value', 'multiple', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern'];
   }
 
   setStyle() {
@@ -104,15 +104,26 @@ class MnInputText extends _componentClass2.default {
   }
 
   get hasValue() {
-    return !(this.value === undefined || this.value === null || this.value === '');
+    return !(this.value === undefined || this.value === null || this.value === '' || Array.isArray(this.value) && !this.value.length);
+  }
+
+  get multiple() {
+    return this.inputChild.multiple;
+  }
+
+  set multiple(value) {
+    if (JSON.parse(value) !== this.is('multiple')) {
+      this.setAttribute('multiple', JSON.parse(value));
+    }
+    this.inputChild.multiple = JSON.parse(value);
   }
 
   get value() {
-    return this.inputChild.value;
+    return !this.is('multiple') ? this.inputChild.value : this.inputChild.value.replace(/\s+/g, ' ').trim().split(/,\s?/);
   }
 
   set value(value = '') {
-    this.inputChild.value = value;
+    this.inputChild.value = Array.isArray(value) ? value.join(', ') : value;
     this.inputChild.dispatchEvent(new Event('change'));
     this.classList.toggle('has-value', this.hasValue);
   }

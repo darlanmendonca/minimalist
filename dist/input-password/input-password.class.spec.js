@@ -40,7 +40,7 @@ describe('input-password', () => {
   });
 
   test('should listen attribute changes', () => {
-    (0, _chai.expect)(_inputPasswordClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
+    (0, _chai.expect)(_inputPasswordClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'multiple', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
   });
 
   test('should have a label child', () => {

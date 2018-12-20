@@ -10,7 +10,7 @@ require('../layout/layout.style.scss');
 
 require('../list/list.style.scss');
 
-require('./card.style.scss');
+require('./section.style.scss');
 
 var _addonKnobs = require('@storybook/addon-knobs');
 
@@ -32,7 +32,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   alignItems: 'center',
   justifyContent: 'center',
   height: '100vh'
-})).addWithJSX('card', () => {
+})).addWithJSX('section', () => {
   const margin = '1em';
 
   return _react2.default.createElement(
@@ -40,7 +40,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     { className: 'mn-layout-column mn-layout-sm-row' },
     _react2.default.createElement(
       'div',
-      { className: 'mn-card padding-title', style: { margin } },
+      { className: 'mn-section padding-title', style: { margin } },
       _react2.default.createElement(
         'header',
         null,
@@ -54,7 +54,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     ),
     _react2.default.createElement(
       'div',
-      { className: 'mn-card padding-title flex-sm-50 flex-md-60', style: { margin } },
+      { className: 'mn-section padding-title flex-sm-50 flex-md-60', style: { margin } },
       _react2.default.createElement(
         'h2',
         null,

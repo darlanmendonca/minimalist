@@ -24,7 +24,7 @@ class MnSidenav extends _componentClass2.default {
 
   setStyle() {
     this.classList.add('mn-sidenav');
-    this.classList.add('mn-card');
+    this.classList.add('mn-section');
     document.body.classList.add('mn-backdrop');
   }
 
@@ -77,6 +77,7 @@ class MnSidenav extends _componentClass2.default {
 
   show() {
     this.classList.add('visible');
+    this.scrollTop = 0;
     document.body.classList.add('mn-sidenav-visible');
     _backdropClass2.default.show();
     this.dispatchEvent(new Event('show'));

@@ -36,7 +36,7 @@ describe('input-text', () => {
   });
 
   test('should listen attribute changes', () => {
-    (0, _chai.expect)(_inputTextClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
+    (0, _chai.expect)(_inputTextClass2.default.observedAttributes).to.deep.equal(['label', 'value', 'multiple', 'name', 'placeholder', 'disabled', 'readonly', 'maxlength', 'autocapitalize', 'autofocus', 'pattern']);
   });
 
   test('should have a label child', () => {
@@ -61,6 +61,19 @@ describe('input-text', () => {
     (0, _chai.expect)(element.label).to.be.equal('ipsum');
   });
 
+  test('should have a setter/getter to multiple', () => {
+    element.multiple = true;
+    (0, _chai.expect)(element.multiple).to.be.true;
+    element.multiple = false;
+    (0, _chai.expect)(element.multiple).to.be.false;
+
+    element.setAttribute('multiple', 'true');
+    (0, _chai.expect)(element.multiple).to.be.true;
+
+    element.setAttribute('multiple', 'false');
+    (0, _chai.expect)(element.multiple).to.be.false;
+  });
+
   test('should have a setter/getter to value', () => {
     element.value = 'lorem';
     (0, _chai.expect)(element.value).to.be.equal('lorem');
@@ -69,6 +82,28 @@ describe('input-text', () => {
 
     element.setAttribute('value', 'ipsum');
     (0, _chai.expect)(element.value).to.be.equal('ipsum');
+
+    element.multiple = true;
+    (0, _chai.expect)(element.value).to.be.deep.equal(['ipsum']);
+
+    element.multiple = false;
+    (0, _chai.expect)(element.inputChild).to.have.value('ipsum');
+    (0, _chai.expect)(element.value).to.be.equal('ipsum');
+
+    element.multiple = true;
+
+    element.value = 'lorem, ipsum';
+    (0, _chai.expect)(element.value).to.be.deep.equal(['lorem', 'ipsum']);
+
+    element.value = 'lorem ipsum';
+    (0, _chai.expect)(element.value).to.be.deep.equal(['lorem ipsum']);
+
+    element.value = ' lorem,   ipsum,   dolor  ';
+    (0, _chai.expect)(element.value).to.be.deep.equal(['lorem', 'ipsum', 'dolor']);
+
+    element.value = ['lorem', 'ipsum'];
+    (0, _chai.expect)(element.inputChild).to.have.value('lorem, ipsum');
+    (0, _chai.expect)(element.value).to.be.deep.equal(['lorem', 'ipsum']);
   });
 
   test('should have a setter/getter to name', () => {

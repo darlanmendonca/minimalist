@@ -115,7 +115,7 @@ describe('dialog', () => {
     // click inside dialog
     element.open();
     button.click();
-    element.querySelector('.mn-card').click();
+    element.querySelector('.mn-section').click();
     (0, _chai.expect)(close).to.not.have.been.called();
 
     // click outside, in mn-backrop

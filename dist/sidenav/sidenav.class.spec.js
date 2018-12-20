@@ -39,8 +39,8 @@ describe('sidenav', () => {
     (0, _chai.expect)(element).to.have.class('mn-sidenav');
   });
 
-  test('should have css class .mn-card', () => {
-    (0, _chai.expect)(element).to.have.class('mn-card');
+  test('should have css class .mn-section', () => {
+    (0, _chai.expect)(element).to.have.class('mn-section');
   });
 
   test('should show sidenav', () => {

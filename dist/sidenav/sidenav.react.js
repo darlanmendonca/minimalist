@@ -14,7 +14,7 @@ require('./sidenav.class.js');
 
 require('../backdrop/backdrop.style.scss');
 
-require('../card/card.style.scss');
+require('../section/section.style.scss');
 
 require('./sidenav.style.scss');
 

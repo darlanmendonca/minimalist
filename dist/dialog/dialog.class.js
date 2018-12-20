@@ -17,7 +17,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class MnDialog extends _componentClass2.default {
   connectedCallback() {
     this.setStyle();
-    this.setCard();
     this.setButtonClose();
     this.setOpenEvents();
     this.setToggleEvents();
@@ -27,15 +26,13 @@ class MnDialog extends _componentClass2.default {
   setStyle() {
     this.classList.add('mn-dialog');
     document.body.classList.add('mn-backdrop');
-  }
 
-  setCard() {
-    const card = document.createElement('div');
-    card.classList.add('mn-card');
-    card.innerHTML = this.innerHTML;
+    const section = document.createElement('div');
+    section.classList.add('mn-section');
+    section.innerHTML = this.innerHTML;
     this.innerHTML = '';
-    this.appendChild(card);
-    this.card = card;
+    this.appendChild(section);
+    this.section = section;
   }
 
   setButtonClose() {
@@ -43,7 +40,7 @@ class MnDialog extends _componentClass2.default {
     button.classList.add('mn-button');
     button.classList.add('action');
     button.setAttribute('close-dialog', '');
-    const dialog = this.querySelector('.mn-card');
+    const dialog = this.querySelector('.mn-section');
     dialog.insertBefore(button, dialog.firstChild);
   }
 
