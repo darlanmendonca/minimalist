@@ -19,9 +19,7 @@
     "dist"
   ],
   "dependencies": {
-    "@webcomponents/custom-elements": "^1.1.3",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "@webcomponents/custom-elements": "^1.1.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -35,22 +33,14 @@
     "browser-sync-webpack-plugin": "^2.2.2",
     "chai": "^4.1.2",
     "chai-dom": "^1.7.0",
-    "chai-enzyme": "^1.0.0-beta.0",
     "chai-spies": "^1.0.0",
     "document-register-element": "^1.7.2",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-mn-component": "^1.1.0",
     "eslint-plugin-jest": "^21.18.0",
-    "glob-all": "^3.1.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^22.4.3",
-    "jest-css-modules": "^1.1.0",
-    "jsdom": "^11.6.2",
-    "markdown-loader": "^3.0.0",
-    "mutation-observer": "^1.0.3",
     "open-color": "^1.6.3",
     "pug-html-loader": "^1.1.5",
     "sass-webpack-plugin": "^1.0.3",
