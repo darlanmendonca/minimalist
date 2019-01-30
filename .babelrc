@@ -1,7 +1,6 @@
 {
   "presets": [
     "import-export",
-    "react",
     "stage-0"
   ]
 }

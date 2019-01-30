@@ -2,10 +2,14 @@
   "name": "minimalist-ui",
   "private": true,
   "version": "1.0.0",
-  "description": "A UI Kit using web components and simple styles",
+  "description": "a complete and responsive interface for web",
   "main": "dist/src/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "npm run build:hotsite -- --watch",
+    "build": "npm run build:hotsite && npm run build:module",
     "build:hotsite": "webpack-cli",
     "build:module": "babel src/index.js src/**/*.class.js --out-dir ./dist",
     "test": "jest --coverage",
@@ -14,11 +18,9 @@
     "lint": "eslint *.js src/**/*.js --quiet"
   },
   "keywords": [],
-  "author": "Darlan Mendonça",
-  "files": [
-    "dist"
-  ],
+  "author": "Darlan Mendonça <darlanmendonca@gmail.com> (https://darlanmendonca.github.io)",
   "dependencies": {
+    "open-color": "^1.6.3",
     "@webcomponents/custom-elements": "^1.1.3"
   },
   "devDependencies": {
@@ -26,7 +28,6 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
     "babel-preset-import-export": "^1.0.2",
-    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "browser-sync": "^2.26.3",
@@ -41,7 +42,6 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^22.4.3",
-    "open-color": "^1.6.3",
     "pug-html-loader": "^1.1.5",
     "sass-webpack-plugin": "^1.0.3",
     "style-loader": "^0.20.3",
