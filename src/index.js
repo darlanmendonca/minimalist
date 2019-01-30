@@ -7,6 +7,7 @@ import button from './button/button.class.js'
 
 import sidenav from './sidenav/sidenav.class.js'
 import dialog from './dialog/dialog.class.js'
+import image from './image/image.class.js'
 
 export default {
   form,
@@ -17,4 +18,5 @@ export default {
   button,
   sidenav,
   dialog,
+  image,
 }
