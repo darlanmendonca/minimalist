@@ -8,9 +8,7 @@
     "start": "npm run build:hotsite -- --watch",
     "build:hotsite": "webpack-cli",
     "build:module": "babel src/index.js src/**/*.class.js --out-dir ./dist",
-    "build:storybook": "build-storybook",
     "test": "jest --coverage",
-    "storybook": "start-storybook -p 4000",
     "prepublish": "npm run build:module",
     "pretest": "npm run lint",
     "lint": "eslint *.js src/**/*.js --quiet"
@@ -21,16 +19,11 @@
     "dist"
   ],
   "dependencies": {
-    "@sambego/storybook-styles": "^1.0.0",
     "@webcomponents/custom-elements": "^1.1.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "4.0.0-alpha.6",
-    "@storybook/addon-viewport": "^3.4.10",
-    "@storybook/addons": "4.0.0-alpha.6",
-    "@storybook/react": "4.0.0-alpha.6",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
@@ -61,8 +54,6 @@
     "open-color": "^1.6.3",
     "pug-html-loader": "^1.1.5",
     "sass-webpack-plugin": "^1.0.3",
-    "storybook-addon-jsx": "^5.3.0",
-    "storybook-readme": "^3.3.0",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "^4.8.3",
