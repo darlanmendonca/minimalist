@@ -1,5 +1,5 @@
 import chai, {expect, spy} from 'chai'
-import MnCore from './core.class.js'
+import MnCore, {setAttribute} from './core.class.js'
 
 chai.use(require('chai-spies'))
 
@@ -92,5 +92,13 @@ describe('MnCore', () => {
     element.updateRender()
 
     expect(element.updateNode).to.have.been.called()
+  })
+
+  test('should set attribute', () => {
+    expect(setAttribute('lorem')).to.be.equal('')
+    expect(setAttribute('lorem', false)).to.be.equal('')
+    expect(setAttribute('lorem', true)).to.be.equal('lorem="true"')
+    expect(setAttribute('lorem', 10)).to.be.equal('lorem="10"')
+    expect(setAttribute('lorem', 'lorem')).to.be.equal('lorem="lorem"')
   })
 })

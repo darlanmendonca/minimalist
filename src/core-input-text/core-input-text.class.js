@@ -1,11 +1,11 @@
-import MnCore from '../core/core.class.js'
+import MnCore, {setAttribute} from '../core/core.class.js'
 
 class MnCoreInputText extends MnCore {
   static observedAttributes = [
     'label',
+    'placeholder',
     'value',
     'name',
-    'placeholder',
     'disabled',
     'readonly',
     'maxlength',
@@ -16,12 +16,17 @@ class MnCoreInputText extends MnCore {
 
   render(props) {
     return `
-      <label>${props.label}</label>
-      <input
-        value="${props.value}"
-        name="${props.name}"
-        placeholder="${props.placeholder}"
-        ${props.disabled ? 'disabled' : ''}
+      <label>${props.label || ''}</label>
+      <input 
+        ${setAttribute('placeholder', props.placeholder)}
+        ${setAttribute('value', props.value)}
+        ${setAttribute('name', props.name)}
+        ${setAttribute('disabled', props.disabled)}
+        ${setAttribute('readonly', props.readonly)}
+        ${setAttribute('maxlength', props.maxlength)}
+        ${setAttribute('autocapitalize', props.autocapitalize)}
+        ${setAttribute('autofocus', props.autofocus)}
+        ${setAttribute('pattern', props.pattern)}
       />
     `
   }

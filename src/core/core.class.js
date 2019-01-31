@@ -1,4 +1,4 @@
-class MnCore extends window.HTMLElement {
+export default class MnCore extends window.HTMLElement {
   connected = false
 
   static observedAttributes = []
@@ -72,4 +72,8 @@ class MnCore extends window.HTMLElement {
   }
 }
 
-export default MnCore
+export function setAttribute(name, value) {
+  return value
+    ? `${name}="${value}"`
+    : ''
+}
