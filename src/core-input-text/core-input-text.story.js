@@ -1,6 +1,7 @@
 import {storiesOf} from '@storybook/html'
 import {withKnobs, text, boolean, number} from '@storybook/addon-knobs';
 import {setAttribute} from '../core/core.class.js'
+import '../input-text/input-text.style.scss';
 import './core-input-text.class.js'
 
 
