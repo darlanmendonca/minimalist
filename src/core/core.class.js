@@ -9,7 +9,9 @@ export default class MnCore extends window.HTMLElement {
 
   connectedCallback() {
     this.connected = true
+    this.beforeRender ? this.beforeRender() : null
     this.innerHTML = this.render(this.props)
+    this.afterRender ? this.afterRender() : null
   }
 
   attributeChangedCallback() {

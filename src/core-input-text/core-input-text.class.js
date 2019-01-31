@@ -14,6 +14,23 @@ class MnCoreInputText extends MnCore {
     'pattern',
   ]
 
+  beforeRender() {
+    this.classList.add('mn-input-text')
+  }
+
+  afterRender() {
+    const input = this.querySelector('input')
+
+    input.addEventListener('focus', () => {
+      this.classList.add('focus')
+    })
+
+    input.addEventListener('blur', (event) => {
+      this.classList.remove('focus')
+      this.classList.toggle('has-value', event.target.value)
+    })
+  }
+
   render(props) {
     return `
       <label>${props.label || ''}</label>
