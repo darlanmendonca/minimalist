@@ -14,7 +14,7 @@
     "build:module": "babel src/index.js src/**/*.class.js --out-dir ./dist",
     "test": "jest --coverage",
     "prepublish": "npm run build:module",
-    "pretest": "npm run lint",
+    "pretest": "#npm run lint",
     "lint": "eslint *.js src/**/*.js --quiet"
   },
   "keywords": [],
