@@ -14,7 +14,7 @@
     "build:module": "babel src/index.js src/**/*.class.js --out-dir ./dist",
     "test": "jest --coverage",
     "prepublish": "npm run build:module",
-    "pretest": "#npm run lint",
+    "pretest": "npm run lint",
     "lint": "eslint *.js src/**/*.js --quiet",
     "storybook": "start-storybook -p 4000 -c .storybook"
   },
@@ -29,6 +29,7 @@
     "@storybook/html": "^4.1.11",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^7.1.5",
     "babel-preset-import-export": "^1.0.2",
     "babel-preset-stage-0": "^6.24.1",

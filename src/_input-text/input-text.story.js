@@ -1,9 +1,8 @@
 import {storiesOf} from '@storybook/html'
-import {withKnobs, text, boolean, number} from '@storybook/addon-knobs';
+import {withKnobs, text, boolean, number} from '@storybook/addon-knobs'
 import {setAttribute} from '../_component/component.class.js'
-import '../input-text/input-text.style.scss';
+import '../input-text/input-text.style.scss'
 import './input-text.component.js'
-
 
 storiesOf('minimalist', module)
   .addDecorator(withKnobs)

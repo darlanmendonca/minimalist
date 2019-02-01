@@ -19,7 +19,7 @@ describe('InputText', () => {
 
   test('should create element', () => {
     const element = document.createElement('mn-input-text')
-    
+
     expect(element).to.be.instanceof(InputText)
   })
 
@@ -90,7 +90,7 @@ describe('InputText', () => {
     const element = new InputText()
     element.innerHTML = element.render({readonly: true})
     const input = element.querySelector('input')
-    
+
     expect(input).to.have.attribute('readonly')
   })
 
@@ -98,7 +98,7 @@ describe('InputText', () => {
     const element = new InputText()
     element.innerHTML = element.render({maxlength: 10})
     const input = element.querySelector('input')
-    
+
     expect(input).to.have.attribute('maxlength')
   })
 
@@ -106,7 +106,7 @@ describe('InputText', () => {
     const element = new InputText()
     element.innerHTML = element.render({autocapitalize: true})
     const input = element.querySelector('input')
-    
+
     expect(input).to.have.attribute('autocapitalize', 'true')
   })
 
@@ -114,7 +114,7 @@ describe('InputText', () => {
     const element = new InputText()
     element.innerHTML = element.render({autofocus: true})
     const input = element.querySelector('input')
-    
+
     expect(input).to.have.attribute('autofocus', 'true')
   })
 
@@ -122,7 +122,7 @@ describe('InputText', () => {
     const element = new InputText()
     element.innerHTML = element.render({pattern: true})
     const input = element.querySelector('input')
-    
+
     expect(input).to.have.attribute('pattern', 'true')
   })
 })
