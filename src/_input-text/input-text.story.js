@@ -1,8 +1,8 @@
 import {storiesOf} from '@storybook/html'
 import {withKnobs, text, boolean, number} from '@storybook/addon-knobs';
-import {setAttribute} from '../core/core.class.js'
+import {setAttribute} from '../component/component.class.js'
 import '../input-text/input-text.style.scss';
-import './core-input-text.class.js'
+import './input-text.class.js'
 
 
 storiesOf('minimalist', module)
@@ -20,7 +20,7 @@ storiesOf('minimalist', module)
     const pattern = setAttribute('pattern', text('pattern'))
 
     return `
-      <mn-core-input-text 
+      <mn-input-text 
         ${label}
         ${placeholder}
         ${value}

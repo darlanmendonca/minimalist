@@ -1,9 +1,9 @@
 import chai, {expect, spy} from 'chai'
-import MnCore, {setAttribute} from './core.class.js'
+import Component, {setAttribute} from './component.class.js'
 
 chai.use(require('chai-spies'))
 
-class SomeComponent extends MnCore {
+class SomeComponent extends Component {
   static observedAttributes = ['lorem', 'ipsum']
 
   render() {
@@ -11,20 +11,20 @@ class SomeComponent extends MnCore {
   }
 }
 
-window.customElements.define('ui-some-component', SomeComponent)
+window.customElements.define('some-component', SomeComponent)
 
-describe('MnCore', () => {
+describe('Component', () => {
   test('should be a es6 class', () => {
-    expect(MnCore).to.be.a('function')
-    expect(MnCore.toString().startsWith('class')).to.be.true
+    expect(Component).to.be.a('function')
+    expect(Component.toString().startsWith('class')).to.be.true
   })
 
   test('should extends HTMLElement', () => {
-    expect(MnCore.prototype).to.be.an.instanceof(window.HTMLElement)
+    expect(Component.prototype).to.be.an.instanceof(window.HTMLElement)
   })
 
   test('should have observedAttributes as static property', () => {
-    expect(MnCore.observedAttributes).to.deep.equal([])
+    expect(Component.observedAttributes).to.deep.equal([])
   })
 
   test('should have property connected false by default', () => {
@@ -39,7 +39,7 @@ describe('MnCore', () => {
   })
 
   test('should create element', () => {
-    const element = document.createElement('ui-some-component')
+    const element = document.createElement('some-component')
     expect(element).to.be.instanceof(SomeComponent)
   })
 

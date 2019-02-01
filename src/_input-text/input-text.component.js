@@ -1,6 +1,6 @@
-import MnCore, {setAttribute} from '../core/core.class.js'
+import Component, {setAttribute} from '../_component/component.class.js'
 
-class MnCoreInputText extends MnCore {
+class InputText extends Component {
   static observedAttributes = [
     'label',
     'placeholder',
@@ -49,6 +49,6 @@ class MnCoreInputText extends MnCore {
   }
 }
 
-window.customElements.define('mn-core-input-text', MnCoreInputText)
+window.customElements.define('mn-input-text', InputText)
 
-export default MnCoreInputText
+export default InputText
