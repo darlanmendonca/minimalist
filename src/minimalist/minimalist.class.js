@@ -1,4 +1,4 @@
-export default class Component extends window.HTMLElement {
+export default class Minimalist extends window.HTMLElement {
   connected = false
 
   static observedAttributes = []

@@ -1,6 +1,6 @@
-import Component, {setAttribute} from '../_component/component.class.js'
+import Minimalist, {setAttribute} from '../minimalist/minimalist.class.js'
 
-class InputText extends Component {
+class InputText extends Minimalist {
   static observedAttributes = [
     'label',
     'placeholder',
@@ -34,7 +34,7 @@ class InputText extends Component {
   render(props) {
     return `
       <label>${props.label || ''}</label>
-      <input 
+      <input
         ${setAttribute('placeholder', props.placeholder)}
         ${setAttribute('value', props.value)}
         ${setAttribute('name', props.name)}

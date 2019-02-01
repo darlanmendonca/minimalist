@@ -1,9 +1,9 @@
 import chai, {expect, spy} from 'chai'
-import Component, {setAttribute} from './component.class.js'
+import Minimalist, {setAttribute} from './minimalist.class.js'
 
 chai.use(require('chai-spies'))
 
-class SomeComponent extends Component {
+class SomeComponent extends Minimalist {
   static observedAttributes = ['lorem', 'ipsum']
 
   render() {
@@ -13,18 +13,18 @@ class SomeComponent extends Component {
 
 window.customElements.define('some-component', SomeComponent)
 
-describe('Component', () => {
+describe('Minimalist', () => {
   test('should be a es6 class', () => {
-    expect(Component).to.be.a('function')
-    expect(Component.toString().startsWith('class')).to.be.true
+    expect(Minimalist).to.be.a('function')
+    expect(Minimalist.toString().startsWith('class')).to.be.true
   })
 
   test('should extends HTMLElement', () => {
-    expect(Component.prototype).to.be.an.instanceof(window.HTMLElement)
+    expect(Minimalist.prototype).to.be.an.instanceof(window.HTMLElement)
   })
 
   test('should have observedAttributes as static property', () => {
-    expect(Component.observedAttributes).to.deep.equal([])
+    expect(Minimalist.observedAttributes).to.deep.equal([])
   })
 
   test('should have property connected false by default', () => {
