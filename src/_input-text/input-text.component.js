@@ -18,20 +18,7 @@ class InputText extends Minimalist {
     this.classList.add('mn-input-text')
   }
 
-  afterRender() {
-    const input = this.querySelector('input')
-
-    input.addEventListener('focus', () => {
-      this.classList.add('focus')
-    })
-
-    input.addEventListener('blur', (event) => {
-      this.classList.remove('focus')
-      this.classList.toggle('has-value', event.target.value)
-    })
-  }
-
-  render(props) {
+  render(props = {}) {
     return `
       <label>${props.label || ''}</label>
       <input
@@ -46,9 +33,44 @@ class InputText extends Minimalist {
         ${setAttribute('pattern', props.pattern)}
       />
     `
+    // onfocus="${this.onFocus}"
+    // onblur="${this.onBlur}"
+    // onclick="${() => console.log('lorem ipsum click', this)}"
+  }
+
+  focus() {
+    this.querySelector('input').focus()
+  }
+
+  @listener('focus', 'input')
+  onFocus() {
+    this.classList.add('focus')
+  }
+
+  blur() {
+    this.querySelector('input').blur()
+  }
+
+  @listener('blur', 'input')
+  onBlur(event) {
+    this.classList.remove('focus')
+    this.classList.toggle('has-value', event.target.value)
   }
 }
 
 window.customElements.define('mn-input-text', InputText)
 
 export default InputText
+
+function listener(event, element) {
+  return (target, key, descriptor) => {
+    target.events = target.events || []
+    // console.log(target)
+    target.events.push({
+      event,
+      element,
+      method: key,
+    })
+    return descriptor
+  }
+}

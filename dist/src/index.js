@@ -36,6 +36,10 @@ var _dialogClass = require('./dialog/dialog.class.js');
 
 var _dialogClass2 = _interopRequireDefault(_dialogClass);
 
+var _imageClass = require('./image/image.class.js');
+
+var _imageClass2 = _interopRequireDefault(_imageClass);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -46,5 +50,6 @@ exports.default = {
   inputNumber: _inputNumberClass2.default,
   button: _buttonClass2.default,
   sidenav: _sidenavClass2.default,
-  dialog: _dialogClass2.default
+  dialog: _dialogClass2.default,
+  image: _imageClass2.default
 };

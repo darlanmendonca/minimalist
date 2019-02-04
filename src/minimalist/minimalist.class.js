@@ -1,5 +1,6 @@
 export default class Minimalist extends window.HTMLElement {
   connected = false
+  // events = []
 
   static observedAttributes = []
 
@@ -12,6 +13,7 @@ export default class Minimalist extends window.HTMLElement {
     this.beforeRender ? this.beforeRender() : null
     this.innerHTML = this.render(this.props)
     this.afterRender ? this.afterRender() : null
+    this.setEvents()
   }
 
   attributeChangedCallback() {
@@ -71,6 +73,48 @@ export default class Minimalist extends window.HTMLElement {
       Array
         .from(target.children)
         .forEach((target, index) => this.updateNode(target, source.children[index]))
+  }
+
+  setEvents() {
+    this.events.forEach(statement => {
+      const {event, element} = statement
+      const method = this[statement.method]
+
+      this
+        .querySelector(element)
+        .addEventListener(event, method.bind(this))
+    })
+  }
+
+  setChildrenEvents(root) {
+    const children = Array.from(root.children)
+    const isEventAttribute = attribute => attribute.name.startsWith('on')
+    const hasEvent = child => [...child.attributes].some(isEventAttribute)
+
+    children.forEach(child => this.setChildrenEvents(child))
+
+    children
+      .filter(hasEvent)
+      .forEach(child => {
+        [...child.attributes]
+          .filter(isEventAttribute)
+          .forEach(attribute => {
+            const eventName = attribute.name.replace('on', '')
+            const callbackName = attribute.value.match(/(\w+)\(/)[1]
+            const instanceMethod = this[callbackName]
+            const callback = !instanceMethod
+              ? eval(attribute.value)
+              : null
+
+            child.removeAttribute(attribute.name)
+
+            child.addEventListener(eventName, (event) => {
+              !instanceMethod
+                ? callback(event)
+                : this[callbackName](event)
+            })
+          })
+      })
   }
 }
 

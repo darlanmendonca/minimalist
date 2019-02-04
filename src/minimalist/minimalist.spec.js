@@ -94,9 +94,12 @@ describe('Minimalist', () => {
     expect(element.updateNode).to.have.been.called()
   })
 
-  test('should set attribute', () => {
+  test('should unset an attribute as string', () => {
     expect(setAttribute('lorem')).to.be.equal('')
     expect(setAttribute('lorem', false)).to.be.equal('')
+  })
+
+  test('should set an attribute as string', () => {
     expect(setAttribute('lorem', true)).to.be.equal('lorem="true"')
     expect(setAttribute('lorem', 10)).to.be.equal('lorem="10"')
     expect(setAttribute('lorem', 'lorem')).to.be.equal('lorem="lorem"')

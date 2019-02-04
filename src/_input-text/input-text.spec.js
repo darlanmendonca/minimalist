@@ -40,8 +40,12 @@ describe('InputText', () => {
 
   test('should render a simple markup', () => {
     const element = new InputText()
+    // element.innerHTML = element.render()
 
-    expect(element.render({})).html.to.equal(`
+    // expect(element).to.contain('label')
+    // expect(element).to.contain('input')
+
+    expect(element.render()).html.to.equal(`
       <label></label>
       <input />
     `)
@@ -124,5 +128,11 @@ describe('InputText', () => {
     const input = element.querySelector('input')
 
     expect(input).to.have.attribute('pattern', 'true')
+  })
+
+  test('should set children events', () => {
+    const element = new InputText()
+    element.innerHTML = element.render()
+    element.setChildrenEvents(element)
   })
 })
