@@ -65,8 +65,16 @@ class InputText extends Minimalist {
     this.classList.toggle('has-value', event.target.value)
   }
 
+  @listen('input', 'input')
   validate() {
     const validations = {}
+
+    const parentForm = this.closest('mn-form')
+    const formSubmitted = parentForm && parentForm.classList.contains('submitted')
+
+    if (!formSubmitted) {
+      return
+    }
 
     Object
       .keys(this.validations)
@@ -87,21 +95,13 @@ class InputText extends Minimalist {
     isInvalid
       ? this.classList.add('invalid')
       : this.classList.remove('invalid')
+
+    return isInvalid
   }
 
   @listen('change', 'input')
   onChange(event) {
     this.setAttribute('value', event.target.value)
-  }
-
-  @listen('input', 'input')
-  onInput() {
-    const parentForm = this.closest('mn-form')
-    const formSubmitted = parentForm && parentForm.classList.contains('submitted')
-
-    if (formSubmitted) {
-      this.validate()
-    }
   }
 }
 
