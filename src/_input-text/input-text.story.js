@@ -1,5 +1,5 @@
 import {storiesOf} from '@storybook/html'
-import {withKnobs, text, boolean, number, button} from '@storybook/addon-knobs'
+import {withKnobs, text, boolean, number, select, button} from '@storybook/addon-knobs'
 import {setAttribute} from '../minimalist/minimalist.class.js'
 import '../input-text/input-text.style.scss'
 import './input-text.component.js'
@@ -14,7 +14,12 @@ storiesOf('minimalist', module)
     const disabled = setAttribute('disabled', boolean('disabled'))
     const readonly = setAttribute('readonly', boolean('readonly'))
     const maxlength = setAttribute('maxlength', number('maxlength'))
-    const autocapitalize = setAttribute('autocapitalize', boolean('autocapitalize'))
+    const autocapitalize = setAttribute('autocapitalize', select('autocapitalize', [
+      'none',
+      'sentences',
+      'words',
+      'characters',
+    ], 'none'))
     const autofocus = setAttribute('autofocus', boolean('autofocus'))
     const pattern = setAttribute('pattern', text('pattern'))
     const required = setAttribute('required', boolean('required'))
