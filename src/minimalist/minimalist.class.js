@@ -97,14 +97,15 @@ export function setAttribute(name, value) {
 }
 
 export function listen(event, element) {
-  return (target, key, descriptor) => {
+  return (target, method, descriptor) => {
     target.events = target.events || []
 
     target.events.push({
       event,
       element,
-      method: key,
+      method,
     })
+
     return descriptor
   }
 }
