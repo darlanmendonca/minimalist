@@ -89,8 +89,8 @@ class InputText extends Minimalist {
       : this.classList.remove('invalid')
   }
 
-  @listen('input', 'input')
-  onInput(event) {
+  @listen('change', 'input')
+  onChange(event) {
     this.setAttribute('value', event.target.value)
   }
 
