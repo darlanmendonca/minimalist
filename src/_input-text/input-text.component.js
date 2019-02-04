@@ -1,4 +1,4 @@
-import Minimalist, {setAttribute, listener} from '../minimalist/minimalist.class.js'
+import Minimalist, {setAttribute, listen} from '../minimalist/minimalist.class.js'
 
 class InputText extends Minimalist {
   static observedAttributes = [
@@ -50,7 +50,7 @@ class InputText extends Minimalist {
     this.querySelector('input').focus()
   }
 
-  @listener('focus', 'input')
+  @listen('focus', 'input')
   onFocus() {
     this.classList.add('focus')
   }
@@ -59,7 +59,7 @@ class InputText extends Minimalist {
     this.querySelector('input').blur()
   }
 
-  @listener('blur', 'input')
+  @listen('blur', 'input')
   onBlur(event) {
     this.classList.remove('focus')
     this.classList.toggle('has-value', event.target.value)
@@ -89,12 +89,12 @@ class InputText extends Minimalist {
       : this.classList.remove('invalid')
   }
 
-  @listener('input', 'input')
+  @listen('input', 'input')
   onInput(event) {
     this.setAttribute('value', event.target.value)
   }
 
-  @listener('input', 'input')
+  @listen('input', 'input')
   onValidate() {
     const parentForm = this.closest('mn-form')
     const formSubmitted = parentForm && parentForm.classList.contains('submitted')

@@ -96,7 +96,7 @@ export function setAttribute(name, value) {
     : ''
 }
 
-export function listener(event, element) {
+export function listen(event, element) {
   return (target, key, descriptor) => {
     target.events = target.events || []
 
