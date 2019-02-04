@@ -1,6 +1,5 @@
 export default class Minimalist extends window.HTMLElement {
   connected = false
-  // events = []
 
   static observedAttributes = []
 
@@ -12,8 +11,8 @@ export default class Minimalist extends window.HTMLElement {
     this.connected = true
     this.beforeRender ? this.beforeRender() : null
     this.innerHTML = this.render(this.props)
-    this.afterRender ? this.afterRender() : null
     this.setEvents()
+    this.afterRender ? this.afterRender() : null
   }
 
   attributeChangedCallback() {
@@ -44,38 +43,42 @@ export default class Minimalist extends window.HTMLElement {
   }
 
   updateRender() {
-    const markup = new DOMParser().parseFromString(this.render(this.props), 'text/xml')
+    const markup = document.createElement('div')
+    markup.innerHTML = this.render(this.props)
 
     Array
       .from(this.children)
-      .forEach((target, index) => {
-        const source = markup.children[index]
-        this.updateNode(target, source)
+      .forEach((current, index) => {
+        const newElement = markup.children[index]
+        this.updateNode(current, newElement)
       })
   }
 
-  updateNode(target, source) {
-    const isAttributeChange = attribute => attribute.value !== target.getAttribute(attribute.name)
-    const isTextChange = target.innerHTML === target.textContent
-      && target.textContent !== source.textContent
+  updateNode(current, newElement) {
+    const isAttributeChange = attribute => attribute.value !== current.getAttribute(attribute.name)
+
+    const isTextChange = current.innerHTML === current.textContent
+      && current.textContent !== newElement.textContent
 
       if (isTextChange) {
-         target.textContent = source.textContent
+        current.textContent = newElement.textContent
       }
 
       Array
-        .from(source.attributes)
+        .from(newElement.attributes)
         .filter(isAttributeChange)
         .forEach(attribute => {
-          target.setAttribute(attribute.name, attribute.value)
+          current.setAttribute(attribute.name, attribute.value)
         })
 
       Array
-        .from(target.children)
-        .forEach((target, index) => this.updateNode(target, source.children[index]))
+        .from(current.children)
+        .forEach((current, index) => this.updateNode(current, newElement.children[index]))
   }
 
   setEvents() {
+    this.events = this.events || []
+
     this.events.forEach(statement => {
       const {event, element} = statement
       const method = this[statement.method]
@@ -85,41 +88,23 @@ export default class Minimalist extends window.HTMLElement {
         .addEventListener(event, method.bind(this))
     })
   }
-
-  setChildrenEvents(root) {
-    const children = Array.from(root.children)
-    const isEventAttribute = attribute => attribute.name.startsWith('on')
-    const hasEvent = child => [...child.attributes].some(isEventAttribute)
-
-    children.forEach(child => this.setChildrenEvents(child))
-
-    children
-      .filter(hasEvent)
-      .forEach(child => {
-        [...child.attributes]
-          .filter(isEventAttribute)
-          .forEach(attribute => {
-            const eventName = attribute.name.replace('on', '')
-            const callbackName = attribute.value.match(/(\w+)\(/)[1]
-            const instanceMethod = this[callbackName]
-            const callback = !instanceMethod
-              ? eval(attribute.value)
-              : null
-
-            child.removeAttribute(attribute.name)
-
-            child.addEventListener(eventName, (event) => {
-              !instanceMethod
-                ? callback(event)
-                : this[callbackName](event)
-            })
-          })
-      })
-  }
 }
 
 export function setAttribute(name, value) {
   return value
     ? `${name}="${value}"`
     : ''
+}
+
+export function listener(event, element) {
+  return (target, key, descriptor) => {
+    target.events = target.events || []
+
+    target.events.push({
+      event,
+      element,
+      method: key,
+    })
+    return descriptor
+  }
 }

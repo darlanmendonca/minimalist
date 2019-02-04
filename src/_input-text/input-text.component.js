@@ -1,4 +1,4 @@
-import Minimalist, {setAttribute} from '../minimalist/minimalist.class.js'
+import Minimalist, {setAttribute, listener} from '../minimalist/minimalist.class.js'
 
 class InputText extends Minimalist {
   static observedAttributes = [
@@ -13,6 +13,17 @@ class InputText extends Minimalist {
     'autofocus',
     'pattern',
   ]
+
+  validations = {
+    required: () => !this.props.value,
+    pattern: () => {
+      const reg = new RegExp(this.getAttribute('pattern'))
+
+      return this.props.value
+        ? !reg.test(this.props.value)
+        : false
+    },
+  }
 
   beforeRender() {
     this.classList.add('mn-input-text')
@@ -33,9 +44,6 @@ class InputText extends Minimalist {
         ${setAttribute('pattern', props.pattern)}
       />
     `
-    // onfocus="${this.onFocus}"
-    // onblur="${this.onBlur}"
-    // onclick="${() => console.log('lorem ipsum click', this)}"
   }
 
   focus() {
@@ -56,21 +64,47 @@ class InputText extends Minimalist {
     this.classList.remove('focus')
     this.classList.toggle('has-value', event.target.value)
   }
+
+  validate() {
+    const validations = {}
+
+    Object
+      .keys(this.validations)
+      .forEach(attribute => {
+        const hasAttribute = this.hasAttribute(attribute)
+        const attributeIsInvalid = this.validations[attribute]()
+
+        if (hasAttribute && attributeIsInvalid) {
+          this.classList.add(attribute)
+          validations[attribute] = true
+        } else {
+          this.classList.remove(attribute)
+        }
+      })
+
+    const isInvalid = Object.values(validations).some(item => item === true)
+
+    isInvalid
+      ? this.classList.add('invalid')
+      : this.classList.remove('invalid')
+  }
+
+  @listener('input', 'input')
+  onInput(event) {
+    this.setAttribute('value', event.target.value)
+  }
+
+  @listener('input', 'input')
+  onValidate() {
+    const parentForm = this.closest('mn-form')
+    const formSubmitted = parentForm && parentForm.classList.contains('submitted')
+
+    if (formSubmitted) {
+      this.validate()
+    }
+  }
 }
 
 window.customElements.define('mn-input-text', InputText)
 
 export default InputText
-
-function listener(event, element) {
-  return (target, key, descriptor) => {
-    target.events = target.events || []
-    // console.log(target)
-    target.events.push({
-      event,
-      element,
-      method: key,
-    })
-    return descriptor
-  }
-}
