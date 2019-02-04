@@ -95,7 +95,7 @@ class InputText extends Minimalist {
   }
 
   @listen('input', 'input')
-  onValidate() {
+  onInput() {
     const parentForm = this.closest('mn-form')
     const formSubmitted = parentForm && parentForm.classList.contains('submitted')
 
