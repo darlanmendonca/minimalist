@@ -1,10 +1,10 @@
-import {expect, use} from 'chai'
-import chaiHTML from 'chai-html'
-import chaiDom from 'chai-dom'
+import chai, {expect, spy} from 'chai'
 import InputText from './input-text.component.js'
 
-use(chaiHTML)
-use(chaiDom)
+chai
+  .use(require('chai-html'))
+  .use(require('chai-dom'))
+  .use(require('chai-spies'))
 
 describe('InputText', () => {
   test('should be an es6 class', () => {
@@ -36,6 +36,20 @@ describe('InputText', () => {
       'autofocus',
       'pattern',
     ])
+  })
+
+  test('should have validations with support to required and required', () => {
+    const element = new InputText()
+
+    expect(element.validations).to.have.property('required')
+    expect(element.validations).to.have.property('pattern')
+  })
+
+  test('should add css class mn-input-text to host before render', () => {
+    const element = new InputText()
+    element.beforeRender()
+
+    expect(element).to.have.class('mn-input-text')
   })
 
   test('should render a simple markup', () => {
@@ -124,5 +138,93 @@ describe('InputText', () => {
     const input = element.querySelector('input')
 
     expect(input).to.have.attribute('pattern', 'true')
+  })
+
+  test('should focus on input', () => {
+    const element = new InputText()
+    element.innerHTML = element.render()
+    const input = element.querySelector('input')
+    spy.on(input, 'focus')
+    element.focus()
+
+    expect(input.focus).to.have.been.called()
+  })
+
+  test('should add css class focus to host on focus', () => {
+    const element = new InputText()
+    element.onFocus()
+
+    expect(element).to.have.class('focus')
+  })
+
+  test('should blur from input', () => {
+    const element = new InputText()
+    element.innerHTML = element.render()
+    const input = element.querySelector('input')
+    spy.on(input, 'blur')
+    element.blur()
+
+    expect(input.blur).to.have.been.called()
+  })
+
+  test('should remove css class focus to host on blur', () => {
+    const element = new InputText()
+    element.onBlur({target: {value: ''}})
+
+    expect(element).to.not.have.class('focus')
+  })
+
+  test('should toggle css class has-value to host on blur', () => {
+    const element = new InputText()
+    element.onBlur({target: {value: 'lorem'}})
+
+    expect(element).to.have.class('has-value')
+
+    element.onBlur({target: {value: ''}})
+    expect(element).to.not.have.class('has-value')
+  })
+
+  test('should set value of component on change input value', () => {
+    const element = new InputText()
+    element.onChange({target: {value: 'lorem'}})
+
+    expect(element).to.have.attribute('value', 'lorem')
+  })
+
+  test('should validate component without any validation', () => {
+    const element = new InputText()
+
+    expect(element.validate()).to.be.true
+  })
+
+  test('should validate pattern', () => {
+    const element = new InputText()
+    element.setAttribute('pattern', '^a')
+    element.setAttribute('value', 'lorem')
+    element.connectedCallback()
+
+    expect(element.validate()).to.be.false
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('pattern')
+
+    element.setAttribute('value', 'abc')
+    expect(element.validate()).to.be.true
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('pattern')
+  })
+
+  test('should validate required', () => {
+    const element = new InputText()
+    element.setAttribute('required', 'true')
+    element.connectedCallback()
+
+    expect(element.validate()).to.be.false
+    expect(element).to.have.class('invalid')
+    expect(element).to.have.class('required')
+
+    element.setAttribute('value', 'lorem')
+    expect(element.validate()).to.be.true
+    expect(element).to.not.have.class('invalid')
+    expect(element).to.not.have.class('required')
   })
 })
