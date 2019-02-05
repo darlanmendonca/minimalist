@@ -5,10 +5,6 @@ const SassPlugin = require('sass-webpack-plugin')
 const Uglify = require('uglifyjs-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
-const pugTemplates = [
-
-]
-
 const templates = glob
   .sync('src/**/*.doc.pug')
   .map(template => (new HtmlWebpackPlugin({
