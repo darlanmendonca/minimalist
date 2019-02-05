@@ -17,7 +17,7 @@ describe('InputText', () => {
     expect(element).to.be.instanceof(InputText)
   })
 
-  test('should create element', () => {
+  test('should create element using document', () => {
     const element = document.createElement('mn-input-text')
 
     expect(element).to.be.instanceof(InputText)

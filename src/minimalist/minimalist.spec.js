@@ -14,7 +14,7 @@ class SomeComponent extends Minimalist {
 window.customElements.define('some-component', SomeComponent)
 
 describe('Minimalist', () => {
-  test('should be a es6 class', () => {
+  test('should be an es6 class', () => {
     expect(Minimalist).to.be.a('function')
     expect(Minimalist.toString().startsWith('class')).to.be.true
   })
@@ -38,7 +38,7 @@ describe('Minimalist', () => {
     expect(element).to.be.instanceof(SomeComponent)
   })
 
-  test('should create element', () => {
+  test('should create element using document', () => {
     const element = document.createElement('some-component')
     expect(element).to.be.instanceof(SomeComponent)
   })
