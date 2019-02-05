@@ -10,7 +10,7 @@ var _componentClass2 = _interopRequireDefault(_componentClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnInputText extends _componentClass2.default {
+let MnInputText = class MnInputText extends _componentClass2.default {
   connectedCallback() {
     super.empty();
     this.setStyle();
@@ -189,7 +189,8 @@ class MnInputText extends _componentClass2.default {
   set autofocus(value) {
     value ? this.inputChild.setAttribute('autofocus', value) : this.inputChild.removeAttribute('autofocus');
   }
-}
+};
+
 
 window.customElements.define('mn-input-text', MnInputText);
 

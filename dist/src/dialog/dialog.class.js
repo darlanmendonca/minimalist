@@ -14,7 +14,7 @@ var _backdropClass2 = _interopRequireDefault(_backdropClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnDialog extends _componentClass2.default {
+let MnDialog = class MnDialog extends _componentClass2.default {
   connectedCallback() {
     this.setStyle();
     this.setButtonClose();
@@ -117,7 +117,8 @@ class MnDialog extends _componentClass2.default {
   toggle() {
     this.classList.toggle('visible') ? this.open() : this.close();
   }
-}
+};
+
 
 window.customElements.define('mn-dialog', MnDialog);
 

@@ -10,7 +10,7 @@ var _componentClass2 = _interopRequireDefault(_componentClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnImage extends _componentClass2.default {
+let MnImage = class MnImage extends _componentClass2.default {
   connectedCallback() {
     super.setChildren('img');
     this.setStyle();
@@ -70,7 +70,8 @@ class MnImage extends _componentClass2.default {
   set src(value) {
     this.imgChild.setAttribute('src', value);
   }
-}
+};
+
 
 window.customElements.define('mn-image', MnImage);
 

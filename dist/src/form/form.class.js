@@ -10,7 +10,7 @@ var _componentClass2 = _interopRequireDefault(_componentClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnForm extends _componentClass2.default {
+let MnForm = class MnForm extends _componentClass2.default {
   connectedCallback() {
     this.setStyle();
     super.setAttributes();
@@ -63,7 +63,8 @@ class MnForm extends _componentClass2.default {
   get data() {
     return this.inputs.reduce((object, element) => Object.assign(object, { [element.name]: element.value }), {});
   }
-}
+};
+
 
 window.customElements.define('mn-form', MnForm);
 

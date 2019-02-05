@@ -10,7 +10,7 @@ var _inputTextClass2 = _interopRequireDefault(_inputTextClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnInputEmail extends _inputTextClass2.default {
+let MnInputEmail = class MnInputEmail extends _inputTextClass2.default {
   connectedCallback() {
     super.empty();
     super.setStyle();
@@ -31,7 +31,8 @@ class MnInputEmail extends _inputTextClass2.default {
     const defaultPattern = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*';
     this.setAttribute('pattern', this.getAttribute('pattern') || defaultPattern);
   }
-}
+};
+
 
 window.customElements.define('mn-input-email', MnInputEmail);
 

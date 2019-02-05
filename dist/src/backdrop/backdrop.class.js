@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-class MnBackdrop {
+let MnBackdrop = class MnBackdrop {
   static show() {
     document.body.classList.add('mn-backdrop-visible');
   }
@@ -11,6 +11,5 @@ class MnBackdrop {
   static hide() {
     document.body.classList.remove('mn-backdrop-visible');
   }
-}
-
+};
 exports.default = MnBackdrop;

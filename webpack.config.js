@@ -1,7 +1,20 @@
+const glob = require('glob')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const SassPlugin = require('sass-webpack-plugin')
 const Uglify = require('uglifyjs-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+
+const pugTemplates = [
+
+]
+
+const templates = glob
+  .sync('src/**/*.doc.pug')
+  .map(template => (new HtmlWebpackPlugin({
+    filename: path.basename(template).replace('.doc.pug', '.html'),
+    template,
+  })))
 
 module.exports = {
   mode: 'development',
@@ -18,6 +31,7 @@ module.exports = {
       filename: 'index.html',
       template: 'hotsite/index.pug',
     }),
+    ...templates,
     new SassPlugin('./hotsite/app.scss', {
       sourceMap: true,
       sass: {outputStyle: 'compressed'},

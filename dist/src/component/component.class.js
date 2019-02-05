@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-class MnComponent extends window.HTMLElement {
+let MnComponent = class MnComponent extends window.HTMLElement {
   constructor(self) {
     super(self);
   }
@@ -54,6 +54,5 @@ class MnComponent extends window.HTMLElement {
       inputAutofocus.focus();
     }
   }
-}
-
+};
 exports.default = MnComponent;

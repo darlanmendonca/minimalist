@@ -10,7 +10,7 @@ var _inputTextClass2 = _interopRequireDefault(_inputTextClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnInputPassword extends _inputTextClass2.default {
+let MnInputPassword = class MnInputPassword extends _inputTextClass2.default {
   connectedCallback() {
     super.empty();
     super.setStyle();
@@ -43,7 +43,8 @@ class MnInputPassword extends _inputTextClass2.default {
     this.classList.toggle('show-password', isPassword);
     this.inputChild.setAttribute('type', type);
   }
-}
+};
+
 
 window.customElements.define('mn-input-password', MnInputPassword);
 

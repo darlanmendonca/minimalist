@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = undefined;
 
 var _componentClass = require('../component/component.class.js');
 
@@ -14,7 +15,7 @@ var _backdropClass2 = _interopRequireDefault(_backdropClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class MnSidenav extends _componentClass2.default {
+let MnSidenav = class MnSidenav extends _componentClass2.default {
   connectedCallback() {
     this.setStyle();
     this.setShowEvents();
@@ -93,7 +94,8 @@ class MnSidenav extends _componentClass2.default {
   toggle() {
     this.classList.toggle('visible') ? this.show() : this.hide();
   }
-}
-
+};
 exports.default = MnSidenav;
+
+
 window.customElements.define('mn-sidenav', MnSidenav);
