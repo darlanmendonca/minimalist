@@ -1,5 +1,5 @@
 import {storiesOf} from '@storybook/html'
-import {withKnobs, text, boolean, number, select, button} from '@storybook/addon-knobs'
+import {withKnobs, text, boolean, number, select} from '@storybook/addon-knobs'
 import {setAttribute} from '../minimalist/minimalist.class.js'
 import '../input-text/input-text.style.scss'
 import './input-text.component.js'
@@ -23,10 +23,6 @@ storiesOf('minimalist', module)
     const autofocus = setAttribute('autofocus', boolean('autofocus'))
     const pattern = setAttribute('pattern', text('pattern'))
     const required = setAttribute('required', boolean('required'))
-
-    button('validate', () => {
-      document.querySelector('mn-input-text').validate()
-    })
 
     return `
       <mn-input-text
