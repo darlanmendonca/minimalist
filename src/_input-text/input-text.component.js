@@ -46,6 +46,10 @@ class InputText extends Minimalist {
     `
   }
 
+  afterRender() {
+    this.classList.toggle('has-value', Boolean(this.props.value))
+  }
+
   focus() {
     this.querySelector('input').focus()
   }
