@@ -5,10 +5,17 @@ const SassPlugin = require('sass-webpack-plugin')
 const Uglify = require('uglifyjs-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
-const templates = glob
-  .sync('src/**/*.doc.pug')
+const docTemplates = glob
+  .sync('src/**/*.template.pug')
   .map(template => (new HtmlWebpackPlugin({
-    filename: path.basename(template).replace('.doc.pug', '.html'),
+    filename: path.basename(template).replace('.pug', '.html'),
+    template,
+  })))
+
+const hotsiteTemplates = glob
+  .sync('hotsite/**/*.template.pug')
+  .map(template => (new HtmlWebpackPlugin({
+    filename: path.basename(template).replace('.pug', '.html'),
     template,
   })))
 
@@ -27,7 +34,8 @@ module.exports = {
       filename: 'index.html',
       template: 'hotsite/index.pug',
     }),
-    ...templates,
+    ...docTemplates,
+    ...hotsiteTemplates,
     new SassPlugin('./hotsite/app.scss', {
       sourceMap: true,
       sass: {outputStyle: 'compressed'},
@@ -43,6 +51,7 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: {baseDir: ['docs']},
+      single: true,
       ui: false,
       notify: false,
     }),

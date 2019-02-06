@@ -83,9 +83,11 @@ export default class Minimalist extends window.HTMLElement {
       const {event, element} = statement
       const method = this[statement.method]
 
-      this
-        .querySelector(element)
-        .addEventListener(event, method.bind(this))
+      const nodeElement = !element
+        ? this
+        : this.querySelector(element)
+
+      nodeElement.addEventListener(event, method.bind(this))
     })
   }
 }
