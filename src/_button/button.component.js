@@ -1,5 +1,6 @@
-import Minimalist, {listen} from '../minimalist/minimalist.class.js'
+import Minimalist, {component, listen} from '../minimalist/minimalist.class.js'
 
+@component('mn-button')
 class Button extends Minimalist {
   beforeRender() {
     this.classList.add('mn-button')
@@ -15,7 +16,5 @@ class Button extends Minimalist {
     this.blur()
   }
 }
-
-window.customElements.define('mn-button', Button)
 
 export default Button

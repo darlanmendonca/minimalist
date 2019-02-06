@@ -91,7 +91,7 @@ export default class Minimalist extends window.HTMLElement {
 
       if (key && event.startsWith('key')) {
         document.addEventListener(event, (evt) => {
-          if(evt.code === key) {
+          if (evt.code === key) {
             method.bind(this)(evt)
           }
         })
@@ -100,6 +100,13 @@ export default class Minimalist extends window.HTMLElement {
 
       nodeElement.addEventListener(event, method.bind(this))
     })
+  }
+}
+
+export function component(name) {
+  return (target, method, descriptor) => {
+    window.customElements.define(name, target)
+    return descriptor
   }
 }
 

@@ -1,5 +1,6 @@
-import Minimalist, {setAttribute, listen} from '../minimalist/minimalist.class.js'
+import Minimalist, {component, setAttribute, listen} from '../minimalist/minimalist.class.js'
 
+@component('mn-input-text')
 class InputText extends Minimalist {
   static observedAttributes = [
     'label',
@@ -108,7 +109,5 @@ class InputText extends Minimalist {
     return !isInvalid
   }
 }
-
-window.customElements.define('mn-input-text', InputText)
 
 export default InputText

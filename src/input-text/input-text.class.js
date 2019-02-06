@@ -213,6 +213,6 @@ class MnInputText extends MnComponent {
   }
 }
 
-// window.customElements.define('mn-input-text', MnInputText)
+window.customElements.define('mn-input-text', MnInputText)
 
 export default MnInputText

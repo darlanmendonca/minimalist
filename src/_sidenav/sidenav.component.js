@@ -1,6 +1,7 @@
-import Minimalist, {listen, keydown} from '../minimalist/minimalist.class.js'
+import Minimalist, {component, listen, keydown} from '../minimalist/minimalist.class.js'
 import MnBackdrop from '../_backdrop/backdrop.class.js'
 
+@component('mn-sidenav')
 class Sidenav extends Minimalist {
   beforeRender() {
     this.classList.add('mn-sidenav')
@@ -12,7 +13,7 @@ class Sidenav extends Minimalist {
     return this.innerHTML
   }
 
-  @listen('click', `[show-sidenav]`, false)
+  @listen('click', '[show-sidenav]', false)
   show(event) {
     let id
 
@@ -31,7 +32,7 @@ class Sidenav extends Minimalist {
   }
 
   @keydown('Escape')
-  @listen('click', `[hide-sidenav]`, false)
+  @listen('click', '[hide-sidenav]', false)
   hide() {
     document.body.classList.remove('mn-sidenav-visible')
     this.classList.remove('visible')
@@ -39,8 +40,6 @@ class Sidenav extends Minimalist {
     this.dispatchEvent(new Event('hide'))
   }
 }
-
-window.customElements.define('mn-sidenav', Sidenav)
 
 export default Sidenav
 
