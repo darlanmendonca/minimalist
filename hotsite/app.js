@@ -10,9 +10,19 @@ const routes = [
     templateUrl: 'home.template.html',
   },
   {
+    name: 'button',
+    url: '/button',
+    templateUrl: 'button.template.html',
+  },
+  {
     name: 'inputText',
     url: '/input-text',
     templateUrl: 'input-text.template.html',
+  },
+  {
+    name: 'sidenav',
+    url: '/sidenav',
+    templateUrl: 'sidenav.template.html',
   },
 ]
 

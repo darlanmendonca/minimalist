@@ -22,7 +22,7 @@ class Sidenav extends Minimalist {
       id = event.target.getAttribute('show-sidenav')
     }
 
-    if (id && window[id]) {
+    if (this.id === id && window[id]) {
       this.classList.add('visible')
       this.scrollTop = 0
       document.body.classList.add('mn-sidenav-visible')
