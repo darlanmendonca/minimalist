@@ -24,8 +24,10 @@
 
 import InputText from './_input-text/input-text.component'
 import Button from './_button/button.component'
+import Sidenav from './_sidenav/sidenav.component'
 
 export default {
   InputText,
   Button,
+  Sidenav,
 }

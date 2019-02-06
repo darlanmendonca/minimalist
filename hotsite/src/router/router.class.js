@@ -8,8 +8,11 @@ export default class Router {
     const interceptLinks = (event) => {
       if (event.target.matches('a[href]') && !event.metaKey) {
         event.preventDefault()
-        window.history.pushState(null, null, event.target.href)
-        this.change()
+
+        if(window.location.href !== event.target.href) {
+          window.history.pushState(null, null, event.target.href)
+          this.change()
+        }
       }
     }
 
