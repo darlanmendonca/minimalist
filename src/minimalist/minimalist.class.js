@@ -83,10 +83,10 @@ export default class Minimalist extends window.HTMLElement {
       const {event, element, scoped, key} = statement
       const method = this[statement.method]
 
-      const nodeElement = element
+      const elements = element
         ? scoped
-          ? this.querySelector(element)
-          : document.querySelector(element)
+          ? this.querySelectorAll(element)
+          : document.querySelectorAll(element)
         : this
 
       if (key && event.startsWith('key')) {
@@ -98,7 +98,9 @@ export default class Minimalist extends window.HTMLElement {
         return
       }
 
-      nodeElement.addEventListener(event, method.bind(this))
+      if (elements.length) {
+        elements.forEach(element => element.addEventListener(event, method.bind(this)))
+      }
     })
   }
 }
@@ -137,6 +139,22 @@ export function keydown(key) {
 
     target.events.push({
       event: 'keydown',
+      element: undefined,
+      method,
+      scoped: false,
+      key,
+    })
+
+    return descriptor
+  }
+}
+
+export function keyup(key) {
+  return (target, method, descriptor) => {
+    target.events = target.events || []
+
+    target.events.push({
+      event: 'keyup',
       element: undefined,
       method,
       scoped: false,

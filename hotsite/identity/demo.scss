@@ -1,0 +1,15 @@
+.demo {
+  .mn-button {
+    margin: 0 1em;
+
+    &.primary {
+      --background: #339af0;
+      color: white;
+    }
+
+    .warning {
+      --background: #f03e3e;
+      color: white;
+    }
+  }
+}
