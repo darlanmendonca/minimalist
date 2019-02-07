@@ -8,7 +8,7 @@ class Button extends Minimalist {
   }
 
   render() {
-    return this.textContent
+    return this.innerHTML
   }
 
   @listen('click')

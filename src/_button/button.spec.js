@@ -37,11 +37,11 @@ describe('Button', () => {
     expect(element).to.have.attribute('tabindex', '0')
   })
 
-  test('should render text content', () => {
+  test('should render html content', () => {
     const element = new Button()
     element.innerHTML = '<div>lorem ipsum</div>'
 
-    expect(element.render()).html.to.equal('lorem ipsum')
+    expect(element.render()).html.to.equal('<div>lorem ipsum</div>')
   })
 
   test('should blur on click', () => {
