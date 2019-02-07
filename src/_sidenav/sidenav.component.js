@@ -1,12 +1,12 @@
 import Minimalist, {component, listen, keydown} from '../minimalist/minimalist.class.js'
-import MnBackdrop from '../_backdrop/backdrop.class.js'
+import Backdrop from '../_backdrop/backdrop.class.js'
 
 @component('mn-sidenav')
 class Sidenav extends Minimalist {
   beforeRender() {
     this.classList.add('mn-sidenav')
     this.classList.add('mn-section')
-    MnBackdrop.create()
+    Backdrop.create()
   }
 
   render() {
@@ -22,11 +22,11 @@ class Sidenav extends Minimalist {
       id = event.target.getAttribute('show-sidenav')
     }
 
-    if (this.id === id && window[id]) {
+    if (!event || this.id === id && window[id]) {
       this.classList.add('visible')
       this.scrollTop = 0
       document.body.classList.add('mn-sidenav-visible')
-      MnBackdrop.show()
+      Backdrop.show()
       this.dispatchEvent(new Event('show'))
     }
   }
@@ -36,7 +36,7 @@ class Sidenav extends Minimalist {
   hide() {
     document.body.classList.remove('mn-sidenav-visible')
     this.classList.remove('visible')
-    MnBackdrop.hide()
+    Backdrop.hide()
     this.dispatchEvent(new Event('hide'))
   }
 }

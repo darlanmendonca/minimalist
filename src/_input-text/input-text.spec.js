@@ -52,7 +52,7 @@ describe('InputText', () => {
     expect(element).to.have.class('mn-input-text')
   })
 
-  test('should render a simple markup', () => {
+  test('should render a label and an input', () => {
     const element = new InputText()
 
     expect(element.render()).html.to.equal(`

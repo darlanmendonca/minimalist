@@ -1,4 +1,4 @@
-class MnBackdrop {
+class Backdrop {
   static create() {
     document.body.classList.add('mn-backdrop')
   }
@@ -12,4 +12,4 @@ class MnBackdrop {
   }
 }
 
-export default MnBackdrop
+export default Backdrop
