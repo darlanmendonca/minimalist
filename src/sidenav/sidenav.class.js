@@ -1,5 +1,5 @@
 import MnComponent from '../component/component.class.js'
-import MnBackdrop from '../backdrop/backdrop.class.js'
+import MnBackdrop from '../_backdrop/backdrop.class.js'
 
 export default class MnSidenav extends MnComponent {
   connectedCallback() {
