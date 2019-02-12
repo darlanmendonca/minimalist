@@ -1,11 +1,17 @@
-# Dialog
+# mn-dialog
 
 Useful to display and focus a content.
 
 ## Usage
 
 ```js
-const {Dialog} from 'minimalist-ui'
+const {dialog} from 'minimalist-ui'
+```
+
+```sass
+@import 'path/to/node_modules/minimalist-ui/components/section/section.scss';
+@import 'path/to/node_modules/minimalist-ui/components/backdrop/backdrop.scss';
+@import 'path/to/node_modules/minimalist-ui/components/dialog/dialog.scss';
 ```
 
 ```html

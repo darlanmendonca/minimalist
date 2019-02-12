@@ -1,4 +1,4 @@
-header
+header.main-header
   mn-button.action(show-sidenav='menu'): i.zmdi.zmdi-menu
   mn-sidenav.left.padding#menu
     //- mn-input-text(name='search' label='search' autofocus)
@@ -6,7 +6,7 @@ header
     a.mn-button(href='/' hide-sidenav) home
     a.mn-button(href='/button' hide-sidenav) button
     //- mn-button(hide-sidenav) backdrop
-    //- mn-button(hide-sidenav) dialog
+    a.mn-button(href='/dialog' hide-sidenav) dialog
     //- mn-button(hide-sidenav) form
     a.mn-button(href='/input-text' hide-sidenav) input text
     //- mn-button(hide-sidenav) input password

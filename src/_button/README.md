@@ -1,11 +1,11 @@
-# mn-button
+# Button
 
 A button component with minimalist design.
 
 ### Usage
 
 ```js
-const {button} from 'minimalist-ui'
+const {Button} from 'minimalist-ui'
 ```
 
 ```scss
@@ -45,7 +45,7 @@ If you need to style button with another indenty, use the css variables as you w
 ```css
 /* code below change the background to all styles of .mn-button */
 :root {
-  --main-color: #329af0; 
+  --main-color: #329af0;
 }
 
 .mn-button {

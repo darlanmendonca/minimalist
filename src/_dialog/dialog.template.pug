@@ -1,0 +1,46 @@
+.showcase.mn-layout.mn-layout-fullscreen.mn-layout-centered
+  main.demo
+    mn-button(open-dialog='dialog1') open dialog1
+    mn-button(open-dialog='dialog2') open dialog2
+
+mn-dialog.padding-title#dialog1
+  header
+    h2 Title of dialog 1
+    button.mn-button.action(close-dialog)
+
+  ul.mn-list
+    li.mn-item(href='' close-dialog)
+      span John Snow
+      span iknownothing@snow.com
+
+    li.mn-item(href='' close-dialog)
+      span Daenerys Targaryen
+      span motherofdragons@targaryens.com
+
+    li.mn-item(href='' close-dialog)
+      span Tyrion Lannister
+      span theimp@lannisters.com
+
+  //- .mn-layout-row.align-end
+    button.mn-button(open-dialog='dialog2') Show dialog 2
+
+mn-dialog.padding#dialog2
+  header
+    h2 Title of dialog 2
+    button.mn-button.action(close-dialog)
+
+  div
+    p Vestibulum id ligula porta felis euismod semper. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+
+    p Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Vestibulum id ligula porta felis euismod semper.
+
+    p Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+
+    p Cras mattis consectetur purus sit amet fermentum. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.
+
+    p Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+
+    p Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+
+  .mn-layout-row.align-end
+    button.mn-button(open-dialog='dialog1') Show dialog 1

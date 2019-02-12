@@ -25,9 +25,11 @@
 import InputText from './_input-text/input-text.component'
 import Button from './_button/button.component'
 import Sidenav from './_sidenav/sidenav.component'
+import Dialog from './_dialog/dialog.component'
 
 export default {
   InputText,
   Button,
   Sidenav,
+  Dialog,
 }

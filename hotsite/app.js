@@ -24,6 +24,11 @@ const routes = [
     url: '/sidenav',
     templateUrl: 'sidenav.template.html',
   },
+  {
+    name: 'dialog',
+    url: '/dialog',
+    templateUrl: 'dialog.template.html',
+  },
 ]
 
 const router = new Router(routes, window.router)
