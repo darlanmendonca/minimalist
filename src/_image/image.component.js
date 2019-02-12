@@ -46,7 +46,6 @@ class Image extends Minimalist {
     }
   }
 
-
   @listen('mouseleave', 'img')
   @listen('mousedown', 'img')
   unsetRotate() {
@@ -55,3 +54,5 @@ class Image extends Minimalist {
     }
   }
 }
+
+export default Image

@@ -68,3 +68,5 @@ class Dialog extends Minimalist {
       : this.close()
   }
 }
+
+export default Dialog

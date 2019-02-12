@@ -1,15 +1,11 @@
-# mn-image
+# Image
 
 A image component. Useful to display some image after load it is complete.
 
 ### Usage
 
 ```js
-import {image} from 'minimalist-ui'
-```
-
-```scss
-@import 'path/to/node_modules/minimalist-ui/src/image/image.style.scss';
+import {Image} from 'minimalist-ui'
 ```
 
 ```html
