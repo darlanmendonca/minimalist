@@ -32,6 +32,7 @@ class Sidenav extends Minimalist {
   }
 
   @keydown('Escape')
+  @listen('click', 'body', false)
   @listen('click', '[hide-sidenav]', false)
   hide() {
     document.body.classList.remove('mn-sidenav-visible')
