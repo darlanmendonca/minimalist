@@ -1,6 +1,6 @@
 import chai, {expect, spy} from 'chai'
 import MnDialog from './dialog.class.js'
-import MnButton from '../button/button.class.js'
+import MnButton from '../_button/button.component.js'
 
 chai
   .use(require('chai-dom'))
