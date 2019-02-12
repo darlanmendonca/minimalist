@@ -29,6 +29,11 @@ const routes = [
     url: '/dialog',
     templateUrl: 'dialog.template.html',
   },
+  {
+    name: 'image',
+    url: '/image',
+    templateUrl: 'image.template.html',
+  },
 ]
 
 const router = new Router(routes, window.router)
