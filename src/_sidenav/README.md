@@ -1,17 +1,11 @@
-# mn-sidenav
+# Sidenav
 
 Useful to alternate visibility of content.
 
 ## Usage
 
 ```js
-const {sidenav} from 'minimalist-ui'
-```
-
-```sass
-@import 'path/to/node_modules/minimalist-ui/components/section/section.scss';
-@import 'path/to/node_modules/minimalist-ui/components/backdrop/backdrop.scss';
-@import 'path/to/node_modules/minimalist-ui/components/sidenav/sidenav.scss';
+const {Sidenav} from 'minimalist-ui'
 ```
 
 ```html
@@ -30,3 +24,7 @@ And to interact with sidenav, use `mn-button`, and target to sidenav id using at
 
 - `.left` - Default behavior, display sidenav on left
 - `.right` - display sidenav on right
+
+```html
+<mn-sidenav id="menu" class="right"></mn-sidenav>
+```

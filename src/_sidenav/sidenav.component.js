@@ -2,6 +2,13 @@ import Minimalist, {component, listen, keydown} from '../minimalist/minimalist.c
 import Backdrop from '../_backdrop/backdrop.class.js'
 
 @component('mn-sidenav')
+/*
+  styles: [
+    'section',
+    'backdrop',
+    'sidenav',
+  ]
+*/
 class Sidenav extends Minimalist {
   beforeRender() {
     this.classList.add('mn-sidenav')
@@ -39,6 +46,13 @@ class Sidenav extends Minimalist {
     this.classList.remove('visible')
     Backdrop.hide()
     this.dispatchEvent(new Event('hide'))
+  }
+
+  @listen('click', '[toggle-sidenav]', false)
+  toggle() {
+    this.classList.toggle('visible')
+      ? this.show()
+      : this.hide()
   }
 }
 
