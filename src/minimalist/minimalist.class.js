@@ -87,7 +87,7 @@ export default class Minimalist extends window.HTMLElement {
         ? scoped
           ? this.querySelectorAll(element)
           : document.querySelectorAll(element)
-        : this
+        : [this]
 
       if (key && event.startsWith('key')) {
         if (element) {
@@ -106,14 +106,12 @@ export default class Minimalist extends window.HTMLElement {
         return
       }
 
-      if (elements.length) {
-        elements.forEach(target => target.addEventListener(event, (event) => {
-          if (event.target.matches(element) && method) {
-            // console.log(method, event)
-            method.bind(this)(event)
-          }
-        }))
-      }
+
+      elements.forEach(target => target.addEventListener(event, (event) => {
+        if (!element || event.target.matches(element) && method) {
+          method.bind(this)(event)
+        }
+      }))
     })
   }
 }
