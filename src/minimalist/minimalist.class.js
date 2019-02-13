@@ -90,11 +90,19 @@ export default class Minimalist extends window.HTMLElement {
         : this
 
       if (key && event.startsWith('key')) {
-        document.addEventListener(event, (evt) => {
-          if (evt.code === key) {
-            method.bind(this)(evt)
-          }
-        })
+        if (element) {
+          this.querySelector(element).addEventListener(event, (evt) => {
+            if (evt.code === key) {
+              method.bind(this)(evt)
+            }
+          })
+        } else {
+          document.addEventListener(event, (evt) => {
+            if (evt.code === key) {
+              method.bind(this)(evt)
+            }
+          })
+        }
         return
       }
 
@@ -137,13 +145,13 @@ export function listen(event, element, scoped = true) {
   }
 }
 
-export function keydown(key) {
+export function keydown(key, element) {
   return (target, method, descriptor) => {
     target.events = target.events || []
 
     target.events.push({
       event: 'keydown',
-      element: undefined,
+      element,
       method,
       scoped: false,
       key,

@@ -1,4 +1,4 @@
-import Minimalist, {component, listen, setAttribute} from '../minimalist/minimalist.class.js'
+import {component, listen, setAttribute, keydown} from '../minimalist/minimalist.class.js'
 import InputText from '../_input-text/input-text.component.js'
 
 @component('mn-input-number')
@@ -56,15 +56,30 @@ class InputNumber extends InputText {
     `
   }
 
-  @listen('change', 'input')
-  evaluate(event) {
+  evaluate(value = '') {
     try {
-      const value = eval(event.target.value.replace(/,/g, '.'))
-      const isNumber = typeof value === 'number'
-      event.target.value = isNumber
-        ? String(value).replace(/\./g, ',')
-        : ''
+      const input = this.querySelector('input')
+      value = eval(value.replace(/,/g, '.'))
+    } catch(e) {}
 
+    const isNumber = typeof value === 'number' && !isNaN(value)
+
+    return isNumber
+      ? value
+      : undefined
+  }
+
+  @listen('change', 'input')
+  @listen('blur', 'input')
+  formatValue(event) {
+    const value = this.evaluate(event.target.value)
+    const isNumber = typeof value === 'number'
+
+    event.target.value = isNumber
+      ? String(value).replace(/\./g, ',')
+      : ''
+
+    if (isNumber) {
       const hasPrecision = this.hasAttribute('precision')
       const precision = this.getAttribute('precision') || 0
 
@@ -77,8 +92,6 @@ class InputNumber extends InputText {
           event.target.value = value.toFixed(precision).replace(/\./g, ',')
           break
       }
-    } catch (e) {
-      event.target.value = ''
     }
 
     this.updateMask()
@@ -96,6 +109,38 @@ class InputNumber extends InputText {
         : ''
       mask.textContent = text
     }
+  }
+
+  @keydown('ArrowUp', 'input:not([readonly])')
+  @keydown('ArrowDown', 'input:not([readonly])')
+  increment(event) {
+    event.preventDefault()
+
+    let step = this.hasAttribute('percentage')
+      ? +this.getAttribute('step') / 100 || 1 / 100
+      : +this.getAttribute('step') || 1
+
+    step = event.shiftKey
+      ? step * 10
+      : event.altKey
+        ? step / 10
+        : step
+
+    step = event.key === 'ArrowDown'
+      ? step * -1
+      : step
+
+    step = this.hasAttribute('percentage')
+      ? step * 100
+      : step
+
+    const previousValue = this.evaluate(event.target.value) || 0
+
+    const precision = String(step).replace(/\d+\./, '').length
+    const value = previousValue + step
+
+    event.target.value = +(value).toFixed(precision)
+    this.updateMask()
   }
 }
 
