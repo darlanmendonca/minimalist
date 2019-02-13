@@ -1,5 +1,5 @@
 import Minimalist, {component, listen, keydown} from '../minimalist/minimalist.class.js'
-import Backdrop from '../_backdrop/backdrop.class.js'
+import Backdrop from '../backdrop/backdrop.class.js'
 
 @component('mn-sidenav')
 /*

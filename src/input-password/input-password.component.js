@@ -1,5 +1,5 @@
 import {component, listen, setAttribute} from '../minimalist/minimalist.class.js'
-import InputText from '../_input-text/input-text.component.js'
+import InputText from '../input-text/input-text.component.js'
 
 @component('mn-input-password')
 class InputPassword extends InputText {

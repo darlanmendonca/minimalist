@@ -8,12 +8,6 @@ Useful to display and focus a content.
 const {dialog} from 'minimalist-ui'
 ```
 
-```sass
-@import 'path/to/node_modules/minimalist-ui/components/section/section.scss';
-@import 'path/to/node_modules/minimalist-ui/components/backdrop/backdrop.scss';
-@import 'path/to/node_modules/minimalist-ui/components/dialog/dialog.scss';
-```
-
 ```html
 <mn-dialog id="dialog1"></mn-dialog>
 ```

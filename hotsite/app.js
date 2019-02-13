@@ -15,6 +15,11 @@ const routes = [
     templateUrl: 'button.template.html',
   },
   {
+    name: 'form',
+    url: '/form',
+    templateUrl: 'form.template.html',
+  },
+  {
     name: 'inputText',
     url: '/input-text',
     templateUrl: 'input-text.template.html',

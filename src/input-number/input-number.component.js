@@ -1,5 +1,5 @@
 import {component, listen, setAttribute, keydown} from '../minimalist/minimalist.class.js'
-import InputText from '../_input-text/input-text.component.js'
+import InputText from '../input-text/input-text.component.js'
 
 @component('mn-input-number')
 class InputNumber extends InputText {
@@ -58,9 +58,10 @@ class InputNumber extends InputText {
 
   evaluate(value = '') {
     try {
-      const input = this.querySelector('input')
       value = eval(value.replace(/,/g, '.'))
-    } catch(e) {}
+    } catch (e) {
+      return undefined
+    }
 
     const isNumber = typeof value === 'number' && !isNaN(value)
 

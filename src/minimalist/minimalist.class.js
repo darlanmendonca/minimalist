@@ -108,7 +108,8 @@ export default class Minimalist extends window.HTMLElement {
 
       if (elements.length) {
         elements.forEach(target => target.addEventListener(event, (event) => {
-          if (event.target.matches(element)) {
+          if (event.target.matches(element) && method) {
+            // console.log(method, event)
             method.bind(this)(event)
           }
         }))

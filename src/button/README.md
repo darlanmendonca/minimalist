@@ -8,10 +8,6 @@ A button component with minimalist design.
 const {Button} from 'minimalist-ui'
 ```
 
-```scss
-@import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
-```
-
 ```html
 <mn-button>flat button</mn-button>
 ```
