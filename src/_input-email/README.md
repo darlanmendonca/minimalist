@@ -1,16 +1,11 @@
-# mn-input-email
+# InputEmail
 
-A input component, extending behaviors from `mn-input` but specific behaviors to input a email.
+A input component, extending behaviors from `InputText` but specific behaviors to input a email.
 
 ## Usage
 
 ```js
-import {inputEmail} from 'minimalist-ui'
-```
-
-```scss
-@import 'path/to/node_modules/minimalist-ui/src/input-text/input-text.style.scss';
-@import 'path/to/node_modules/minimalist-ui/src/input-emmail/input-emmail.style.scss';
+import {InputEmail} from 'minimalist-ui'
 ```
 
 ```html
