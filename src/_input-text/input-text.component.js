@@ -15,15 +15,17 @@ class InputText extends Minimalist {
     'pattern',
   ]
 
-  validations = {
-    required: () => !this.props.value,
-    pattern: () => {
-      const reg = new RegExp(this.getAttribute('pattern'))
+  get validations() {
+    return {
+      required: () => !this.props.value,
+      pattern: () => {
+        const reg = new RegExp(this.getAttribute('pattern'))
 
-      return this.props.value
-        ? !reg.test(this.props.value)
-        : false
-    },
+        return this.props.value
+          ? !reg.test(this.props.value)
+          : false
+      },
+    }
   }
 
   beforeRender() {

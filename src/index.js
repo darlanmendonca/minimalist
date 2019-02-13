@@ -24,6 +24,7 @@
 
 import InputText from './_input-text/input-text.component'
 import InputPassword from './_input-password/input-password.component'
+import InputNumber from './_input-number/input-number.component'
 import InputEmail from './_input-email/input-email.component'
 import Button from './_button/button.component'
 import Sidenav from './_sidenav/sidenav.component'
@@ -33,6 +34,7 @@ import Image from './_image/image.component'
 export default {
   InputText,
   InputPassword,
+  InputNumber,
   InputEmail,
   Button,
   Sidenav,
