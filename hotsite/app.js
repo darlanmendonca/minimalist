@@ -20,6 +20,11 @@ const routes = [
     templateUrl: 'input-text.template.html',
   },
   {
+    name: 'inputPassword',
+    url: '/input-password',
+    templateUrl: 'input-password.template.html',
+  },
+  {
     name: 'sidenav',
     url: '/sidenav',
     templateUrl: 'sidenav.template.html',
