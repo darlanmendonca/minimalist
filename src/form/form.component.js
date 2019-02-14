@@ -15,6 +15,20 @@ class Form extends Minimalist {
     return this.innerHTML
   }
 
+  get inputs() {
+    return Array.from(this.querySelectorAll('.mn-input-text'))
+  }
+
+  get data() {
+    return this.inputs
+      .reduce((object, element) =>
+        Object
+        .assign(object,
+          // {[element.props.name]: element.props.value}
+          {[element.getAttribute('name')]: element.getAttribute('value') || undefined}
+        ), {})
+  }
+
   validate() {
     this.dispatchEvent(new Event('validate'))
     this.inputs
@@ -23,17 +37,6 @@ class Form extends Minimalist {
 
     const isInvalid = !this.querySelector('.invalid')
     return isInvalid
-  }
-
-  get inputs() {
-    return Array.from(this.querySelectorAll('.mn-input-text'))
-  }
-
-  get data() {
-    return this.inputs
-      .reduce((object, element) =>
-        Object.assign(object, {[element.name]: element.value})
-      , {})
   }
 
   set disabled(value) {
