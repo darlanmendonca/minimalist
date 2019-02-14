@@ -30,16 +30,23 @@ export default class Minimalist extends window.HTMLElement {
       attributes[name] = this.getAttribute(name) || undefined
     })
 
-    // const proxy = {
-    //   get: (target, name) => this.getAttribute(name) || '',
-    //   set: (target, name, value) => {
-    //     return value
-    //       ? this.setAttribute(name, String(value))
-    //       : this.removeAttribute(name)
-    //   }
-    // }
+    const element = this
 
-    return attributes//new Proxy(attributes, proxy)
+    const proxy = {
+      get(target, name) {
+        return typeof name === 'string'
+          ? element.getAttribute(name) || ''
+          : undefined
+      },
+      set(target, name, value) {
+        value
+          ? element.setAttribute(name, String(value))
+          : element.removeAttribute(name)
+        return value
+      }
+    }
+
+    return new Proxy(attributes, proxy)
   }
 
   updateRender() {

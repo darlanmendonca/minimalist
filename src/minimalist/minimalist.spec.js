@@ -80,7 +80,7 @@ describe('Minimalist', () => {
     element.setAttribute('ipsum', 'some value')
 
     expect(element.props).to.deep.equal({
-      lorem: undefined,
+      lorem: '',
       ipsum: 'some value',
     })
   })
