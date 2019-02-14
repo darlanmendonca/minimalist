@@ -48,7 +48,7 @@ class Dialog extends Minimalist {
       this.scrollTop = 0
       document.body.classList.add('mn-dialog-visible')
       MnBackdrop.show()
-      this.dispatchEvent(new Event('open'))
+      // this.dispatchEvent(new Event('open'))
     }
   }
 

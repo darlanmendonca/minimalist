@@ -44,6 +44,15 @@ describe('Button', () => {
     expect(element.render()).html.to.equal('<div>lorem ipsum</div>')
   })
 
+  test('should call onClick on click event', () => {
+    const element = new Button()
+    spy.on(element, 'onClick')
+    element.connectedCallback()
+    element.click()
+
+    expect(element.onClick).to.have.been.called()
+  })
+
   test('should blur on click', () => {
     const element = new Button()
     spy.on(element, 'blur')
