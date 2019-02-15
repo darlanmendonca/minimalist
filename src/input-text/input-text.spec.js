@@ -45,7 +45,7 @@ describe('InputText', () => {
     ])
   })
 
-  test('should have validations with support to required and required', () => {
+  test('should have validations with support to required and pattern', () => {
     const element = new InputText()
 
     expect(element.validations).to.have.property('required')
