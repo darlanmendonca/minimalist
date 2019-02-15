@@ -23,6 +23,13 @@ describe('Button', () => {
     expect(element).to.be.instanceof(Button)
   })
 
+  test('should create element using html', () => {
+    document.body.innerHTML = '<mn-button />'
+    const element = document.querySelector('mn-button').cloneNode(true)
+
+    expect(element).to.be.instanceof(Button)
+  })
+
   test('should add css class mn-button to host before render', () => {
     const element = new Button()
     element.beforeRender()

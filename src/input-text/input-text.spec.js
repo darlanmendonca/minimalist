@@ -23,6 +23,13 @@ describe('InputText', () => {
     expect(element).to.be.instanceof(InputText)
   })
 
+  test('should create element using html', () => {
+    document.body.innerHTML = '<mn-input-text />'
+    const element = document.querySelector('mn-input-text').cloneNode(true)
+
+    expect(element).to.be.instanceof(InputText)
+  })
+
   test('should listen attribute changes', () => {
     expect(InputText.observedAttributes).to.deep.equal([
       'label',
