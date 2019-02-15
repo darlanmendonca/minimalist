@@ -38,7 +38,6 @@ describe('Image', () => {
 
   test('should render an image', () => {
     const element = new Image()
-    element.innerHTML = '<img />'
 
     expect(element.render()).html.to.equal('<img />')
   })

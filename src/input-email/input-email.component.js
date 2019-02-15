@@ -24,6 +24,7 @@ class InputEmail extends InputText {
     return `
       <label>${props.label || ''}</label>
       <input
+        ${setAttribute('type', 'email')}
         ${setAttribute('placeholder', props.placeholder)}
         ${setAttribute('value', props.value)}
         ${setAttribute('name', props.name)}
