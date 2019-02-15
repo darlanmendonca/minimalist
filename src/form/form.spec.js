@@ -25,7 +25,7 @@ describe('Form', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-form />'
+    document.body.innerHTML = '<mn-form></mn-form>'
     const element = document.querySelector('mn-form').cloneNode(true)
 
     expect(element).to.be.instanceof(Form)

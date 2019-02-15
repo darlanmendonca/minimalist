@@ -25,7 +25,7 @@ describe('Dialog', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-dialog />'
+    document.body.innerHTML = '<mn-dialog></mn-dialog>'
     const element = document.querySelector('mn-dialog').cloneNode(true)
 
     expect(element).to.be.instanceof(Dialog)

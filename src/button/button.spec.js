@@ -24,7 +24,7 @@ describe('Button', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-button />'
+    document.body.innerHTML = '<mn-button></mn-button>'
     const element = document.querySelector('mn-button').cloneNode(true)
 
     expect(element).to.be.instanceof(Button)
