@@ -23,7 +23,7 @@ describe('InputEmail', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-input-email />'
+    document.body.innerHTML = '<mn-input-email></mn-input-email>'
     const element = document.querySelector('mn-input-email').cloneNode(true)
 
     expect(element).to.be.instanceof(InputEmail)

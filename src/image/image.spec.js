@@ -23,7 +23,7 @@ describe('Image', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-image />'
+    document.body.innerHTML = '<mn-image></mn-image>'
     const element = document.querySelector('mn-image').cloneNode(true)
 
     expect(element).to.be.instanceof(Image)

@@ -24,7 +24,7 @@ describe('InputText', () => {
   })
 
   test('should create element using html', () => {
-    document.body.innerHTML = '<mn-input-text />'
+    document.body.innerHTML = '<mn-input-text></mn-input-text>'
     const element = document.querySelector('mn-input-text').cloneNode(true)
 
     expect(element).to.be.instanceof(InputText)
