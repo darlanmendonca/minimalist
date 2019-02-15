@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai'
 import Form from './form.component.js'
-import InputText from '../input-text/input-text.component.js'
+import '../input-text/input-text.component.js'
 import {renderHTML} from '../spec.utils.js'
 
 chai
