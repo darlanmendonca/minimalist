@@ -31,7 +31,7 @@ class Code extends Minimalist {
   }
 
   setText() {
-    const {canvas, context} = this
+    const {context} = this
 
     context.fillStyle = this.getStyleVar('color')
     context.font = `${this.getStyleVar('font-size')} ${'Helvetica'}`
