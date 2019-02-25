@@ -6,6 +6,7 @@ import Button from './button/button.component'
 import Sidenav from './sidenav/sidenav.component'
 import Dialog from './dialog/dialog.component'
 import Image from './image/image.component'
+import Code from './code/code.component'
 
 export default {
   InputText,
@@ -16,4 +17,5 @@ export default {
   Sidenav,
   Dialog,
   Image,
+  Code,
 }

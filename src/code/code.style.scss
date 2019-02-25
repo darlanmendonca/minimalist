@@ -1,0 +1,31 @@
+.mn-code {
+  display: block;
+  width: 100%;
+
+  --background-color: black;
+  --color: #CDD3D8;
+  --font-size: 18px;
+  --font-family: 'Helvetica';
+  --selection: #3e4451;
+  --comment: #656565;
+  --selector-tag: #C792EA;
+  --string: #C3E88D;
+  // number, regexp, variable, template-variable
+  --number: #F77669;
+  --keyword: #C792EA;
+  --function-title: #75A5FF;
+  --tag: #abb2bf;
+  --name: #e06c75;
+  --type: #da4939;
+  --attribute: #80CBBF;
+  --params: #EEFFF7;
+  // meta, title
+  --meta: #75A5FF;
+  --section: #ffc66d;
+  --selector-class: #FFCB68;
+  --selector-id: #F77669;
+
+  canvas {
+    border-radius: 5px;
+  }
+}
