@@ -1,5 +1,4 @@
 import Minimalist, {component} from '../minimalist/minimalist.class.js'
-import {parse} from 'html-parse-stringify'
 
 @component('mn-code')
 class Code extends Minimalist {
@@ -36,9 +35,16 @@ class Code extends Minimalist {
 
     context.fillStyle = this.getStyleVar('color')
     context.font = `${this.getStyleVar('font-size')} ${'Helvetica'}`
-    console.log(this.getStyleVar('font-size'))
-    context.fillText(this.string, 20, 20)
-    console.log(parse(this.string))
+    let lineHeightPosition = 30
+    // context.fillText(this.string, 20, 20)
+    // console.log(parse(this.string))
+
+    this.string.split('\n').forEach(line => {
+      lineHeightPosition += 20
+      context.fillText(line, 20, lineHeightPosition)
+    })
+
+    // console.log(this.string.split('\n'))
   }
 
   setRetinaContext() {
