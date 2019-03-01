@@ -23,12 +23,12 @@ class InputNumber extends InputText {
       required: super.validations.required,
       max: () => {
         return this.hasValue
-          ? this.value > +this.getAttribute('max')
+          ? this.props.value > this.props.max
           : false
       },
       min: () => {
         return this.hasValue
-          ? this.value < +this.getAttribute('min')
+          ? this.props.value < this.props.min
           : false
       },
     }

@@ -1,4 +1,4 @@
-import {component, listen, setAttribute} from '../minimalist/minimalist.class.js'
+import {component, setAttribute} from '../minimalist/minimalist.class.js'
 import InputText from '../input-text/input-text.component.js'
 
 @component('mn-input-password')
@@ -14,6 +14,19 @@ class InputPassword extends InputText {
     'autofocus',
     'pattern',
   ]
+
+  get validations() {
+    return {
+      required: super.validations.required,
+      pattern: super.validations.pattern,
+      match: () => {
+        const targetElement = this.parentNode && this.parentNode.querySelector(`[name="${this.props.match}"]`)
+        return targetElement && this.hasValue
+          ? this.props.value > targetElement.props.value
+          : false
+      },
+    }
+  }
 
   beforeRender() {
     super.beforeRender()
@@ -34,20 +47,7 @@ class InputPassword extends InputText {
         ${setAttribute('autofocus', props.autofocus)}
         ${setAttribute('pattern', props.pattern)}
       />
-      <button></button>
     `
-  }
-
-  @listen('click', 'button')
-  toggleVisibility() {
-    const input = this.querySelector('input')
-    const isPassword = input.getAttribute('type') === 'password'
-    const type = isPassword
-      ? 'text'
-      : 'password'
-
-    this.classList.toggle('show-password', isPassword)
-    input.setAttribute('type', type)
   }
 }
 
