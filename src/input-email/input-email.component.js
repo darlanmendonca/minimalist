@@ -15,12 +15,14 @@ class InputEmail extends InputText {
     'pattern',
   ]
 
+  pattern = '^.+@.+$'
+
   beforeRender() {
     super.beforeRender()
     this.classList.add('mn-input-email')
   }
 
-  render(props = {}) {
+  render(props = {pattern: this.pattern}) {
     return `
       <label>${props.label || ''}</label>
       <input

@@ -33,7 +33,7 @@ class Form extends Minimalist {
     this.dispatchEvent(new Event('validate'))
     this.inputs
       .filter(input => !input.disabled && !input.readonly)
-      .forEach(input => input.validate())
+      .forEach(input => input.isValid())
 
     const isInvalid = !this.querySelector('.invalid')
     return isInvalid

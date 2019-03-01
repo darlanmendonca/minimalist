@@ -150,7 +150,6 @@ describe('InputText', () => {
   test('should toggle has-value class after render', () => {
     const element = new InputText()
     element.innerHTML = element.render()
-    const input = element.querySelector('input')
     element.afterRender()
 
     expect(element).to.not.have.class('has-value')
@@ -234,56 +233,54 @@ describe('InputText', () => {
     expect(element.onChange).to.have.been.called()
   })
 
-  test('should set value of component on change input value', () => {
+  test('should set value attribute on change input value', () => {
     const element = new InputText()
     element.onChange({target: {value: 'lorem'}})
 
     expect(element).to.have.attribute('value', 'lorem')
   })
 
-  test('should listen event input on input calling validate', () => {
+  test('should listen event input on input calling isValid', () => {
     const element = new InputText()
-    spy.on(element, 'validate')
+    spy.on(element, 'isValid')
     element.connectedCallback()
     const input = element.querySelector('input')
     input.dispatchEvent(new Event('input'))
 
-    expect(element.validate).to.have.been.called()
+    expect(element.isValid).to.have.been.called()
   })
 
   test('should validate component without any validation', () => {
     const element = new InputText()
 
-    expect(element.validate()).to.be.true
+    expect(element.isValid()).to.be.true
   })
 
   test('should validate pattern', () => {
     const element = new InputText()
-    element.setAttribute('pattern', '^a')
-    element.setAttribute('value', 'lorem')
-    element.connectedCallback()
+    element.props.pattern = '^a'
+    element.props.value = 'lorem'
 
-    expect(element.validate()).to.be.false
+    expect(element.isValid()).to.be.false
     expect(element).to.have.class('invalid')
     expect(element).to.have.class('pattern')
 
-    element.setAttribute('value', 'abc')
-    expect(element.validate()).to.be.true
+    element.props.value = 'abc'
+    expect(element.isValid()).to.be.true
     expect(element).to.not.have.class('invalid')
     expect(element).to.not.have.class('pattern')
   })
 
   test('should validate required', () => {
     const element = new InputText()
-    element.setAttribute('required', 'true')
-    element.connectedCallback()
+    element.props.required = true
 
-    expect(element.validate()).to.be.false
+    expect(element.isValid()).to.be.false
     expect(element).to.have.class('invalid')
     expect(element).to.have.class('required')
 
-    element.setAttribute('value', 'lorem')
-    expect(element.validate()).to.be.true
+    element.props.value = 'lorem'
+    expect(element.isValid()).to.be.true
     expect(element).to.not.have.class('invalid')
     expect(element).to.not.have.class('required')
   })

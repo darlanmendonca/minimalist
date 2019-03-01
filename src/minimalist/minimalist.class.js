@@ -9,12 +9,14 @@ export default class Minimalist extends window.HTMLElement {
 
   connectedCallback() {
     this.connected = true
-    if (this.beforeRender)
+    if (this.beforeRender) {
       this.beforeRender()
+    }
     this.innerHTML = this.render(this.props)
     this.setEvents()
-    if (this.afterRender)
+    if (this.afterRender) {
       this.afterRender()
+    }
   }
 
   attributeChangedCallback() {
@@ -29,7 +31,7 @@ export default class Minimalist extends window.HTMLElement {
     const attributes = {}
 
     this.constructor.observedAttributes.forEach(name => {
-      attributes[name] = this.getAttribute(name) || undefined
+      attributes[name] = this.getAttribute(name) || this[name] || undefined
     })
 
     const element = this
@@ -37,7 +39,7 @@ export default class Minimalist extends window.HTMLElement {
     const proxy = {
       get(target, name) {
         return typeof name === 'string'
-          ? element.getAttribute(name) || ''
+          ? element.getAttribute(name) || element[name] || ''
           : undefined
       },
       set(target, name, value) {

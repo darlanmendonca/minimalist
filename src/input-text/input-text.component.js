@@ -19,7 +19,7 @@ class InputText extends Minimalist {
     return {
       required: () => !this.props.value,
       pattern: () => {
-        const reg = new RegExp(this.getAttribute('pattern'))
+        const reg = new RegExp(this.props.pattern)
 
         return this.props.value
           ? !reg.test(this.props.value)
@@ -78,7 +78,7 @@ class InputText extends Minimalist {
   }
 
   @listen('input', 'input')
-  validate() {
+  isValid() {
     const validations = {}
 
     // const parentForm = this.closest('mn-form')
