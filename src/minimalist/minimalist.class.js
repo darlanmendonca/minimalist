@@ -9,10 +9,12 @@ export default class Minimalist extends window.HTMLElement {
 
   connectedCallback() {
     this.connected = true
-    this.beforeRender ? this.beforeRender() : null
+    if (this.beforeRender)
+      this.beforeRender()
     this.innerHTML = this.render(this.props)
     this.setEvents()
-    this.afterRender ? this.afterRender() : null
+    if (this.afterRender)
+      this.afterRender()
   }
 
   attributeChangedCallback() {

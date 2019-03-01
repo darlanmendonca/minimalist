@@ -147,6 +147,19 @@ describe('InputText', () => {
     expect(input).to.have.attribute('pattern', 'true')
   })
 
+  test('should toggle has-value class after render', () => {
+    const element = new InputText()
+    element.innerHTML = element.render()
+    const input = element.querySelector('input')
+    element.afterRender()
+
+    expect(element).to.not.have.class('has-value')
+
+    element.props.value = 'lorem'
+    element.afterRender()
+    expect(element).to.have.class('has-value')
+  })
+
   test('should focus on input', () => {
     const element = new InputText()
     element.innerHTML = element.render()
@@ -155,6 +168,16 @@ describe('InputText', () => {
     element.focus()
 
     expect(input.focus).to.have.been.called()
+  })
+
+  test('should listen event focus on input calling onFocus', () => {
+    const element = new InputText()
+    spy.on(element, 'onFocus')
+    element.connectedCallback()
+    const input = element.querySelector('input')
+    input.dispatchEvent(new Event('focus'))
+
+    expect(element.onFocus).to.have.been.called()
   })
 
   test('should add css class focus to host on focus', () => {
@@ -174,6 +197,16 @@ describe('InputText', () => {
     expect(input.blur).to.have.been.called()
   })
 
+  test('should listen event focus on input calling onBlur', () => {
+    const element = new InputText()
+    spy.on(element, 'onBlur')
+    element.connectedCallback()
+    const input = element.querySelector('input')
+    input.dispatchEvent(new Event('blur'))
+
+    expect(element.onBlur).to.have.been.called()
+  })
+
   test('should remove css class focus to host on blur', () => {
     const element = new InputText()
     element.onBlur({target: {value: ''}})
@@ -191,11 +224,31 @@ describe('InputText', () => {
     expect(element).to.not.have.class('has-value')
   })
 
+  test('should listen event focus on input calling onChange', () => {
+    const element = new InputText()
+    spy.on(element, 'onChange')
+    element.connectedCallback()
+    const input = element.querySelector('input')
+    input.dispatchEvent(new Event('change'))
+
+    expect(element.onChange).to.have.been.called()
+  })
+
   test('should set value of component on change input value', () => {
     const element = new InputText()
     element.onChange({target: {value: 'lorem'}})
 
     expect(element).to.have.attribute('value', 'lorem')
+  })
+
+  test('should listen event input on input calling validate', () => {
+    const element = new InputText()
+    spy.on(element, 'validate')
+    element.connectedCallback()
+    const input = element.querySelector('input')
+    input.dispatchEvent(new Event('input'))
+
+    expect(element.validate).to.have.been.called()
   })
 
   test('should validate component without any validation', () => {
