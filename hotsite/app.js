@@ -54,11 +54,6 @@ const routes = [
     url: '/image',
     templateUrl: 'image.template.html',
   },
-  {
-    name: 'code',
-    url: '/code',
-    templateUrl: 'code.template.html',
-  },
 ]
 
 const router = new Router(routes, window.router)
