@@ -22,11 +22,10 @@ class Form extends Minimalist {
   get data() {
     return this.inputs
       .reduce((object, element) =>
-        Object
-        .assign(object,
-          // {[element.props.name]: element.props.value}
-          {[element.getAttribute('name')]: element.getAttribute('value') || undefined}
-        ), {})
+        Object.assign(object, {
+          [element.props.name]: element.props.value || undefined
+        }), {}
+      )
   }
 
   validate() {
