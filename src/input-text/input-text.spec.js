@@ -147,6 +147,14 @@ describe('InputText', () => {
     expect(input).to.have.attribute('pattern', 'true')
   })
 
+  test('should set a autocomplete to input', () => {
+    const element = new InputText()
+    element.innerHTML = element.render({autocomplete: 'off'})
+    const input = element.querySelector('input')
+
+    expect(input).to.have.attribute('autocomplete', 'off')
+  })
+
   test('should toggle has-value class after render', () => {
     const element = new InputText()
     element.innerHTML = element.render()

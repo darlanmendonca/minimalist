@@ -13,6 +13,7 @@ class InputText extends Minimalist {
     'autocapitalize',
     'autofocus',
     'pattern',
+    'autocomplete',
   ]
 
   get validations() {
@@ -45,6 +46,7 @@ class InputText extends Minimalist {
         ${setAttribute('autocapitalize', props.autocapitalize)}
         ${setAttribute('autofocus', props.autofocus)}
         ${setAttribute('pattern', props.pattern)}
+        ${setAttribute('autocomplete', props.autocomplete)}
       />
     `
   }
