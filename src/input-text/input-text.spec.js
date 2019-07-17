@@ -42,6 +42,7 @@ describe('InputText', () => {
       'autocapitalize',
       'autofocus',
       'pattern',
+      'autocomplete',
     ])
   })
 
